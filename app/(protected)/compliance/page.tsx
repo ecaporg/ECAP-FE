@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/providers/auth';
 import { getComplianceData } from '@/lib/mock-data';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

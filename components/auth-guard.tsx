@@ -2,8 +2,8 @@
 
 import type React from 'react';
 
-import { useAuth } from '@/lib/auth';
-import type { Role } from '@/lib/types';
+import { useAuth } from '@/providers/auth';
+import type { Role } from '@/types';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

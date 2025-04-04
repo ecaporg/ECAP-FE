@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 import { CheckCircle, Clock } from 'lucide-react';
 import { useState } from 'react';
 

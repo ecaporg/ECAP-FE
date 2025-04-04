@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type React from 'react';
-import './globals.css';
+import '@/styles/globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'School Management System',
-  description: 'A modern school management system',
-  generator: 'v0.dev',
+  title: 'ECAP',
 };
 
 export default function RootLayout({
@@ -27,10 +26,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-right" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
-import './globals.css';

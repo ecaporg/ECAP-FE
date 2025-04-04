@@ -3,7 +3,7 @@
 import type React from 'react';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import type { User } from '@/lib/types';
+import type { User } from '@/types';
 import { mockSignIn, getUserFromToken } from '@/lib/mock-data';
 
 type AuthContextType = {
@@ -66,13 +66,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
   };
 
-  return (<AuthContext.Provider value = { { user, loading, signIn, signOut });
-}
->
-{
-  children;
-}
-</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loading, signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {

@@ -5,7 +5,7 @@ import type React from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/providers/auth';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';

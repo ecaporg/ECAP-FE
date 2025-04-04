@@ -23,8 +23,6 @@
         "noForEach": "off"
       },
       "a11y": {
-        "useSemanticElements": "off",
-        "useFocusableInteractive": "off",
         "noRedundantRoles": "off"
       },
       "security": {
@@ -68,8 +66,7 @@
       "out",
       "public",
       "*.lock",
-      "*.log",
-      "lib/auth.ts"
+      "*.log"
     ]
   }
 }

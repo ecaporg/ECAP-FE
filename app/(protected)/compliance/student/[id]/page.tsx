@@ -18,10 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/providers/auth';
 import { getStudentAssignments, getStudentGrades, mockStudents } from '@/lib/mock-data';
 import { hasPermission } from '@/lib/permissions';
-import type { Assignment, Grade, Student } from '@/lib/types';
+import type { Assignment, Grade, Student } from '@/types';
 import { format } from 'date-fns';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';

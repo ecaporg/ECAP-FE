@@ -11,8 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useAuth } from '@/lib/auth';
-import { cn } from '@/lib/utils';
+import { useAuth } from '@/providers/auth';
+import { cn } from '@/utils';
 import {
   BookOpen,
   ClipboardCheck,

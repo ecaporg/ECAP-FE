@@ -1,5 +1,5 @@
 import { mockClasses } from '@/lib/mock-data';
-import type { Permissions, RolesWithPermissions, User } from '@/lib/types';
+import type { Permissions, RolesWithPermissions, User } from '@/types';
 
 // Mock classes for permission checks
 const classes = mockClasses;
@@ -19,9 +19,9 @@ export const ROLES = {
     grades: { view: true, create: true, update: true, delete: true },
     users: {
       view: true,
-      create: (user: User, targetUser: User) => targetUser.roles.includes('teacher'),
-      update: (user: User, targetUser: User) => targetUser.roles.includes('teacher'),
-      delete: (user: User, targetUser: User) => targetUser.roles.includes('teacher'),
+      create: (user: User, targetUser: User) => targetUser.role === 'teacher',
+      update: (user: User, targetUser: User) => targetUser.role === 'teacher',
+      delete: (user: User, targetUser: User) => targetUser.role === 'teacher',
     },
   },
   director: {
@@ -30,7 +30,7 @@ export const ROLES = {
     assignments: { view: true, create: false, update: false, delete: false },
     grades: { view: true, create: false, update: false, delete: false },
     users: {
-      view: (user: User, targetUser: User) => targetUser.roles.includes('teacher'),
+      view: (user: User, targetUser: User) => targetUser.role === 'teacher',
       create: false,
       update: false,
       delete: false,
@@ -75,11 +75,9 @@ export function hasPermission<Resource extends keyof Permissions>(
   action: Permissions[Resource]['action'],
   data?: Permissions[Resource]['dataType']
 ) {
-  return user.roles.some((role) => {
-    const permission = (ROLES as RolesWithPermissions)[role][resource]?.[action];
+    const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[action];
     if (permission == null) return false;
 
     if (typeof permission === 'boolean') return permission;
     return data != null && permission(user, data);
-  });
 }
