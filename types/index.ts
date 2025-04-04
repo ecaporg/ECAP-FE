@@ -2,7 +2,6 @@ export * from './user';
 export * from './permission';
 export * from './auth';
 
-
 // TODO:  add other types in feature
 // TODO: refactor
 // TODO: wait for backend
@@ -39,4 +38,3 @@ export * from './auth';
 //   teacherId: string;
 //   createdAt: Date;
 // };
-

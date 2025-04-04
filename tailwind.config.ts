@@ -42,7 +42,7 @@ const config: Config = {
           foreground: 'hsl(var(--destructive-foreground))',
         },
         border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
+        input: 'hsl(var(--darker-gray))',
         ring: 'hsl(var(--ring))',
         chart: {
           '1': 'hsl(var(--chart-1))',
@@ -61,6 +61,12 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+      },
+      neutral: {
+        black: 'hsl(var(--neutral-black))',
+      },
+      'darker-gray': {
+        DEFAULT: 'hsl(var(--darker-gray))',
       },
       borderRadius: {
         lg: 'var(--radius)',

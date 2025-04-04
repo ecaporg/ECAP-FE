@@ -58,15 +58,6 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      ".next",
-      "build",
-      "dist",
-      "out",
-      "public",
-      "*.lock",
-      "*.log"
-    ]
+    "ignore": ["node_modules", ".next", "build", "dist", "out", "public", "*.lock", "*.log"]
   }
 }

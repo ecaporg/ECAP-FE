@@ -1,8 +1,7 @@
-import { mockClasses } from '@/lib/mock-data';
 import type { Permissions, RolesWithPermissions, User } from '@/types';
 
 // Mock classes for permission checks
-const classes = mockClasses;
+const classes = [] as any;
 
 export const ROLES = {
   superadmin: {
@@ -75,9 +74,9 @@ export function hasPermission<Resource extends keyof Permissions>(
   action: Permissions[Resource]['action'],
   data?: Permissions[Resource]['dataType']
 ) {
-    const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[action];
-    if (permission == null) return false;
+  const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[action];
+  if (permission == null) return false;
 
-    if (typeof permission === 'boolean') return permission;
-    return data != null && permission(user, data);
+  if (typeof permission === 'boolean') return permission;
+  return data != null && permission(user, data);
 }

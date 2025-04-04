@@ -19,7 +19,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useAuth } from '@/providers/auth';
-import { getComplianceData } from '@/lib/mock-data';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

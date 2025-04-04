@@ -4,7 +4,6 @@ import type React from 'react';
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from '@/types';
-import { mockSignIn, getUserFromToken } from '@/lib/mock-data';
 
 type AuthContextType = {
   user: User | null;

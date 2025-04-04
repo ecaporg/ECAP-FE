@@ -6,10 +6,10 @@ import { getUserFromToken } from './auth-server';
 export async function getCurrentUser(): Promise<User | null> {
   const cookiesList = await cookies();
   const token = cookiesList.get('accessToken')?.value;
-  
+
   if (!token) {
     return null;
   }
-  
+
   return getUserFromToken(token);
-} 
+}

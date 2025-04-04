@@ -19,12 +19,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useAuth } from '@/providers/auth';
-import { getTeacherSamples, mockUsers } from '@/lib/mock-data';
 import { hasPermission } from '@/lib/permissions';
-import type { Assignment, User } from '@/types';
 import { format } from 'date-fns';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { User } from '@/types';
 
 export default function TeacherSamplesPage() {
   const { id } = useParams();

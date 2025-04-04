@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { routes } from './constants/routes';
 
 const getUserFromToken = async (token: string) => {
-    // TODO: add real implementation in feature
+  // TODO: add real implementation in feature
   return {
     id: '1',
     email: 'test@test.com',
@@ -12,25 +12,26 @@ const getUserFromToken = async (token: string) => {
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  
+
   const isAuthRoute = path.startsWith(routes.auth.root);
-  const isProtectedRoute = path.startsWith(routes.protected.root) || 
-                           path.startsWith(routes.dashboard.root) || 
-                           path.startsWith(routes.compliance.root) || 
-                           path.startsWith(routes.settings.root);
+  const isProtectedRoute =
+    path.startsWith(routes.protected.root) ||
+    path.startsWith(routes.dashboard.root) ||
+    path.startsWith(routes.compliance.root) ||
+    path.startsWith(routes.settings.root);
 
   const token = request.cookies.get('accessToken')?.value;
-  
+
   const user = token ? await getUserFromToken(token) : null;
-  
+
   if (isAuthRoute && user) {
     return NextResponse.redirect(new URL(routes.dashboard.root, request.url));
   }
-  
+
   if (isProtectedRoute && !user) {
     return NextResponse.redirect(new URL(routes.auth.signIn, request.url));
   }
-  
+
   return NextResponse.next();
 }
 
@@ -45,4 +46,4 @@ export const config = {
     // Маршрути авторизації
     `${routes.auth.root}/:path*`,
   ],
-}; 
+};
