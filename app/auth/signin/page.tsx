@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { useSignIn } from '@/hooks/use-sign-in';
+import { useSignIn } from '@/hooks/auth/useSignInForm';
 import { FormError } from '@/components/ui/form-error';
 
 export default function SignIn() {

@@ -1,17 +1,12 @@
-import { cookies } from 'next/headers';
 import type { User } from '@/types';
-import { getUserFromToken } from './auth-server';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/auth';
+import { apiFetch } from './fetch';
 
 export async function getUser(): Promise<User | null> {
-  const cookiesList = await cookies();
-  const token = cookiesList.get(ACCESS_TOKEN)?.value;
-  const refreshToken = cookiesList.get(REFRESH_TOKEN)?.value;
+  const response = await apiFetch('/auth/me')
 
-  console.log('token', token, refreshToken);
-  if(!token) {
+  if (!response.data) {
     return null;
   }
 
-  return getUserFromToken(token, refreshToken);
+  return response.data;
 }

@@ -8,7 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { validationMessages } from '@/utils';
 import { signInAction } from '@/app/auth/actions';
 
-// Schema for the sign-in form validation
 export const signInSchema = z.object({
   email: z
     .string()
@@ -17,10 +16,8 @@ export const signInSchema = z.object({
   password: z
     .string()
     .min(1, { message: validationMessages.required('Password') })
-    .min(6, { message: 'Password must be at least 6 characters' }),
 });
 
-// Type for the form values based on the Zod schema
 export type SignInFormValues = z.infer<typeof signInSchema>;
 
 export function useSignIn() {
@@ -28,7 +25,6 @@ export function useSignIn() {
   const callbackUrl = searchParams.get('callbackUrl') || routes.dashboard.root;
   const router = useRouter();
 
-  // Initialize react-hook-form with Zod validation
   const {
     register,
     handleSubmit,
@@ -42,7 +38,6 @@ export function useSignIn() {
     },
   });
 
-  // Form submission handler
   const onSubmit = async (data: SignInFormValues) => {
 
     try {
