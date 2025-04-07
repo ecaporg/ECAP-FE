@@ -20,7 +20,7 @@ interface ApiAdditionalInit {
 // Базовий URL бекенду
 const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080';
 
-const getAuthToken = async () => {
+export const getAuthToken = async () => {
   const cookiesList = await cookies();
   const token = cookiesList.get(ACCESS_TOKEN)?.value;
   return token;
@@ -58,6 +58,10 @@ export async function apiFetch<T = any>(
   async function executeFetch(attempt = 1): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url, {
+        cache: 'force-cache',
+        next: {
+           revalidate: 300,
+        },
         ...init,
         headers: {
           'Content-Type': 'application/json',
@@ -72,11 +76,7 @@ export async function apiFetch<T = any>(
           redirect(`${routes.auth.signIn}?callbackUrl=${callbackUrl}`);
       }
 
-      
-
       const data = await response.json();
-
-      console.log('data', data);
       
       return data as ApiResponse<T>;
     } catch (error) {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { routes } from './constants/routes';
-import { getUser } from './lib/get-user';
+import { getAuthToken } from './lib/fetch';
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
@@ -12,13 +12,13 @@ export async function middleware(request: NextRequest) {
     path.startsWith(routes.compliance.root) ||
     path.startsWith(routes.settings.root);
 
-  const user = await getUser();
+  const token = await getAuthToken();
 
-  if (isAuthRoute && user) {
+  if (isAuthRoute && token) {
     return NextResponse.redirect(new URL(routes.dashboard.root, request.url));
   }
 
-  if (isProtectedRoute && !user) {
+  if (isProtectedRoute && !token) {
     const callbackUrl = encodeURIComponent(request.url);
     return NextResponse.redirect(
       new URL(`${routes.auth.signIn}?callbackUrl=${callbackUrl}`, request.url)
