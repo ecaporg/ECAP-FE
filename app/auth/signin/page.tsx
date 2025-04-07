@@ -27,6 +27,7 @@ export default function SignIn() {
           aria-describedby="email-error"
           {...register('email')}
           aria-invalid={errors.email ? 'true' : 'false'}
+          autoComplete="email"
         />
         <FormError 
           id="email-error" 
@@ -44,6 +45,7 @@ export default function SignIn() {
           aria-describedby="password-error"
           {...register('password')}
           aria-invalid={errors.password ? 'true' : 'false'}
+          autoComplete="current-password"
         />
         <FormError 
           id="password-error" 

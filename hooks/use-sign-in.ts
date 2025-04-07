@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { routes } from '@/constants/routes';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { validationMessages } from '@/utils';
+import { signInAction } from '@/app/auth/actions';
 
 // Schema for the sign-in form validation
 export const signInSchema = z.object({
@@ -24,6 +24,8 @@ export const signInSchema = z.object({
 export type SignInFormValues = z.infer<typeof signInSchema>;
 
 export function useSignIn() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || routes.dashboard.root;
   const router = useRouter();
 
   // Initialize react-hook-form with Zod validation
@@ -44,13 +46,9 @@ export function useSignIn() {
   const onSubmit = async (data: SignInFormValues) => {
 
     try {
-      const response = await fetch('/api/auth/signin', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
-
+      const response = await signInAction(data);
       if (response.ok) {
-        router.push(routes.dashboard.root);
+        router.push(callbackUrl);
       } else {
         setError('root', { message: 'Invalid email or password. Please try again.' });
       }

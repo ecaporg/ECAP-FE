@@ -1,34 +1,44 @@
 import type { User } from '@/types';
+import { cache } from 'react';
 
-export async function getUserFromToken(token: string): Promise<User | null> {
+const testUsers = [
+  {
+      id: '1',
+      email: 'admin@test.com',
+      role: 'admin',
+      roles: ['admin'],
+      firstname: 'Admin',
+      lastname: 'Admin',
+  },
+  {
+      id: '2',
+      email: 'teacher@test.com',
+      role: 'teacher',
+      roles: ['teacher'],
+      firstname: 'Teacher',
+      lastname: 'Teacher',
+  }
+]
+
+
+const getUserFromToken = cache(async (token: string, refreshToken?: string): Promise<User | null> => {
   try {
-    const userId = token;
+    
+    return testUsers.find(user => token.includes(user.id)) || null as any;
+    // TODO: add api call in the future
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/verify-token`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ token, refreshToken }),
+    // });
 
-    const user = null;
+    // if (!response.ok) {
+    //   return null;
+    // }
 
-    return user || null;
+    // return (await response.json()).data as User;
   } catch (error) {
-    console.error('Error verifying token:', error);
     return null;
   }
-}
+})
 
-export async function authenticateUser(
-  email: string,
-  password: string
-): Promise<{ user: User; accessToken: string } | null> {
-  try {
-    const user = null;
-    if (!user) {
-      return null;
-    }
-
-    return {
-      user,
-      accessToken: user.id,
-    };
-  } catch (error) {
-    console.error('Authentication error:', error);
-    return null;
-  }
-}
+export { getUserFromToken };
