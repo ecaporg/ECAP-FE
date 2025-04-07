@@ -98,7 +98,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         <div className="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
           <div className="px-4 sm:px-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium">School Management</h2>
+              <h2 className="text-lg font-medium">ECAP</h2>
               <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
                 <X className="h-6 w-6" />
               </Button>
@@ -136,7 +136,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
         <div className="flex flex-col flex-grow border-r border-gray-200 bg-white pt-5 pb-4 overflow-y-auto">
           <div className="flex items-center flex-shrink-0 px-4">
-            <h1 className="text-xl font-bold">School Management</h1>
+            <h1 className="text-xl font-bold">ECAP</h1>
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <nav className="flex-1 space-y-1 px-2">

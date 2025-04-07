@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { useSignIn } from '@/hooks/use-sign-in';
+import { useSignIn } from '@/hooks/auth/useSignInForm';
 import { FormError } from '@/components/ui/form-error';
 
 export default function SignIn() {
@@ -27,6 +27,7 @@ export default function SignIn() {
           aria-describedby="email-error"
           {...register('email')}
           aria-invalid={errors.email ? 'true' : 'false'}
+          autoComplete="email"
         />
         <FormError 
           id="email-error" 
@@ -44,6 +45,7 @@ export default function SignIn() {
           aria-describedby="password-error"
           {...register('password')}
           aria-invalid={errors.password ? 'true' : 'false'}
+          autoComplete="current-password"
         />
         <FormError 
           id="password-error" 

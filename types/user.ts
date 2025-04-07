@@ -6,4 +6,6 @@ export type User = {
   firstname: string;
   lastname: string;
   role: Role;
+  isActive: boolean;
+  emailVerified: boolean;
 };

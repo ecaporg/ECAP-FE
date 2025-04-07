@@ -1,15 +1,12 @@
-import { cookies } from 'next/headers';
 import type { User } from '@/types';
-import { getUserFromToken } from './auth-server';
+import { apiFetch } from './fetch';
 
-// Функція, яка отримує поточного користувача з cookies на стороні сервера
-export async function getCurrentUser(): Promise<User | null> {
-  const cookiesList = await cookies();
-  const token = cookiesList.get('accessToken')?.value;
+export async function getUser(): Promise<User | null> {
+  const response = await apiFetch('/auth/me')
 
-  if (!token) {
+  if (!response.data) {
     return null;
   }
 
-  return getUserFromToken(token);
+  return response.data;
 }
