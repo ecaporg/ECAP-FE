@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
 }
 
 // Конфігурація шляхів, для яких middleware повинен виконуватись
-export default {
+export const config ={
   matcher: [
     /^\/dashboard\/.*/,
     /^\/compliance\/.*/,
