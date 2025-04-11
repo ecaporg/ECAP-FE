@@ -27,14 +27,3 @@ export async function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
-
-// Конфігурація шляхів, для яких middleware повинен виконуватись
-export const config = {
-  matcher: [
-    // Захищені маршрути
-    `${routes.dashboard.root}/:path*`,
-    `${routes.compliance.root}/:path*`,
-    `${routes.settings.root}/:path*`,
-    `${routes.protected.root}/:path*`,
-  ],
-};

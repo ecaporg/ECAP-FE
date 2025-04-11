@@ -13,6 +13,10 @@ export type RolesWithPermissions = {
 };
 
 export type Permissions = {
+  // dashboard: {
+  //   dataType: Dashboard;
+  //   action: 'view' | 'create' | 'update' | 'delete';
+  // };
   //   classes: {
   //     dataType: Class;
   //     action: 'view' | 'create' | 'update' | 'delete';
