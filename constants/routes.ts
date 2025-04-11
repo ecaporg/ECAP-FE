@@ -17,4 +17,7 @@ export const routes = {
   protected: {
     root: '/(protected)',
   },
+  profile: {
+    root: '/profile',
+  },
 };

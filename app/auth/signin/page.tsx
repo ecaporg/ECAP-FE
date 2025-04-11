@@ -7,14 +7,7 @@ import { useSignIn } from '@/hooks/auth/useSignInForm';
 import { FormError } from '@/components/ui/form-error';
 
 export default function SignIn() {
-  const { 
-    register, 
-    handleSubmit, 
-    errors, 
-    isLoading, 
-    formError, 
-    onSubmit 
-  } = useSignIn();
+  const { register, handleSubmit, errors, isLoading, formError, onSubmit } = useSignIn();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5">
@@ -29,11 +22,7 @@ export default function SignIn() {
           aria-invalid={errors.email ? 'true' : 'false'}
           autoComplete="email"
         />
-        <FormError 
-          id="email-error" 
-          message={errors.email?.message} 
-          className="mt-1"
-        />
+        <FormError id="email-error" message={errors.email?.message} className="mt-1" />
       </div>
 
       <div>
@@ -47,21 +36,14 @@ export default function SignIn() {
           aria-invalid={errors.password ? 'true' : 'false'}
           autoComplete="current-password"
         />
-        <FormError 
-          id="password-error" 
-          message={errors.password?.message} 
-          className="mt-1"
-        />
+        <FormError id="password-error" message={errors.password?.message} className="mt-1" />
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? 'Signing in...' : 'Sign In'}
       </Button>
 
-      <FormError 
-        id="form-error" 
-        message={formError} 
-      />
+      <FormError id="form-error" message={formError} />
 
       <Link href="#" className="text-base text-neutral-black hover:underline !mt-6 block">
         Forgot password?

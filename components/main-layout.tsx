@@ -1,211 +1,113 @@
 'use client';
-
 import type React from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAuth } from '@/providers/auth';
 import { cn } from '@/utils';
-import {
-  BookOpen,
-  ClipboardCheck,
-  GraduationCap,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Settings,
-  User,
-  X,
-} from 'lucide-react';
+import { LogOut, Menu, User } from 'lucide-react';
 import Link from 'next/link';
+import { routes } from '@/constants/routes';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { signOutAction } from '@/app/auth/actions';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from './ui/navigation-menu';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
-  const { user, signOut } = useAuth();
+const NavLink = ({
+  href,
+  children,
+  className,
+}: { href: string; children: React.ReactNode; className?: string }) => {
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const navigation = [
-    {
-      name: 'Dashboard',
-      href: '/dashboard',
-      icon: LayoutDashboard,
-      current: pathname === '/dashboard',
-    },
-    {
-      name: 'Compliance',
-      href: '/compliance',
-      icon: ClipboardCheck,
-      current: pathname === '/compliance',
-    },
-    {
-      name: 'Students',
-      href: '/compliance/students',
-      icon: GraduationCap,
-      current: pathname === '/compliance/students',
-    },
-    {
-      name: 'Subjects',
-      href: '/compliance/subjects',
-      icon: BookOpen,
-      current: pathname === '/compliance/subjects',
-    },
-  ];
-
-  // Only show settings for admin and superadmin
-  if (user && (user.roles.includes('admin') || user.roles.includes('superadmin'))) {
-    navigation.push({
-      name: 'Settings',
-      href: '/settings',
-      icon: Settings,
-      current: pathname === '/settings',
-    });
-  }
-
+  const isActive = pathname.includes(href);
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Mobile sidebar toggle */}
-      <div className="fixed inset-0 z-40 lg:hidden">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="fixed left-4 top-4 z-50 lg:hidden"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          {sidebarOpen ? <X /> : <Menu />}
+    <Link
+      href={href}
+      className={cn(
+        'h-full w-52 md:hover:border-b-2 content-center py-5',
+        isActive && 'md:border-b-2',
+        className
+      )}
+    >
+      {children}
+    </Link>
+  );
+};
+
+const NavMenu = () => {
+  return (
+    <>
+      <nav className="contents md:flex justify-center items-center flex-1 ">
+        <NavLink href={routes.dashboard.root}>Dashboard</NavLink>
+        <NavLink href={routes.compliance.root}>Compliance Tasks</NavLink>
+      </nav>
+
+      <nav className="contents md:flex justify-end items-center flex-1 gap-10">
+        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+          <User className="h-4 w-4" />
+          <span>My Profile</span>
+        </NavLink>
+        <Button variant="secondary" size="lg" onClick={signOutAction}>
+          <LogOut className="h-4 w-4 mr-2" />
+          Sign Out
         </Button>
-      </div>
+      </nav>
+    </>
+  );
+};
 
-      {/* Sidebar for mobile */}
-      <div
-        className={cn(
-          'fixed inset-0 z-30 transform bg-white transition duration-300 ease-in-out lg:hidden',
-          sidebarOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
-        )}
-      >
-        <div className="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
-          <div className="px-4 sm:px-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium">ECAP</h2>
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
-                <X className="h-6 w-6" />
-              </Button>
-            </div>
-          </div>
-          <div className="mt-6 flex flex-1 flex-col">
-            <nav className="flex-1 space-y-1 px-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setSidebarOpen(false)}
-                  className={cn(
-                    'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
-                    item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  )}
-                >
-                  <item.icon
-                    className={cn(
-                      'mr-3 h-6 w-6 flex-shrink-0',
-                      item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500'
-                    )}
-                  />
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
-      </div>
+const MobileNavMenu = () => {
+  return (
+    <div className="md:hidden flex items-center justify-between">
+      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+        ECAP
+      </Link>
 
-      {/* Static sidebar for desktop */}
-      <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
-        <div className="flex flex-col flex-grow border-r border-gray-200 bg-white pt-5 pb-4 overflow-y-auto">
-          <div className="flex items-center flex-shrink-0 px-4">
-            <h1 className="text-xl font-bold">ECAP</h1>
-          </div>
-          <div className="mt-5 flex flex-grow flex-col">
-            <nav className="flex-1 space-y-1 px-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={cn(
-                    'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
-                    item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  )}
-                >
-                  <item.icon
-                    className={cn(
-                      'mr-3 h-6 w-6 flex-shrink-0',
-                      item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500'
-                    )}
-                  />
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
-      </div>
+      <NavigationMenu >
+        <NavigationMenuList >
+          <NavigationMenuItem>
+            <NavigationMenuTrigger />
+            <NavigationMenuContent className="flex flex-col">
+              <NavMenu />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  );
+};
+
+const DesktopNav = () => {
+  return (
+    <div className="md:flex justify-between items-center hidden">
+      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+        ECAP
+      </Link>
+
+      <NavMenu />
+    </div>
+  );
+};
+
+export function MainLayout({ children }: MainLayoutProps) {
+  return (
+    <div className="flex flex-col h-screen bg-gray-50">
+      <header className="bg-primary px-6 text-primary-foreground h-20 text-center content-center">
+        <DesktopNav />
+        <MobileNavMenu />
+      </header>
 
       {/* Main content */}
-      <div className="flex flex-1 flex-col lg:pl-64">
-        <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
-          <div className="flex flex-1 justify-between px-4 md:px-0">
-            <div className="flex flex-1 items-center pl-6">
-              <div className="w-full max-w-2xl lg:max-w-xs">
-                {/* Search can be added here if needed */}
-              </div>
-            </div>
-            <div className="ml-4 flex items-center md:ml-6">
-              {/* User dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem disabled>
-                    {user?.firstname} {user?.lastname}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem disabled>Role: {user?.roles.join(', ')}</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => signOut()}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-
-        <main className="flex-1">
-          <div className="py-6">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">{children}</div>
-          </div>
-        </main>
-      </div>
+      <main className="flex-1 overflow-auto">
+        <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">{children}</div>
+      </main>
     </div>
   );
 }

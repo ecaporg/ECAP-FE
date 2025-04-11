@@ -1,24 +1,21 @@
-import { cn } from "@/utils";
-import { VariantProps, cva } from "class-variance-authority";
-import React from "react";
+import { cn } from '@/utils';
+import { VariantProps, cva } from 'class-variance-authority';
+import React from 'react';
 
-const formErrorVariants = cva(
-  "text-sm font-medium text-destructive", 
-  {
-    variants: {
-      size: {
-        default: "text-sm",
-        sm: "text-xs",
-        lg: "text-base",
-      },
+const formErrorVariants = cva('text-sm font-medium text-destructive', {
+  variants: {
+    size: {
+      default: 'text-sm',
+      sm: 'text-xs',
+      lg: 'text-base',
     },
-    defaultVariants: {
-      size: "default",
-    },
-  }
-);
+  },
+  defaultVariants: {
+    size: 'default',
+  },
+});
 
-export interface FormErrorProps 
+export interface FormErrorProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof formErrorVariants> {
   id?: string;
@@ -32,18 +29,13 @@ const FormError = React.forwardRef<HTMLParagraphElement, FormErrorProps>(
     }
 
     return (
-      <p
-        ref={ref}
-        id={id}
-        className={cn(formErrorVariants({ size, className }))}
-        {...props}
-      >
+      <p ref={ref} id={id} className={cn(formErrorVariants({ size, className }))} {...props}>
         {message || children}
       </p>
     );
   }
 );
 
-FormError.displayName = "FormError";
+FormError.displayName = 'FormError';
 
-export { FormError, formErrorVariants }; 
+export { FormError, formErrorVariants };

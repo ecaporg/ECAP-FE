@@ -13,9 +13,7 @@ export const signInSchema = z.object({
     .string()
     .min(1, { message: validationMessages.required('Email') })
     .email({ message: 'Invalid email format' }),
-  password: z
-    .string()
-    .min(1, { message: validationMessages.required('Password') })
+  password: z.string().min(1, { message: validationMessages.required('Password') }),
 });
 
 export type SignInFormValues = z.infer<typeof signInSchema>;
@@ -39,7 +37,6 @@ export function useSignIn() {
   });
 
   const onSubmit = async (data: SignInFormValues) => {
-
     try {
       const response = await signInAction(data);
       if (response.ok) {
@@ -58,6 +55,6 @@ export function useSignIn() {
     errors,
     isLoading: isSubmitting,
     formError: errors.root?.message,
-    onSubmit
+    onSubmit,
   };
-} 
+}

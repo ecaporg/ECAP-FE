@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { routes } from './constants/routes';
-import { getAuthToken } from './lib/fetch';
+import { getAuthToken } from './lib/auth';
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;

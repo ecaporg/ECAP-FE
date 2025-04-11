@@ -13,16 +13,12 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children, user }: { children: React.ReactNode, user: User }) {
+export function AuthProvider({ children, user }: { children: React.ReactNode; user: User }) {
   const signOut = () => {
     signOutAction();
   };
 
-  return (
-    <AuthContext.Provider value={{ user, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, signOut }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

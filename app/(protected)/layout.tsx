@@ -4,8 +4,6 @@ import { AuthProvider } from '@/providers/auth';
 import { getUser } from '@/lib/get-user';
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
-
-  
   const user = await getUser();
 
   return (
