@@ -29,4 +29,4 @@ export const LearningPeriodCard: React.FC<LearningPeriodCardProps> = ({
       </div>
     </Card>
   );
-}; 
+};

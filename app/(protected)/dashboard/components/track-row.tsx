@@ -17,4 +17,4 @@ export const TrackRow: React.FC<TrackRowProps> = ({ track, dateRange, status, st
       <span className={`text-sm font-bold ${statusColor}`}>{status}</span>
     </div>
   );
-}; 
+};

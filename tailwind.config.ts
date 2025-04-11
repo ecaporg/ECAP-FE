@@ -24,6 +24,7 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          light: 'hsl(var(--primary-light))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -62,11 +63,23 @@ const config: Config = {
           ring: 'hsl(var(--sidebar-ring))',
         },
       },
-      neutral: {
-        black: 'hsl(var(--neutral-black))',
+      'neutral-black': {
+        DEFAULT: 'hsl(var(--neutral-black))',
       },
       'darker-gray': {
         DEFAULT: 'hsl(var(--darker-gray))',
+      },
+      success: {
+        DEFAULT: 'hsl(var(--success))',
+        foreground: 'hsl(var(--success-foreground))',
+      },
+      red: {
+        light: 'hsl(var(--light-red))',
+        accent: 'hsl(var(--accent-red))',
+      },
+      amber: {
+        light: 'hsl(var(--light-amber))',
+        pending: 'hsl(var(--amber-pending))',
       },
       borderRadius: {
         lg: 'var(--radius)',

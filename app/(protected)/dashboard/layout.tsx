@@ -1,5 +1,5 @@
 'use client';
-import { useAuth } from "@/providers/auth";
+import { useAuth } from '@/providers/auth';
 
 export default function DashboardLayout({
   teacher,
@@ -10,10 +10,9 @@ export default function DashboardLayout({
   admin: React.ReactNode;
   director: React.ReactNode;
 }) {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   return <>{teacher}</>;
-  
 
   // if (user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') {
   //   return <>{admin}</>;

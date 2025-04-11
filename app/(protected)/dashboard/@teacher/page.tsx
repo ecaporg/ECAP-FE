@@ -19,14 +19,46 @@ export default function TeacherDashboard() {
       <StatisticsList items={statistics} />
 
       <div className="col-span-1 md:col-span-2">
-        <TrackRow track="Track A: LP1" dateRange="July 1 - Aug 3" status="Complete" statusColor="text-green-500" />
-        <TrackRow track="Track A: LP3, Track B: LP1" dateRange="Aug 28 - Oct 4" status="Incomplete" statusColor="text-red-500" />
-        <TrackRow track="Track A: LP4, Track B: LP2" dateRange="Oct 7 - Nov 22" status="In Progress" statusColor="text-blue-500" />
-        <TrackRow track="Track A: LP5, Track B: LP3" dateRange="Dec 2 - Jan 17" status="Upcoming" statusColor="text-gray-500" />
+        <TrackRow
+          track="Track A: LP1"
+          dateRange="July 1 - Aug 3"
+          status="Complete"
+          statusColor="text-green-500"
+        />
+        <TrackRow
+          track="Track A: LP3, Track B: LP1"
+          dateRange="Aug 28 - Oct 4"
+          status="Incomplete"
+          statusColor="text-red-500"
+        />
+        <TrackRow
+          track="Track A: LP4, Track B: LP2"
+          dateRange="Oct 7 - Nov 22"
+          status="In Progress"
+          statusColor="text-blue-500"
+        />
+        <TrackRow
+          track="Track A: LP5, Track B: LP3"
+          dateRange="Dec 2 - Jan 17"
+          status="Upcoming"
+          statusColor="text-gray-500"
+        />
       </div>
 
-      <LearningPeriodCard track="Track A: LP4, Track B: LP2" date="Oct 7 - Nov 22" deadline="Nov 29" status="In Progress" compliance={80} />
-      <LearningPeriodCard track="Track A: LP5, Track B: LP3" date="Dec 2 - Jan 17" deadline="Jan 24" status="Upcoming" compliance={0} />
+      <LearningPeriodCard
+        track="Track A: LP4, Track B: LP2"
+        date="Oct 7 - Nov 22"
+        deadline="Nov 29"
+        status="In Progress"
+        compliance={80}
+      />
+      <LearningPeriodCard
+        track="Track A: LP5, Track B: LP3"
+        date="Dec 2 - Jan 17"
+        deadline="Jan 24"
+        status="Upcoming"
+        compliance={0}
+      />
     </div>
   );
 }

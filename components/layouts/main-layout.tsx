@@ -70,8 +70,8 @@ const MobileNavMenu = () => {
         ECAP
       </Link>
 
-      <NavigationMenu >
-        <NavigationMenuList >
+      <NavigationMenu>
+        <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger />
             <NavigationMenuContent className="flex flex-col">

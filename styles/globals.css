@@ -15,6 +15,7 @@
 
     --primary: 208 79% 51%;
     --primary-foreground: 255 100% 98%;
+    --primary-light: 212 81% 96%;
 
     --secondary: 255 100% 98%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -27,6 +28,15 @@
 
     --destructive: 0 72% 51%;
     --destructive-foreground: var(--secondary);
+
+    --success: 152 81% 96%;
+    --success-foreground: 161 94% 30%;
+
+    --light-red: 0 86% 97%;
+    --accent-red: var(--destructive);
+
+    --light-amber: 48 100% 96%;
+    --amber-pending: 32 95% 44%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;

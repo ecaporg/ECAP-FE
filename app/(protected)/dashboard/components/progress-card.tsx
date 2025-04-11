@@ -15,4 +15,4 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ title, percentage })
       <div className="text-xl font-bold mt-2">{percentage}%</div>
     </Card>
   );
-}; 
+};

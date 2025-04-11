@@ -22,4 +22,4 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
       ))}
     </div>
   );
-}; 
+};
