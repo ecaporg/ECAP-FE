@@ -2,6 +2,7 @@ import { PaginationSection } from '@/components/table/pagination-section';
 import { TeacherFilters } from './components/filters';
 
 export default function CompliancePage() {
+  throw new Error('something went wrong');
   return (
     <>
       <TeacherFilters />

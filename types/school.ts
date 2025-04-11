@@ -1,6 +1,6 @@
-import { Admin, Director, Teacher } from "./staff";
-import { Student } from "./student";
-import { Track } from "./track";
+import { Admin, Director, Teacher } from './staff';
+import { Student } from './student';
+import { Track } from './track';
 
 export type Tenant = {
   name: string;

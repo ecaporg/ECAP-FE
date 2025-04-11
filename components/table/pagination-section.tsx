@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
-import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { CompationStatus, CompationStatusProps } from './complation-status';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { buttonVariants } from '../ui/button';
@@ -31,7 +31,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   const handlePageChange = (page: number) => {
     const query = new URLSearchParams({
       ...Object.fromEntries(searchParams.entries()),
-      page: page.toString(),
+      page: (page + 1).toString(),
     });
     router.push(`${pathname}?${query.toString()}`);
   };
@@ -44,7 +44,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
 
       <Pagination
         className="flex-grow flex items-center justify-center gap-4 list-none lg:order-2 order-last self-center"
-        currentPage={currentPage}
+        currentPage={currentPage - 1}
         edgePageCount={2}
         middlePagesSiblingCount={1}
         setCurrentPage={handlePageChange}
@@ -53,7 +53,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
         truncableText="..."
       >
         <PrevButton className="size-10 flex items-center justify-center">
-          <ArrowLeftIcon className="size-6" />
+          <ChevronLeftIcon className="size-6" />
         </PrevButton>
         <PageButton
           as={<button type="button" />}
@@ -64,7 +64,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
           )}
         />
         <NextButton className="size-10 flex items-center justify-center">
-          <ArrowRightIcon className="size-6" />
+          <ChevronRightIcon className="size-6" />
         </NextButton>
       </Pagination>
 
