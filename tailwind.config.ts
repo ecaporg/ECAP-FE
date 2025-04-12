@@ -62,25 +62,32 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        'neutral-black': {
+          DEFAULT: 'hsl(var(--neutral-black))',
+        },
+        'darker-gray': {
+          DEFAULT: 'hsl(var(--darker-gray))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        red: {
+          light: 'hsl(var(--light-red))',
+          accent: 'hsl(var(--accent-red))',
+        },
+        amber: {
+          light: 'hsl(var(--light-amber))',
+          pending: 'hsl(var(--amber-pending))',
+        },
+        hover: {
+          gray: 'hsl(var(--hover-gray))',
+        },
+        cool: {
+          gray: 'hsl(var(--cool-gray))',
+        },
       },
-      'neutral-black': {
-        DEFAULT: 'hsl(var(--neutral-black))',
-      },
-      'darker-gray': {
-        DEFAULT: 'hsl(var(--darker-gray))',
-      },
-      success: {
-        DEFAULT: 'hsl(var(--success))',
-        foreground: 'hsl(var(--success-foreground))',
-      },
-      red: {
-        light: 'hsl(var(--light-red))',
-        accent: 'hsl(var(--accent-red))',
-      },
-      amber: {
-        light: 'hsl(var(--light-amber))',
-        pending: 'hsl(var(--amber-pending))',
-      },
+
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

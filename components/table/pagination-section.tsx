@@ -8,7 +8,6 @@ import { buttonVariants } from '../ui/button';
 import { cn } from '@/utils';
 
 interface PaginationSectionProps {
-  currentPage: number;
   totalPages: number;
   learningPeriod: string;
   dueDate: string;
@@ -17,7 +16,6 @@ interface PaginationSectionProps {
 }
 
 export const PaginationSection: React.FC<PaginationSectionProps> = ({
-  currentPage,
   totalPages,
   learningPeriod,
   dueDate,
@@ -27,6 +25,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get('page') || '1');
 
   const handlePageChange = (page: number) => {
     const query = new URLSearchParams({
@@ -37,7 +36,8 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   };
 
   return (
-    <section className="flex lg:items-center h-24 lg:flex-row flex-col gap-y-6 items-start">
+    
+    <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start">
       <h2 className="text-lg font-semibold text-neutral-black order-1">
         Showing Table for {learningPeriod}
       </h2>

@@ -1,7 +1,8 @@
 import { Tenant } from './school';
+import { GenericEntity } from './shared';
 import { Sample, Student } from './student';
 
-export type Subject = {
+export type Subject = GenericEntity & {
   track_id: number;
 
   name: string;
@@ -21,7 +22,7 @@ export type TrackCalendar = {
   track: Track;
 };
 
-export type TrackLearningPeriod = {
+export type TrackLearningPeriod = GenericEntity & {
   track_id: number;
 
   name: string;
@@ -35,7 +36,7 @@ export type TrackLearningPeriod = {
   track: Track;
 };
 
-export type Track = {
+export type Track = GenericEntity & {
   tenant_id: number;
 
   name: string;

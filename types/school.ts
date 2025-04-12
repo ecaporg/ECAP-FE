@@ -1,8 +1,9 @@
+import { GenericEntity } from './shared';
 import { Admin, Director, Teacher } from './staff';
 import { Student } from './student';
 import { Track } from './track';
 
-export type Tenant = {
+export type Tenant = GenericEntity & {
   name: string;
 
   schools: School[];
@@ -14,7 +15,7 @@ export type Tenant = {
   tracks: Track[];
 };
 
-export type Academy = {
+export type Academy = GenericEntity & {
   name: string;
   tenant: Tenant;
 };
@@ -27,7 +28,7 @@ export type Semester = {
   school: School;
 };
 
-export type School = {
+export type School = GenericEntity & {
   name: string;
 
   tenant_id: number;
