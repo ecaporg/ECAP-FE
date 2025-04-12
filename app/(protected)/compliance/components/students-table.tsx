@@ -14,7 +14,6 @@ type Props = {
 
 export const StudentsTable = ({ students }: Props) => {
   return (
-    <div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -45,7 +44,6 @@ export const StudentsTable = ({ students }: Props) => {
           ))}
         </TableBody>
       </Table>
-    </div>
   );
 };
 

@@ -24,7 +24,7 @@ export function TeacherFilters({
 }: FilterProps) {
   // todo: remove hardcoded data in the future after the API is ready
   return (
-    <section className="flex flex-wrap gap-4">
+    <section className="flex flex-wrap gap-4 pt-9 pb-8">
       <LearningPeriodFilter
         availablePeriods={
           availablePeriods ||

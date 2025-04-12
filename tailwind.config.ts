@@ -86,6 +86,9 @@ const config: Config = {
         cool: {
           gray: 'hsl(var(--cool-gray))',
         },
+        light: {
+          gray: 'hsl(var(--light-gray))',
+        },
       },
 
       borderRadius: {

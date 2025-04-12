@@ -1,23 +1,15 @@
 import { PaginationSection } from '@/components/table/pagination-section';
 import { TeacherFilters } from './components/filters';
 import { StudentsTable } from './components/students-table';
+
 export default function CompliancePage() {
   // throw new Error('something went wrong');
   return (
-    <>
-      {/* @ts-expect-error: remove this once the API is ready */}
-      <TeacherFilters />
-      <PaginationSection
-        totalPages={10}
-        learningPeriod="2024-01-01 to 2024-01-31"
-        dueDate="2024-01-31"
-        completedString="5/50 students completed"
-        status="In Progress"
-      />
+    <HeaderSection>
       <StudentsTable
         students={Array.from(
-          { length: 100 },
-          () =>
+          { length: 15 },
+          (i, index) =>
             ({
               academy: {
                 id: '1',
@@ -32,7 +24,7 @@ export default function CompliancePage() {
                 name: 'Track A',
               } as any,
               user: {
-                id: Math.random(),
+                id: index,
                 firstname: 'John',
                 lastname: 'Doe',
               } as any,
@@ -40,6 +32,22 @@ export default function CompliancePage() {
             }) as any
         )}
       />
-    </>
+    </HeaderSection>
   );
 }
+
+const HeaderSection = ({ children }: React.PropsWithChildren) => {
+  return (
+    <>
+      <TeacherFilters />
+      <PaginationSection
+        totalPages={10}
+        learningPeriod="2024-01-01 to 2024-01-31"
+        dueDate="2024-01-31"
+        completedString="5/50 students completed"
+        status="In Progress"
+      />
+      {children}
+    </>
+  );
+};

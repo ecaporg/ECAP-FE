@@ -36,8 +36,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   };
 
   return (
-    
-    <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start">
+    <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start pb-7">
       <h2 className="text-lg font-semibold text-neutral-black order-1">
         Showing Table for {learningPeriod}
       </h2>

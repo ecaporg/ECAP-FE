@@ -98,16 +98,16 @@ const DesktopNav = () => {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <header className="bg-primary px-6 text-primary-foreground h-20 text-center content-center">
-        <DesktopNav />
-        <MobileNavMenu />
-      </header>
+    <div className="inline-grid grid-rows-[auto_1fr] h-screen w-screen overflow-x-hidden bg-white">
+      <section className="lg:sticky top-0 z-10">
+        <header className="bg-primary px-6 text-primary-foreground h-20 text-center content-center">
+          <DesktopNav />
+          <MobileNavMenu />
+        </header>
+      </section>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto">
-        <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">{children}</div>
-      </main>
+      <main className="md:px-10 px-4 lg:h-full lg:inline-grid grid-rows-[auto_auto_1fr] grid-flow-row-dense lg:overflow-hidden max-w-[100vw]">{children}</main>
     </div>
   );
 }
