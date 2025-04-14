@@ -1,53 +1,19 @@
-import { PaginationSection } from '@/components/table/pagination-section';
+import { getComplianceTeacherFilter } from '@/lib/compliance';
+import { Suspense } from 'react';
+import { SectionWithTable } from './components/section-with-students';
 import { TeacherFilters } from './components/filters';
-import { StudentsTable } from './components/students-table';
+import { TenantProvider } from '@/providers/tenatn';
 
-export default function CompliancePage() {
-  // throw new Error('something went wrong');
+
+export default async function CompliancePage({ searchParams }: { searchParams: Promise<{ learning_period_id: string }> }) {
+  const tenant = await getComplianceTeacherFilter();
+
   return (
-    <HeaderSection>
-      <StudentsTable
-        students={Array.from(
-          { length: 15 },
-          (i, index) =>
-            ({
-              academy: {
-                id: '1',
-                name: 'Academy A',
-              } as any,
-              school: {
-                id: '1',
-                name: 'School A',
-              } as any,
-              track: {
-                id: '1',
-                name: 'Track A',
-              } as any,
-              user: {
-                id: index,
-                firstname: 'John',
-                lastname: 'Doe',
-              } as any,
-              grade: '1',
-            }) as any
-        )}
-      />
-    </HeaderSection>
+    <TenantProvider tenant={tenant!}>
+      <TeacherFilters tenant={tenant} />
+      <Suspense fallback={<div>Loading table...</div>}>
+        <SectionWithTable param={await searchParams} tenant={tenant!} />
+      </Suspense>
+    </TenantProvider>
   );
 }
-
-const HeaderSection = ({ children }: React.PropsWithChildren) => {
-  return (
-    <>
-      <TeacherFilters />
-      <PaginationSection
-        totalPages={10}
-        learningPeriod="2024-01-01 to 2024-01-31"
-        dueDate="2024-01-31"
-        completedString="5/50 students completed"
-        status="In Progress"
-      />
-      {children}
-    </>
-  );
-};

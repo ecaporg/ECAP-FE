@@ -46,6 +46,7 @@ const DropdownMenuLocalItem: React.FC<ItemProps> = ({
           e.preventDefault();
           handleSelect(option.value);
         }}
+        className={checked ? 'bg-cool-gray' : ''}
       >
         {render ? render(option) : option.label}
       </DropdownMenuCheckboxItem>
@@ -76,7 +77,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
   const placeholder = multiple
     ? label
     : selectedValues[0]
-      ? options.find((option) => option.value === selectedValues[0])?.label
+      ? options.find((option) => option.value == selectedValues[0])?.label
       : label;
 
   const showSearch = hasSearch || options.length > 15;
@@ -85,7 +86,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
     <div>
       <Label className="block">{label}</Label>
       <DropdownMenu>
-        <DropdownMenuTrigger>{placeholder}</DropdownMenuTrigger>
+        <DropdownMenuTrigger isPlaceholder={!selectedValues[0]}>{placeholder}</DropdownMenuTrigger>
         <DropdownMenuContent>
           {showSearch && (
             <SearchInput
@@ -105,7 +106,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
               <DropdownMenuLocalItem
                 key={option.value}
                 option={option}
-                checked={selectedValues.includes(option.value)}
+                checked={selectedValues.some((value) => value == option.value)}
                 handleSelect={handleSelect}
                 multiple={multiple}
                 render={render}
@@ -122,13 +123,8 @@ interface SearchFilterProps extends Omit<FilterProps, 'multiple' | 'hasSearch' |
 }
 
 export const SearchFilter: React.FC<SearchFilterProps> = ({ label, slug, options }) => {
-  const { selectedValues, handleSelect } = useFilterParam(slug, false);
-  const [value, setValue] = useState(selectedValues[0]);
+  const [value, setValue] = useState('');
   const [debouncedValue] = useDebounce(value, 700);
-
-  useEffect(() => {
-    handleSelect(debouncedValue);
-  }, [debouncedValue]);
 
   return (
     <div>

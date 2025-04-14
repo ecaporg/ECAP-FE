@@ -7,70 +7,26 @@ import {
   SearchFilter,
   ComplationFilter,
 } from '@/components/filters';
-import { School, Academy, Track, TrackLearningPeriod } from '@/types';
+import { Tenant } from '@/types';
 
 type FilterProps = {
-  availablePeriods: TrackLearningPeriod[];
-  availableSchools: School[];
-  availableAcademies: Academy[];
-  availableTracks: Track[];
+  tenant?: Tenant;
 };
 
-export function TeacherFilters({
-  availablePeriods,
-  availableSchools,
-  availableAcademies,
-  availableTracks,
-}: FilterProps) {
-  // todo: remove hardcoded data in the future after the API is ready
+export function TeacherFilters({ tenant }: FilterProps) {
   return (
     <section className="flex flex-wrap gap-4 pt-9 pb-8">
       <LearningPeriodFilter
-        availablePeriods={
-          availablePeriods ||
-          ([
-            {
-              name: 'Track A: LP1',
-              start_date: new Date('2024-01-01'),
-              end_date: new Date('2024-01-01'),
-              id: '1',
-            },
-          ] as any)
-        }
+        availablePeriods={tenant?.tracks.flatMap((track) => track.learningPeriods) || []}
       />
       <SearchFilter
         label="Search for a student by name/ID"
         slug="search"
         options={[{ label: 'test', value: 'test' }]}
       />
-      <SchoolFilter
-        availableSchools={
-          availableSchools ||
-          ([
-            { id: '1', name: 'Lucerne' },
-            { id: '2', name: 'Mountain...' },
-          ] as any)
-        }
-      />
-      <AcademyFilter
-        availableAcademies={
-          availableAcademies ||
-          ([
-            { id: '1', name: 'Home School' },
-            { id: '2', name: 'Virtual' },
-            { id: '3', name: 'Flex' },
-          ] as any)
-        }
-      />
-      <TrackFilter
-        availableTracks={
-          availableTracks ||
-          ([
-            { id: '1', name: 'Track A' },
-            { id: '2', name: 'Track B' },
-          ] as any)
-        }
-      />
+      <SchoolFilter availableSchools={tenant?.schools || []} />
+      <AcademyFilter slug="student.academy_id" availableAcademies={tenant?.academies || []} />
+      <TrackFilter slug="student.track_id" availableTracks={tenant?.tracks || []} />
       <GradeFilter />
       <ComplationFilter />
     </section>

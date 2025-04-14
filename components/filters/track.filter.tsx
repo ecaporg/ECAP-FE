@@ -3,13 +3,14 @@ import { BaseFilter } from './base';
 
 export interface TrackFilterProps {
   availableTracks: Track[];
+  slug?: string;
 }
 
-export function TrackFilter({ availableTracks }: TrackFilterProps) {
+export function TrackFilter({ availableTracks, slug = 'track_id' }: TrackFilterProps) {
   return (
     <BaseFilter
       label="Track"
-      slug="track"
+      slug={slug}
       options={availableTracks.map((track) => ({ label: track.name, value: track.id }))}
       multiple
     />

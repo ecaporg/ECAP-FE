@@ -1,6 +1,8 @@
 import { BaseFilter } from './base';
 
-interface GradeFilterProps {}
+interface GradeFilterProps {
+  slug?: string;
+}
 
 const GRADES = [
   { label: 'Grade 1', value: 'grade-1' },
@@ -16,6 +18,6 @@ const GRADES = [
   { label: 'Grade 11', value: 'grade-11' },
   { label: 'Grade 12', value: 'grade-12' },
 ];
-export function GradeFilter({}: GradeFilterProps) {
-  return <BaseFilter label="Grade" slug="grade" options={GRADES} multiple hasSearch={true} />;
+export function GradeFilter({ slug = 'student.grade' }: GradeFilterProps) {
+  return <BaseFilter label="Grade" slug={slug} options={GRADES} multiple hasSearch={true} />;
 }

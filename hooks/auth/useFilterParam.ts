@@ -12,11 +12,11 @@ export function useFilterParam(slug: string, multiple = true) {
     let newValues: string[];
 
     if (multiple) {
-      newValues = selectedValues.includes(value)
-        ? selectedValues.filter((v) => v !== value)
+      newValues = selectedValues.some((v) => v == value)
+        ? selectedValues.filter((v) => v != value)
         : [...selectedValues, value];
     } else {
-      newValues = selectedValues.includes(value) ? [] : [value];
+      newValues = selectedValues.some((v) => v == value) ? [] : [value];
     }
 
     const params = new URLSearchParams(searchParams.toString());

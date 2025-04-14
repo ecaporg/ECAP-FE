@@ -4,11 +4,20 @@ import { routes } from '@/constants/routes';
 import { getAuthToken, refresh } from './auth';
 
 // Типи для відповіді
-type ApiResponse<T = any> = {
+export type ApiResponse<T = any, D = undefined> = {
   data?: T;
   error?: string;
   message?: string;
   details?: Record<string, any>;
+  meta?: {
+    currentPage: number;
+    itemCount: number;
+    itemsPerPage: number;
+    path: string;
+    totalItems: number;
+    totalPages: number;
+    additionalData: D;
+  };
 };
 
 interface ApiAdditionalInit {
@@ -24,10 +33,10 @@ const RETRIES = 3;
 const RETRY_DELAY = 1000;
 
 // Основна функція для виконання запитів
-export async function apiFetch<T = any>(
+export async function apiFetch<T = any, D = undefined>(
   endpoint: string,
   init?: RequestInit & ApiAdditionalInit
-): Promise<ApiResponse<T>> {
+): Promise<ApiResponse<T, D>> {
   let authHeaders = {};
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;

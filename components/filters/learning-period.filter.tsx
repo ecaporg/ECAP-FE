@@ -7,8 +7,8 @@ interface LearningPeriodFilterProps {
 }
 
 // TODO: Move to utils
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
+const formatDate = (date: Date | string) => {
+  return new Date(date).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
   });
@@ -18,12 +18,12 @@ export const LearningPeriodFilter = ({ availablePeriods }: LearningPeriodFilterP
   return (
     <BaseFilter
       label="Learning Period"
-      slug="learningPeriod"
+      slug="learning_period_id"
       options={availablePeriods.map((period) => ({
         label: period.name,
         value: period.id,
-        start_date: period.start_date,
-        end_date: period.end_date,
+        start_date: new Date(period.start_date),
+        end_date: new Date(period.end_date),
       }))}
       hasSearch={true}
       render={(option: any) => {

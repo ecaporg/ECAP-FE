@@ -1,9 +1,10 @@
 import { Subject, Track, TrackLearningPeriod } from './track';
-import { Academy, School } from './school';
+import { Academy, AssignmentPeriod, School } from './school';
 import { User } from './user';
 import { Teacher } from './staff';
+import { GenericEntity } from './shared';
 
-export type Student = {
+export type Student = GenericEntity & {
   school_id: number;
 
   user_id: number;
@@ -20,29 +21,23 @@ export type Student = {
 
   academy: Academy;
 
-  samples: Sample[];
-
   track: Track;
+
+  assignment_periods: AssignmentPeriod[];
 };
 
-export type Sample = {
-  student_id: number;
-
-  subject_id: number;
-
-  teacher_id: number;
-
+export type Sample = GenericEntity & {
   assignment_title: string;
 
   status: string;
 
-  learning_period_id: number;
+  user_id: number;
 
-  student: Student;
+  school_id: number;
 
-  subject: Subject;
+  assignment_period_id: number;
 
-  teacher: Teacher;
+  assignment_period: AssignmentPeriod;
 
-  learningPeriod: TrackLearningPeriod;
+  done_by_teacher: Teacher;
 };

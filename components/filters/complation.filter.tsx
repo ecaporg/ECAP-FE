@@ -5,6 +5,6 @@ const COMPLETION_OPTIONS = [
   { label: 'Incomplete', value: 'incomplete' },
 ];
 
-export function ComplationFilter() {
-  return <BaseFilter label="Complation" slug="complation" options={COMPLETION_OPTIONS} multiple />;
+export function ComplationFilter({ slug = 'assignment_periods.completed' }: { slug?: string }) {
+  return <BaseFilter label="Complation" slug={slug} options={COMPLETION_OPTIONS} multiple />;
 }

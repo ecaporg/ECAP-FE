@@ -107,7 +107,9 @@ export function MainLayout({ children }: MainLayoutProps) {
       </section>
 
       {/* Main content */}
-      <main className="md:px-10 px-4 lg:h-full lg:inline-grid grid-rows-[auto_auto_1fr] grid-flow-row-dense lg:overflow-hidden max-w-[100vw]">{children}</main>
+      <main className="md:px-10 px-4 lg:h-full lg:inline-grid grid-rows-[auto_auto_1fr] grid-flow-row-dense lg:overflow-hidden max-w-[100vw]">
+        {children}
+      </main>
     </div>
   );
 }

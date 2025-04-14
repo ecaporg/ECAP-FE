@@ -12,7 +12,7 @@ export default function TeacherDashboard() {
   ];
 
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto">
       <ProgressCard title="Current LP Compliance" percentage={80} />
       <ProgressCard title="Year-to-Date Compliance" percentage={20} />
 

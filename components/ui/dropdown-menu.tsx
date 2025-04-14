@@ -11,16 +11,20 @@ const DropdownMenu = DropdownMenuPrimitive.Root;
 
 const DropdownMenuTrigger = ({
   children,
+  isPlaceholder,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>) => {
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger> & {
+  isPlaceholder?: boolean;
+}) => {
   return (
     <DropdownMenuPrimitive.Trigger
       {...props}
       className={cn(
-        'text-base peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-darker-gray',
+        'text-base peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
         'flex h-12 px-4 items-center gap-4',
         'border border-darker-gray rounded-sm',
         'outline-none',
+        isPlaceholder && 'text-darker-gray',
         props.className
       )}
     >
