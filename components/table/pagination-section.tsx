@@ -15,6 +15,8 @@ interface PaginationSectionProps {
   status: CompationStatusProps['variant'];
 }
 
+export const PAGE_KEY = 'page';
+
 export const PaginationSection: React.FC<PaginationSectionProps> = ({
   totalPages,
   learningPeriod,
@@ -25,12 +27,12 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page') || '1');
+  const currentPage = Number(searchParams.get(PAGE_KEY) || '1');
 
   const handlePageChange = (page: number) => {
     const query = new URLSearchParams({
       ...Object.fromEntries(searchParams.entries()),
-      page: (page + 1).toString(),
+      [PAGE_KEY]: (page + 1).toString(),
     });
     router.push(`${pathname}?${query.toString()}`);
   };
@@ -41,33 +43,35 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
         Showing Table for {learningPeriod}
       </h2>
 
-      {totalPages > 1 && (
-        <Pagination
-          className="flex-grow flex items-center justify-center gap-4 list-none lg:order-2 order-last self-center"
-          currentPage={currentPage - 1}
-          edgePageCount={2}
-          middlePagesSiblingCount={1}
-          setCurrentPage={handlePageChange}
-          totalPages={totalPages}
-          truncableClassName=""
-          truncableText="..."
-        >
-          <PrevButton className="size-10 flex items-center justify-center">
-            <ChevronLeftIcon className="size-6" />
-          </PrevButton>
-          <PageButton
-            as={<button type="button" />}
-            activeClassName={cn(buttonVariants({ variant: 'default', size: 'md' }))}
-            inactiveClassName={cn(
-              buttonVariants({ variant: 'outline', size: 'md' }),
-              'text-neutral-black border border-border'
-            )}
-          />
-          <NextButton className="size-10 flex items-center justify-center">
-            <ChevronRightIcon className="size-6" />
-          </NextButton>
-        </Pagination>
-      )}
+      <Pagination
+        className="flex-grow flex items-center justify-center gap-4 list-none lg:order-2 order-last self-center"
+        currentPage={currentPage - 1}
+        edgePageCount={2}
+        middlePagesSiblingCount={1}
+        setCurrentPage={handlePageChange}
+        totalPages={totalPages}
+        truncableClassName=""
+        truncableText="..."
+      >
+        {totalPages > 1 && (
+          <>
+            <PrevButton className="size-10 flex items-center justify-center">
+              <ChevronLeftIcon className="size-6" />
+            </PrevButton>
+            <PageButton
+              as={<button type="button" />}
+              activeClassName={cn(buttonVariants({ variant: 'default', size: 'md' }))}
+              inactiveClassName={cn(
+                buttonVariants({ variant: 'outline', size: 'md' }),
+                'text-neutral-black border border-border'
+              )}
+            />
+            <NextButton className="size-10 flex items-center justify-center">
+              <ChevronRightIcon className="size-6" />
+            </NextButton>
+          </>
+        )}
+      </Pagination>
 
       <div className="flex items-center gap-4 order-3">
         <CompationStatus variant={status} />

@@ -1,3 +1,4 @@
+import { PAGE_KEY } from '@/components/table/pagination-section';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 export function useFilterParam(slug: string, multiple = true) {
@@ -23,6 +24,7 @@ export function useFilterParam(slug: string, multiple = true) {
 
     if (newValues.length) {
       params.set(slug, newValues.join(','));
+      params.set(PAGE_KEY, '1');
     } else {
       params.delete(slug);
     }

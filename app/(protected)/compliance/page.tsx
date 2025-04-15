@@ -4,8 +4,9 @@ import { SectionWithTable } from './components/section-with-students';
 import { TeacherFilters } from './components/filters';
 import { TenantProvider } from '@/providers/tenatn';
 
-
-export default async function CompliancePage({ searchParams }: { searchParams: Promise<{ learning_period_id: string }> }) {
+export default async function CompliancePage({
+  searchParams,
+}: { searchParams: Promise<{ learning_period_id: string }> }) {
   const tenant = await getComplianceTeacherFilter();
 
   return (

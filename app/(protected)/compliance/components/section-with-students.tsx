@@ -3,13 +3,13 @@ import { getComplianceStudents } from '@/lib/compliance';
 import StudentsTable from './students-table';
 import { Tenant } from '@/types';
 interface SectionWithTableProps {
-    param: {
-        learning_period_id: string;
-    }
-    tenant: Tenant;
+  param: {
+    learning_period_id: string;
+  };
+  tenant: Tenant;
 }
 
-export const SectionWithTable = async ({param, tenant}: SectionWithTableProps) => {
+export const SectionWithTable = async ({ param, tenant }: SectionWithTableProps) => {
   if (!param.learning_period_id) {
     const learningPeriodArray = tenant?.tracks?.[0]?.learningPeriods;
     if (learningPeriodArray) {
