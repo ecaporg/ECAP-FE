@@ -6,17 +6,52 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
-import { Assignment, Student } from '@/types';
+import { Assignment, Sample, Student, TrackLearningPeriod } from '@/types';
 
-export const StudentsTable = async ({ assignments }: { assignments?: Assignment[] }) => {
-  let students: Student[] = [];
+interface StudentWithSamples extends Student {
+  samples: Sample[];
+}
 
-  if (assignments) {
-    students =
-      assignments
-        .filter((assignment) => assignment.assignment_periods[0].student)
-        .map((assignment) => assignment.assignment_periods[0].student) ?? [];
+interface StudentsTableProps {
+  assignments?: Assignment[];
+  currentLearningPeriod?: TrackLearningPeriod;
+}
+
+const getAssignmentPeriod = (
+  assignment: Assignment,
+  currentLearningPeriod: TrackLearningPeriod
+) => {
+  return assignment.assignment_periods.find((assignment) =>
+    currentLearningPeriod?.id?.toString().includes(assignment.learning_period_id.toString())
+  )!;
+};
+
+const getPercentage = (student: StudentWithSamples) => {
+  if (student.samples.length === 0) {
+    return 0;
   }
+  return (
+    (student.samples.filter((sample) => sample.status.toLowerCase() == 'completed').length /
+      student.samples.length) *
+    100
+  ).toFixed(2);
+};
+
+export const StudentsTable = async ({ assignments, currentLearningPeriod }: StudentsTableProps) => {
+  let students: StudentWithSamples[] = [];
+
+  console.log({ assignments }, 'assignments');
+  if (assignments && currentLearningPeriod) {
+    students =
+      assignments.map(
+        (assignment) =>
+          ({
+            ...getAssignmentPeriod(assignment, currentLearningPeriod).student,
+            samples: getAssignmentPeriod(assignment, currentLearningPeriod).samples,
+          }) as StudentWithSamples
+      ) ?? [];
+  }
+  console.log({ students }, 'students');
 
   return (
     <Table>
@@ -34,17 +69,17 @@ export const StudentsTable = async ({ assignments }: { assignments?: Assignment[
       </TableHeader>
       <TableBody>
         {students.map((student) => (
-          <TableRow key={student.user.id}>
+          <TableRow key={`${student.user.id}+${student.track.id}`}>
             <TableCell>
               {student.user.firstname} {student.user.lastname}
             </TableCell>
             <TableCell>{student.user.id}</TableCell>
             <TableCell>{student.school.name}</TableCell>
             <TableCell>{student.academy.name}</TableCell>
-            <TableCell>{student?.track?.name}</TableCell>
+            <TableCell>{student.track.name}</TableCell>
             <TableCell>{student.grade}</TableCell>
             <TableCell>In Progress</TableCell>
-            <TableCell>0%</TableCell>
+            <TableCell>{getPercentage(student)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>

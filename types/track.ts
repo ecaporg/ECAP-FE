@@ -1,4 +1,4 @@
-import { Tenant } from './school';
+import { Assignment, Tenant } from './school';
 import { GenericEntity } from './shared';
 import { Sample, Student } from './student';
 
@@ -9,7 +9,7 @@ export type Subject = GenericEntity & {
 
   track: Track;
 
-  samples: Sample[];
+  assignments: Assignment[];
 };
 
 export type TrackCalendar = {

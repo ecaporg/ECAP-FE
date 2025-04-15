@@ -1,38 +1,38 @@
 'use client';
 import { BaseFilter } from './base';
 import { TrackLearningPeriod } from '@/types';
-
+import { formatLearningPeriodDate, mergeLearningPeriods } from '@/utils';
 interface LearningPeriodFilterProps {
   availablePeriods: TrackLearningPeriod[];
+  slug?: string;
 }
 
-// TODO: Move to utils
-const formatDate = (date: Date | string) => {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-};
+export const LearningPeriodFilter = ({
+  availablePeriods,
+  slug = 'learning_period_id',
+}: LearningPeriodFilterProps) => {
+  const mergedPeriods = mergeLearningPeriods(availablePeriods);
 
-export const LearningPeriodFilter = ({ availablePeriods }: LearningPeriodFilterProps) => {
   return (
     <BaseFilter
       label="Learning Period"
-      slug="learning_period_id"
-      options={availablePeriods.map((period) => ({
+      slug={slug}
+      options={mergedPeriods.map((period) => ({
         label: period.name,
         value: period.id,
-        start_date: new Date(period.start_date),
-        end_date: new Date(period.end_date),
+        start_date: period.start_date,
+        end_date: period.end_date,
       }))}
       hasSearch={true}
       render={(option: any) => {
         return (
           <div>
-            <b className="block">{option.label}</b>
+            <b className="block truncate max-w-60" title={option.label}>
+              {option.label}
+            </b>
             <p>
-              {formatDate(option.start_date)} - {formatDate(option.end_date)}
+              {formatLearningPeriodDate(option.start_date)} -{' '}
+              {formatLearningPeriodDate(option.end_date)}
             </p>
           </div>
         );

@@ -6,7 +6,7 @@ import { TenantProvider } from '@/providers/tenatn';
 
 export default async function CompliancePage({
   searchParams,
-}: { searchParams: Promise<{ learning_period_id: string }> }) {
+}: { searchParams: Promise<{ 'assignment_periods.learning_period_id': string }> }) {
   const tenant = await getComplianceTeacherFilter();
 
   return (

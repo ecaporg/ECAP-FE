@@ -8,22 +8,18 @@ import {
   ComplationFilter,
 } from '@/components/filters';
 import { Tenant } from '@/types';
+import { getLearningPeriodFromTenant } from '@/utils';
 
 type FilterProps = {
   tenant?: Tenant;
 };
 
 export function TeacherFilters({ tenant }: FilterProps) {
-
-  console.log(tenant, " tenatn in filters", tenant?.tracks.flatMap((track) => track.learningPeriods))
-
   return (
     <section className="flex flex-wrap gap-4 pt-9 pb-8">
       <LearningPeriodFilter
-        availablePeriods={tenant?.tracks.flatMap((track) => track.learningPeriods.map((period) => ({
-          ...period,
-          name: `${track.name} - ${period.name}`
-        }))) || []}
+        availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []}
+        slug="assignment_periods.learning_period_id"
       />
       <SearchFilter
         label="Search for a student by name/ID"
@@ -31,9 +27,15 @@ export function TeacherFilters({ tenant }: FilterProps) {
         options={[{ label: 'test', value: 'test' }]}
       />
       <SchoolFilter availableSchools={tenant?.schools || []} />
-      <AcademyFilter slug="student.academy_id" availableAcademies={tenant?.academies || []} />
-      <TrackFilter slug="student.track_id" availableTracks={tenant?.tracks || []} />
-      <GradeFilter />
+      <AcademyFilter
+        slug="assignment_periods.student.academy_id"
+        availableAcademies={tenant?.academies || []}
+      />
+      <TrackFilter
+        slug="assignment_periods.student.track_id"
+        availableTracks={tenant?.tracks || []}
+      />
+      <GradeFilter slug="assignment_periods.student.grade" />
       <ComplationFilter />
     </section>
   );
