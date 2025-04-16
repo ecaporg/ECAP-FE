@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { LoadingTable } from '@/components/table/loading-table';
 interface SectionWithTableProps {
   param: {
-    'assignment_periods.learning_period_id': string;
+    learning_period_id: string;
   };
   tenant: Tenant;
 }
@@ -22,14 +22,14 @@ export const SectionWithTableSuspense = (props: SectionWithTableProps) => {
 
 const SectionWithTable = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant));
-  if (!param['assignment_periods.learning_period_id']) {
+  if (!param.learning_period_id) {
     const learningPeriod = mergedLP[0];
-    param['assignment_periods.learning_period_id'] = learningPeriod.id;
+    param.learning_period_id = learningPeriod.id;
   }
   const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
-    (learningPeriod) => learningPeriod.id === param['assignment_periods.learning_period_id']
+    (learningPeriod) => learningPeriod.id === param.learning_period_id
   );
   const dueDate = new Date(learningPeriod?.end_date ?? '');
   dueDate.setDate(dueDate.getDate() + 7);

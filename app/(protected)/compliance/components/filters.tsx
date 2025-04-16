@@ -19,7 +19,7 @@ export function TeacherFilters({ tenant }: FilterProps) {
     <section className="flex flex-wrap gap-4 pt-9 pb-8">
       <LearningPeriodFilter
         availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []}
-        slug="assignment_periods.learning_period_id"
+       
       />
       <SearchFilter
         label="Search for a student by name/ID"
@@ -28,14 +28,14 @@ export function TeacherFilters({ tenant }: FilterProps) {
       />
       <SchoolFilter availableSchools={tenant?.schools || []} />
       <AcademyFilter
-        slug="assignment_periods.student.academy_id"
+        slug="student.academy_id"
         availableAcademies={tenant?.academies || []}
       />
       <TrackFilter
-        slug="assignment_periods.student.track_id"
+        slug="student.track_id"
         availableTracks={tenant?.tracks || []}
       />
-      <GradeFilter slug="assignment_periods.student.grade" />
+      <GradeFilter slug="student.grade" />
       <ComplationFilter />
     </section>
   );

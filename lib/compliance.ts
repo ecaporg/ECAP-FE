@@ -1,4 +1,4 @@
-import { Assignment, Tenant } from '@/types';
+import {  AssignmentPeriod, Tenant } from '@/types';
 import { apiFetch } from './fetch';
 
 export const getComplianceTeacherFilter = async () => {
@@ -7,6 +7,6 @@ export const getComplianceTeacherFilter = async () => {
 };
 
 export const getComplianceStudents = async (queryParams: string) => {
-  const response = await apiFetch<Assignment[]>(`/teacher-compliance-tasks?${queryParams}`);
+  const response = await apiFetch<AssignmentPeriod[]>(`/teacher-compliance-tasks?${queryParams}`);
   return response;
 };

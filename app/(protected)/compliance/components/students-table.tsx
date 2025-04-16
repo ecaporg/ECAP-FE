@@ -7,25 +7,16 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
-import { Assignment, Sample, Student, TrackLearningPeriod } from '@/types';
+import {  AssignmentPeriod, Sample, Student, TrackLearningPeriod } from '@/types';
 
 interface StudentWithSamples extends Student {
   samples: Sample[];
 }
 
 interface StudentsTableProps {
-  assignments?: Assignment[];
+  assignments?: AssignmentPeriod[];
   currentLearningPeriod?: TrackLearningPeriod;
 }
-
-const getAssignmentPeriod = (
-  assignment: Assignment,
-  currentLearningPeriod: TrackLearningPeriod
-) => {
-  return assignment.assignment_periods.find((assignment) =>
-    currentLearningPeriod?.id?.toString().includes(assignment.learning_period_id.toString())
-  )!;
-};
 
 const getPercentage = (student: StudentWithSamples) => {
   if (student.samples.length === 0) {
@@ -46,8 +37,8 @@ export const StudentsTable = ({ assignments, currentLearningPeriod }: StudentsTa
       assignments.map(
         (assignment) =>
           ({
-            ...getAssignmentPeriod(assignment, currentLearningPeriod).student,
-            samples: getAssignmentPeriod(assignment, currentLearningPeriod).samples,
+            ...assignment.student,
+            samples: assignment.samples,
           }) as StudentWithSamples
       ) ?? [];
   }
