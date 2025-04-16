@@ -1,3 +1,4 @@
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { Tenant, TrackLearningPeriod } from '@/types';
 
 export const getShortLearningPeriodName = (learningPeriod: string) => {
@@ -45,4 +46,23 @@ export const mergeLearningPeriods = (learningPeriods: TrackLearningPeriod[]) => 
   }, [] as TrackLearningPeriod[]);
   res.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
   return res;
+};
+
+export const assignDefaultLearningPeriod = (
+  tenant: Tenant,
+  param: { [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string }
+) => {
+  const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant));
+  if (!param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]) {
+    const learningPeriod = mergedLP[0];
+    param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID] = learningPeriod.id;
+  }
+  return mergedLP;
+};
+
+export const getDueDate = (learningPeriod?: TrackLearningPeriod) => {
+  if (!learningPeriod) return new Date();
+  const dueDate = new Date(learningPeriod.end_date);
+  dueDate.setDate(dueDate.getDate() + 7);
+  return dueDate;
 };

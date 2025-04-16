@@ -2,6 +2,8 @@
 import { BaseFilter } from './base';
 import { TrackLearningPeriod } from '@/types';
 import { formatLearningPeriodDate, mergeLearningPeriods } from '@/utils';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+
 interface LearningPeriodFilterProps {
   availablePeriods: TrackLearningPeriod[];
   slug?: string;
@@ -9,7 +11,7 @@ interface LearningPeriodFilterProps {
 
 export const LearningPeriodFilter = ({
   availablePeriods,
-  slug = 'learning_period_id',
+  slug = DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID,
 }: LearningPeriodFilterProps) => {
   const mergedPeriods = mergeLearningPeriods(availablePeriods);
 

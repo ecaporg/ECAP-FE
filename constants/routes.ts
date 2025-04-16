@@ -9,13 +9,11 @@ export const routes = {
   },
   compliance: {
     root: '/compliance',
+    samples: '/compliance/samples',
     // TODO: add other routes in feature
   },
   settings: {
     root: '/settings',
-  },
-  protected: {
-    root: '/(protected)',
   },
   profile: {
     root: '/profile',

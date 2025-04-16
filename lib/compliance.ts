@@ -1,8 +1,11 @@
-import {  AssignmentPeriod, Tenant } from '@/types';
+import { AssignmentPeriod, Tenant } from '@/types';
 import { apiFetch } from './fetch';
 
 export const getComplianceTeacherFilter = async () => {
   const response = await apiFetch<Tenant>(`/teacher-compliance-tasks/filters`);
+  if (response.error) {
+    throw new Error(response.error);
+  }
   return response.data;
 };
 

@@ -5,3 +5,4 @@ export * from './track.filter';
 export * from './grade.filter';
 export * from './base';
 export * from './complation.filter';
+export * from './sample-status.filter';

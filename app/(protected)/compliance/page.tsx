@@ -1,16 +1,17 @@
 import { getComplianceTeacherFilter } from '@/lib/compliance';
-import { SectionWithTableSuspense } from './components/section-with-students';
+import { StudentsSection } from './components/sections';
 import { TeacherFilters } from './components/filters';
-import { TenantProvider } from '@/providers/tenatn';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 
 export default async function CompliancePage({
   searchParams,
-}: { searchParams: Promise<{ learning_period_id: string }> }) {
+}: { searchParams: Promise<{ [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string }> }) {
   const tenant = await getComplianceTeacherFilter();
+
   return (
-    <TenantProvider tenant={tenant!}>
+    <>
       <TeacherFilters tenant={tenant} />
-      <SectionWithTableSuspense param={await searchParams} tenant={tenant!} />
-    </TenantProvider>
+      <StudentsSection param={await searchParams} tenant={tenant!} />
+    </>
   );
 }

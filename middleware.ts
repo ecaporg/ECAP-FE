@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
 
   const isAuthRoute = path.startsWith(routes.auth.root);
   const isProtectedRoute =
-    path.startsWith(routes.protected.root) ||
     path.startsWith(routes.dashboard.root) ||
     path.startsWith(routes.compliance.root) ||
     path.startsWith(routes.settings.root);

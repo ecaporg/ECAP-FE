@@ -10,3 +10,4 @@ export const validationMessages = {
 };
 
 export * from './learning-period';
+export * from './user';

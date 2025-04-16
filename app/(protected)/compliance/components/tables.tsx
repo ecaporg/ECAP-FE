@@ -7,7 +7,10 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
-import {  AssignmentPeriod, Sample, Student, TrackLearningPeriod } from '@/types';
+import { routes } from '@/constants/routes';
+import { AssignmentPeriod, Sample, Student } from '@/types';
+import { getUserName } from '@/utils';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface StudentWithSamples extends Student {
   samples: Sample[];
@@ -17,7 +20,49 @@ interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
 }
 
-const getPercentage = (student: StudentWithSamples) => {
+export const SamplesTable = ({ assignments }: StudentsTableProps) => {
+
+  const samples = assignments?.flatMap((assignment) => assignment.samples.map((sample) => {
+    return {
+      ...sample,
+      subject: assignment.assignment.subject,
+    }
+  })) ?? [];
+  
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Subject</TableHead>
+          <TableHead>Assignment Title</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Done By</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {samples.map((sample) => (
+          <TableRow key={`${sample.id}`}>
+            <TableCell>{sample.subject.name}</TableCell>
+            <TableCell>{sample.assignment_title}</TableCell>
+            <TableCell>{sample.status}</TableCell>
+            <TableCell>{sample.done_by_teacher.user.email}</TableCell>
+          </TableRow>
+        ))}
+        {samples.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={4} className="text-center">
+              No samples found
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
+  );
+};
+
+
+
+const getProgressValue = (student: StudentWithSamples) => {
   if (student.samples.length === 0) {
     return 0;
   }
@@ -30,7 +75,10 @@ const getPercentage = (student: StudentWithSamples) => {
 
 export const StudentsTable = ({ assignments }: StudentsTableProps) => {
   let students: StudentWithSamples[] = [];
-
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const learningPeriodId = searchParams.get('learning_period_id');
+  
   if (assignments) {
     students =
       assignments.map(
@@ -58,17 +106,19 @@ export const StudentsTable = ({ assignments }: StudentsTableProps) => {
       </TableHeader>
       <TableBody>
         {students.map((student) => (
-          <TableRow key={`${student.user.id}+${student.track.id}`}>
-            <TableCell>
-              {student.user.firstname} {student.user.lastname}
-            </TableCell>
+          <TableRow key={`${student.user.id}+${student.track.id}`}
+            onClick={() => {
+              router.push(`${routes.compliance.samples}?student_id=${student.user.id}&learning_period_id=${student.track.id}`);
+            }}
+          >
+            <TableCell>{getUserName(student.user)}</TableCell>
             <TableCell>{student.user.id}</TableCell>
             <TableCell>{student.school?.name}</TableCell>
             <TableCell>{student.academy?.name}</TableCell>
             <TableCell>{student.track?.name}</TableCell>
             <TableCell>{student.grade}</TableCell>
             <TableCell>In Progress</TableCell>
-            <TableCell>{getPercentage(student)}%</TableCell>
+            <TableCell>{getProgressValue(student)}%</TableCell>
           </TableRow>
         ))}
         {students.length === 0 && (

@@ -6,37 +6,45 @@ import {
   GradeFilter,
   SearchFilter,
   ComplationFilter,
+  SampleStatusFilter,
 } from '@/components/filters';
-import { Tenant } from '@/types';
+import { DoneByFilter } from '@/components/filters/done-by';
+import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import { Tenant, Sample } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 
 type FilterProps = {
   tenant?: Tenant;
 };
 
+const FilterWrapper = ({ children }: { children: React.ReactNode }) => {
+  return <section className="flex flex-wrap gap-4 pt-9 pb-8">{children}</section>;
+};
+
 export function TeacherFilters({ tenant }: FilterProps) {
   return (
-    <section className="flex flex-wrap gap-4 pt-9 pb-8">
-      <LearningPeriodFilter
-        availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []}
-       
-      />
+    <FilterWrapper>
+      <LearningPeriodFilter availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []} />
       <SearchFilter
         label="Search for a student by name/ID"
         slug="search"
         options={[{ label: 'test', value: 'test' }]}
       />
       <SchoolFilter availableSchools={tenant?.schools || []} />
-      <AcademyFilter
-        slug="student.academy_id"
-        availableAcademies={tenant?.academies || []}
-      />
-      <TrackFilter
-        slug="student.track_id"
-        availableTracks={tenant?.tracks || []}
-      />
-      <GradeFilter slug="student.grade" />
+      <AcademyFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID} availableAcademies={tenant?.academies || []} />
+      <TrackFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID} availableTracks={tenant?.tracks || []} />
+      <GradeFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.GRADE} />
       <ComplationFilter />
-    </section>
+    </FilterWrapper>
+  );
+}
+
+export function SamplesFilters({ tenant, samples }: FilterProps & { samples: Sample[] }) {
+  return (
+    <FilterWrapper>
+      <LearningPeriodFilter availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []} />
+      <SampleStatusFilter samples={samples} />
+      <DoneByFilter availableUsers={samples.map((sample) => sample.done_by_teacher)} />
+    </FilterWrapper>
   );
 }
