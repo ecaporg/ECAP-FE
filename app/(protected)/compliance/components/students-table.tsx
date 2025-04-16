@@ -15,7 +15,6 @@ interface StudentWithSamples extends Student {
 
 interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
-  currentLearningPeriod?: TrackLearningPeriod;
 }
 
 const getPercentage = (student: StudentWithSamples) => {
@@ -29,10 +28,10 @@ const getPercentage = (student: StudentWithSamples) => {
   ).toFixed(2);
 };
 
-export const StudentsTable = ({ assignments, currentLearningPeriod }: StudentsTableProps) => {
+export const StudentsTable = ({ assignments }: StudentsTableProps) => {
   let students: StudentWithSamples[] = [];
 
-  if (assignments && currentLearningPeriod) {
+  if (assignments) {
     students =
       assignments.map(
         (assignment) =>

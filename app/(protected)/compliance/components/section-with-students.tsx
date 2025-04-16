@@ -44,7 +44,7 @@ const SectionWithTable = async ({ param, tenant }: SectionWithTableProps) => {
         completedString="5/50 students completed"
         status="In Progress"
       />
-      <StudentsTable assignments={assignment?.data} currentLearningPeriod={learningPeriod} />
+      <StudentsTable assignments={assignment?.data} />
     </>
   );
 };
