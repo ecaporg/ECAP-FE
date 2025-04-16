@@ -12,6 +12,7 @@ import { SearchInput } from './search';
 import { useFilterParam } from '@/hooks/auth/useFilterParam';
 import { Label } from '../ui/label';
 import { useDebounce } from 'use-debounce';
+import { ScrollArea } from '../ui/scroll-area';
 
 interface FilterProps {
   multiple?: boolean;
@@ -98,6 +99,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
             />
           )}
           {showSearch && <DropdownMenuSeparator />}
+        <ScrollArea className='max-h-[min(30rem,50vh)]'>
           {options
             .filter(
               (option) => !search || option.label.toLowerCase().includes(search.toLowerCase())
@@ -112,6 +114,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
                 render={render}
               />
             ))}
+            </ScrollArea>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
