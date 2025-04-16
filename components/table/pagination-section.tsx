@@ -34,7 +34,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
       ...Object.fromEntries(searchParams.entries()),
       [PAGE_KEY]: (page + 1).toString(),
     });
-    router.push(`${pathname}?${query.toString()}`);
+    router.replace(`${pathname}?${query.toString()}`);
   };
 
   return (

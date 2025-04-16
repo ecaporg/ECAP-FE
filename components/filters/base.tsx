@@ -99,22 +99,22 @@ export const BaseFilter: React.FC<FilterProps> = ({
             />
           )}
           {showSearch && <DropdownMenuSeparator />}
-        <ScrollArea className='max-h-[min(30rem,50vh)]'>
-          {options
-            .filter(
-              (option) => !search || option.label.toLowerCase().includes(search.toLowerCase())
-            )
-            .map((option) => (
-              <DropdownMenuLocalItem
-                key={option.value}
-                option={option}
-                checked={selectedValues.some((value) => value == option.value)}
-                handleSelect={handleSelect}
-                multiple={multiple}
-                render={render}
-              />
-            ))}
-            </ScrollArea>
+          <ScrollArea className="max-h-[min(30rem,50vh)]">
+            {options
+              .filter(
+                (option) => !search || option.label.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((option) => (
+                <DropdownMenuLocalItem
+                  key={option.value}
+                  option={option}
+                  checked={selectedValues.some((value) => value == option.value)}
+                  handleSelect={handleSelect}
+                  multiple={multiple}
+                  render={render}
+                />
+              ))}
+          </ScrollArea>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

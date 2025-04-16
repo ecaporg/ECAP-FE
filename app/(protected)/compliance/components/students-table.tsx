@@ -1,3 +1,4 @@
+'use client';
 import {
   Table,
   TableHeader,
@@ -37,10 +38,9 @@ const getPercentage = (student: StudentWithSamples) => {
   ).toFixed(2);
 };
 
-export const StudentsTable = async ({ assignments, currentLearningPeriod }: StudentsTableProps) => {
+export const StudentsTable = ({ assignments, currentLearningPeriod }: StudentsTableProps) => {
   let students: StudentWithSamples[] = [];
 
-  console.log({ assignments }, 'assignments');
   if (assignments && currentLearningPeriod) {
     students =
       assignments.map(
@@ -51,7 +51,6 @@ export const StudentsTable = async ({ assignments, currentLearningPeriod }: Stud
           }) as StudentWithSamples
       ) ?? [];
   }
-  console.log({ students }, 'students');
 
   return (
     <Table>
@@ -74,17 +73,22 @@ export const StudentsTable = async ({ assignments, currentLearningPeriod }: Stud
               {student.user.firstname} {student.user.lastname}
             </TableCell>
             <TableCell>{student.user.id}</TableCell>
-            <TableCell>{student.school.name}</TableCell>
-            <TableCell>{student.academy.name}</TableCell>
-            <TableCell>{student.track.name}</TableCell>
+            <TableCell>{student.school?.name}</TableCell>
+            <TableCell>{student.academy?.name}</TableCell>
+            <TableCell>{student.track?.name}</TableCell>
             <TableCell>{student.grade}</TableCell>
             <TableCell>In Progress</TableCell>
             <TableCell>{getPercentage(student)}%</TableCell>
           </TableRow>
         ))}
+        {students.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={8} className="text-center">
+              No students found
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );
 };
-
-export default StudentsTable;

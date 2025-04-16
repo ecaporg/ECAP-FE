@@ -1,8 +1,10 @@
 import { PaginationSection } from '@/components/table/pagination-section';
 import { getComplianceStudents } from '@/lib/compliance';
-import StudentsTable from './students-table';
 import { Tenant } from '@/types';
 import { getLearningPeriodFromTenant, mergeLearningPeriods } from '@/utils';
+import { StudentsTable } from './students-table';
+import { Suspense } from 'react';
+import { LoadingTable } from '@/components/table/loading-table';
 interface SectionWithTableProps {
   param: {
     'assignment_periods.learning_period_id': string;
@@ -10,7 +12,15 @@ interface SectionWithTableProps {
   tenant: Tenant;
 }
 
-export const SectionWithTable = async ({ param, tenant }: SectionWithTableProps) => {
+export const SectionWithTableSuspense = (props: SectionWithTableProps) => {
+  return (
+    <Suspense key={new URLSearchParams(props.param as any).toString()} fallback={<LoadingTable columns={8}  />}>
+      <SectionWithTable {...props} />
+    </Suspense>
+  );
+};
+
+const SectionWithTable = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant));
   if (!param['assignment_periods.learning_period_id']) {
     const learningPeriod = mergedLP[0];
@@ -23,6 +33,7 @@ export const SectionWithTable = async ({ param, tenant }: SectionWithTableProps)
   );
   const dueDate = new Date(learningPeriod?.end_date ?? '');
   dueDate.setDate(dueDate.getDate() + 7);
+
 
   return (
     <>
