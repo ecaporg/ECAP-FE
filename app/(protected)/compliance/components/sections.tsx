@@ -7,6 +7,7 @@ import { Sample, Tenant } from "@/types";
 import { assignDefaultLearningPeriod, getDueDate } from "@/utils";
 import { Suspense } from "react";
 import {
+  LoadingFilters,
   LoadingTable,
   LoadingTableSection,
   LoadingTableSectionWithFilters,
@@ -28,43 +29,28 @@ export interface SectionWithTableProps {
 
 export const StudentsSection = (props: SectionWithTableProps) => {
   return (
-    <SuspenseSection
-      columns={8}
-      trigger={new URLSearchParams(props.param as any).toString()}
+    <Suspense
+      fallback={<LoadingTableSection columns={8} />}
+      key={new URLSearchParams(props.param as any).toString()}
     >
       <Students {...props} />
-    </SuspenseSection>
+    </Suspense>
   );
 };
 
 export const SamplesSection = (props: SectionWithTableProps) => {
-  return (
-    <SuspenseSection
-      columns={9}
-      trigger={new URLSearchParams(props.param as any).toString()}
-      fallback={<LoadingTableSectionWithFilters columns={9} filters={3} />}
-    >
-      <Samples {...props} />
-    </SuspenseSection>
-  );
-};
-
-const SuspenseSection = ({
-  children,
-  columns,
-  trigger,
-  fallback,
-}: React.PropsWithChildren<{
-  columns: number;
-  trigger: string;
-  fallback?: React.ReactNode;
-}>) => {
+  const key = new URLSearchParams(props.param as any).toString();
   return (
     <Suspense
-      fallback={fallback ?? <LoadingTableSection columns={columns} />}
-      key={trigger}
+      fallback={
+        <>
+          <LoadingFilters className="pt-20" />
+          <LoadingTableSection columns={9} />
+        </>
+      }
+      key={key}
     >
-      {children}
+      <Samples {...props} />
     </Suspense>
   );
 };

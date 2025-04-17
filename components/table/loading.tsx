@@ -7,7 +7,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Skeleton } from "../ui/skeleton";
-
+import { cn } from "@/utils";
 interface LoadingTableProps {
   columns: number;
   rows?: number;
@@ -71,9 +71,10 @@ export const LoadingPagination = () => {
 
 export const LoadingFilters = ({
   filters = 3,
-}: Pick<LoadingTableProps, "filters">) => {
+  className,
+}: Pick<LoadingTableProps, "filters"> & { className?: string }) => {
   return (
-    <section className="flex flex-wrap gap-4 pt-9 pb-8">
+    <section className={cn("flex flex-wrap gap-4 pt-9 pb-8", className)}>
       {Array.from({ length: filters }).map((_, index) => (
         <Skeleton key={`skeleton-filter-${index}`} className="w-24 h-12" />
       ))}

@@ -12,15 +12,13 @@ export function DoneByFilter({
   availableUsers = [],
   slug = DEFAULT_FILTERS_KEYS.DONE_BY,
 }: DoneByFilterProps) {
-  return (
-    <BaseFilter
-      label="Done By"
-      slug={slug}
-      options={availableUsers.map((teacher) => ({
-        label: getUserName(teacher.user),
-        value: teacher.user_id.toString(),
-      }))}
-      multiple
-    />
-  );
+  const map = new Map();
+  availableUsers.forEach((teacher) => {
+    map.set(teacher.user_id, getUserName(teacher.user));
+  });
+  const options = Array.from(map.entries()).map(([key, value]) => ({
+    label: value,
+    value: key.toString(),
+  }));
+  return <BaseFilter label="Done By" slug={slug} options={options} multiple />;
 }

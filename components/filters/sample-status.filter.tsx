@@ -11,6 +11,7 @@ const SAMPLE_STATUS = {
   COMPLETED: "Completed",
   IN_PROGRESS: "In Progress",
   NOT_STARTED: "Not Started",
+  PENDING: "Pending",
 };
 
 export function SampleStatusFilter({
