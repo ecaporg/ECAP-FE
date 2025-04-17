@@ -10,7 +10,7 @@ import {
 } from "@/components/filters";
 import { DoneByFilter } from "@/components/filters/done-by";
 import { SPECIFIC_PAGE_FILTER_KEYS } from "@/constants/filter";
-import { Tenant, Sample, AssignmentPeriod } from "@/types";
+import { Tenant, Sample, AssignmentPeriod, Student } from "@/types";
 import { cn, getLearningPeriodFromTenant } from "@/utils";
 import { BackToCompliance } from "./back-to-compliance";
 
@@ -56,24 +56,25 @@ export function TeacherFilters({ tenant }: FilterProps) {
 }
 
 type SamplesFiltersProps = FilterProps & {
-  assignments: AssignmentPeriod[];
+  samples: Sample[];
+  student?: Student;
   defaultName?: string;
 };
 
 export function SamplesFilters({
   tenant,
-  assignments,
+  samples,
+  student,
   defaultName,
 }: SamplesFiltersProps) {
-  const samples = assignments.flatMap((assignment) => assignment.samples);
-
   return (
     <FilterWrapper className="pt-0">
       <BackToCompliance
         student={
-          assignments[0]?.student ?? {
+          student ??
+          ({
             user: { firstname: defaultName, lastname: "" },
-          }
+          } as Student)
         }
       />
       <LearningPeriodFilter

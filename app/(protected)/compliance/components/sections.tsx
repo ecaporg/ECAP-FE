@@ -75,7 +75,9 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={totalPages}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString="5/50 students completed"
+        completedString={`${(assignment?.meta as any)?.completedCount} / ${
+          assignment?.meta?.totalItems
+        } students completed`}
         status="In Progress"
       />
       <StudentsTable
@@ -92,7 +94,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
   }
 
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
-  const samples = await getComplianceStudentSamples(
+  const assignmentPeriods = await getComplianceStudentSamples(
     new URLSearchParams(param as any).toString()
   );
 
@@ -102,22 +104,31 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
+  const samples = assignmentPeriods.data?.flatMap(
+    (assignment) => assignment.samples
+  );
+
+  const completeCount = samples?.filter(
+    (sample) => sample.done_by_teacher
+  ).length;
+
   return (
     <>
       <SamplesFilters
         tenant={tenant}
-        assignments={samples?.data ?? []}
+        samples={samples || []}
+        student={assignmentPeriods.data?.[0]?.student}
         defaultName={param.name}
       />
       <PaginationSection
         totalPages={0}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString="5/50 samples completed"
+        completedString={`${completeCount} / ${samples?.length} Samples completed`}
         status="In Progress"
       />
       <SamplesTable
-        assignments={samples?.data}
+        assignments={assignmentPeriods.data}
         currentLearningPeriodId={param.learning_period_id}
       />
     </>
