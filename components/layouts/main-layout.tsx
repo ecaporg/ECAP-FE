@@ -1,20 +1,20 @@
-'use client';
-import type React from 'react';
-
-import { Button } from '@/components/ui/button';
-import { cn } from '@/utils';
-import { LogOut, Menu, User } from 'lucide-react';
-import Link from 'next/link';
-import { routes } from '@/constants/routes';
-import { usePathname } from 'next/navigation';
-import { signOutAction } from '@/app/auth/actions';
+"use client";
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/utils";
+import { Loader2, LogOut, User } from "lucide-react";
+import Link from "next/link";
+import { routes } from "@/constants/routes";
+import { usePathname } from "next/navigation";
+import { signOutAction } from "@/app/auth/actions";
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../ui/navigation-menu';
+} from "../ui/navigation-menu";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -24,15 +24,19 @@ const NavLink = ({
   href,
   children,
   className,
-}: { href: string; children: React.ReactNode; className?: string }) => {
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const pathname = usePathname();
   const isActive = pathname.includes(href);
   return (
     <Link
       href={href}
       className={cn(
-        'h-full w-52 md:hover:border-b-2 content-center py-5',
-        isActive && 'md:border-b-2',
+        "h-full w-52 md:hover:border-b-2 content-center py-5",
+        isActive && "md:border-b-2",
         className
       )}
     >
@@ -42,6 +46,7 @@ const NavLink = ({
 };
 
 const NavMenu = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   return (
     <>
       <nav className="contents md:flex justify-center items-center flex-1 ">
@@ -50,12 +55,27 @@ const NavMenu = () => {
       </nav>
 
       <nav className="contents md:flex justify-end items-center flex-1 gap-10">
-        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+        <NavLink
+          href={routes.profile.root}
+          className="flex items-center justify-center gap-2"
+        >
           <User className="h-4 w-4" />
           <span>My Profile</span>
         </NavLink>
-        <Button variant="secondary" size="lg" onClick={signOutAction}>
-          <LogOut className="h-4 w-4 mr-2" />
+        <Button
+          variant="secondary"
+          size="lg"
+          onClick={() => {
+            setIsLoggingOut(true);
+            signOutAction();
+          }}
+          disabled={isLoggingOut}
+        >
+          {isLoggingOut ? (
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+          ) : (
+            <LogOut className="h-4 w-4 mr-2" />
+          )}
           Sign Out
         </Button>
       </nav>
@@ -66,7 +86,10 @@ const NavMenu = () => {
 const MobileNavMenu = () => {
   return (
     <div className="md:hidden flex items-center justify-between">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+      <Link
+        href={routes.dashboard.root}
+        className="font-extrabold text-xl content-center"
+      >
         ECAP
       </Link>
 
@@ -87,7 +110,10 @@ const MobileNavMenu = () => {
 const DesktopNav = () => {
   return (
     <div className="md:flex justify-between items-center hidden">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+      <Link
+        href={routes.dashboard.root}
+        className="font-extrabold text-xl content-center"
+      >
         ECAP
       </Link>
 

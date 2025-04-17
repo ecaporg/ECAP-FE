@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Table,
   TableHeader,
@@ -6,29 +6,39 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from '@/components/ui/table';
-import { routes } from '@/constants/routes';
-import { AssignmentPeriod, Sample, Student } from '@/types';
-import { getUserName } from '@/utils';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/table";
+import { routes } from "@/constants/routes";
+import { AssignmentPeriod, Sample, Student } from "@/types";
+import { getUserName } from "@/utils";
+import { useRouter } from "next/navigation";
 
 interface StudentWithSamples extends Student {
   samples: Sample[];
 }
 
-interface StudentsTableProps {
+interface TableProps {
   assignments?: AssignmentPeriod[];
   currentLearningPeriodId: string;
 }
 
-export const SamplesTable = ({ assignments }: StudentsTableProps) => {
+export const SamplesTable = ({ assignments = [] }: TableProps) => {
+  const tableRows = Object.entries(
+    assignments
+      ?.flatMap(({ samples }) => samples)
+      .reduce((acc, sample) => {
+        if (acc[sample.subject_id]) {
+          acc[sample.subject_id].push(sample);
+        } else {
+          acc[sample.subject_id] = [sample];
+        }
+        return acc;
+      }, {} as Record<number, Sample[]>)
+  ).map(([_, samples]) => ({
+    sample_1: samples[0],
+    sample_2: samples[1],
+    subject: samples[0].subject,
+  }));
 
-  const tableRows = assignments?.map(assignment =>( {
-    sample_1: assignment.samples[0],
-    sample_2: assignment.samples[1],
-    subject: assignment.assignment.subject,
-  })) ?? [];
-  
   return (
     <Table>
       <TableHeader>
@@ -51,11 +61,11 @@ export const SamplesTable = ({ assignments }: StudentsTableProps) => {
             <TableCell>{row.sample_1.assignment_title}</TableCell>
             <TableCell>{row.sample_1.status}</TableCell>
             <TableCell>Action</TableCell>
-            <TableCell>{row.sample_1.done_by_teacher.user.email}</TableCell>
+            <TableCell>{row.sample_1.done_by_teacher?.user?.email}</TableCell>
             <TableCell>{row.sample_2?.assignment_title}</TableCell>
             <TableCell>{row.sample_2?.status}</TableCell>
             <TableCell>Action</TableCell>
-            <TableCell>{row.sample_2?.done_by_teacher?.user.email}</TableCell>
+            <TableCell>{row.sample_2?.done_by_teacher?.user?.email}</TableCell>
           </TableRow>
         ))}
         {tableRows.length === 0 && (
@@ -70,33 +80,32 @@ export const SamplesTable = ({ assignments }: StudentsTableProps) => {
   );
 };
 
-
-
 const getProgressValue = (student: StudentWithSamples) => {
   if (student.samples.length === 0) {
     return 0;
   }
   return (
-    (student.samples.filter((sample) => sample.status.toLowerCase() == 'completed').length /
+    (student.samples.filter(
+      (sample) => sample.status.toLowerCase() == "completed"
+    ).length /
       student.samples.length) *
     100
   ).toFixed(2);
 };
 
-export const StudentsTable = ({ assignments, currentLearningPeriodId }: StudentsTableProps) => {
-  let students: StudentWithSamples[] = [];
+export const StudentsTable = ({
+  assignments = [],
+  currentLearningPeriodId,
+}: TableProps) => {
+  let students: StudentWithSamples[] = assignments.map(
+    (assignment) =>
+      ({
+        ...assignment.student,
+        samples: assignment.samples,
+      } as StudentWithSamples)
+  );
+
   const router = useRouter();
-  
-  if (assignments) {
-    students =
-      assignments.map(
-        (assignment) =>
-          ({
-            ...assignment.student,
-            samples: assignment.samples,
-          }) as StudentWithSamples
-      ) ?? [];
-  }
 
   return (
     <Table>
@@ -114,10 +123,16 @@ export const StudentsTable = ({ assignments, currentLearningPeriodId }: Students
       </TableHeader>
       <TableBody>
         {students.map((student) => (
-          <TableRow 
+          <TableRow
             key={`${student.id}`}
             onClick={() => {
-              router.push(`${routes.compliance.samples}?student_id=${student.user.id}&learning_period_id=${currentLearningPeriodId}`);
+              router.push(
+                `${routes.compliance.samples}?student_id=${
+                  student.user.id
+                }&learning_period_id=${currentLearningPeriodId}&name=${getUserName(
+                  student.user
+                )}`
+              );
             }}
           >
             <TableCell>{getUserName(student.user)}</TableCell>

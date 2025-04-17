@@ -10,7 +10,7 @@ interface LearningPeriodFilterProps {
 }
 
 export const LearningPeriodFilter = ({
-  availablePeriods,
+  availablePeriods = [],
   slug = DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID,
 }: LearningPeriodFilterProps) => {
   const mergedPeriods = mergeLearningPeriods(availablePeriods);
@@ -21,7 +21,7 @@ export const LearningPeriodFilter = ({
       slug={slug}
       options={mergedPeriods.map((period) => ({
         label: period.name,
-        value: period.id,
+        value: period.id.toString(),
         start_date: period.start_date,
         end_date: period.end_date,
       }))}

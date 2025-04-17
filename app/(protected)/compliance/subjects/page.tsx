@@ -1,4 +1,3 @@
-import { SubjectsTable } from '@/components/subjects-table';
 
 export default function SubjectsPage() {
   return (
@@ -8,7 +7,6 @@ export default function SubjectsPage() {
         <p className="text-muted-foreground">Review and approve subject assignments</p>
       </div>
 
-      <SubjectsTable />
     </div>
   );
 }
