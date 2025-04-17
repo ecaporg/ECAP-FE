@@ -10,7 +10,7 @@ import {
 import { routes } from '@/constants/routes';
 import { AssignmentPeriod, Sample, Student } from '@/types';
 import { getUserName } from '@/utils';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface StudentWithSamples extends Student {
   samples: Sample[];
@@ -18,6 +18,7 @@ interface StudentWithSamples extends Student {
 
 interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
+  currentLearningPeriodId: string;
 }
 
 export const SamplesTable = ({ assignments }: StudentsTableProps) => {
@@ -73,11 +74,9 @@ const getProgressValue = (student: StudentWithSamples) => {
   ).toFixed(2);
 };
 
-export const StudentsTable = ({ assignments }: StudentsTableProps) => {
+export const StudentsTable = ({ assignments, currentLearningPeriodId }: StudentsTableProps) => {
   let students: StudentWithSamples[] = [];
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const learningPeriodId = searchParams.get('learning_period_id');
   
   if (assignments) {
     students =
@@ -106,13 +105,14 @@ export const StudentsTable = ({ assignments }: StudentsTableProps) => {
       </TableHeader>
       <TableBody>
         {students.map((student) => (
-          <TableRow key={`${student.user.id}+${student.track.id}`}
+          <TableRow 
+            key={`${student.id}`}
             onClick={() => {
-              router.push(`${routes.compliance.samples}?student_id=${student.user.id}&learning_period_id=${student.track.id}`);
+              router.push(`${routes.compliance.samples}?student_id=${student.user.id}&learning_period_id=${currentLearningPeriodId}`);
             }}
           >
             <TableCell>{getUserName(student.user)}</TableCell>
-            <TableCell>{student.user.id}</TableCell>
+            <TableCell>{student.id}</TableCell>
             <TableCell>{student.school?.name}</TableCell>
             <TableCell>{student.academy?.name}</TableCell>
             <TableCell>{student.track?.name}</TableCell>

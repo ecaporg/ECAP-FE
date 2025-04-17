@@ -62,7 +62,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
         completedString="5/50 students completed"
         status="In Progress"
       />
-      <StudentsTable assignments={assignment?.data} />
+      <StudentsTable assignments={assignment?.data} currentLearningPeriodId={param.learning_period_id} />
     </>
   );
 };
@@ -87,7 +87,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
         completedString="5/50 samples completed"
         status="In Progress"
       />
-      <SamplesTable assignments={samples} />
+      <SamplesTable assignments={samples} currentLearningPeriodId={param.learning_period_id} />
     </>
   );
 };
