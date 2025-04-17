@@ -1,7 +1,7 @@
-import { GenericEntity } from './shared';
-import { Admin, Director, Teacher } from './staff';
-import { Sample, Student } from './student';
-import { Subject, Track, TrackLearningPeriod } from './track';
+import { GenericEntity } from "./shared";
+import { Admin, Director, Teacher } from "./staff";
+import { Sample, Student } from "./student";
+import { Track, TrackLearningPeriod } from "./track";
 
 export type Tenant = GenericEntity & {
   name: string;
@@ -17,15 +17,18 @@ export type Tenant = GenericEntity & {
 
 export type Academy = GenericEntity & {
   name: string;
+  tenant_id: number;
   tenant: Tenant;
 };
 
-export type Semester = {
+export type Semester = GenericEntity & {
   school_id: number;
   name: string;
   start_date: Date;
   end_date: Date;
   school: School;
+  academic_year_id: number;
+  academic_year: AcademicYear;
 };
 
 export type School = GenericEntity & {
@@ -42,6 +45,8 @@ export type School = GenericEntity & {
   teachers: Teacher[];
 
   directors: Director[];
+
+  assignments: Assignment[];
 };
 
 export type AcademicYear = GenericEntity & {
@@ -61,15 +66,11 @@ export type Assignment = GenericEntity & {
 
   teacher_id: number;
 
-  subject_id: number;
-
   academic_year_id: number;
 
   school: School;
 
   teacher: Teacher;
-
-  subject: Subject;
 
   academic_year: AcademicYear;
 

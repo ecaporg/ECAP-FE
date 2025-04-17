@@ -1,5 +1,5 @@
 export type GenericEntity = DatedEntity & {
-  id: string;
+  id: number;
 };
 
 export type DatedEntity = {

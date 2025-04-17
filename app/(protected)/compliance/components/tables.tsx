@@ -23,11 +23,10 @@ interface StudentsTableProps {
 
 export const SamplesTable = ({ assignments }: StudentsTableProps) => {
 
-  const samples = assignments?.flatMap((assignment) => assignment.samples.map((sample) => {
-    return {
-      ...sample,
-      subject: assignment.assignment.subject,
-    }
+  const tableRows = assignments?.map(assignment =>( {
+    sample_1: assignment.samples[0],
+    sample_2: assignment.samples[1],
+    subject: assignment.assignment.subject,
   })) ?? [];
   
   return (
@@ -36,22 +35,32 @@ export const SamplesTable = ({ assignments }: StudentsTableProps) => {
         <TableRow>
           <TableHead>Subject</TableHead>
           <TableHead>Assignment Title</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead>Sample Status</TableHead>
+          <TableHead>Action</TableHead>
+          <TableHead>Done By</TableHead>
+          <TableHead>Assignment Title</TableHead>
+          <TableHead>Sample Status</TableHead>
+          <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {samples.map((sample) => (
-          <TableRow key={`${sample.id}`}>
-            <TableCell>{sample.subject.name}</TableCell>
-            <TableCell>{sample.assignment_title}</TableCell>
-            <TableCell>{sample.status}</TableCell>
-            <TableCell>{sample.done_by_teacher.user.email}</TableCell>
+        {tableRows.map((row) => (
+          <TableRow key={`${row.sample_1.id}`}>
+            <TableCell>{row.subject.name}</TableCell>
+            <TableCell>{row.sample_1.assignment_title}</TableCell>
+            <TableCell>{row.sample_1.status}</TableCell>
+            <TableCell>Action</TableCell>
+            <TableCell>{row.sample_1.done_by_teacher.user.email}</TableCell>
+            <TableCell>{row.sample_2?.assignment_title}</TableCell>
+            <TableCell>{row.sample_2?.status}</TableCell>
+            <TableCell>Action</TableCell>
+            <TableCell>{row.sample_2?.done_by_teacher?.user.email}</TableCell>
           </TableRow>
         ))}
-        {samples.length === 0 && (
+        {tableRows.length === 0 && (
           <TableRow>
-            <TableCell colSpan={4} className="text-center">
+            <TableCell colSpan={9} className="text-center">
               No samples found
             </TableCell>
           </TableRow>
