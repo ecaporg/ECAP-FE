@@ -1,8 +1,8 @@
-import { Subject, Track, TrackLearningPeriod } from "./track";
-import { Academy, AssignmentPeriod, School } from "./school";
-import { User } from "./user";
-import { Teacher } from "./staff";
-import { GenericEntity } from "./shared";
+import { Subject, Track, TrackLearningPeriod } from './track';
+import { Academy, AssignmentPeriod, School } from './school';
+import { User } from './user';
+import { Teacher } from './staff';
+import { GenericEntity } from './shared';
 
 export type Student = GenericEntity & {
   school_id: number;
@@ -17,9 +17,17 @@ export type Student = GenericEntity & {
   assignment_periods: AssignmentPeriod[];
 };
 
+export type SampleStatus =
+  | 'COMPLETED'
+  | 'FLAGGED_TO_ADMIN'
+  | 'PENDING'
+  | 'ERRORS_FOUND'
+  | 'MISSING_SAMPLE'
+  | 'REASON_REJECTED';
+
 export type Sample = GenericEntity & {
   assignment_title: string;
-  status: string;
+  status: SampleStatus;
   user_id: number | null;
   school_id: number | null;
   assignment_period_id: number;

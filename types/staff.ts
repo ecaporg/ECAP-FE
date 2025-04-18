@@ -1,7 +1,7 @@
-import { Academy, School, Tenant } from "./school";
-import { Sample } from "./student";
-import { User } from "./user";
-import { GenericEntity } from "./shared";
+import { Academy, School, Tenant } from './school';
+import { Sample } from './student';
+import { User } from './user';
+import { GenericEntity } from './shared';
 
 export type Staff = GenericEntity & {
   user_id: number;

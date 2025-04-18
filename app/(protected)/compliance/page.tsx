@@ -1,14 +1,11 @@
-import { getComplianceTeacherFilter } from "@/lib/compliance";
-import {
-  StudentsSection,
-  type SectionWithTableProps,
-} from "./components/sections";
-import { TeacherFilters } from "./components/filters";
+import { getComplianceTeacherFilter } from '@/lib/compliance';
+import { StudentsSection, type SectionWithTableProps } from './components/sections';
+import { TeacherFilters } from './components/filters';
 
 export default async function CompliancePage({
   searchParams,
 }: {
-  searchParams: Promise<SectionWithTableProps["param"]>;
+  searchParams: Promise<SectionWithTableProps['param']>;
 }) {
   const tenant = await getComplianceTeacherFilter();
 

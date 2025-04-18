@@ -14,7 +14,7 @@ import { Label } from '../ui/label';
 import { useDebounce } from 'use-debounce';
 import { ScrollArea } from '../ui/scroll-area';
 
-interface FilterProps {
+export interface FilterProps {
   multiple?: boolean;
   hasSearch?: boolean;
   options: { label: string; value: string }[];

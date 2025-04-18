@@ -5,9 +5,9 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "@/components/ui/table";
-import { Skeleton } from "../ui/skeleton";
-import { cn } from "@/utils";
+} from '@/components/ui/table';
+import { Skeleton } from '../ui/skeleton';
+import { cn } from '@/utils';
 interface LoadingTableProps {
   columns: number;
   rows?: number;
@@ -72,9 +72,9 @@ export const LoadingPagination = () => {
 export const LoadingFilters = ({
   filters = 3,
   className,
-}: Pick<LoadingTableProps, "filters"> & { className?: string }) => {
+}: Pick<LoadingTableProps, 'filters'> & { className?: string }) => {
   return (
-    <section className={cn("flex flex-wrap gap-4 pt-9 pb-8", className)}>
+    <section className={cn('flex flex-wrap gap-4 pt-9 pb-8', className)}>
       {Array.from({ length: filters }).map((_, index) => (
         <Skeleton key={`skeleton-filter-${index}`} className="w-24 h-12" />
       ))}
@@ -82,10 +82,7 @@ export const LoadingFilters = ({
   );
 };
 
-export const LoadingTableSection = ({
-  columns,
-  rows,
-}: Omit<LoadingTableProps, "filters">) => {
+export const LoadingTableSection = ({ columns, rows }: Omit<LoadingTableProps, 'filters'>) => {
   return (
     <>
       <LoadingPagination />
@@ -94,11 +91,7 @@ export const LoadingTableSection = ({
   );
 };
 
-export const LoadingTableSectionWithFilters = ({
-  columns,
-  rows,
-  filters,
-}: LoadingTableProps) => {
+export const LoadingTableSectionWithFilters = ({ columns, rows, filters }: LoadingTableProps) => {
   return (
     <>
       <LoadingFilters filters={filters} />

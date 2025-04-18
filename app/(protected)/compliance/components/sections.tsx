@@ -1,22 +1,19 @@
-import { PaginationSection } from "@/components/table/pagination-section";
-import {
-  getComplianceStudents,
-  getComplianceStudentSamples,
-} from "@/lib/compliance";
-import { Sample, Tenant } from "@/types";
-import { assignDefaultLearningPeriod, getDueDate } from "@/utils";
-import { Suspense } from "react";
+import { PaginationSection } from '@/components/table/pagination-section';
+import { getComplianceStudents, getComplianceStudentSamples } from '@/lib/compliance';
+import { Sample, Tenant } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate } from '@/utils';
+import { Suspense } from 'react';
 import {
   LoadingFilters,
   LoadingTable,
   LoadingTableSection,
   LoadingTableSectionWithFilters,
-} from "@/components/table/loading";
-import { SamplesTable, StudentsTable } from "./tables";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { routes } from "@/constants/routes";
-import { redirect } from "next/navigation";
-import { SamplesFilters } from "./filters";
+} from '@/components/table/loading';
+import { SamplesTable, StudentsTable } from './tables';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
+import { redirect } from 'next/navigation';
+import { SamplesFilters } from './filters';
 
 export interface SectionWithTableProps {
   param: {
@@ -57,9 +54,7 @@ export const SamplesSection = (props: SectionWithTableProps) => {
 
 const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
-  const assignment = await getComplianceStudents(
-    new URLSearchParams(param as any).toString()
-  );
+  const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
 
   const totalPages = assignment?.meta?.totalPages ?? 0;
 
@@ -73,7 +68,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${(assignment?.meta as any)?.completedCount} / ${
           assignment?.meta?.totalItems
@@ -104,13 +99,9 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap(
-    (assignment) => assignment.samples
-  );
+  const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
 
-  const completeCount = samples?.filter(
-    (sample) => sample.done_by_teacher
-  ).length;
+  const completeCount = samples?.filter((sample) => sample.done_by_teacher).length;
 
   return (
     <>
@@ -122,7 +113,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
       />
       <PaginationSection
         totalPages={0}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completeCount} / ${samples?.length} Samples completed`}
         status="In Progress"

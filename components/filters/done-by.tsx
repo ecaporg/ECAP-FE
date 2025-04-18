@@ -1,7 +1,7 @@
-import { Teacher } from "@/types";
-import { BaseFilter } from "./base";
-import { getUserName } from "@/utils";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { Teacher } from '@/types';
+import { BaseFilter } from './base';
+import { getUserName } from '@/utils';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 
 interface DoneByFilterProps {
   availableUsers: Teacher[];

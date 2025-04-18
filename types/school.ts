@@ -1,7 +1,7 @@
-import { GenericEntity } from "./shared";
-import { Admin, Director, Teacher } from "./staff";
-import { Sample, Student } from "./student";
-import { Track, TrackLearningPeriod } from "./track";
+import { GenericEntity } from './shared';
+import { Admin, Director, Teacher } from './staff';
+import { Sample, Student } from './student';
+import { Track, TrackLearningPeriod } from './track';
 
 export type Tenant = GenericEntity & {
   name: string;

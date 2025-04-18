@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableHeader,
@@ -6,11 +6,11 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "@/components/ui/table";
-import { routes } from "@/constants/routes";
-import { AssignmentPeriod, Sample, Student } from "@/types";
-import { getUserName } from "@/utils";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/table';
+import { routes } from '@/constants/routes';
+import { AssignmentPeriod, Sample, Student } from '@/types';
+import { getUserName } from '@/utils';
+import { useRouter } from 'next/navigation';
 
 interface StudentWithSamples extends Student {
   samples: Sample[];
@@ -25,14 +25,17 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
   const tableRows = Object.entries(
     assignments
       ?.flatMap(({ samples }) => samples)
-      .reduce((acc, sample) => {
-        if (acc[sample.subject_id]) {
-          acc[sample.subject_id].push(sample);
-        } else {
-          acc[sample.subject_id] = [sample];
-        }
-        return acc;
-      }, {} as Record<number, Sample[]>)
+      .reduce(
+        (acc, sample) => {
+          if (acc[sample.subject_id]) {
+            acc[sample.subject_id].push(sample);
+          } else {
+            acc[sample.subject_id] = [sample];
+          }
+          return acc;
+        },
+        {} as Record<number, Sample[]>
+      )
   ).map(([_, samples]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -85,24 +88,19 @@ const getProgressValue = (student: StudentWithSamples) => {
     return 0;
   }
   return (
-    (student.samples.filter(
-      (sample) => sample.status.toLowerCase() == "completed"
-    ).length /
+    (student.samples.filter((sample) => sample.status.toLowerCase() == 'completed').length /
       student.samples.length) *
     100
   ).toFixed(2);
 };
 
-export const StudentsTable = ({
-  assignments = [],
-  currentLearningPeriodId,
-}: TableProps) => {
+export const StudentsTable = ({ assignments = [], currentLearningPeriodId }: TableProps) => {
   let students: StudentWithSamples[] = assignments.map(
     (assignment) =>
       ({
         ...assignment.student,
         samples: assignment.samples,
-      } as StudentWithSamples)
+      }) as StudentWithSamples
   );
 
   const router = useRouter();
@@ -129,9 +127,7 @@ export const StudentsTable = ({
               router.push(
                 `${routes.compliance.samples}?student_id=${
                   student.user.id
-                }&learning_period_id=${currentLearningPeriodId}&name=${getUserName(
-                  student.user
-                )}`
+                }&learning_period_id=${currentLearningPeriodId}&name=${getUserName(student.user)}`
               );
             }}
           >

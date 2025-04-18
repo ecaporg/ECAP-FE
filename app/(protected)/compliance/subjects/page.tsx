@@ -1,4 +1,3 @@
-
 export default function SubjectsPage() {
   return (
     <div className="space-y-6">
@@ -6,7 +5,6 @@ export default function SubjectsPage() {
         <h1 className="text-3xl font-bold tracking-tight">Subject Management</h1>
         <p className="text-muted-foreground">Review and approve subject assignments</p>
       </div>
-
     </div>
   );
 }
