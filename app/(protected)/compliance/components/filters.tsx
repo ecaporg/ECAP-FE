@@ -66,8 +66,8 @@ export function SamplesFilters({ tenant, samples, student, defaultName }: Sample
           } as Student)
         }
       />
-      <LearningPeriodFilter availablePeriods={tenant ? getLearningPeriodFromTenant(tenant) : []} />
-      <SampleStatusFilter samples={samples} />
+      <LearningPeriodFilter availablePeriods={getLearningPeriodFromTenant(tenant)} />
+      <SampleStatusFilter />
       <DoneByFilter
         availableUsers={samples
           .map((sample) => sample.done_by_teacher)

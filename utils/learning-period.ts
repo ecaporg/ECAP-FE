@@ -50,7 +50,7 @@ export const mergeLearningPeriods = (learningPeriods: TrackLearningPeriod[]) => 
 
 export const assignDefaultLearningPeriod = (
   tenant: Tenant,
-  param: { [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string }
+  param: { [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string | number }
 ) => {
   const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant));
   if (!param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]) {

@@ -4,7 +4,6 @@ import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { SAMPLE_STATUS } from '@/constants/sample';
 interface SampleStatusFilterProps {
   slug?: string;
-  samples: Sample[];
 }
 
 const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS).map(([key, value]) => ({

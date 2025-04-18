@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Table,
   TableHeader,
@@ -6,36 +6,35 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from '@/components/ui/table';
-import { routes } from '@/constants/routes';
-import { AssignmentPeriod, Sample, Student } from '@/types';
-import { getUserName } from '@/utils';
-import { useRouter } from 'next/navigation';
-
-interface StudentWithSamples extends Student {
-  samples: Sample[];
-}
+} from "@/components/ui/table";
+import { routes } from "@/constants/routes";
+import {
+  AssignmentPeriod,
+  TrackLearningPeriod,
+  Sample,
+  Student,
+} from "@/types";
+import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
+import { useRouter } from "next/navigation";
+import { CompletionStatusForTable, SapmleStatus } from "./statuses";
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
-  currentLearningPeriodId: string;
+  currentLearningPeriod: TrackLearningPeriod;
 }
 
 export const SamplesTable = ({ assignments = [] }: TableProps) => {
   const tableRows = Object.entries(
     assignments
       ?.flatMap(({ samples }) => samples)
-      .reduce(
-        (acc, sample) => {
-          if (acc[sample.subject_id]) {
-            acc[sample.subject_id].push(sample);
-          } else {
-            acc[sample.subject_id] = [sample];
-          }
-          return acc;
-        },
-        {} as Record<number, Sample[]>
-      )
+      .reduce((acc, sample) => {
+        if (acc[sample.subject_id]) {
+          acc[sample.subject_id].push(sample);
+        } else {
+          acc[sample.subject_id] = [sample];
+        }
+        return acc;
+      }, {} as Record<number, Sample[]>)
   ).map(([_, samples]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -62,11 +61,15 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
           <TableRow key={`${row.sample_1.id}`}>
             <TableCell>{row.subject.name}</TableCell>
             <TableCell>{row.sample_1.assignment_title}</TableCell>
-            <TableCell>{row.sample_1.status}</TableCell>
+            <TableCell>
+              <SapmleStatus status={row.sample_1.status || null} />
+            </TableCell>
             <TableCell>Action</TableCell>
             <TableCell>{row.sample_1.done_by_teacher?.user?.email}</TableCell>
             <TableCell>{row.sample_2?.assignment_title}</TableCell>
-            <TableCell>{row.sample_2?.status}</TableCell>
+            <TableCell>
+              <SapmleStatus status={row.sample_2?.status || null} />
+            </TableCell>
             <TableCell>Action</TableCell>
             <TableCell>{row.sample_2?.done_by_teacher?.user?.email}</TableCell>
           </TableRow>
@@ -83,27 +86,23 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
   );
 };
 
-const getProgressValue = (student: StudentWithSamples) => {
-  if (student.samples.length === 0) {
-    return 0;
-  }
-  return (
-    (student.samples.filter((sample) => sample.status.toLowerCase() == 'completed').length /
-      student.samples.length) *
-    100
-  ).toFixed(2);
-};
-
-export const StudentsTable = ({ assignments = [], currentLearningPeriodId }: TableProps) => {
-  let students: StudentWithSamples[] = assignments.map(
-    (assignment) =>
-      ({
-        ...assignment.student,
-        samples: assignment.samples,
-      }) as StudentWithSamples
-  );
-
+export const StudentsTable = ({
+  assignments = [],
+  currentLearningPeriod,
+}: TableProps) => {
   const router = useRouter();
+
+  const handleClick = (student: Student) => {
+    return () => {
+      router.push(
+        `${routes.compliance.samples}?student_id=${
+          student.user.id
+        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
+          student.user
+        )}`
+      );
+    };
+  };
 
   return (
     <Table>
@@ -120,28 +119,26 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriodId }: Tab
         </TableRow>
       </TableHeader>
       <TableBody>
-        {students.map((student) => (
+        {assignments.map((assignment) => (
           <TableRow
-            key={`${student.id}`}
-            onClick={() => {
-              router.push(
-                `${routes.compliance.samples}?student_id=${
-                  student.user.id
-                }&learning_period_id=${currentLearningPeriodId}&name=${getUserName(student.user)}`
-              );
-            }}
+            key={`${assignment.student.id}-${currentLearningPeriod.id}`}
+            onClick={handleClick(assignment.student)}
           >
-            <TableCell>{getUserName(student.user)}</TableCell>
-            <TableCell>{student.id}</TableCell>
-            <TableCell>{student.school?.name}</TableCell>
-            <TableCell>{student.academy?.name}</TableCell>
-            <TableCell>{student.track?.name}</TableCell>
-            <TableCell>{student.grade}</TableCell>
-            <TableCell>In Progress</TableCell>
-            <TableCell>{getProgressValue(student)}%</TableCell>
+            <TableCell>{getUserName(assignment.student.user)}</TableCell>
+            <TableCell>{assignment.student.id}</TableCell>
+            <TableCell>{assignment.student.school?.name}</TableCell>
+            <TableCell>{assignment.student.academy?.name}</TableCell>
+            <TableCell>{assignment.student.track?.name}</TableCell>
+            <TableCell>{assignment.student.grade}</TableCell>
+            <TableCell>
+              <CompletionStatusForTable
+                variant={getCompletionStatus(assignment, currentLearningPeriod)}
+              />
+            </TableCell>
+            <TableCell>{getProgressValue(assignment)}%</TableCell>
           </TableRow>
         ))}
-        {students.length === 0 && (
+        {assignments.length === 0 && (
           <TableRow>
             <TableCell colSpan={8} className="text-center">
               No students found

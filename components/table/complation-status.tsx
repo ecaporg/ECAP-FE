@@ -1,33 +1,41 @@
-import { type VariantProps, cva } from 'class-variance-authority';
-import type * as React from 'react';
+import { type VariantProps, cva } from "class-variance-authority";
+import type * as React from "react";
 
-import { cn } from '@/utils';
-
-const className = 'bg-su';
+import { cn } from "@/utils";
 
 const statusVariants = cva(
-  'text-center content-center w-[7.5rem] h-12 text-lg rounded-[3.125rem]',
+  "text-center content-center w-[7.5rem] h-12 text-lg rounded-[3.125rem]",
   {
     variants: {
       variant: {
-        Complete: 'bg-success text-success-foreground',
-        Overdue: 'bg-red-light text-red-accent',
-        Pending: 'bg-amber-light text-amber-pending',
-        'In Progress': 'bg-primary-light text-primary',
+        Complete: "bg-success text-success-foreground",
+        Overdue: "bg-red-light text-red-accent",
+        Pending: "bg-amber-light text-amber-pending",
+        "In Progress": "bg-primary-light text-primary",
       },
     },
     defaultVariants: {
-      variant: 'Complete',
+      variant: "Complete",
     },
   }
 );
 
-export interface CompationStatusProps
+export interface CompletionStatusProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof statusVariants> {}
 
-function CompationStatus({ className, variant, ...props }: CompationStatusProps) {
-  return <p className={cn(statusVariants({ variant }), className)} {...props} children={variant} />;
+function CompletionStatus({
+  className,
+  variant,
+  ...props
+}: CompletionStatusProps) {
+  return (
+    <p
+      className={cn(statusVariants({ variant }), className)}
+      children={variant}
+      {...props}
+    />
+  );
 }
 
-export { CompationStatus, statusVariants };
+export { CompletionStatus, statusVariants };

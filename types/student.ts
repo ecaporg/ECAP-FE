@@ -1,4 +1,4 @@
-import { Subject, Track, TrackLearningPeriod } from './track';
+import { Subject, Track } from './track';
 import { Academy, AssignmentPeriod, School } from './school';
 import { User } from './user';
 import { Teacher } from './staff';
@@ -17,13 +17,14 @@ export type Student = GenericEntity & {
   assignment_periods: AssignmentPeriod[];
 };
 
-export type SampleStatus =
-  | 'COMPLETED'
-  | 'FLAGGED_TO_ADMIN'
-  | 'PENDING'
-  | 'ERRORS_FOUND'
-  | 'MISSING_SAMPLE'
-  | 'REASON_REJECTED';
+export enum SampleStatus {
+  COMPLETED = 'COMPLETED',
+  FLAGGED_TO_ADMIN = 'FLAGGED_TO_ADMIN',
+  PENDING = 'PENDING',
+  ERRORS_FOUND = 'ERRORS_FOUND',
+  MISSING_SAMPLE = 'MISSING_SAMPLE',
+  REASON_REJECTED = 'REASON_REJECTED',
+}
 
 export type Sample = GenericEntity & {
   assignment_title: string;

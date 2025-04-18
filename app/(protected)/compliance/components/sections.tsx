@@ -1,14 +1,9 @@
 import { PaginationSection } from '@/components/table/pagination-section';
 import { getComplianceStudents, getComplianceStudentSamples } from '@/lib/compliance';
-import { Sample, Tenant } from '@/types';
+import { Tenant, TrackLearningPeriod } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate } from '@/utils';
 import { Suspense } from 'react';
-import {
-  LoadingFilters,
-  LoadingTable,
-  LoadingTableSection,
-  LoadingTableSectionWithFilters,
-} from '@/components/table/loading';
+import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
 import { SamplesTable, StudentsTable } from './tables';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
@@ -77,7 +72,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
       />
       <StudentsTable
         assignments={assignment?.data}
-        currentLearningPeriodId={param.learning_period_id}
+        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
       />
     </>
   );
@@ -120,7 +115,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
       />
       <SamplesTable
         assignments={assignmentPeriods.data}
-        currentLearningPeriodId={param.learning_period_id}
+        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
       />
     </>
   );

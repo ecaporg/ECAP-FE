@@ -2,7 +2,7 @@
 import React from 'react';
 import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { CompationStatus, CompationStatusProps } from './complation-status';
+import { CompletionStatus, CompletionStatusProps } from './complation-status';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { buttonVariants } from '../ui/button';
 import { cn } from '@/utils';
@@ -12,7 +12,7 @@ interface PaginationSectionProps {
   learningPeriod: string;
   dueDate: string;
   completedString: string;
-  status: CompationStatusProps['variant'];
+  status: CompletionStatusProps['variant'];
 }
 
 export const PAGE_KEY = 'page';
@@ -74,7 +74,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
       </Pagination>
 
       <div className="flex items-center gap-4 order-3">
-        <CompationStatus variant={status} />
+        <CompletionStatus variant={status} />
         <div className="text-base text-neutral-black">
           <b>{completedString}</b>
           <br />
