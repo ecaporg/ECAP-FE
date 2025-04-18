@@ -90,5 +90,5 @@ export async function apiFetch<T = any, D = undefined>(
     }
   }
 
-  return executeFetch();
+  return executeFetch() as Promise<ApiResponse<T, D>>;
 }

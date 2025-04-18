@@ -1,23 +1,19 @@
-import { Academy, School, Tenant } from './school';
-import { Sample } from './student';
-import { User } from './user';
-import { GenericEntity } from './shared';
+import { Academy, School, Tenant, Assignment } from "./school";
+import { User } from "./user";
+import { DatedEntity } from "./shared";
 
-export type Staff = GenericEntity & {
-  user_id: number;
+export type Staff = DatedEntity & {
+  id: number;
   user: User;
 };
 
 export type Teacher = Staff & {
-  school_id: number;
-  school: School;
-  samples: Sample[];
+  assignments: Assignment[];
 };
 
 export type Director = Staff & {
   school_id: number;
   academy_id: number;
-  user: User;
   school: School;
   academy: Academy;
 };

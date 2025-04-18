@@ -34,7 +34,7 @@ export function TeacherFilters({ tenant }: FilterProps) {
         slug="search"
         options={[{ label: 'test', value: 'test' }]}
       />
-      <SchoolFilter availableSchools={tenant.schools} />
+      <SchoolFilter availableSchools={tenant.schools} slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID} />
       <AcademyFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
         availableAcademies={tenant.academies}

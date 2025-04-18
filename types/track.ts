@@ -1,16 +1,15 @@
-import { Assignment, AcademicYear, Tenant } from './school';
-import { GenericEntity } from './shared';
-import { Sample, Student } from './student';
+import { Assignment, AcademicYear, Tenant, AssignmentPeriod } from "./school";
+import { GenericEntity } from "./shared";
+import { Sample, Student } from "./student";
 
 export type Subject = GenericEntity & {
   track_id: number;
   name: string;
   track: Track;
-  assignments: Assignment[];
   samples: Sample[];
 };
 
-export type TrackCalendar = GenericEntity & {
+export type TrackCalendar = {
   track_id: number;
   date: Date;
   type: string;
@@ -22,10 +21,10 @@ export type TrackLearningPeriod = GenericEntity & {
   name: string;
   start_date: Date;
   end_date: Date;
-  samples: Sample[];
   track: Track;
   academic_year_id: number;
-  academic_year: AcademicYear;
+  academicYear: AcademicYear;
+  assignment_periods: AssignmentPeriod[];
 };
 
 export type Track = GenericEntity & {
