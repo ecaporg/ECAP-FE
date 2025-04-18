@@ -1,7 +1,7 @@
-import { Subject, Track } from "./track";
-import { Academy, AssignmentPeriod, School } from "./school";
-import { User } from "./user";
-import { GenericEntity, DatedEntity } from "./shared";
+import { Subject, Track } from './track';
+import { Academy, AssignmentPeriod, School } from './school';
+import { User } from './user';
+import { GenericEntity, DatedEntity } from './shared';
 
 export type Student = DatedEntity & {
   id: number;
@@ -17,12 +17,12 @@ export type Student = DatedEntity & {
 };
 
 export enum SampleStatus {
-  COMPLETED = "COMPLETED",
-  FLAGGED_TO_ADMIN = "FLAGGED_TO_ADMIN",
-  PENDING = "PENDING",
-  ERRORS_FOUND = "ERRORS_FOUND",
-  MISSING_SAMPLE = "MISSING_SAMPLE",
-  REASON_REJECTED = "REASON_REJECTED",
+  COMPLETED = 'COMPLETED',
+  FLAGGED_TO_ADMIN = 'FLAGGED_TO_ADMIN',
+  PENDING = 'PENDING',
+  ERRORS_FOUND = 'ERRORS_FOUND',
+  MISSING_SAMPLE = 'MISSING_SAMPLE',
+  REASON_REJECTED = 'REASON_REJECTED',
 }
 
 export type Sample = GenericEntity & {

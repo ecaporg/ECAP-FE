@@ -1,6 +1,6 @@
-import { GenericEntity } from "./shared";
+import { GenericEntity } from './shared';
 
-export type Role = "TEACHER" | "DIRECTOR" | "ADMIN" | "SUPER_ADMIN" | "STUDENT";
+export type Role = 'TEACHER' | 'DIRECTOR' | 'ADMIN' | 'SUPER_ADMIN' | 'STUDENT';
 
 export type User = GenericEntity & {
   email: string;

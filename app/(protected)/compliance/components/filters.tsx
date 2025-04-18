@@ -34,7 +34,10 @@ export function TeacherFilters({ tenant }: FilterProps) {
         slug="search"
         options={[{ label: 'test', value: 'test' }]}
       />
-      <SchoolFilter availableSchools={tenant.schools} slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID} />
+      <SchoolFilter
+        availableSchools={tenant.schools}
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID}
+      />
       <AcademyFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
         availableAcademies={tenant.academies}
@@ -67,11 +70,10 @@ export function SamplesFilters({ tenant, samples, student, defaultName }: Sample
         }
       />
       <LearningPeriodFilter availablePeriods={getLearningPeriodFromTenant(tenant)} />
-      <SampleStatusFilter />
+      <SampleStatusFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS} />
       <DoneByFilter
-        availableUsers={samples
-          .map((sample) => sample.done_by_teacher)
-          .filter((teacher) => teacher !== null)}
+        availableUsers={samples.map((sample) => sample.done_by).filter((user) => user !== null)}
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
       />
     </FilterWrapper>
   );

@@ -96,7 +96,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
 
-  const completeCount = samples?.filter((sample) => sample.done_by_teacher).length;
+  const completeCount = samples?.filter((sample) => sample.done_by).length;
 
   return (
     <>

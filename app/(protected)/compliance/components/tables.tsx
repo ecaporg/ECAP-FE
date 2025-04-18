@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableHeader,
@@ -6,17 +6,12 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "@/components/ui/table";
-import { routes } from "@/constants/routes";
-import {
-  AssignmentPeriod,
-  TrackLearningPeriod,
-  Sample,
-  Student,
-} from "@/types";
-import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { useRouter } from "next/navigation";
-import { CompletionStatusForTable, SapmleStatus } from "./statuses";
+} from '@/components/ui/table';
+import { routes } from '@/constants/routes';
+import { AssignmentPeriod, TrackLearningPeriod, Sample, Student } from '@/types';
+import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { CompletionStatusForTable, SapmleStatus } from './statuses';
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
@@ -27,14 +22,17 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
   const tableRows = Object.entries(
     assignments
       ?.flatMap(({ samples }) => samples)
-      .reduce((acc, sample) => {
-        if (acc[sample.subject_id]) {
-          acc[sample.subject_id].push(sample);
-        } else {
-          acc[sample.subject_id] = [sample];
-        }
-        return acc;
-      }, {} as Record<number, Sample[]>)
+      .reduce(
+        (acc, sample) => {
+          if (acc[sample.subject_id]) {
+            acc[sample.subject_id].push(sample);
+          } else {
+            acc[sample.subject_id] = [sample];
+          }
+          return acc;
+        },
+        {} as Record<number, Sample[]>
+      )
   ).map(([_, samples]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -86,10 +84,7 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
   );
 };
 
-export const StudentsTable = ({
-  assignments = [],
-  currentLearningPeriod,
-}: TableProps) => {
+export const StudentsTable = ({ assignments = [], currentLearningPeriod }: TableProps) => {
   const router = useRouter();
 
   const handleClick = (student: Student) => {
@@ -97,9 +92,7 @@ export const StudentsTable = ({
       router.push(
         `${routes.compliance.samples}?student_id=${
           student.user.id
-        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
-          student.user
-        )}`
+        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(student.user)}`
       );
     };
   };

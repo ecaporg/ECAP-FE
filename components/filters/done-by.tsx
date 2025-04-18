@@ -1,10 +1,10 @@
-import { Teacher } from '@/types';
+import { Teacher, User } from '@/types';
 import { BaseFilter } from './base';
 import { getUserName } from '@/utils';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 
 interface DoneByFilterProps {
-  availableUsers: Teacher[];
+  availableUsers: User[];
   slug?: string;
 }
 
@@ -13,8 +13,8 @@ export function DoneByFilter({
   slug = DEFAULT_FILTERS_KEYS.DONE_BY,
 }: DoneByFilterProps) {
   const map = new Map();
-  availableUsers.forEach((teacher) => {
-    map.set(teacher.user_id, getUserName(teacher.user));
+  availableUsers.forEach((user) => {
+    map.set(user.id, getUserName(user));
   });
   const options = Array.from(map.entries()).map(([key, value]) => ({
     label: value,

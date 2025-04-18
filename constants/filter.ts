@@ -18,6 +18,8 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
     TRACK_ID: 'student.track_id',
     GRADE: 'student.grade',
     SCHOOL_ID: 'assignment.school_id',
+    SAMPLE_STATUS: 'samples.status',
+    DONE_BY: 'samples.done_by_id',
   },
   COMPLAIANCE_SAMPLES: {
     // keys here
