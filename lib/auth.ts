@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/auth';
-import { AuthResponse } from '@/types';
+import type { AuthResponse } from '@/types';
 import { cookies } from 'next/headers';
 
 export async function getAuthToken() {

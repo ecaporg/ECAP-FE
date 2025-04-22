@@ -1,11 +1,11 @@
 'use client';
-import React from 'react';
-import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { CompletionStatus, CompletionStatusProps } from './complation-status';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { buttonVariants } from '../ui/button';
 import { cn } from '@/utils';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type React from 'react';
+import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
+import { buttonVariants } from '../ui/button';
+import { CompletionStatus, type CompletionStatusProps } from './complation-status';
 
 interface PaginationSectionProps {
   totalPages: number;

@@ -1,6 +1,6 @@
-import { Track } from '@/types';
-import { BaseFilter } from './base';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import type { Track } from '@/types';
+import { BaseFilter } from './base';
 
 export interface TrackFilterProps {
   availableTracks: Track[];

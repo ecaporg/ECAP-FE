@@ -6,8 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { AlertTriangleIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { AlertTriangleIcon } from 'lucide-react';
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   return (

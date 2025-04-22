@@ -1,6 +1,6 @@
-import { School } from '@/types';
-import { BaseFilter } from './base';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import type { School } from '@/types';
+import { BaseFilter } from './base';
 
 interface SchoolFilterProps {
   availableSchools: School[];

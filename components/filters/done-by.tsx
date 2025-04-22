@@ -1,8 +1,8 @@
-import type { User } from '@/types';
-import { BaseFilter } from './base';
-import { getUserName } from '@/utils';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getUser } from '@/lib/get-user';
+import type { User } from '@/types';
+import { getUserName } from '@/utils';
+import { BaseFilter } from './base';
 interface DoneByFilterProps {
   availableUsers: User[];
   slug?: string;

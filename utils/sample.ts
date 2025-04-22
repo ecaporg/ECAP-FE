@@ -1,6 +1,6 @@
-import { AssignmentPeriod, SampleStatus, TrackLearningPeriod } from '@/types';
+import type { CompletionStatusProps } from '@/components/table/complation-status';
 import { SAMPLE_STATUS } from '@/constants/sample';
-import { CompletionStatusProps } from '@/components/table/complation-status';
+import type { AssignmentPeriod, SampleStatus, TrackLearningPeriod } from '@/types';
 import { getDueDate } from './learning-period';
 
 export const getSampleStatus = (status: SampleStatus) => {

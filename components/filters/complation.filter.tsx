@@ -1,5 +1,5 @@
-import { BaseFilter } from './base';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { BaseFilter } from './base';
 
 const COMPLETION_OPTIONS = [
   { label: 'Complete', value: 'true' },

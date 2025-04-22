@@ -1,6 +1,6 @@
-import { Academy, School, Tenant, Assignment } from './school';
-import { User } from './user';
-import { DatedEntity } from './shared';
+import type { Academy, Assignment, School, Tenant } from './school';
+import type { DatedEntity } from './shared';
+import type { User } from './user';
 
 export type Staff = DatedEntity & {
   id: number;

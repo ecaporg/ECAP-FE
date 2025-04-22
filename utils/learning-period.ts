@@ -1,6 +1,6 @@
-import { CompletionStatusProps } from '@/components/table/complation-status';
+import type { CompletionStatusProps } from '@/components/table/complation-status';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { Tenant, TrackLearningPeriod } from '@/types';
+import type { Tenant, TrackLearningPeriod } from '@/types';
 
 export const getShortLearningPeriodName = (learningPeriod: string) => {
   return learningPeriod

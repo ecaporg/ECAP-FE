@@ -1,7 +1,7 @@
-import { Subject, Track } from './track';
-import { Academy, AssignmentPeriod, School } from './school';
-import { User } from './user';
-import { GenericEntity, DatedEntity } from './shared';
+import type { Academy, AssignmentPeriod, School } from './school';
+import type { DatedEntity, GenericEntity } from './shared';
+import type { Subject, Track } from './track';
+import type { User } from './user';
 
 export type Student = DatedEntity & {
   id: number;

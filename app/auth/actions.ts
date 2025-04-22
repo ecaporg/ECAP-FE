@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/auth';
 import { routes } from '@/constants/routes';
 import { setAuthTokens } from '@/lib/auth';
 import { apiFetch } from '@/lib/fetch';
-import { AuthResponse, SignInDTO } from '@/types';
+import type { AuthResponse, SignInDTO } from '@/types';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

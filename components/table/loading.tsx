@@ -1,13 +1,13 @@
 import {
   Table,
-  TableHeader,
-  TableRow,
-  TableHead,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
-import { Skeleton } from '../ui/skeleton';
 import { cn } from '@/utils';
+import { Skeleton } from '../ui/skeleton';
 interface LoadingTableProps {
   columns: number;
   rows?: number;

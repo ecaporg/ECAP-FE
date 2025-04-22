@@ -1,12 +1,12 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { routes } from '@/constants/routes';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { validationMessages } from '@/utils';
 import { signInAction } from '@/app/auth/actions';
+import { routes } from '@/constants/routes';
+import { validationMessages } from '@/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 export const signInSchema = z.object({
   email: z

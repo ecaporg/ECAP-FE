@@ -1,4 +1,4 @@
-import { SampleStatus } from '@/types';
+import type { SampleStatus } from '@/types';
 
 export const SAMPLE_STATUS: Record<SampleStatus, string> = {
   COMPLETED: 'Complete',

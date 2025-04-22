@@ -1,18 +1,19 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useFilterParam } from '@/hooks/auth/useFilterParam';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { SearchInput } from './search';
-import { useFilterParam } from '@/hooks/auth/useFilterParam';
 import { Label } from '../ui/label';
-import { useDebounce } from 'use-debounce';
 import { ScrollArea } from '../ui/scroll-area';
+import { SearchInput } from './search';
 
 export interface FilterProps {
   multiple?: boolean;

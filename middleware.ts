@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { routes } from './constants/routes';
 import { getAuthToken } from './lib/auth';
 

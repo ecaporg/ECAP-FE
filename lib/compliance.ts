@@ -1,5 +1,5 @@
-import { AssignmentPeriod, Tenant } from '@/types';
-import { apiFetch, ApiResponse } from './fetch';
+import type { AssignmentPeriod, Tenant } from '@/types';
+import { type ApiResponse, apiFetch } from './fetch';
 
 export const getComplianceTeacherFilter = async () => {
   const response = await apiFetch<Tenant>(`/teacher-compliance-tasks/filters`);

@@ -1,8 +1,8 @@
 import React from 'react';
+import { LearningPeriodCard } from '../components/learning-period-card';
 import { ProgressCard } from '../components/progress-card';
 import { StatisticsList } from '../components/statistics-list';
 import { TrackRow } from '../components/track-row';
-import { LearningPeriodCard } from '../components/learning-period-card';
 
 export default function TeacherDashboard() {
   const statistics = [

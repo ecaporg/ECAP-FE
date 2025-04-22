@@ -1,8 +1,8 @@
 'use client';
+import type { Student } from '@/types';
+import { getUserName } from '@/utils';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Student } from '@/types';
-import { getUserName } from '@/utils';
 
 export const BackToCompliance = ({ student }: { student: Student }) => {
   const router = useRouter();

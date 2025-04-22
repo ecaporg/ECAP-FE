@@ -1,14 +1,14 @@
-import { PaginationSection } from '@/components/table/pagination-section';
-import { getComplianceStudents, getComplianceStudentSamples } from '@/lib/compliance';
-import { Sample, Tenant, TrackLearningPeriod } from '@/types';
-import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
-import { Suspense } from 'react';
 import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
-import { SamplesTable, StudentsTable } from './tables';
+import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
+import { getComplianceStudentSamples, getComplianceStudents } from '@/lib/compliance';
+import type { Sample, Tenant, TrackLearningPeriod } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 import { SamplesFilters } from './filters';
+import { SamplesTable, StudentsTable } from './tables';
 
 export interface SectionWithTableProps {
   param: {

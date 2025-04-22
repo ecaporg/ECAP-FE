@@ -1,13 +1,13 @@
 'use client';
-import type React from 'react';
-import { useState } from 'react';
+import { signOutAction } from '@/app/auth/actions';
 import { Button } from '@/components/ui/button';
+import { routes } from '@/constants/routes';
 import { cn } from '@/utils';
 import { Loader2, LogOut, User } from 'lucide-react';
 import Link from 'next/link';
-import { routes } from '@/constants/routes';
 import { usePathname } from 'next/navigation';
-import { signOutAction } from '@/app/auth/actions';
+import type React from 'react';
+import { useState } from 'react';
 import {
   NavigationMenu,
   NavigationMenuContent,

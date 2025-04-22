@@ -1,4 +1,4 @@
-import { GenericEntity } from './shared';
+import type { GenericEntity } from './shared';
 
 export type Role = 'TEACHER' | 'DIRECTOR' | 'ADMIN' | 'SUPER_ADMIN' | 'STUDENT';
 

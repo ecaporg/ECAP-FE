@@ -2,9 +2,9 @@
 
 import type React from 'react';
 
-import { createContext, useContext } from 'react';
-import type { User } from '@/types';
 import { signOutAction } from '@/app/auth/actions';
+import type { User } from '@/types';
+import { createContext, useContext } from 'react';
 
 type AuthContextType = {
   user: User;

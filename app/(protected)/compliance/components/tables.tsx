@@ -1,18 +1,18 @@
 'use client';
 import {
   Table,
-  TableHeader,
-  TableRow,
-  TableHead,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
 import { routes } from '@/constants/routes';
-import { AssignmentPeriod, TrackLearningPeriod, Sample, Student, Subject } from '@/types';
+import type { AssignmentPeriod, Sample, Student, Subject, TrackLearningPeriod } from '@/types';
 import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
 import { useRouter } from 'next/navigation';
-import { CompletionStatusForTable, SapmleStatus } from './statuses';
 import { ActionButton } from './action-button';
+import { CompletionStatusForTable, SapmleStatus } from './statuses';
 
 interface TableProps {
   assignments?: AssignmentPeriod[];

@@ -1,5 +1,5 @@
 'use client';
-import { Tenant } from '@/types';
+import type { Tenant } from '@/types';
 import { createContext, useContext } from 'react';
 
 export const TenantContext = createContext<Tenant | null>(null);

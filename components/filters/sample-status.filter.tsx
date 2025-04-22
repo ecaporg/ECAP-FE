@@ -1,7 +1,7 @@
-import { BaseFilter, type FilterProps } from './base';
-import { Sample, SampleStatus } from '@/types';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { SAMPLE_STATUS } from '@/constants/sample';
+import { Sample, type SampleStatus } from '@/types';
+import { BaseFilter, type FilterProps } from './base';
 interface SampleStatusFilterProps {
   slug?: string;
 }

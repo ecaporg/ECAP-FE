@@ -1,4 +1,4 @@
-import { CompletionStatus, CompletionStatusProps } from '@/components/table/complation-status';
+import { CompletionStatus, type CompletionStatusProps } from '@/components/table/complation-status';
 import { SampleStatus } from '@/types';
 import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';

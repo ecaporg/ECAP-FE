@@ -1,16 +1,16 @@
 import {
-  LearningPeriodFilter,
-  SchoolFilter,
   AcademyFilter,
-  TrackFilter,
-  GradeFilter,
-  SearchFilter,
   ComplationFilter,
+  GradeFilter,
+  LearningPeriodFilter,
   SampleStatusFilter,
+  SchoolFilter,
+  SearchFilter,
+  TrackFilter,
 } from '@/components/filters';
 import { DoneByFilter } from '@/components/filters/done-by';
 import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
-import { Tenant, Sample, AssignmentPeriod, Student } from '@/types';
+import { AssignmentPeriod, type Sample, type Student, type Tenant } from '@/types';
 import { cn, getLearningPeriodFromTenant } from '@/utils';
 import { BackToCompliance } from './back-to-compliance';
 

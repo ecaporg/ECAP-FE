@@ -1,5 +1,5 @@
-import { BaseFilter } from './base';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { BaseFilter } from './base';
 
 interface GradeFilterProps {
   slug?: string;
