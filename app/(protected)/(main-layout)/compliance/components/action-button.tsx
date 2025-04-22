@@ -47,6 +47,7 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
 };
 
 const useActionButton = (sample: Sample) => {
+  if (!sample) return { text: "", onClick: () => {} };
   const router = useRouter();
   const redirectUrl = routes.compliance.viewSample.replace(
     ":id",

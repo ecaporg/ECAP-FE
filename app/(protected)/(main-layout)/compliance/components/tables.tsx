@@ -64,7 +64,7 @@ export const SamplesTable = ({
             <TableCell>
               <Avatar>
                 <AvatarFallback>
-                  {row.sample_1.done_by
+                  {row?.sample_1?.done_by
                     ? getInitials(getUserName(row.sample_1.done_by))
                     : "--"}
                 </AvatarFallback>
@@ -80,8 +80,8 @@ export const SamplesTable = ({
             <TableCell>
               <Avatar>
                 <AvatarFallback>
-                  {row.sample_2?.done_by
-                    ? getInitials(getUserName(row.sample_2?.done_by))
+                  {row?.sample_2?.done_by
+                    ? getInitials(getUserName(row?.sample_2?.done_by))
                     : "--"}
                 </AvatarFallback>
               </Avatar>
