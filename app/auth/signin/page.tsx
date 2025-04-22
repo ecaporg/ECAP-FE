@@ -22,7 +22,7 @@ export default function SignIn() {
           aria-invalid={errors.email ? 'true' : 'false'}
           autoComplete="email"
         />
-        <FormError id="email-error" message={errors.email?.message} className="mt-1" />
+        <FormError id="email-error" message={errors.email?.message} className="mt-1 text-wrap" />
       </div>
 
       <div>

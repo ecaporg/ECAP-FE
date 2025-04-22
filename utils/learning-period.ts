@@ -1,3 +1,4 @@
+import { CompletionStatusProps } from '@/components/table/complation-status';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { Tenant, TrackLearningPeriod } from '@/types';
 
@@ -65,4 +66,19 @@ export const getDueDate = (learningPeriod?: TrackLearningPeriod) => {
   const dueDate = new Date(learningPeriod.end_date);
   dueDate.setDate(dueDate.getDate() + 7);
   return dueDate;
+};
+
+export const getStatusForTable = (
+  completedCount: number,
+  totalItems: number,
+  dueDate: Date
+): CompletionStatusProps['variant'] => {
+  const now = new Date();
+  if (now > dueDate && completedCount < totalItems) {
+    return 'Overdue';
+  }
+  if (completedCount == totalItems) {
+    return 'Complete';
+  }
+  return 'In Progress';
 };

@@ -8,37 +8,26 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import { routes } from '@/constants/routes';
-import { AssignmentPeriod, TrackLearningPeriod, Sample, Student } from '@/types';
+import { AssignmentPeriod, TrackLearningPeriod, Sample, Student, Subject } from '@/types';
 import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { CompletionStatusForTable, SapmleStatus } from './statuses';
+import { ActionButton } from './action-button';
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
   currentLearningPeriod: TrackLearningPeriod;
 }
 
-export const SamplesTable = ({ assignments = [] }: TableProps) => {
-  const tableRows = Object.entries(
-    assignments
-      ?.flatMap(({ samples }) => samples)
-      .reduce(
-        (acc, sample) => {
-          if (acc[sample.subject_id]) {
-            acc[sample.subject_id].push(sample);
-          } else {
-            acc[sample.subject_id] = [sample];
-          }
-          return acc;
-        },
-        {} as Record<number, Sample[]>
-      )
-  ).map(([_, samples]) => ({
-    sample_1: samples[0],
-    sample_2: samples[1],
-    subject: samples[0].subject,
-  }));
-
+export const SamplesTable = ({
+  rows = [],
+}: {
+  rows: {
+    sample_1: Sample;
+    sample_2: Sample;
+    subject: Subject;
+  }[];
+}) => {
   return (
     <Table>
       <TableHeader>
@@ -55,24 +44,28 @@ export const SamplesTable = ({ assignments = [] }: TableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {tableRows.map((row) => (
+        {rows.map((row) => (
           <TableRow key={`${row.sample_1.id}`}>
             <TableCell>{row.subject.name}</TableCell>
             <TableCell>{row.sample_1.assignment_title}</TableCell>
             <TableCell>
               <SapmleStatus status={row.sample_1.status || null} />
             </TableCell>
-            <TableCell>Action</TableCell>
-            <TableCell>{row.sample_1.done_by_teacher?.user?.email}</TableCell>
+            <TableCell>
+              <ActionButton sample={row.sample_1} />
+            </TableCell>
+            <TableCell>{row.sample_1.done_by?.email}</TableCell>
             <TableCell>{row.sample_2?.assignment_title}</TableCell>
             <TableCell>
               <SapmleStatus status={row.sample_2?.status || null} />
             </TableCell>
-            <TableCell>Action</TableCell>
-            <TableCell>{row.sample_2?.done_by_teacher?.user?.email}</TableCell>
+            <TableCell>
+              <ActionButton sample={row.sample_2} />
+            </TableCell>
+            <TableCell>{row.sample_2?.done_by?.email}</TableCell>
           </TableRow>
         ))}
-        {tableRows.length === 0 && (
+        {rows.length === 0 && (
           <TableRow>
             <TableCell colSpan={9} className="text-center">
               No samples found

@@ -1,7 +1,7 @@
 import { PaginationSection } from '@/components/table/pagination-section';
 import { getComplianceStudents, getComplianceStudentSamples } from '@/lib/compliance';
-import { Tenant, TrackLearningPeriod } from '@/types';
-import { assignDefaultLearningPeriod, getDueDate } from '@/utils';
+import { Sample, Tenant, TrackLearningPeriod } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
 import { SamplesTable, StudentsTable } from './tables';
@@ -50,14 +50,16 @@ export const SamplesSection = (props: SectionWithTableProps) => {
 const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
   const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
-
   const totalPages = assignment?.meta?.totalPages ?? 0;
-
   const learningPeriod = mergedLP.find(
     (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 
   const dueDate = getDueDate(learningPeriod);
+  const totalItems = assignment?.meta?.totalItems ?? 0;
+  const completedCount = assignment?.meta?.completedCount ?? 0;
+
+  const status = getStatusForTable(completedCount, totalItems, dueDate);
 
   return (
     <>
@@ -65,10 +67,8 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={totalPages}
         learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`${(assignment?.meta as any)?.completedCount} / ${
-          assignment?.meta?.totalItems
-        } students completed`}
-        status="In Progress"
+        completedString={`${completedCount} / ${totalItems} students completed`}
+        status={status}
       />
       <StudentsTable
         assignments={assignment?.data}
@@ -89,14 +89,38 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
   );
 
   const learningPeriod = mergedLP.find(
-    (learningPeriod) => learningPeriod.id === param.learning_period_id
+    (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 
   const dueDate = getDueDate(learningPeriod);
 
   const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
 
-  const completeCount = samples?.filter((sample) => sample.done_by).length;
+  const rows = Object.entries(
+    (assignmentPeriods.data || [])
+      ?.flatMap(({ samples }) => samples)
+      .reduce(
+        (acc, sample) => {
+          if (acc[sample.subject_id]) {
+            acc[sample.subject_id].push(sample);
+          } else {
+            acc[sample.subject_id] = [sample];
+          }
+          return acc;
+        },
+        {} as Record<number, Sample[]>
+      )
+  ).map(([_, samples]) => ({
+    sample_1: samples[0],
+    sample_2: samples[1],
+    subject: samples[0].subject,
+  }));
+
+  const completeCount = rows.filter((row) => row.sample_2.done_by && row.sample_1.done_by).length;
+
+  const totalItems = rows.length;
+
+  const status = getStatusForTable(completeCount, totalItems, dueDate);
 
   return (
     <>
@@ -110,13 +134,10 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={0}
         learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`${completeCount} / ${samples?.length} Samples completed`}
-        status="In Progress"
+        completedString={`${completeCount} / ${totalItems} Subjects completed`}
+        status={status}
       />
-      <SamplesTable
-        assignments={assignmentPeriods.data}
-        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
-      />
+      <SamplesTable rows={rows} />
     </>
   );
 };
