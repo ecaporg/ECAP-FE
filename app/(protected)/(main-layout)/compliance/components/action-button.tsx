@@ -1,8 +1,10 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { routes } from '@/constants/routes';
-import { SampleStatus, type Sample } from '@/types';
-import { useRouter } from 'next/navigation';
+"use client";
+import { Button } from "@/components/ui/button";
+import { routes } from "@/constants/routes";
+import { SampleStatus, type Sample } from "@/types";
+import { useRouter } from "next/navigation";
+import { Fragment } from "react";
+import { FlagMissingWorkSamplerModal } from "./modals";
 
 interface ActionButtonProps {
   sample: Sample;
@@ -11,24 +13,23 @@ interface ActionButtonProps {
 const getText = ({ status }: Sample) => {
   switch (status) {
     case SampleStatus.PENDING:
-      return 'Approve';
+      return "Approve";
     case SampleStatus.ERRORS_FOUND:
-      return 'Correct';
+      return "Correct";
     case SampleStatus.MISSING_SAMPLE:
-      return 'Flag';
+      return "Flag";
     case SampleStatus.FLAGGED_TO_ADMIN:
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
-      return 'Review';
+      return "Review";
     default:
-      return 'Action';
+      return "Action";
   }
 };
 
 type onClickOptionProps = {
   redirectUrl: string;
   router: ReturnType<typeof useRouter>;
-  onOpenModal: (sample: Sample) => void;
 };
 
 const getOnClick = (sample: Sample, options: onClickOptionProps) => {
@@ -37,36 +38,46 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
     case SampleStatus.PENDING:
     case SampleStatus.ERRORS_FOUND:
       return () => options.router.push(options.redirectUrl);
-    case SampleStatus.MISSING_SAMPLE:
-    case SampleStatus.FLAGGED_TO_ADMIN:
-    case SampleStatus.REASON_REJECTED:
-      return () => options.onOpenModal(sample);
     default:
-      return () => options.router.push(options.redirectUrl);
+      return undefined;
   }
 };
 
 const useActionButton = (sample: Sample) => {
-  if (!sample) return { text: '', onClick: () => {} };
+  if (!sample) return { text: "", onClick: () => {}, Wrapper: Fragment };
   const router = useRouter();
-  const redirectUrl = routes.compliance.viewSample.replace(':id', sample.id.toString());
+  const redirectUrl = routes.compliance.viewSample.replace(
+    ":id",
+    sample.id.toString()
+  );
+  const Wrapper =
+    sample.status === SampleStatus.MISSING_SAMPLE
+      ? FlagMissingWorkSamplerModal
+      : Fragment;
 
   return {
     text: getText(sample),
     onClick: getOnClick(sample, {
       router,
       redirectUrl,
-      onOpenModal: () => {},
     }),
+    Wrapper,
   };
 };
 
 export function ActionButton({ sample }: ActionButtonProps) {
-  const { text, onClick } = useActionButton(sample);
+  const { text, onClick, Wrapper } = useActionButton(sample);
 
   return (
-    <Button variant="secondary" size="sm" onClick={onClick} className="bg-transparent">
-      {text}
-    </Button>
+    <Wrapper sample={sample}>
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={onClick}
+        className="bg-transparent"
+      >
+        {text}
+      </Button>
+    </Wrapper>
   );
 }

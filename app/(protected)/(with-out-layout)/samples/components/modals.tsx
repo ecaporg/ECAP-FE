@@ -1,22 +1,27 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
-import { Textarea } from '@/components/ui/textarea';
-import { SuccessfullyModal } from '@/components/modals/successfully';
-import { useState } from 'react';
+"use client";
+import { Button } from "@/components/ui/button";
+import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
+import { Sample } from "@/types";
+import { Textarea } from "@/components/ui/textarea";
+import { SuccessfullyModal } from "@/components/modals/successfully";
+import { useState } from "react";
+import { approveSampleAction } from "../[id]/actions";
+import { getFormattedLP, getUserName } from "@/utils";
+import { useFlagError } from "@/hooks/samples/use-flag-error";
+import { FormError } from "@/components/ui/form-error";
+import { Loader2 } from "lucide-react";
 
-export function UploadToStudentPathwaysModal({ children }: React.PropsWithChildren) {
+export function UploadToStudentPathwaysModal({
+  children,
+  sample,
+}: React.PropsWithChildren<{ sample: Sample }>) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <SuccessfullyModal
       open={isOpen}
       onOpenChange={setIsOpen}
       title="Successfully Uploaded to Student Pathways!"
-      action={async (close) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        close();
-      }}
+      action={async () => await approveSampleAction(sample)}
     >
       {children}
     </SuccessfullyModal>
@@ -27,34 +32,37 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
   const metadata = [
     [
       {
-        label: 'Student Name: ',
-        // value: getUserName(sample.assignment_period.student.user),
+        label: "Student Name: ",
+        value: getUserName(sample.assignment_period.student.user),
       },
       {
-        label: 'Student ID',
-        // value: sample.assignment_period.student.id
+        label: "Student ID",
+        value: sample.assignment_period.student.id,
       },
       {
-        label: 'Grade',
-        // value: sample.assignment_period.student.grade
+        label: "Grade",
+        value: sample.assignment_period.student.grade,
       },
     ],
     [
       {
-        label: 'Subject:',
-        // value: sample.subject.name
+        label: "Subject:",
+        value: sample.subject.name,
       },
-      { label: 'Assignment:', value: 'empty' },
+      { label: "Assignment:", value: "empty" },
       {
-        label: 'LP:',
-        // value: getFormattedLP(sample.assignment_period.learning_period),
+        label: "LP:",
+        value: getFormattedLP(sample.assignment_period.learning_period),
       },
     ],
   ];
   return (
     <>
       {metadata.map((row, idx) => (
-        <div key={`metadata-row-${idx}`} className="space-y-1 text-neutral-black text-base">
+        <div
+          key={`metadata-row-${idx}`}
+          className="space-y-1 text-neutral-black text-base flex-1"
+        >
           {row.map((item) => (
             <div key={item.label} className="grid grid-cols-2 gap-4">
               <p className="text-primary text-start">{item.label}</p>
@@ -67,25 +75,73 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
   );
 }
 
-export function FlagErrorModal({ children, sample }: React.PropsWithChildren<{ sample: Sample }>) {
+export function FlagErrorModal({
+  children,
+  sample,
+}: React.PropsWithChildren<{ sample: Sample }>) {
+  const {
+    form,
+    onSubmit,
+    openSuccessfullyModal,
+    setOpenSuccessfullyModal,
+    submitSuccessfully,
+  } = useFlagError({
+    sample,
+  });
+
   return (
-    <ResponsiveDialog
-      className="md:w-1/2"
-      trigger={children}
-      title="Flag Error in Requirements"
-      hasCloseButton
-    >
-      <form className="flex flex-col size-full">
-        <section className="flex justify-between flex-wrap gap-y-1 md:pt-6">
-          <SampleInfoForModal sample={sample} />
-        </section>
-        <div className="py-6">
-          <Textarea placeholder="Enter your comment here..." className="resize-none" />
-        </div>
-        <Button className="w-fit self-end" size="lg">
-          Send to Admin
-        </Button>
-      </form>
-    </ResponsiveDialog>
+    <>
+      <ResponsiveDialog
+        className="md:w-1/2"
+        trigger={children}
+        title="Flag Error in Requirements"
+        hasCloseButton
+      >
+        <form
+          className="flex flex-col size-full"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
+            <SampleInfoForModal sample={sample} />
+          </section>
+          <div className="py-6">
+            <Textarea
+              placeholder="Enter your comment here..."
+              className="resize-none"
+              {...form.register("comment")}
+              aria-invalid={form.formState.errors.comment ? "true" : "false"}
+              aria-describedby="comment-error"
+            />
+            <FormError
+              id="comment-error"
+              message={form.formState.errors.comment?.message}
+              className="mt-1 text-wrap"
+            />
+          </div>
+          <Button
+            className="w-fit self-end"
+            size="lg"
+            type="submit"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              "Send to Admin"
+            )}
+          </Button>
+        </form>
+      </ResponsiveDialog>
+      {openSuccessfullyModal && (
+        <SuccessfullyModal
+          open={openSuccessfullyModal}
+          onOpenChange={setOpenSuccessfullyModal}
+          title="Successfully sent to Admin!"
+          action={submitSuccessfully}
+        >
+          {children}
+        </SuccessfullyModal>
+      )}
+    </>
   );
 }
