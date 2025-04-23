@@ -1,8 +1,8 @@
-import { routes } from "@/constants/routes";
-import { getUser } from "@/lib/get-user";
-import { AuthProvider } from "@/providers/auth";
-import { redirect } from "next/navigation";
-import type React from "react";
+import { routes } from '@/constants/routes';
+import { getUser } from '@/lib/get-user';
+import { AuthProvider } from '@/providers/auth';
+import { redirect } from 'next/navigation';
+import type React from 'react';
 
 export default async function ProtectedLayout({
   children,
@@ -17,9 +17,7 @@ export default async function ProtectedLayout({
 
   return (
     <AuthProvider user={user}>
-      <main className="overflow-x-hidden bg-white overflow-y-auto">
-        {children}
-      </main>
+      <main className="overflow-x-hidden bg-white overflow-y-auto">{children}</main>
     </AuthProvider>
   );
 }

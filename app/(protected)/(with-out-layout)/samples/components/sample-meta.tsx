@@ -1,57 +1,48 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ArrowLeft, Flag, Upload } from "lucide-react";
-import { Sample, SampleStatus } from "@/types/student";
-import { useRouter } from "next/navigation";
+'use client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ArrowLeft, Flag, Upload } from 'lucide-react';
+import { Sample, SampleStatus } from '@/types/student';
+import { useRouter } from 'next/navigation';
+import { FlagErrorModal, UploadToStudentPathwaysModal } from './modals';
+import { getUserName } from '@/utils';
 type SampleMetaProps = {
   isReadOnly?: boolean;
-  data: {
-    studentName: string;
-    courseTitle: string;
-    assignmentTitle: string;
-    grade: number;
-    date: string;
-  };
+  sample: Sample;
 };
 
-export function SampleInputs({
-  isReadOnly = true,
-  data = {} as any,
-}: SampleMetaProps) {
+export function SampleInputs({ isReadOnly = true, sample }: SampleMetaProps) {
   const inputs = [
     {
-      label: "Student Name",
-      value: data.studentName,
+      label: 'Student Name',
+      value: getUserName(sample.assignment_period.student.user),
     },
     {
-      label: "Course Title",
-      value: data.courseTitle,
+      label: 'Course Title',
+      value: sample.subject.name,
     },
     {
-      label: "Assignment Title",
-      value: data.assignmentTitle,
+      label: 'Assignment Title',
+      value: sample.assignment_title,
     },
     {
-      label: "Grade",
-      value: data.grade,
+      label: 'Grade',
+      value: sample.assignment_period.student.grade,
     },
     {
-      label: "Date",
-      value: data.date,
+      label: 'Date',
+      value: sample.createdAt,
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[min-content_minmax(auto,400px)] border border-border p-4 text-nowrap">
+    <div className="grid grid-cols-1 md:grid-cols-[min-content_minmax(auto,400px)] border border-border p-4 text-nowrap sticky top-6 z-[1] bg-white">
       {inputs.map((input) => (
         <>
-          <Label className="px-4 h-11 content-center text-right">
-            {input.label}:
-          </Label>
+          <Label className="px-4 h-11 content-center text-right">{input.label}:</Label>
           <Input
-            className={isReadOnly ? "border-none !ring-transparent" : ""}
+            className={isReadOnly ? 'border-none !ring-transparent' : ''}
             readOnly={isReadOnly}
             value={input?.value}
           />
@@ -63,8 +54,8 @@ export function SampleInputs({
 
 export function SampleActionButtons({ sample }: { sample: Sample }) {
   const router = useRouter();
+  const isHidden = [SampleStatus.COMPLETED].some((status) => status === sample.status);
   const isDisabled = [
-    SampleStatus.COMPLETED,
     SampleStatus.ERRORS_FOUND,
     SampleStatus.MISSING_SAMPLE,
     SampleStatus.FLAGGED_TO_ADMIN,
@@ -72,24 +63,24 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
 
   return (
     <>
-      <Button className="fixed top-12 right-12" size="lg" disabled={isDisabled}>
-        <Flag className="w-4 h-4 mr-2" />
-        Flag Error in Requirements
-      </Button>
-      <Button
-        className="fixed bottom-12 right-12"
-        size="lg"
-        disabled={isDisabled}
-      >
-        <Upload className="w-4 h-4 mr-2" />
-        Upload to Student Pathways
-      </Button>
+      {!isHidden && (
+        <>
+          <FlagErrorModal sample={sample}>
+            <Button className="fixed top-12 right-12 z-[2]" size="lg" disabled={isDisabled}>
+              <Flag className="w-4 h-4 mr-2" />
+              Flag Error in Requirements
+            </Button>
+          </FlagErrorModal>
 
-      <Button
-        className="fixed bottom-12 left-12"
-        size="lg"
-        onClick={() => router.back()}
-      >
+          <UploadToStudentPathwaysModal>
+            <Button className="fixed bottom-12 right-12 z-[2]" size="lg" disabled={isDisabled}>
+              <Upload className="w-4 h-4 mr-2" />
+              Upload to Student Pathways
+            </Button>
+          </UploadToStudentPathwaysModal>
+        </>
+      )}
+      <Button className="fixed bottom-12 left-12 z-[2]" size="lg" onClick={() => router.back()}>
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Subject Table
       </Button>

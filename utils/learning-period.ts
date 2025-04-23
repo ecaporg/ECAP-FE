@@ -27,6 +27,12 @@ export const getLearningPeriodFromTenant = (tenant: Tenant) => {
   );
 };
 
+export const getFormattedLP = (lp: TrackLearningPeriod) => {
+  return `${lp.track.name}, ${getShortLearningPeriodName(
+    lp.name
+  )} (${formatLearningPeriodDate(lp.start_date)} - ${formatLearningPeriodDate(lp.end_date)})`;
+};
+
 const compareDates = (date1: Date, date2: Date) => {
   return date1.toISOString().split('T')[0] == date2.toISOString().split('T')[0];
 };

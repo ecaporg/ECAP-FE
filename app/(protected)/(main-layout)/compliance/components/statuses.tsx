@@ -1,27 +1,26 @@
 import { CompletionStatus, type CompletionStatusProps } from '@/components/table/complation-status';
+import { Badge, BadgeProps } from '@/components/ui/badge';
 import { SampleStatus } from '@/types';
 import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';
 import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
 
-export interface SapmleStatusProps extends CompletionStatusProps {
+export interface SapmleStatusProps extends BadgeProps {
   status: SampleStatus | null;
 }
 
-const getVariantSampleStatus = (status: SampleStatus): CompletionStatusProps['variant'] => {
+const getVariantSampleStatus = (status: SampleStatus): BadgeProps['variant'] => {
   switch (status) {
     case SampleStatus.COMPLETED:
-      return 'Complete';
+      return 'success';
     case SampleStatus.FLAGGED_TO_ADMIN:
-      return 'Overdue';
+      return 'red';
     case SampleStatus.PENDING:
-      return 'Pending';
+      return 'amber';
     case SampleStatus.ERRORS_FOUND:
-      return 'In Progress';
     case SampleStatus.MISSING_SAMPLE:
-      return 'In Progress';
     case SampleStatus.REASON_REJECTED:
-      return 'In Progress';
+      return 'primary';
   }
 };
 
@@ -40,14 +39,10 @@ function SapmleStatus({ status, className, ...props }: SapmleStatusProps) {
   }
 
   return (
-    <CompletionStatus
-      variant={getVariantSampleStatus(status)}
-      className={cn('flex items-center gap-2 w-full px-4 py-2 h-auto text-xs', className)}
-      {...props}
-    >
+    <Badge variant={getVariantSampleStatus(status)} {...props}>
       {getIconSampleStatus(status)}
       {getSampleStatus(status)}
-    </CompletionStatus>
+    </Badge>
   );
 }
 

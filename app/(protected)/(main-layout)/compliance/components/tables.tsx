@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableBody,
@@ -6,20 +6,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { routes } from "@/constants/routes";
-import type {
-  AssignmentPeriod,
-  Sample,
-  Student,
-  Subject,
-  TrackLearningPeriod,
-} from "@/types";
-import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { useRouter } from "next/navigation";
-import { ActionButton } from "./action-button";
-import { CompletionStatusForTable, SapmleStatus } from "./statuses";
-import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+} from '@/components/ui/table';
+import { routes } from '@/constants/routes';
+import type { AssignmentPeriod, Sample, Student, Subject, TrackLearningPeriod } from '@/types';
+import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { ActionButton } from './action-button';
+import { CompletionStatusForTable, SapmleStatus } from './statuses';
+import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
@@ -35,6 +29,16 @@ export const SamplesTable = ({
     subject: Subject;
   }[];
 }) => {
+  const AvatarColumn = ({ sample }: { sample: Sample }) => {
+    return (
+      <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ''}>
+        <AvatarFallback>
+          {sample?.done_by ? getInitials(getUserName(sample.done_by)) : '--'}
+        </AvatarFallback>
+      </Avatar>
+    );
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -62,13 +66,7 @@ export const SamplesTable = ({
               <ActionButton sample={row.sample_1} />
             </TableCell>
             <TableCell>
-              <Avatar>
-                <AvatarFallback>
-                  {row?.sample_1?.done_by
-                    ? getInitials(getUserName(row.sample_1.done_by))
-                    : "--"}
-                </AvatarFallback>
-              </Avatar>
+              <AvatarColumn sample={row.sample_1} />
             </TableCell>
             <TableCell>{row.sample_2?.assignment_title}</TableCell>
             <TableCell>
@@ -78,13 +76,7 @@ export const SamplesTable = ({
               <ActionButton sample={row.sample_2} />
             </TableCell>
             <TableCell>
-              <Avatar>
-                <AvatarFallback>
-                  {row?.sample_2?.done_by
-                    ? getInitials(getUserName(row?.sample_2?.done_by))
-                    : "--"}
-                </AvatarFallback>
-              </Avatar>
+              <AvatarColumn sample={row.sample_2} />
             </TableCell>
           </TableRow>
         ))}
@@ -100,10 +92,7 @@ export const SamplesTable = ({
   );
 };
 
-export const StudentsTable = ({
-  assignments = [],
-  currentLearningPeriod,
-}: TableProps) => {
+export const StudentsTable = ({ assignments = [], currentLearningPeriod }: TableProps) => {
   const router = useRouter();
 
   const handleClick = (student: Student) => {
@@ -111,9 +100,7 @@ export const StudentsTable = ({
       router.push(
         `${routes.compliance.samples}?student_id=${
           student.user.id
-        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
-          student.user
-        )}`
+        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(student.user)}`
       );
     };
   };

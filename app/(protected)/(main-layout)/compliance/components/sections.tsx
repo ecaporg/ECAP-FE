@@ -1,24 +1,14 @@
-import {
-  LoadingFilters,
-  LoadingTableSection,
-} from "@/components/table/loading";
-import { PaginationSection } from "@/components/table/pagination-section";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { routes } from "@/constants/routes";
-import {
-  getComplianceStudentSamples,
-  getComplianceStudents,
-} from "@/lib/compliance";
-import type { Sample, Tenant, TrackLearningPeriod } from "@/types";
-import {
-  assignDefaultLearningPeriod,
-  getDueDate,
-  getStatusForTable,
-} from "@/utils";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import { SamplesFilters } from "./filters";
-import { SamplesTable, StudentsTable } from "./tables";
+import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
+import { PaginationSection } from '@/components/table/pagination-section';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
+import { getComplianceStudentSamples, getComplianceStudents } from '@/lib/compliance';
+import type { Sample, Tenant, TrackLearningPeriod } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { SamplesFilters } from './filters';
+import { SamplesTable, StudentsTable } from './tables';
 
 export interface SectionWithTableProps {
   param: {
@@ -41,7 +31,6 @@ export const StudentsSection = (props: SectionWithTableProps) => {
 };
 
 export const SamplesSection = (props: SectionWithTableProps) => {
-  const key = new URLSearchParams(props.param as any).toString();
   return (
     <Suspense
       fallback={
@@ -50,7 +39,7 @@ export const SamplesSection = (props: SectionWithTableProps) => {
           <LoadingTableSection columns={9} />
         </>
       }
-      key={key}
+      key={new Date().getTime()}
     >
       <Samples {...props} />
     </Suspense>
@@ -59,9 +48,7 @@ export const SamplesSection = (props: SectionWithTableProps) => {
 
 const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
-  const assignment = await getComplianceStudents(
-    new URLSearchParams(param as any).toString()
-  );
+  const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
     (learningPeriod) => learningPeriod.id == param.learning_period_id
@@ -77,7 +64,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completedCount} / ${totalItems} students completed`}
         status={status}
@@ -106,21 +93,22 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap(
-    (assignment) => assignment.samples
-  );
+  const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
 
   const rows = Object.entries(
     (assignmentPeriods.data || [])
       ?.flatMap(({ samples }) => samples)
-      .reduce((acc, sample) => {
-        if (acc[sample.subject_id]) {
-          acc[sample.subject_id].push(sample);
-        } else {
-          acc[sample.subject_id] = [sample];
-        }
-        return acc;
-      }, {} as Record<number, Sample[]>)
+      .reduce(
+        (acc, sample) => {
+          if (acc[sample.subject_id]) {
+            acc[sample.subject_id].push(sample);
+          } else {
+            acc[sample.subject_id] = [sample];
+          }
+          return acc;
+        },
+        {} as Record<number, Sample[]>
+      )
   ).map(([_, samples = []]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -145,7 +133,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
       />
       <PaginationSection
         totalPages={0}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completeCount} / ${totalItems} Subjects completed`}
         status={status}

@@ -89,6 +89,9 @@ const config: Config = {
         light: {
           gray: 'hsl(var(--light-gray))',
         },
+        black: {
+          overlay: 'hsl(var(--black-overlay))',
+        },
       },
 
       borderRadius: {
