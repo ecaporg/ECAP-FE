@@ -29,6 +29,8 @@ export function FlagMissingWorkSamplerModal({
     sample,
   });
 
+  const selectedReason = form.watch("reason");
+
   return (
     <>
       <ResponsiveDialog
@@ -47,18 +49,14 @@ export function FlagMissingWorkSamplerModal({
           </section>
           <div className="py-6">
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                {form.getValues("reason")}
-              </DropdownMenuTrigger>
+              <DropdownMenuTrigger>{selectedReason}</DropdownMenuTrigger>
               <DropdownMenuContent>
                 <ScrollArea className="max-h-[min(30rem,50vh)]">
-                  {["reason", "reason 2"].map((option) => (
+                  {["Reason", "Reason 2"].map((option) => (
                     <DropdownMenuItem
                       key={option}
                       className={
-                        form.getValues("reason") === option
-                          ? "bg-cool-gray"
-                          : ""
+                        selectedReason === option ? "bg-cool-gray" : ""
                       }
                       onSelect={() => {
                         form.setValue("reason", option);
