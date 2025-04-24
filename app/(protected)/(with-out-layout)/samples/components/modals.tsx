@@ -10,18 +10,19 @@ import { getFormattedLP, getUserName } from "@/utils";
 import { useFlagError } from "@/hooks/samples/use-flag-error";
 import { FormError } from "@/components/ui/form-error";
 import { Loader2 } from "lucide-react";
-
+import { useAuth } from "@/providers/auth";
 export function UploadToStudentPathwaysModal({
   children,
   sample,
 }: React.PropsWithChildren<{ sample: Sample }>) {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
   return (
     <SuccessfullyModal
       open={isOpen}
       onOpenChange={setIsOpen}
       title="Successfully Uploaded to Student Pathways!"
-      action={async () => await approveSampleAction(sample)}
+      action={async () => await approveSampleAction(sample, user)}
     >
       {children}
     </SuccessfullyModal>
@@ -29,7 +30,6 @@ export function UploadToStudentPathwaysModal({
 }
 
 export function SampleInfoForModal({ sample }: { sample: Sample }) {
-  console.log(sample);
   const metadata = [
     [
       {

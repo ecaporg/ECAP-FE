@@ -96,7 +96,8 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
   const assignmentPeriods = await getComplianceStudentSamples(
-    new URLSearchParams(param as any).toString()
+    new URLSearchParams(param as any).toString(),
+    param.student_id
   );
 
   const learningPeriod = mergedLP.find(

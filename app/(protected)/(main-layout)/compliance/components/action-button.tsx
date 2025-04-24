@@ -37,6 +37,7 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
     case SampleStatus.COMPLETED:
     case SampleStatus.PENDING:
     case SampleStatus.ERRORS_FOUND:
+    case SampleStatus.FLAGGED_TO_ADMIN:
       return () => options.router.push(options.redirectUrl);
     default:
       return undefined;

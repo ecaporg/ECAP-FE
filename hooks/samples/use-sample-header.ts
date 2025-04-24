@@ -1,4 +1,5 @@
-'use client';
+"use client";
+import { updateSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
 import { Sample } from "@/types";
 import { validationMessages } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,8 +37,8 @@ export function useSampleHeader({ sample }: { sample: Sample }) {
     }
   };
 
-  const onSubmit = (data: z.infer<typeof sampleHeaderSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof sampleHeaderSchema>) => {
+    await updateSampleAction(sample);
   };
 
   return { form, onSubmit, formRef, onBlur };

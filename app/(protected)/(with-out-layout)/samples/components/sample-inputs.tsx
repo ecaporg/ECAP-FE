@@ -10,6 +10,7 @@ import {
   sampleHeaderSchema,
   useSampleHeader,
 } from "@/hooks/samples/use-sample-header";
+
 type SampleMetaProps = {
   isReadOnly?: boolean;
   sample: Sample;
@@ -26,7 +27,10 @@ function SampleBagde({ sample }: { sample: Sample }) {
     );
   }
 
-  if (sample.status === SampleStatus.ERRORS_FOUND) {
+  if (
+    sample.status === SampleStatus.ERRORS_FOUND ||
+    sample.status === SampleStatus.FLAGGED_TO_ADMIN
+  ) {
     return (
       <div className="pb-6 flex items-center gap-4">
         <CompletionStatus variant="Overdue" className="h-14 w-60">
