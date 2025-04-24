@@ -29,6 +29,7 @@ export function UploadToStudentPathwaysModal({
 }
 
 export function SampleInfoForModal({ sample }: { sample: Sample }) {
+  console.log(sample);
   const metadata = [
     [
       {

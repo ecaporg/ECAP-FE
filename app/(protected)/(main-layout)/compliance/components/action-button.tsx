@@ -53,7 +53,7 @@ const useActionButton = (sample: Sample) => {
   const Wrapper =
     sample.status === SampleStatus.MISSING_SAMPLE
       ? FlagMissingWorkSamplerModal
-      : Fragment;
+      : (props: any) => <Fragment children={props.children} />;
 
   return {
     text: getText(sample),
