@@ -37,10 +37,7 @@ function SampleBagde({ sample }: { sample: Sample }) {
           Error flagged
         </CompletionStatus>
         <b>You comment: </b>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          quos.
-        </p>
+        <p>{sample.flag_errors?.comment || sample.flag_missing_work?.reason}</p>
       </div>
     );
   }

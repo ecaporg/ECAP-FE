@@ -1,7 +1,7 @@
-import type { Academy, AssignmentPeriod, School } from './school';
-import type { DatedEntity, GenericEntity } from './shared';
-import type { Subject, Track } from './track';
-import type { User } from './user';
+import type { Academy, AssignmentPeriod, School } from "./school";
+import type { DatedEntity, GenericEntity } from "./shared";
+import type { Subject, Track } from "./track";
+import type { User } from "./user";
 
 export type Student = DatedEntity & {
   id: number;
@@ -17,13 +17,23 @@ export type Student = DatedEntity & {
 };
 
 export enum SampleStatus {
-  COMPLETED = 'COMPLETED',
-  FLAGGED_TO_ADMIN = 'FLAGGED_TO_ADMIN',
-  PENDING = 'PENDING',
-  ERRORS_FOUND = 'ERRORS_FOUND',
-  MISSING_SAMPLE = 'MISSING_SAMPLE',
-  REASON_REJECTED = 'REASON_REJECTED',
+  COMPLETED = "COMPLETED",
+  FLAGGED_TO_ADMIN = "FLAGGED_TO_ADMIN",
+  PENDING = "PENDING",
+  ERRORS_FOUND = "ERRORS_FOUND",
+  MISSING_SAMPLE = "MISSING_SAMPLE",
+  REASON_REJECTED = "REASON_REJECTED",
 }
+
+export type SampleFlagError = GenericEntity & {
+  user_id: number;
+  comment: string;
+};
+
+export type SampleFlagMissingWork = GenericEntity & {
+  user_id: number;
+  reason: string;
+};
 
 export type Sample = GenericEntity & {
   assignment_title: string;
@@ -34,4 +44,6 @@ export type Sample = GenericEntity & {
   subject: Subject;
   assignment_period: AssignmentPeriod;
   done_by: User | null;
+  flag_errors: SampleFlagError | null;
+  flag_missing_work: SampleFlagMissingWork | null;
 };

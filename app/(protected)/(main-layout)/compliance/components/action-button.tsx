@@ -4,7 +4,10 @@ import { routes } from "@/constants/routes";
 import { SampleStatus, type Sample } from "@/types";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
-import { FlagMissingWorkSamplerModal } from "./modals";
+import {
+  FlagMissingWorkSamplerInfoModal,
+  FlagMissingWorkSamplerModal,
+} from "./modals";
 
 interface ActionButtonProps {
   sample: Sample;
@@ -38,23 +41,40 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
     case SampleStatus.PENDING:
     case SampleStatus.ERRORS_FOUND:
     case SampleStatus.FLAGGED_TO_ADMIN:
+      if (sample.flag_missing_work) {
+        return undefined;
+      }
       return () => options.router.push(options.redirectUrl);
     default:
       return undefined;
   }
 };
 
+const getWrapper = (sample: Sample) => {
+  if (
+    sample.status === SampleStatus.FLAGGED_TO_ADMIN &&
+    sample.flag_missing_work
+  ) {
+    return FlagMissingWorkSamplerInfoModal;
+  }
+  if (sample.status === SampleStatus.MISSING_SAMPLE) {
+    return FlagMissingWorkSamplerModal;
+  }
+  return (props: any) => <Fragment children={props.children} />;
+};
+
 const useActionButton = (sample: Sample) => {
-  if (!sample) return { text: "", onClick: () => {}, Wrapper: Fragment };
+  if (!sample)
+    return {
+      text: "",
+      onClick: () => {},
+      Wrapper: getWrapper(sample),
+    };
   const router = useRouter();
   const redirectUrl = routes.compliance.viewSample.replace(
     ":id",
     sample.id.toString()
   );
-  const Wrapper =
-    sample.status === SampleStatus.MISSING_SAMPLE
-      ? FlagMissingWorkSamplerModal
-      : (props: any) => <Fragment children={props.children} />;
 
   return {
     text: getText(sample),
@@ -62,7 +82,7 @@ const useActionButton = (sample: Sample) => {
       router,
       redirectUrl,
     }),
-    Wrapper,
+    Wrapper: getWrapper(sample),
   };
 };
 

@@ -6,9 +6,13 @@ import { SampleInputs } from "../components/sample-inputs";
 export default async function SampleDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { data: sample, message, error } = await getSampleById(params.id);
+  const {
+    data: sample,
+    message,
+    error,
+  } = await getSampleById((await params).id);
 
   if (error || !sample) {
     throw new Error(message || error);

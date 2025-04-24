@@ -2,7 +2,7 @@ import type { AssignmentPeriod, Tenant } from "@/types";
 import { type ApiResponse, apiFetch } from "./fetch";
 
 export const getComplianceTeacherFilter = async () => {
-  const response = await apiFetch<Tenant>(`/teacher-compliance-tasks/filters`);
+  const response = await apiFetch<Tenant>(`/students-table/filters`);
   if (response.error) {
     throw new Error(response.error);
   }
@@ -17,7 +17,7 @@ export const getComplianceStudents = async (
   queryParams: string
 ): Promise<ComplianceStudentsResponse> => {
   const response = await apiFetch<AssignmentPeriod[]>(
-    `/teacher-compliance-tasks?${queryParams}`
+    `/students-table?${queryParams}`
   );
   return response as ComplianceStudentsResponse;
 };
@@ -27,7 +27,7 @@ export const getComplianceStudentSamples = async (
   tag_id: string
 ) => {
   const response = await apiFetch<AssignmentPeriod[]>(
-    `/teacher-compliance-tasks/student-samples?${queryParams}`,
+    `/students-table/subjects?${queryParams}`,
     {
       tags: [`samples-${tag_id}`],
     }

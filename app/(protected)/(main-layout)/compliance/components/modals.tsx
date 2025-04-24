@@ -14,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { SampleInfoForModal } from "@/app/(protected)/(with-out-layout)/samples/components/modals";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 
 export function FlagMissingWorkSamplerModal({
   children,
@@ -49,7 +50,9 @@ export function FlagMissingWorkSamplerModal({
           </section>
           <div className="py-6">
             <DropdownMenu>
-              <DropdownMenuTrigger>{selectedReason}</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="w-full">
+                {selectedReason}
+              </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <ScrollArea className="max-h-[min(30rem,50vh)]">
                   {["Reason", "Reason 2"].map((option) => (
@@ -94,5 +97,31 @@ export function FlagMissingWorkSamplerModal({
         </SuccessfullyModal>
       )}
     </>
+  );
+}
+
+export function FlagMissingWorkSamplerInfoModal({
+  children,
+  sample,
+}: React.PropsWithChildren<{ sample: Sample }>) {
+  return (
+    <ResponsiveDialog
+      className="md:w-1/2"
+      trigger={children}
+      title="Flag Missing Work Sample"
+      hasCloseButton
+    >
+      <form className="flex flex-col size-full">
+        <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
+          <SampleInfoForModal sample={sample} />
+        </section>
+        <p className="py-6">{sample.flag_missing_work?.reason}</p>
+        <DialogClose asChild>
+          <Button className="w-fit self-end" size="lg">
+            Close
+          </Button>
+        </DialogClose>
+      </form>
+    </ResponsiveDialog>
   );
 }

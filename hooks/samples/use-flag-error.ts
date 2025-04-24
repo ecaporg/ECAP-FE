@@ -1,8 +1,7 @@
 import { flagSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
-import { Sample } from "@/types";
+import { Sample, SampleFlagError } from "@/types";
 import { validationMessages } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,10 +12,11 @@ const flagErrorSchema = z.object({
     .min(1, { message: validationMessages.required("Comment") }),
 });
 
+export type FlagErrorFormData = z.infer<typeof flagErrorSchema>;
+
 export function useFlagError({ sample }: { sample: Sample }) {
   const [openSuccessfullyModal, setOpenSuccessfullyModal] = useState(false);
-  const router = useRouter();
-  const form = useForm<z.infer<typeof flagErrorSchema>>({
+  const form = useForm<FlagErrorFormData>({
     resolver: zodResolver(flagErrorSchema),
     defaultValues: {
       comment: "",
@@ -28,9 +28,10 @@ export function useFlagError({ sample }: { sample: Sample }) {
   };
 
   const submitSuccessfully = async () => {
-    const formData = form.getValues();
-    const a = await flagSampleAction(sample);
-    console.log(a);
+    const formData = {
+      comment: form.getValues("comment"),
+    };
+    await flagSampleAction(sample, formData as SampleFlagError);
   };
 
   return {
