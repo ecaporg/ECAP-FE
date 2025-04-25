@@ -1,6 +1,7 @@
-import type { Academy, Assignment, School, Tenant } from './school';
-import type { DatedEntity } from './shared';
-import type { User } from './user';
+import { Course } from "./course";
+import type { Academy, School, Tenant } from "./school";
+import type { DatedEntity } from "./shared";
+import type { User } from "./user";
 
 export type Staff = DatedEntity & {
   id: number;
@@ -8,7 +9,7 @@ export type Staff = DatedEntity & {
 };
 
 export type Teacher = Staff & {
-  assignments: Assignment[];
+  courses: Course[];
 };
 
 export type Director = Staff & {

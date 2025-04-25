@@ -1,3 +1,4 @@
+import { Course } from "./course";
 import type { GenericEntity } from "./shared";
 import type { Admin, Director, Teacher } from "./staff";
 import type { Sample, Student } from "./student";
@@ -44,7 +45,7 @@ export type School = GenericEntity & {
 
   directors: Director[];
 
-  assignments: Assignment[];
+  courses: Course[];
 };
 
 export type AcademicYear = GenericEntity & {
@@ -56,32 +57,16 @@ export type AcademicYear = GenericEntity & {
 
   tracks: Track[];
 
-  assignments: Assignment[];
-};
-
-export type Assignment = GenericEntity & {
-  school_id: number;
-
-  teacher_id: number;
-
-  academic_year_id: number;
-
-  school: School;
-
-  teacher: Teacher;
-
-  academic_year: AcademicYear;
-
-  assignment_periods: AssignmentPeriod[];
+  courses: Course[];
 };
 
 export type AssignmentPeriod = GenericEntity & {
-  subject_assignment_id: number;
+  course_id: number;
   student_id: number;
   learning_period_id: number;
   completed: boolean;
   learning_period: TrackLearningPeriod;
-  assignment: Assignment;
+  course: Course;
   student: Student;
   samples: Sample[];
 };

@@ -1,6 +1,5 @@
 import {
   type AcademicYear,
-  Assignment,
   type AssignmentPeriod,
   type Tenant,
 } from "./school";

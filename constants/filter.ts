@@ -17,7 +17,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
     ACADEMY_ID: 'student.academy_id',
     TRACK_ID: 'student.track_id',
     GRADE: 'student.grade',
-    SCHOOL_ID: 'assignment.school_id',
+    SCHOOL_ID: 'course.school_id',
     SAMPLE_STATUS: 'samples.status',
     DONE_BY: 'samples.done_by_id',
   },
