@@ -32,8 +32,15 @@ export function useFilterParam(slug: string, multiple = true) {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
+  const reset = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete(slug);
+    router.replace(`${pathname}?${params.toString()}`);
+  };
+
   return {
     selectedValues,
     handleSelect,
+    reset,
   };
 }

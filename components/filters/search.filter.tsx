@@ -6,7 +6,7 @@ import { Student, Teacher } from '@/types';
 
 export const SearchStudentFilter = () => {
   const getStudentOptions = async (value: string) => {
-    const response = await apiClientFetch<Student[]>(`/api/students-table/students/${value}`);
+    const response = await apiClientFetch<Student[]>(`/students-table/students/${value}`);
 
     if (!response.data) {
       return [];
@@ -24,7 +24,7 @@ export const SearchStudentFilter = () => {
 
 export const SearchTeacherFilter = () => {
   const getTeacherOptions = async (value: string) => {
-    const response = await apiClientFetch<Teacher[]>(`/api/teachers-table/teachers/${value}`);
+    const response = await apiClientFetch<Teacher[]>(`/teachers-table/teachers/${value}`);
 
     if (!response.data) {
       return [];
