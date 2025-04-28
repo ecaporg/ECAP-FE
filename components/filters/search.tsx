@@ -1,16 +1,17 @@
-"use client";
+'use client';
 
-import { cn } from "@/utils";
-import { Search } from "lucide-react";
-import { forwardRef, useEffect, useRef, useState } from "react";
-import { useDebounce } from "use-debounce";
-import { Label } from "../ui/label";
+import { cn } from '@/utils';
+import { Search } from 'lucide-react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useDebounce } from 'use-debounce';
+import { Label } from '../ui/label';
 
-import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { ScrollArea } from "../ui/scroll-area";
-import { Popover, PopoverTrigger } from "../ui/popover";
+import { ScrollArea } from '../ui/scroll-area';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { SectionLoading } from '../layouts/loading';
+import { Skeleton } from '../ui/skeleton';
 
-const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
   ({ className, ...props }, ref) => {
     return (
       <div className="relative flex items-center">
@@ -24,7 +25,7 @@ const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
         <input
           type="text"
           className={cn(
-            "flex w-full h-12 p-4 pl-10 rounded-md border border-input placeholder:text-darker-gray text-neutral-black outline-none text-base disabled:cursor-not-allowed disabled:opacity-50",
+            'flex w-full h-12 p-4 pl-10 rounded-md border border-input placeholder:text-darker-gray text-neutral-black outline-none text-base disabled:cursor-not-allowed disabled:opacity-50',
             className
           )}
           ref={ref}
@@ -34,7 +35,7 @@ const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
     );
   }
 );
-SearchInput.displayName = "SearchInput";
+SearchInput.displayName = 'SearchInput';
 
 type Option = {
   label: string;
@@ -46,16 +47,34 @@ interface SearchFilterProps {
   getOptions: (value: string) => Promise<Option[]>;
 }
 
-export const SearchFilter: React.FC<SearchFilterProps> = ({
-  label,
-  getOptions,
-}) => {
-  const [open, setOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [options, setOptions] = useState<Option[]>([]);
-  const [value, setValue] = useState("");
+export const SearchFilter: React.FC<SearchFilterProps> = ({ label, getOptions }) => {
+  const [value, setValue] = useState('');
   const [debouncedValue] = useDebounce(value, 700);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <PopoverFilter getOptions={getOptions} debouncedValue={debouncedValue} inputRef={inputRef!}>
+      <Label className="block">{label}</Label>
+      <SearchInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={label}
+        ref={inputRef}
+      />
+    </PopoverFilter>
+  );
+};
+
+const PopoverFilter: React.FC<
+  React.PropsWithChildren<{
+    getOptions: (value: string) => Promise<Option[]>;
+    debouncedValue: string;
+    inputRef: React.RefObject<HTMLInputElement>;
+  }>
+> = ({ children, getOptions, debouncedValue, inputRef }) => {
+  const [options, setOptions] = useState<Option[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -64,6 +83,9 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
         if (debouncedValue) {
           const options = await getOptions(debouncedValue);
           setOptions(options);
+          if (!open) {
+            setOpen(true);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -75,31 +97,45 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
   }, [debouncedValue]);
 
   return (
-    <Popover open={open}>
-      <PopoverTrigger>
-        <Label className="block">{label}</Label>
-        <SearchInput
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={label}
-          onFocus={() => {
-            setOpen(true);
+    <Popover
+      open={open}
+      onOpenChange={(state) => {
+        if (state) {
+          setTimeout(() => {
             inputRef.current?.focus();
-          }}
-          ref={inputRef}
-        />
-      </PopoverTrigger>
-      <PopoverPrimitive.Content>
-        {value !== "" && !isLoading && (
+          }, 100);
+        }
+        setOpen(state);
+      }}
+    >
+      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContent>
+        {!isLoading && (
           <ScrollArea className="max-h-[min(30rem,50vh)]">
             {options.map((option) => (
-              <div key={option.value}>{option.label}</div>
+              <p
+                key={option.value}
+                className={cn(
+                  'relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-4 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+                  'hover:bg-hover-gray min-h-12'
+                )}
+              >
+                {option.label}
+              </p>
             ))}
+            {options.length === 0 && (
+              <p className="text-sm text-center text-darker-gray">No results found</p>
+            )}
           </ScrollArea>
         )}
-
-        {isLoading && <div>Loading...</div>}
-      </PopoverPrimitive.Content>
+        {isLoading && (
+          <>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} className="h-12 w-full px-4 py-1.5" />
+            ))}
+          </>
+        )}
+      </PopoverContent>
     </Popover>
   );
 };

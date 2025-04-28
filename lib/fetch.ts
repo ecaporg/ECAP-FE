@@ -25,7 +25,7 @@ export interface ApiAdditionalInit {
   tags?: string[];
 }
 
-export const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8080";
+export const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080';
 
 export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -73,6 +73,7 @@ export async function apiFetch<T = any, D = undefined>(
 
         const callbackUrl = encodeURIComponent(window?.location?.href);
         redirect(`${routes.auth.signIn}?callbackUrl=${callbackUrl}`);
+      } else if (response.status === 403) {
       }
 
       const data = await response.json();
