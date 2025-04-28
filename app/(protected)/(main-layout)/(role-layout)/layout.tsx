@@ -1,4 +1,5 @@
 'use client';
+import ForbiddenPage from '@/app/403';
 import { useAuth } from '@/providers/auth';
 
 export default function DashboardLayout({
@@ -12,19 +13,17 @@ export default function DashboardLayout({
 }) {
   const { user } = useAuth();
 
-  return <>{teacher}</>;
+  if (user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') {
+    return <>{admin}</>;
+  }
 
-  // if (user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') {
-  //   return <>{admin}</>;
-  // }
+  if (user?.role === 'TEACHER') {
+    return <>{teacher}</>;
+  }
 
-  // if (user?.role === 'TEACHER') {
-  //   return <>{teacher}</>;
-  // }
+  if (user?.role === 'DIRECTOR') {
+    return <>{director}</>;
+  }
 
-  // if (user?.role === 'DIRECTOR') {
-  //   return <>{director}</>;
-  // }
-
-  // return <>{teacher}</>;
+  return <>{<ForbiddenPage />}</>;
 }

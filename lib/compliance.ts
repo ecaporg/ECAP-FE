@@ -22,7 +22,7 @@ export const getComplianceStudents = async (
 
 export const getComplianceStudentSamples = async (queryParams: string, tag_id: string) => {
   const response = await apiFetch<AssignmentPeriod[]>(`/students-table/subjects?${queryParams}`, {
-    tags: [`samples-${tag_id}`],
+    tags: [`samples-${tag_id}`, `samples`],
   });
   return response;
 };

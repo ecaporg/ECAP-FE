@@ -71,7 +71,6 @@ export async function apiClientFetch<T = any, D = undefined>(
       }
 
       const data = await response.json();
-      console.log(data);
       return data as ApiResponse<T>;
     } catch (error) {
       console.error(error);

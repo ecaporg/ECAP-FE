@@ -1,6 +1,6 @@
-import type React from "react";
-import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import type React from 'react';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 
 interface ProgressCardProps {
   title: string;

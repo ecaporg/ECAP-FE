@@ -10,7 +10,9 @@ import { ApiResponse } from '@/lib/fetch';
 const revalidatePathAndTag = (sample: Sample) => {
   const path = `${routes.compliance.samples}?student_id=${
     sample.assignment_period.student.user.id
-  }&name=${getUserName(sample.assignment_period.student.user)}`;
+  }&name=${getUserName(
+    sample.assignment_period.student.user
+  )}&learning_period_id=${sample.assignment_period.learning_period.id}`;
 
   revalidateTag(`samples-${sample.assignment_period.student.user.id}`);
   revalidatePath(path);
@@ -38,6 +40,7 @@ export const approveSampleAction = async (sample: Sample, done_by: User) => {
     done_by_id: done_by.id as number,
   });
 
+  revalidateTag('samples');
   const path = revalidatePathAndTag(sample);
 
   redirect(path, RedirectType.replace);

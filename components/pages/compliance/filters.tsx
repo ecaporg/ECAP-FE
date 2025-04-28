@@ -11,8 +11,11 @@ import { DoneByFilter } from '@/components/filters/done-by';
 import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
 import { type Sample, type Student, type Tenant } from '@/types';
 import { cn, getLearningPeriodFromTenant } from '@/utils';
-import { BackToCompliance } from './back-to-compliance';
-import { SearchStudentFilter } from '@/components/filters/search-student.filter';
+import { BackToCompliance } from './back-to';
+import { SearchStudentFilter } from '@/components/filters/search.filter';
+import { AcademicYearFilter } from '@/components/filters/academic-year.filter';
+import { SemesterFilter } from '@/components/filters/semesrter.filter';
+import { SubjectFilter } from '@/components/filters/subject.filter';
 
 type FilterProps = {
   tenant: Tenant;
@@ -71,6 +74,35 @@ export function SamplesFilters({ tenant, samples, student, defaultName }: Sample
         availableUsers={samples.map((sample) => sample.done_by).filter((user) => user !== null)}
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
       />
+    </FilterWrapper>
+  );
+}
+
+export function DirectorFilters({ tenant }: FilterProps) {
+  return (
+    <FilterWrapper>
+      <AcademicYearFilter />
+      <LearningPeriodFilter availablePeriods={getLearningPeriodFromTenant(tenant)} />
+      <SearchStudentFilter />
+
+      <AcademyFilter
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
+        availableAcademies={tenant.academies}
+      />
+      <ComplationFilter />
+
+      <SchoolFilter
+        availableSchools={tenant.schools}
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID}
+      />
+      <TrackFilter
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID}
+        availableTracks={tenant.tracks}
+      />
+      <SemesterFilter />
+      <GradeFilter />
+      <SubjectFilter />
+      <SampleStatusFilter />
     </FilterWrapper>
   );
 }
