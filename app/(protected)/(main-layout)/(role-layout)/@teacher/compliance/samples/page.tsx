@@ -1,6 +1,5 @@
+import { SamplesSection } from '@/components/pages/compliance/sections';
 import { getComplianceTeacherFilter } from '@/lib/compliance';
-import { SamplesFilters } from '../components/filters';
-import { SamplesSection } from '../components/sections';
 
 export default async function CompliancePage({
   searchParams,

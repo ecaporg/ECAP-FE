@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ShieldAlert } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import { ShieldAlert } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ForbiddenPage() {
   return (
@@ -12,8 +12,8 @@ export default function ForbiddenPage() {
         </div>
         <h2 className="text-xl font-medium">Access Forbidden</h2>
         <p className="max-w-md text-darker-gray">
-          You don't have permission to access this page. Please contact your
-          administrator if you believe this is a mistake.
+          You don't have permission to access this page. Please contact your administrator if you
+          believe this is a mistake.
         </p>
       </div>
       <div className="flex gap-4">
