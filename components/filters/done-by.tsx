@@ -19,6 +19,8 @@ export async function DoneByFilter({
     map.set(user.id, getUserName(user));
   });
 
+  const disabled = availableUsers.length === 0;
+
   if (user) {
     map.set(user.id, 'You');
   }
@@ -27,5 +29,5 @@ export async function DoneByFilter({
     label: value,
     value: key.toString(),
   }));
-  return <BaseFilter label="Done By" slug={slug} options={options} multiple />;
+  return <BaseFilter label="Done By" slug={slug} options={options} multiple disabled={disabled} />;
 }

@@ -1,9 +1,9 @@
-import { routes } from '@/constants/routes';
-import { redirect } from 'next/navigation';
+"use client";
 
-import { getAuthToken, refresh } from './auth';
+import { routes } from "@/constants/routes";
+import { User } from "@/types";
+import { getToken } from "@/utils";
 
-// Типи для відповіді
 export type ApiResponse<T = any, D = undefined> = {
   data?: T;
   error?: string;
@@ -27,22 +27,24 @@ export interface ApiAdditionalInit {
 
 export const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:8080";
 
-export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const wait = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export const RETRIES = 3;
 export const RETRY_DELAY = 1000;
 
-// Основна функція для виконання запитів
-export async function apiFetch<T = any, D = undefined>(
+export async function apiClientFetch<T = any, D = undefined>(
   endpoint: string,
   init?: RequestInit & ApiAdditionalInit
 ): Promise<ApiResponse<T, D>> {
   let authHeaders = {};
 
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  const url = endpoint.startsWith("http")
+    ? endpoint
+    : `${API_BASE_URL}${endpoint}`;
 
   if (!init?.withoutAuth) {
-    const token = await getAuthToken();
+    const token = getToken();
     if (token) {
       authHeaders = {
         Authorization: `Bearer ${token}`,
@@ -53,26 +55,22 @@ export async function apiFetch<T = any, D = undefined>(
   async function executeFetch(attempt = 1): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url, {
-        cache: 'force-cache',
+        cache: "force-cache",
         next: {
           revalidate: 60,
           tags: [...(init?.tags || [])],
         },
         ...init,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...init?.headers,
           ...authHeaders,
         },
       });
 
       if (response.status === 401) {
-        if (await refresh()) {
-          return await executeFetch(attempt + 1);
-        }
-
-        const callbackUrl = encodeURIComponent(window?.location?.href);
-        redirect(`${routes.auth.signIn}?callbackUrl=${callbackUrl}`);
+        const callbackUrl = encodeURIComponent(window.location.href);
+        window.location.href = `${routes.auth.signIn}?callbackUrl=${callbackUrl}`;
       }
 
       const data = await response.json();

@@ -1,11 +1,11 @@
-"use client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { CheckCircleIcon, Loader2 } from "lucide-react";
-import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
-import { useState } from "react";
+'use client';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { CheckCircleIcon, Loader2 } from 'lucide-react';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { useState } from 'react';
 
-export function SuccessfullyModal({
+export function ConfirmationModal({
   children,
   title,
   action,
@@ -42,16 +42,8 @@ export function SuccessfullyModal({
             <CheckCircleIcon className="size-4" />
             {title}
           </Badge>
-          <Button
-            className="w-full"
-            onClick={handleAction}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              "Continue ?"
-            )}
+          <Button className="w-full" onClick={handleAction} disabled={isLoading}>
+            {isLoading ? <Loader2 className="size-4 animate-spin" /> : 'Continue ?'}
           </Button>
         </div>
       </div>

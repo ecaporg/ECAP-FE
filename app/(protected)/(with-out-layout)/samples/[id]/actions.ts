@@ -1,17 +1,11 @@
-"use server";
-import { flagMissingWorkSample, flagSample, updateSample } from "@/lib/sample";
-import {
-  type Sample,
-  SampleFlagError,
-  SampleFlagMissingWork,
-  SampleStatus,
-  User,
-} from "@/types";
-import { redirect, RedirectType } from "next/navigation";
-import { routes } from "@/constants/routes";
-import { getUserName } from "@/utils";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { ApiResponse } from "@/lib/fetch";
+'use server';
+import { flagMissingWorkSample, flagSample, updateSample } from '@/lib/sample';
+import { type Sample, SampleFlagError, SampleFlagMissingWork, SampleStatus, User } from '@/types';
+import { redirect, RedirectType } from 'next/navigation';
+import { routes } from '@/constants/routes';
+import { getUserName } from '@/utils';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { ApiResponse } from '@/lib/fetch';
 
 const revalidatePathAndTag = (sample: Sample) => {
   const path = `${routes.compliance.samples}?student_id=${
@@ -25,10 +19,7 @@ const revalidatePathAndTag = (sample: Sample) => {
 };
 
 const executeAction = async (
-  func: (
-    id: Sample["id"],
-    data: any
-  ) => Promise<ApiResponse<Sample, undefined>>,
+  func: (id: Sample['id'], data: any) => Promise<ApiResponse<Sample, undefined>>,
   sample: Sample,
   data: any
 ) => {
@@ -52,10 +43,7 @@ export const approveSampleAction = async (sample: Sample, done_by: User) => {
   redirect(path, RedirectType.replace);
 };
 
-export const flagSampleAction = async (
-  sample: Sample,
-  data: SampleFlagError
-) => {
+export const flagSampleAction = async (sample: Sample, data: SampleFlagError) => {
   await executeAction(flagSample, sample, data);
 
   const path = revalidatePathAndTag(sample);
@@ -63,10 +51,7 @@ export const flagSampleAction = async (
   redirect(path, RedirectType.replace);
 };
 
-export const flagMissingWorkSampleAction = async (
-  sample: Sample,
-  data: SampleFlagMissingWork
-) => {
+export const flagMissingWorkSampleAction = async (sample: Sample, data: SampleFlagMissingWork) => {
   await executeAction(flagMissingWorkSample, sample, data);
 
   revalidatePathAndTag(sample);

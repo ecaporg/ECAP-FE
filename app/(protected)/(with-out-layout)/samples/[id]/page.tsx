@@ -1,18 +1,14 @@
-import { getSampleById } from "@/lib/sample";
+import { getSampleById } from '@/lib/sample';
 
-import { SampleActionButtons } from "../components/sample-meta";
-import { Skeleton } from "@/components/ui/skeleton";
-import { SampleInputs } from "../components/sample-inputs";
+import { SampleActionButtons } from '../components/sample-meta';
+import { Skeleton } from '@/components/ui/skeleton';
+import { SampleInputs } from '../components/sample-inputs';
 export default async function SampleDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const {
-    data: sample,
-    message,
-    error,
-  } = await getSampleById((await params).id);
+  const { data: sample, message, error } = await getSampleById((await params).id);
 
   if (error || !sample) {
     throw new Error(message || error);
