@@ -1,14 +1,25 @@
-import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
-import { PaginationSection } from '@/components/table/pagination-section';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { routes } from '@/constants/routes';
-import { getComplianceStudentSamples, getComplianceStudents } from '@/lib/compliance';
-import type { Sample, Tenant, TrackLearningPeriod } from '@/types';
-import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
-import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
-import { SamplesFilters } from './filters';
-import { SamplesTable, StudentsTable } from './tables';
+import {
+  LoadingFilters,
+  LoadingTableSection,
+} from "@/components/table/loading";
+import { PaginationSection } from "@/components/table/pagination-section";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { routes } from "@/constants/routes";
+import {
+  getComplianceStudentSamples,
+  getComplianceStudents,
+  getComplianceTeachers,
+} from "@/lib/compliance";
+import type { Sample, Tenant, TrackLearningPeriod } from "@/types";
+import {
+  assignDefaultLearningPeriod,
+  getDueDate,
+  getStatusForTable,
+} from "@/utils";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { SamplesFilters } from "./filters";
+import { SamplesTable, StudentsTable } from "./tables";
 
 export interface SectionWithTableProps {
   param: {
@@ -46,9 +57,22 @@ export const SamplesSection = (props: SectionWithTableProps) => {
   );
 };
 
+export const TeacherSection = (props: SectionWithTableProps) => {
+  return (
+    <Suspense
+      fallback={<LoadingTableSection columns={8} />}
+      key={new URLSearchParams(props.param as any).toString()}
+    >
+      <Teachers {...props} />
+    </Suspense>
+  );
+};
+
 const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
-  const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
+  const assignment = await getComplianceStudents(
+    new URLSearchParams(param as any).toString()
+  );
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
     (learningPeriod) => learningPeriod.id == param.learning_period_id
@@ -64,7 +88,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ''}
+        learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completedCount} / ${totalItems} students completed`}
         status={status}
@@ -94,22 +118,21 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
+  const samples = assignmentPeriods.data?.flatMap(
+    (assignment) => assignment.samples
+  );
 
   const rows = Object.entries(
     (assignmentPeriods.data || [])
       ?.flatMap(({ samples }) => samples)
-      .reduce(
-        (acc, sample) => {
-          if (acc[sample.subject_id]) {
-            acc[sample.subject_id].push(sample);
-          } else {
-            acc[sample.subject_id] = [sample];
-          }
-          return acc;
-        },
-        {} as Record<number, Sample[]>
-      )
+      .reduce((acc, sample) => {
+        if (acc[sample.subject_id]) {
+          acc[sample.subject_id].push(sample);
+        } else {
+          acc[sample.subject_id] = [sample];
+        }
+        return acc;
+      }, {} as Record<number, Sample[]>)
   ).map(([_, samples = []]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -129,17 +152,52 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
       <SamplesFilters
         tenant={tenant}
         samples={samples || []}
-        student={assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student}
+        student={
+          assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student
+        }
         defaultName={param.name}
       />
       <PaginationSection
         totalPages={0}
-        learningPeriod={learningPeriod?.name ?? ''}
+        learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completeCount} / ${totalItems} Subjects completed`}
         status={status}
       />
       <SamplesTable rows={rows} />
+    </>
+  );
+};
+
+const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
+  const mergedLP = assignDefaultLearningPeriod(tenant, param);
+  const assignment = await getComplianceTeachers(
+    new URLSearchParams(param as any).toString()
+  );
+  const totalPages = assignment?.meta?.totalPages ?? 0;
+  const learningPeriod = mergedLP.find(
+    (learningPeriod) => learningPeriod.id == param.learning_period_id
+  );
+
+  const dueDate = getDueDate(learningPeriod);
+  const totalItems = assignment?.meta?.totalItems ?? 0;
+  const completedCount = assignment?.meta?.completedCount ?? 0;
+
+  const status = getStatusForTable(completedCount, totalItems, dueDate);
+
+  return (
+    <>
+      <PaginationSection
+        totalPages={totalPages}
+        learningPeriod={learningPeriod?.name ?? ""}
+        dueDate={dueDate.toLocaleDateString()}
+        completedString={`${completedCount} / ${totalItems} students completed`}
+        status={status}
+      />
+      <StudentsTable
+        assignments={assignment?.data}
+        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
+      />
     </>
   );
 };
