@@ -6,9 +6,8 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { Label } from "../ui/label";
 
-import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { ScrollArea } from "../ui/scroll-area";
-import { Popover, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, ...props }, ref) => {
@@ -50,12 +49,37 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
   label,
   getOptions,
 }) => {
-  const [open, setOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [options, setOptions] = useState<Option[]>([]);
   const [value, setValue] = useState("");
   const [debouncedValue] = useDebounce(value, 700);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <PopoverFilter
+      getOptions={getOptions}
+      debouncedValue={debouncedValue}
+      inputRef={inputRef}
+    >
+      <Label className="block">{label}</Label>
+      <SearchInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={label}
+        ref={inputRef}
+      />
+    </PopoverFilter>
+  );
+};
+
+const PopoverFilter: React.FC<
+  React.PropsWithChildren<{
+    getOptions: (value: string) => Promise<Option[]>;
+    debouncedValue: string;
+    inputRef: React.RefObject<HTMLInputElement>;
+  }>
+> = ({ children, getOptions, debouncedValue, inputRef }) => {
+  const [options, setOptions] = useState<Option[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -75,31 +99,36 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
   }, [debouncedValue]);
 
   return (
-    <Popover open={open}>
-      <PopoverTrigger>
-        <Label className="block">{label}</Label>
-        <SearchInput
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={label}
-          onFocus={() => {
-            setOpen(true);
+    <Popover
+      open={open}
+      onOpenChange={(state) => {
+        if (state) {
+          setTimeout(() => {
             inputRef.current?.focus();
-          }}
-          ref={inputRef}
-        />
-      </PopoverTrigger>
-      <PopoverPrimitive.Content>
-        {value !== "" && !isLoading && (
+          }, 100);
+        }
+        setOpen(state);
+      }}
+    >
+      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContent>
+        {!isLoading && (
           <ScrollArea className="max-h-[min(30rem,50vh)]">
             {options.map((option) => (
-              <div key={option.value}>{option.label}</div>
+              <p
+                key={option.value}
+                className={cn(
+                  "relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-4 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+                  "hover:bg-hover-gray min-h-12"
+                )}
+              >
+                {option.label}
+              </p>
             ))}
           </ScrollArea>
         )}
-
         {isLoading && <div>Loading...</div>}
-      </PopoverPrimitive.Content>
+      </PopoverContent>
     </Popover>
   );
 };
