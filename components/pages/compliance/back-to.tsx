@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 export const BackToCompliance = ({ student }: { student: Student }) => {
   const router = useRouter();
-  console.log(student);
   return (
     <div className="flex items-center justify-between w-full py-5 font-semibold">
       <p
@@ -14,7 +13,7 @@ export const BackToCompliance = ({ student }: { student: Student }) => {
         onClick={() => router.back()}
       >
         <ArrowLeftIcon className="w-4 h-4" />
-        <span className="hidden md:block">Back to student table</span>
+        <span className="hidden md:block">Back to Student Table</span>
       </p>
       <span className="text-xl text-neutral-black">{getUserName(student.user)}</span>
     </div>
