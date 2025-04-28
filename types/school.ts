@@ -1,3 +1,4 @@
+import { NestedKeyOf } from '@/utils/type';
 import type { GenericEntity } from './shared';
 import type { Admin, Director, Teacher } from './staff';
 import type { Sample, Student } from './student';

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableBody,
@@ -6,20 +6,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { routes } from "@/constants/routes";
-import type {
-  AssignmentPeriod,
-  Sample,
-  Student,
-  Subject,
-  TrackLearningPeriod,
-} from "@/types";
-import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { useRouter } from "next/navigation";
-import { ActionButton } from "./action-button";
-import { CompletionStatusForTable, SapmleStatus } from "./statuses";
-import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+} from '@/components/ui/table';
+import { routes } from '@/constants/routes';
+import type { AssignmentPeriod, Sample, Student, Subject, TrackLearningPeriod } from '@/types';
+import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
+import { useRouter } from 'next/navigation';
+import { ActionButton } from './action-button';
+import { CompletionStatusForTable, SapmleStatus } from './statuses';
+import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
+import { SortableIcon } from '@/components/table/sortable-header';
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
@@ -37,9 +32,9 @@ export const SamplesTable = ({
 }) => {
   const AvatarColumn = ({ sample }: { sample: Sample }) => {
     return (
-      <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ""}>
+      <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ''}>
         <AvatarFallback>
-          {sample?.done_by ? getInitials(getUserName(sample.done_by)) : "--"}
+          {sample?.done_by ? getInitials(getUserName(sample.done_by)) : '--'}
         </AvatarFallback>
       </Avatar>
     );
@@ -98,10 +93,7 @@ export const SamplesTable = ({
   );
 };
 
-export const StudentsTable = ({
-  assignments = [],
-  currentLearningPeriod,
-}: TableProps) => {
+export const StudentsTable = ({ assignments = [], currentLearningPeriod }: TableProps) => {
   const router = useRouter();
 
   const handleClick = (student: Student) => {
@@ -109,9 +101,7 @@ export const StudentsTable = ({
       router.push(
         `${routes.compliance.samples}?student_id=${
           student.user.id
-        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
-          student.user
-        )}`
+        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(student.user)}`
       );
     };
   };
@@ -120,13 +110,34 @@ export const StudentsTable = ({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="min-w-[200px]">Student Name</TableHead>
-          <TableHead>Student ID</TableHead>
-          <TableHead>School</TableHead>
-          <TableHead>Academy</TableHead>
-          <TableHead>Track</TableHead>
-          <TableHead>Grade</TableHead>
-          <TableHead>Completion Status</TableHead>
+          <TableHead className="min-w-[200px]">
+            Student Name
+            <SortableIcon<AssignmentPeriod> name="student.user.firstname" />
+          </TableHead>
+          <TableHead>
+            Student ID
+            <SortableIcon<AssignmentPeriod> name="student_id" />
+          </TableHead>
+          <TableHead>
+            School
+            <SortableIcon<AssignmentPeriod> name="student.school.name" />
+          </TableHead>
+          <TableHead>
+            Academy
+            <SortableIcon<AssignmentPeriod> name="student.academy.name" />
+          </TableHead>
+          <TableHead>
+            Track
+            <SortableIcon<AssignmentPeriod> name="student.track.name" />
+          </TableHead>
+          <TableHead>
+            Grade
+            <SortableIcon<AssignmentPeriod> name="student.grade" />
+          </TableHead>
+          <TableHead>
+            Completion Status
+            <SortableIcon<AssignmentPeriod> name="completed" />
+          </TableHead>
           <TableHead>Progress (%)</TableHead>
         </TableRow>
       </TableHeader>

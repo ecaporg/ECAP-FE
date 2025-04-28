@@ -5,14 +5,14 @@ import {
   LearningPeriodFilter,
   SampleStatusFilter,
   SchoolFilter,
-  SearchFilter,
   TrackFilter,
-} from '@/components/filters';
-import { DoneByFilter } from '@/components/filters/done-by';
-import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
-import { AssignmentPeriod, type Sample, type Student, type Tenant } from '@/types';
-import { cn, getLearningPeriodFromTenant } from '@/utils';
-import { BackToCompliance } from './back-to-compliance';
+} from "@/components/filters";
+import { DoneByFilter } from "@/components/filters/done-by";
+import { SPECIFIC_PAGE_FILTER_KEYS } from "@/constants/filter";
+import { type Sample, type Student, type Tenant } from "@/types";
+import { cn, getLearningPeriodFromTenant } from "@/utils";
+import { BackToCompliance } from "./back-to-compliance";
+import { SearchStudentFilter } from "@/components/filters/search-student.filter";
 
 type FilterProps = {
   tenant: Tenant;
@@ -22,18 +22,20 @@ const FilterWrapper = ({
   children,
   className,
 }: React.PropsWithChildren<{ className?: string }>) => {
-  return <section className={cn('flex flex-wrap gap-4 pt-9 pb-8', className)}>{children}</section>;
+  return (
+    <section className={cn("flex flex-wrap gap-4 pt-9 pb-8", className)}>
+      {children}
+    </section>
+  );
 };
 
 export function TeacherFilters({ tenant }: FilterProps) {
   return (
     <FilterWrapper>
-      <LearningPeriodFilter availablePeriods={getLearningPeriodFromTenant(tenant)} />
-      <SearchFilter
-        label="Search for a student by name/ID"
-        slug="search"
-        options={[{ label: 'test', value: 'test' }]}
+      <LearningPeriodFilter
+        availablePeriods={getLearningPeriodFromTenant(tenant)}
       />
+      <SearchStudentFilter />
       <SchoolFilter
         availableSchools={tenant.schools}
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID}
@@ -58,21 +60,32 @@ type SamplesFiltersProps = FilterProps & {
   defaultName?: string;
 };
 
-export function SamplesFilters({ tenant, samples, student, defaultName }: SamplesFiltersProps) {
+export function SamplesFilters({
+  tenant,
+  samples,
+  student,
+  defaultName,
+}: SamplesFiltersProps) {
   return (
     <FilterWrapper className="pt-0">
       <BackToCompliance
         student={
           student ??
           ({
-            user: { firstname: defaultName, lastname: '' },
+            user: { firstname: defaultName, lastname: "" },
           } as Student)
         }
       />
-      <LearningPeriodFilter availablePeriods={getLearningPeriodFromTenant(tenant)} />
-      <SampleStatusFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS} />
+      <LearningPeriodFilter
+        availablePeriods={getLearningPeriodFromTenant(tenant)}
+      />
+      <SampleStatusFilter
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS}
+      />
       <DoneByFilter
-        availableUsers={samples.map((sample) => sample.done_by).filter((user) => user !== null)}
+        availableUsers={samples
+          .map((sample) => sample.done_by)
+          .filter((user) => user !== null)}
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
       />
     </FilterWrapper>

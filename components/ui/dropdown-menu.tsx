@@ -24,6 +24,7 @@ const DropdownMenuTrigger = ({
         'flex h-12 px-4 items-center gap-4',
         'border border-darker-gray rounded-sm',
         'outline-none',
+        'disabled:cursor-not-allowed disabled:opacity-70 disabled:border-cool-gray',
         isPlaceholder && 'text-darker-gray',
         props.className
       )}

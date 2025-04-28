@@ -12,3 +12,4 @@ export const validationMessages = {
 export * from './learning-period';
 export * from './user';
 export * from './sample';
+export * from './type';

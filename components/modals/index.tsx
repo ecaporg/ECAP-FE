@@ -1,1 +1,1 @@
-export * from './successfully';
+export * from './confirmation';

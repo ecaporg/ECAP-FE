@@ -1,15 +1,15 @@
-'use server';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/auth';
-import { routes } from '@/constants/routes';
-import { setAuthTokens } from '@/lib/auth';
-import { apiFetch } from '@/lib/fetch';
-import type { AuthResponse, SignInDTO } from '@/types';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+"use server";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/constants/auth";
+import { routes } from "@/constants/routes";
+import { setAuthTokens } from "@/lib/auth";
+import { apiFetch } from "@/lib/fetch";
+import type { AuthResponse, SignInDTO } from "@/types";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function signInAction(data: SignInDTO) {
-  const response = await apiFetch<AuthResponse>('/auth/sign-in', {
-    method: 'POST',
+  const response = await apiFetch<AuthResponse>("/auth/sign-in", {
+    method: "POST",
     body: JSON.stringify(data),
     withoutAuth: true,
   });
@@ -25,7 +25,7 @@ export async function signInAction(data: SignInDTO) {
 
   return {
     ok: true,
-    data: response.data.user,
+    data: response.data,
   };
 }
 
