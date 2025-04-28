@@ -7,3 +7,11 @@ export const PageLoading = () => {
     </section>
   );
 };
+
+export const SectionLoading = () => {
+  return (
+    <section className="flex flex-col items-center justify-center size-full">
+      <Loader2 className="animate-spin" />
+    </section>
+  );
+};

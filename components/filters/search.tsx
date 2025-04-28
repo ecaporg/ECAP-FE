@@ -8,6 +8,8 @@ import { Label } from "../ui/label";
 
 import { ScrollArea } from "../ui/scroll-area";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { SectionLoading } from "../layouts/loading";
+import { Skeleton } from "../ui/skeleton";
 
 const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, ...props }, ref) => {
@@ -57,7 +59,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
     <PopoverFilter
       getOptions={getOptions}
       debouncedValue={debouncedValue}
-      inputRef={inputRef}
+      inputRef={inputRef!}
     >
       <Label className="block">{label}</Label>
       <SearchInput
@@ -88,6 +90,9 @@ const PopoverFilter: React.FC<
         if (debouncedValue) {
           const options = await getOptions(debouncedValue);
           setOptions(options);
+          if (!open) {
+            setOpen(true);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -125,9 +130,20 @@ const PopoverFilter: React.FC<
                 {option.label}
               </p>
             ))}
+            {options.length === 0 && (
+              <p className="text-sm text-center text-darker-gray">
+                No results found
+              </p>
+            )}
           </ScrollArea>
         )}
-        {isLoading && <div>Loading...</div>}
+        {isLoading && (
+          <>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} className="h-12 w-full px-4 py-1.5" />
+            ))}
+          </>
+        )}
       </PopoverContent>
     </Popover>
   );

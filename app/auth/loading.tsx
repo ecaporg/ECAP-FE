@@ -1,3 +1,5 @@
+import { SectionLoading } from "@/components/layouts/loading";
+
 export default function Loading() {
-  return <div>Loading...</div>;
+  return <SectionLoading />;
 }

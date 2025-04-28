@@ -1,9 +1,9 @@
 import { getComplianceTeacherFilter } from "@/lib/compliance";
-import { TeacherFilters } from "./components/filters";
+import { TeacherFilters } from "../components/filters";
 import {
   type SectionWithTableProps,
   StudentsSection,
-} from "./components/sections";
+} from "../components/sections";
 
 export default async function CompliancePage({
   searchParams,

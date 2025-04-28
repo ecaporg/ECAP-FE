@@ -1,7 +1,7 @@
-"use client";
-import { useFilterParam } from "@/hooks/table/useFilterParam";
-import type React from "react";
-import { useState } from "react";
+'use client';
+import { useFilterParam } from '@/hooks/table/useFilterParam';
+import type React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,10 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Label } from "../ui/label";
-import { ScrollArea } from "../ui/scroll-area";
-import { SearchInput } from "./search";
+} from '../ui/dropdown-menu';
+import { Label } from '../ui/label';
+import { ScrollArea } from '../ui/scroll-area';
+import { SearchInput } from './search';
 
 export interface FilterProps {
   multiple?: boolean;
@@ -20,16 +20,16 @@ export interface FilterProps {
   options: { label: string; value: string }[];
   slug: string;
   label: string;
-  render?: (option: FilterProps["options"][number]) => React.ReactNode;
+  render?: (option: FilterProps['options'][number]) => React.ReactNode;
   disabled?: boolean;
 }
 
 interface ItemProps {
-  option: FilterProps["options"][number];
+  option: FilterProps['options'][number];
   checked: boolean;
   handleSelect: (value: string) => void;
-  multiple: FilterProps["multiple"];
-  render?: FilterProps["render"];
+  multiple: FilterProps['multiple'];
+  render?: FilterProps['render'];
 }
 
 export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
@@ -48,7 +48,7 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
           e.preventDefault();
           handleSelect(option.value);
         }}
-        className={checked ? "bg-cool-gray" : ""}
+        className={checked ? 'bg-cool-gray' : ''}
       >
         {render ? render(option) : option.label}
       </DropdownMenuCheckboxItem>
@@ -58,7 +58,7 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
     <DropdownMenuItem
       key={option.value}
       onSelect={() => handleSelect(option.value)}
-      className={checked ? "bg-cool-gray" : ""}
+      className={checked ? 'bg-cool-gray' : ''}
     >
       {render ? render(option) : option.label}
     </DropdownMenuItem>
@@ -74,14 +74,14 @@ export const BaseFilter: React.FC<FilterProps> = ({
   render,
   disabled = false,
 }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { selectedValues, handleSelect } = useFilterParam(slug, multiple);
 
   const placeholder = multiple
     ? label
     : selectedValues[0]
-    ? options.find((option) => option.value == selectedValues[0])?.label
-    : label;
+      ? options.find((option) => option.value == selectedValues[0])?.label
+      : label;
 
   const showSearch = hasSearch || options.length > 15;
 
@@ -89,10 +89,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
     <div>
       <Label className="block">{label}</Label>
       <DropdownMenu>
-        <DropdownMenuTrigger
-          disabled={disabled}
-          isPlaceholder={!selectedValues[0]}
-        >
+        <DropdownMenuTrigger disabled={disabled} isPlaceholder={!selectedValues[0]}>
           {placeholder}
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -109,17 +106,13 @@ export const BaseFilter: React.FC<FilterProps> = ({
           <ScrollArea className="max-h-[min(30rem,50vh)]">
             {options
               .filter(
-                (option) =>
-                  !search ||
-                  option.label.toLowerCase().includes(search.toLowerCase())
+                (option) => !search || option.label.toLowerCase().includes(search.toLowerCase())
               )
               .map((option) => (
                 <DropdownMenuLocalItem
                   key={option.value}
                   option={option}
-                  checked={selectedValues.some(
-                    (value) => value == option.value
-                  )}
+                  checked={selectedValues.some((value) => value == option.value)}
                   handleSelect={handleSelect}
                   multiple={multiple}
                   render={render}
