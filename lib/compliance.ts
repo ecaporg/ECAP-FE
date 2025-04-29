@@ -47,5 +47,7 @@ export const getComplianceTeachers = async (queryParams: string) => {
   const response = await apiFetch<TeacherCompliance[]>(
     `/teachers-table?${queryParams}`
   );
-  return response;
+  return response as ApiResponse<TeacherCompliance[]> & {
+    meta: { completedCount: number };
+  };
 };

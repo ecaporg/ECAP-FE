@@ -1,15 +1,32 @@
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { BaseFilter } from './base';
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { BaseFilter } from "./base";
+import { Semester } from "@/types";
 
 interface SemesterFilterProps {
   slug?: string;
+  availableSemesters: Semester[];
 }
 
-const SEMESTERS = [
-  { label: 'Semester 1', value: 'Semester 1' },
-  { label: 'Semester 2', value: 'Semester 2' },
-];
+export function SemesterFilter({
+  slug = DEFAULT_FILTERS_KEYS.SEMESTER,
+  availableSemesters = [],
+}: SemesterFilterProps) {
+  const map = new Map();
 
-export function SemesterFilter({ slug = DEFAULT_FILTERS_KEYS.SEMESTER }: SemesterFilterProps) {
-  return <BaseFilter label="Semester" slug={slug} options={SEMESTERS} multiple hasSearch={true} />;
+  availableSemesters.forEach((semester) => {
+    map.set(semester.id, semester.name);
+  });
+
+  return (
+    <BaseFilter
+      label="Semester"
+      slug={slug}
+      options={Array.from(map.entries()).map(([key, value]) => ({
+        label: value,
+        value: key.toString(),
+      }))}
+      multiple
+      hasSearch={true}
+    />
+  );
 }

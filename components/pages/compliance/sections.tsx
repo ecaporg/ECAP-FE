@@ -90,7 +90,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={totalPages}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`${completedCount} / ${totalItems} students completed`}
+        completedString={`${completedCount} / ${totalItems} Students Completed`}
         status={status}
       />
       <StudentsTable
@@ -161,7 +161,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={0}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`${completeCount} / ${totalItems} Subjects completed`}
+        completedString={`${completeCount} / ${totalItems} Subjects Completed`}
         status={status}
       />
       <SamplesTable rows={rows} />
@@ -169,7 +169,12 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
   );
 };
 
-const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
+const Teachers = async ({
+  param,
+  tenant,
+}: SectionWithTableProps & {
+  param: { [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string };
+}) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
   const assignment = await getComplianceTeachers(
     new URLSearchParams(param as any).toString()
@@ -181,7 +186,7 @@ const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
   const totalItems = assignment?.meta?.totalItems ?? 0;
-  // const completedCount = assignment?.meta?.completedCount ?? 0;
+  const completedCount = assignment?.meta?.completedCount ?? 0;
 
   const status = getStatusForTable(0, totalItems, dueDate);
 
@@ -191,7 +196,7 @@ const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={totalPages}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`NaN / ${totalItems} teachers completed`}
+        completedString={`${completedCount} / ${totalItems} Teachers Completed`}
         status={status}
       />
       <TeachersTable
