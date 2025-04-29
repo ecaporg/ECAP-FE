@@ -96,7 +96,14 @@ export function SamplesFilters({
   );
 }
 
-export function DirectorFilters({ tenant }: FilterProps) {
+export function DirectorFilters({
+  tenant,
+  academicYearIds,
+}: FilterProps & { academicYearIds: string[] }) {
+  const tracks = tenant.tracks.filter((track) =>
+    academicYearIds.includes(track.academic_year_id.toString())
+  );
+
   return (
     <FilterWrapper className="lg:grid lg:grid-cols-6 lg:[&_button]:w-full lg:[&_button:has(input)]:col-span-2">
       <AcademicYearFilter
@@ -105,7 +112,7 @@ export function DirectorFilters({ tenant }: FilterProps) {
         )}
       />
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(tenant)}
+        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
       <SearchStudentFilter />
 
@@ -121,16 +128,16 @@ export function DirectorFilters({ tenant }: FilterProps) {
       />
       <TrackFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID}
-        availableTracks={tenant.tracks}
+        availableTracks={tracks}
       />
       <SemesterFilter
-        availableSemesters={tenant.tracks.flatMap(
+        availableSemesters={tracks.flatMap(
           (track) => track.academicYear.semesters
         )}
       />
       <GradeSpanFilter />
       <SubjectFilter
-        availableSubjects={tenant.tracks.flatMap((track) => track.subjects)}
+        availableSubjects={tracks.flatMap((track) => track.subjects)}
       />
       <SampleStatusFilter />
     </FilterWrapper>

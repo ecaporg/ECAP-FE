@@ -57,13 +57,18 @@ export const SamplesSection = (props: SectionWithTableProps) => {
   );
 };
 
-export const TeacherSection = (props: SectionWithTableProps) => {
+export type TeachersSectionProps = SectionWithTableProps & {
+  param: { [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string };
+  academicYearIds: string[];
+};
+
+export const TeacherSection = (props: TeachersSectionProps) => {
   return (
     <Suspense
       fallback={<LoadingTableSection columns={8} />}
       key={new URLSearchParams(props.param as any).toString()}
     >
-      <Teachers {...(props as any)} />
+      <Teachers {...props} />
     </Suspense>
   );
 };
@@ -172,10 +177,9 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
 const Teachers = async ({
   param,
   tenant,
-}: SectionWithTableProps & {
-  param: { [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string };
-}) => {
-  const mergedLP = assignDefaultLearningPeriod(tenant, param);
+  academicYearIds,
+}: TeachersSectionProps) => {
+  const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const assignment = await getComplianceTeachers(
     new URLSearchParams(param as any).toString()
   );

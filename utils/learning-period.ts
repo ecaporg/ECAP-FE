@@ -18,7 +18,7 @@ export const formatLearningPeriodDate = (date: Date | string) => {
 
 export const getLearningPeriodFromTenant = (
   tenant: Tenant,
-  academic_year_id?: number | string
+  academic_year_ids?: (number | string)[]
 ) => {
   return tenant?.tracks.flatMap((track) =>
     track.learningPeriods
@@ -29,8 +29,8 @@ export const getLearningPeriodFromTenant = (
         name: `${track.name}: ${getShortLearningPeriodName(period.name)}`,
       }))
       .filter(() => {
-        if (academic_year_id) {
-          return track.academic_year_id == academic_year_id;
+        if (academic_year_ids?.length) {
+          return academic_year_ids.includes(track.academic_year_id.toString());
         }
         return true;
       })
@@ -74,14 +74,11 @@ export const assignDefaultLearningPeriod = (
   tenant: Tenant,
   param: {
     [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string | number;
-    [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]?: string | number;
-  }
+  },
+  academicYearIds?: string[]
 ) => {
   const mergedLP = mergeLearningPeriods(
-    getLearningPeriodFromTenant(
-      tenant,
-      param[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
-    )
+    getLearningPeriodFromTenant(tenant, academicYearIds)
   );
   if (!param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]) {
     const learningPeriod = mergedLP[0];

@@ -235,7 +235,9 @@ export const TeachersTable = ({
       <TableBody>
         {assignments.map((assignment) => (
           <TableRow key={assignment.teacher_id}>
-            <TableCell>{assignment.teacher_firstname}</TableCell>
+            <TableCell>
+              {assignment.teacher_firstname} {assignment.teacher_lastname}
+            </TableCell>
             <TableCell>{assignment.academy_name}</TableCell>
             <TableCell>{assignment.student_count}</TableCell>
             <TableCell>{assignment.flagged_count}</TableCell>
