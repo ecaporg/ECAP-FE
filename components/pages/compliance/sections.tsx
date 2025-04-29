@@ -63,7 +63,7 @@ export const TeacherSection = (props: SectionWithTableProps) => {
       fallback={<LoadingTableSection columns={8} />}
       key={new URLSearchParams(props.param as any).toString()}
     >
-      <Teachers {...props} />
+      <Teachers {...(props as any)} />
     </Suspense>
   );
 };
@@ -201,7 +201,6 @@ const Teachers = async ({
       />
       <TeachersTable
         assignments={assignment?.data ?? []}
-        academyName={tenant.academies[0].name}
         currentLearningPeriod={learningPeriod as TrackLearningPeriod}
       />
     </>

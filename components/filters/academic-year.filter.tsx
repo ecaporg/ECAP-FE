@@ -14,7 +14,7 @@ export function AcademicYearFilter({
   const map = new Map();
 
   availableAcademicYears.forEach((academicYear) => {
-    map.set(academicYear.id, `${academicYear.from} - ${academicYear.to}`);
+    map.set(academicYear.id, `${academicYear.from} / ${academicYear.to}`);
   });
 
   const disabled = availableAcademicYears.length === 0;

@@ -187,34 +187,56 @@ export const StudentsTable = ({
 
 type TeacherComplianceProps = {
   assignments: TeacherCompliance[];
-  academyName: string;
   currentLearningPeriod: TrackLearningPeriod;
 };
 
 export const TeachersTable = ({
   assignments = [],
-  academyName,
   currentLearningPeriod,
 }: TeacherComplianceProps) => {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Teacher Name</TableHead>
-          <TableHead>Academy</TableHead>
-          <TableHead>Students</TableHead>
-          <TableHead>Flagged Samples</TableHead>
-          <TableHead>Completed Samples</TableHead>
-          <TableHead>Incomplete Samples</TableHead>
-          <TableHead>Completion</TableHead>
-          <TableHead>Progress (%)</TableHead>
+          <TableHead>
+            Teacher Name
+            <SortableIcon<TeacherCompliance> name="teacher_firstname" />
+          </TableHead>
+          <TableHead>
+            Academy
+            <SortableIcon<TeacherCompliance> name="academy_name" />
+          </TableHead>
+          <TableHead>
+            Students
+            <SortableIcon<TeacherCompliance> name="student_count" />
+          </TableHead>
+          <TableHead>
+            Flagged Samples
+            <SortableIcon<TeacherCompliance> name="flagged_count" />
+          </TableHead>
+          <TableHead>
+            Completed Samples
+            <SortableIcon<TeacherCompliance> name="completed_count" />
+          </TableHead>
+          <TableHead>
+            Incomplete Samples
+            <SortableIcon<TeacherCompliance> name="incompleted_count" />
+          </TableHead>
+          <TableHead>
+            Completion Status
+            <SortableIcon<TeacherCompliance> name="is_complated" />
+          </TableHead>
+          <TableHead>
+            Completion Percentage
+            <SortableIcon<TeacherCompliance> name="completion_percentage" />
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
           <TableRow key={assignment.teacher_id}>
             <TableCell>{assignment.teacher_firstname}</TableCell>
-            <TableCell>{academyName}</TableCell>
+            <TableCell>{assignment.academy_name}</TableCell>
             <TableCell>{assignment.student_count}</TableCell>
             <TableCell>{assignment.flagged_count}</TableCell>
             <TableCell>{assignment.completed_count}</TableCell>

@@ -82,4 +82,6 @@ export type TeacherCompliance = {
   incompleted_count: number;
   is_complated: boolean;
   completion_percentage: number;
+  academy_id: number;
+  academy_name: string;
 };
