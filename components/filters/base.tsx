@@ -100,7 +100,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
           <span className="truncate">{placeholder}</span>
           {multiple && selectedValues.length > 0 ? (
             <button
-              className="text-white text-sm bg-primary rounded-lg px-1.5 py-1 inline-flex items-center gap-1 z-10"
+              className="text-white text-sm bg-primary rounded-lg px-1.5 py-1 inline-flex items-center gap-1 !w-fit ml-auto [&+svg]:ml-0"
               onPointerDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
