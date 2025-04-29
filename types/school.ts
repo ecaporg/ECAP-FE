@@ -70,3 +70,16 @@ export type AssignmentPeriod = GenericEntity & {
   student: Student;
   samples: Sample[];
 };
+
+export type TeacherCompliance = {
+  course_id: number;
+  teacher_id: number;
+  teacher_firstname: string;
+  teacher_lastname: string;
+  student_count: number;
+  completed_count: number;
+  flagged_count: number;
+  incompleted_count: number;
+  is_complated: boolean;
+  completion_percentage: number;
+};

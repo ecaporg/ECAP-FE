@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Table,
   TableBody,
@@ -6,15 +6,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { routes } from '@/constants/routes';
-import type { AssignmentPeriod, Sample, Student, Subject, TrackLearningPeriod } from '@/types';
-import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
-import { useRouter } from 'next/navigation';
-import { ActionButton } from './action-button';
-import { CompletionStatusForTable, SapmleStatus } from './statuses';
-import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
-import { SortableIcon } from '@/components/table/sortable-header';
+} from "@/components/ui/table";
+import { routes } from "@/constants/routes";
+import type {
+  AssignmentPeriod,
+  Sample,
+  Student,
+  Subject,
+  TeacherCompliance,
+  TrackLearningPeriod,
+} from "@/types";
+import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
+import { useRouter } from "next/navigation";
+import { ActionButton } from "./action-button";
+import { CompletionStatusForTable, SapmleStatus } from "./statuses";
+import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+import { SortableIcon } from "@/components/table/sortable-header";
 
 interface TableProps {
   assignments?: AssignmentPeriod[];
@@ -32,9 +39,9 @@ export const SamplesTable = ({
 }) => {
   const AvatarColumn = ({ sample }: { sample: Sample }) => {
     return (
-      <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ''}>
+      <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ""}>
         <AvatarFallback>
-          {sample?.done_by ? getInitials(getUserName(sample.done_by)) : '--'}
+          {sample?.done_by ? getInitials(getUserName(sample.done_by)) : "--"}
         </AvatarFallback>
       </Avatar>
     );
@@ -93,7 +100,10 @@ export const SamplesTable = ({
   );
 };
 
-export const StudentsTable = ({ assignments = [], currentLearningPeriod }: TableProps) => {
+export const StudentsTable = ({
+  assignments = [],
+  currentLearningPeriod,
+}: TableProps) => {
   const router = useRouter();
 
   const handleClick = (student: Student) => {
@@ -101,7 +111,9 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Table
       router.push(
         `${routes.compliance.samples}?student_id=${
           student.user.id
-        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(student.user)}`
+        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
+          student.user
+        )}`
       );
     };
   };
@@ -168,6 +180,58 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Table
             </TableCell>
           </TableRow>
         )}
+      </TableBody>
+    </Table>
+  );
+};
+
+type TeacherComplianceProps = {
+  assignments: TeacherCompliance[];
+  academyName: string;
+  currentLearningPeriod: TrackLearningPeriod;
+};
+
+export const TeachersTable = ({
+  assignments = [],
+  academyName,
+  currentLearningPeriod,
+}: TeacherComplianceProps) => {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Teacher Name</TableHead>
+          <TableHead>Academy</TableHead>
+          <TableHead>Students</TableHead>
+          <TableHead>Flagged Samples</TableHead>
+          <TableHead>Completed Samples</TableHead>
+          <TableHead>Incomplete Samples</TableHead>
+          <TableHead>Completion</TableHead>
+          <TableHead>Progress (%)</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {assignments.map((assignment) => (
+          <TableRow key={assignment.teacher_id}>
+            <TableCell>{assignment.teacher_firstname}</TableCell>
+            <TableCell>{academyName}</TableCell>
+            <TableCell>{assignment.student_count}</TableCell>
+            <TableCell>{assignment.flagged_count}</TableCell>
+            <TableCell>{assignment.completed_count}</TableCell>
+            <TableCell>{assignment.incompleted_count}</TableCell>
+            <TableCell>
+              <CompletionStatusForTable
+                variant={getCompletionStatus(
+                  assignment.is_complated,
+                  currentLearningPeriod
+                )}
+              />
+            </TableCell>
+            <TableCell>
+              {Number(assignment.completion_percentage).toFixed(2)}%
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

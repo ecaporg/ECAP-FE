@@ -1,4 +1,4 @@
-import type { AssignmentPeriod, Tenant } from "@/types";
+import type { AssignmentPeriod, TeacherCompliance, Tenant } from "@/types";
 import { type ApiResponse, apiFetch } from "./fetch";
 
 export const getComplianceTeacherFilter = async () => {
@@ -36,7 +36,7 @@ export const getComplianceStudentSamples = async (
 };
 
 export const getComplianceAdminFilter = async () => {
-  const response = await apiFetch<Tenant>(`/admin-table/filters`);
+  const response = await apiFetch<Tenant>(`/teachers-table/filters`);
   if (response.error) {
     throw new Error(response.error);
   }
@@ -44,8 +44,8 @@ export const getComplianceAdminFilter = async () => {
 };
 
 export const getComplianceTeachers = async (queryParams: string) => {
-  const response = await apiFetch<AssignmentPeriod[]>(
-    `/admin-table/teachers?${queryParams}`
+  const response = await apiFetch<TeacherCompliance[]>(
+    `/teachers-table?${queryParams}`
   );
-  return response as ComplianceStudentsResponse;
+  return response;
 };

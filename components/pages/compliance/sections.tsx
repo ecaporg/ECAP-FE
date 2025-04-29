@@ -19,7 +19,7 @@ import {
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { SamplesFilters } from "./filters";
-import { SamplesTable, StudentsTable } from "./tables";
+import { SamplesTable, StudentsTable, TeachersTable } from "./tables";
 
 export interface SectionWithTableProps {
   param: {
@@ -181,9 +181,9 @@ const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
 
   const dueDate = getDueDate(learningPeriod);
   const totalItems = assignment?.meta?.totalItems ?? 0;
-  const completedCount = assignment?.meta?.completedCount ?? 0;
+  // const completedCount = assignment?.meta?.completedCount ?? 0;
 
-  const status = getStatusForTable(completedCount, totalItems, dueDate);
+  const status = getStatusForTable(0, totalItems, dueDate);
 
   return (
     <>
@@ -191,11 +191,12 @@ const Teachers = async ({ param, tenant }: SectionWithTableProps) => {
         totalPages={totalPages}
         learningPeriod={learningPeriod?.name ?? ""}
         dueDate={dueDate.toLocaleDateString()}
-        completedString={`${completedCount} / ${totalItems} students completed`}
+        completedString={`NaN / ${totalItems} teachers completed`}
         status={status}
       />
-      <StudentsTable
-        assignments={assignment?.data}
+      <TeachersTable
+        assignments={assignment?.data ?? []}
+        academyName={tenant.academies[0].name}
         currentLearningPeriod={learningPeriod as TrackLearningPeriod}
       />
     </>
