@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/table";
 import type { AssignmentPeriod, Student, TrackLearningPeriod } from "@/types";
 import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
+import Link from "next/link";
 
 interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
@@ -22,18 +23,7 @@ export const StudentsTable = ({
   assignments = [],
   currentLearningPeriod,
 }: StudentsTableProps) => {
-  const router = useRouter();
   const pathname = usePathname();
-
-  const handleClick = (student: Student) => {
-    return () => {
-      router.push(
-        `${pathname}/samples?student_id=${student.user.id}&learning_period_id=${
-          currentLearningPeriod.id
-        }&name=${getUserName(student.user)}`
-      );
-    };
-  };
 
   return (
     <Table>
@@ -72,23 +62,33 @@ export const StudentsTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <TableRow
+          <Link
+            className="contents"
+            href={`${pathname}/samples?student_id=${
+              assignment.student.user.id
+            }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
+              assignment.student.user
+            )}`}
             key={`${assignment.student.id}-${currentLearningPeriod.id}`}
-            onClick={handleClick(assignment.student)}
           >
-            <TableCell>{getUserName(assignment.student.user)}</TableCell>
-            <TableCell>{assignment.student.id}</TableCell>
-            <TableCell>{assignment.student.school?.name}</TableCell>
-            <TableCell>{assignment.student.academy?.name}</TableCell>
-            <TableCell>{assignment.student.track?.name}</TableCell>
-            <TableCell>{assignment.student.grade}</TableCell>
-            <TableCell>
-              <CompletionStatusForTable
-                variant={getCompletionStatus(assignment, currentLearningPeriod)}
-              />
-            </TableCell>
-            <TableCell>{getProgressValue(assignment)}%</TableCell>
-          </TableRow>
+            <TableRow>
+              <TableCell>{getUserName(assignment.student.user)}</TableCell>
+              <TableCell>{assignment.student.id}</TableCell>
+              <TableCell>{assignment.student.school?.name}</TableCell>
+              <TableCell>{assignment.student.academy?.name}</TableCell>
+              <TableCell>{assignment.student.track?.name}</TableCell>
+              <TableCell>{assignment.student.grade}</TableCell>
+              <TableCell>
+                <CompletionStatusForTable
+                  variant={getCompletionStatus(
+                    assignment,
+                    currentLearningPeriod
+                  )}
+                />
+              </TableCell>
+              <TableCell>{getProgressValue(assignment)}%</TableCell>
+            </TableRow>
+          </Link>
         ))}
         {assignments.length === 0 && (
           <TableRow className="h-80">

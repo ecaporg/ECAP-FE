@@ -1,3 +1,4 @@
+"use client";
 import { useSortableParam, SortDirectionEnum } from '@/hooks/table/useSortableParam';
 import { NestedKeyOf } from '@/utils';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';

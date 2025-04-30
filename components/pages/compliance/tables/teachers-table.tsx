@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableBody,
@@ -12,8 +11,8 @@ import { getCompletionStatus, getUserName } from "@/utils";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
 import { routes } from "@/constants/routes";
-import { useRouter } from "next/navigation";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import Link from "next/link";
 
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
@@ -24,20 +23,6 @@ export const TeachersTable = ({
   assignments = [],
   currentLearningPeriod,
 }: TeachersTableProps) => {
-  const router = useRouter();
-
-  const handleClick = (teacher_id: string) => {
-    return () => {
-      router.push(
-        `${routes.compliance.teacher.replace(":id", teacher_id)}?${
-          DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
-        }=${currentLearningPeriod.id}&${
-          DEFAULT_FILTERS_KEYS.TEACHER_ID
-        }=${teacher_id}`
-      );
-    };
-  };
-
   return (
     <Table>
       <TableHeader>
@@ -78,30 +63,38 @@ export const TeachersTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <TableRow
+          <Link
+            className="contents"
+            href={`${routes.compliance.teacher.replace(
+              ":id",
+              assignment.teacher_id.toString()
+            )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
+              currentLearningPeriod.id
+            }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}`}
             key={assignment.teacher_id}
-            onClick={handleClick(assignment.teacher_id.toString())}
           >
-            <TableCell>
-              {assignment.teacher_firstname} {assignment.teacher_lastname}
-            </TableCell>
-            <TableCell>{assignment.academy_name}</TableCell>
-            <TableCell>{assignment.student_count}</TableCell>
-            <TableCell>{assignment.flagged_count}</TableCell>
-            <TableCell>{assignment.completed_count}</TableCell>
-            <TableCell>{assignment.incompleted_count}</TableCell>
-            <TableCell>
-              <CompletionStatusForTable
-                variant={getCompletionStatus(
-                  assignment.is_complated,
-                  currentLearningPeriod
-                )}
-              />
-            </TableCell>
-            <TableCell>
-              {Number(assignment.completion_percentage).toFixed(2)}%
-            </TableCell>
-          </TableRow>
+            <TableRow>
+              <TableCell>
+                {assignment.teacher_firstname} {assignment.teacher_lastname}
+              </TableCell>
+              <TableCell>{assignment.academy_name}</TableCell>
+              <TableCell>{assignment.student_count}</TableCell>
+              <TableCell>{assignment.flagged_count}</TableCell>
+              <TableCell>{assignment.completed_count}</TableCell>
+              <TableCell>{assignment.incompleted_count}</TableCell>
+              <TableCell>
+                <CompletionStatusForTable
+                  variant={getCompletionStatus(
+                    assignment.is_complated,
+                    currentLearningPeriod
+                  )}
+                />
+              </TableCell>
+              <TableCell>
+                {Number(assignment.completion_percentage).toFixed(2)}%
+              </TableCell>
+            </TableRow>
+          </Link>
         ))}
         {assignments.length === 0 && (
           <TableRow className="h-80">
