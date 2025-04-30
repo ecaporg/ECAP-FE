@@ -14,8 +14,8 @@ import {
 } from "@/utils";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { SamplesFilters } from "../filters";
 import { SamplesTable } from "../tables";
+import { SamplesFilters } from "../filters";
 
 export interface SectionWithTableProps {
   param: {

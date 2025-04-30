@@ -1,8 +1,7 @@
-"use client";
 import ForbiddenPage from "@/app/403";
-import { useAuth } from "@/providers/auth";
+import { getUser } from "@/lib/get-user";
 
-export default function RoleLayout({
+export default async function RoleLayout({
   teacher,
   admin,
   director,
@@ -11,7 +10,7 @@ export default function RoleLayout({
   admin: React.ReactNode;
   director: React.ReactNode;
 }) {
-  const { user } = useAuth();
+  const user = await getUser();
 
   if (user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") {
     return <>{admin}</>;

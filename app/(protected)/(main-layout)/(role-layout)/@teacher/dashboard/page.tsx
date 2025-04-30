@@ -4,6 +4,9 @@ import { ProgressCard } from '@/components/pages/dashboard/progress-card';
 import { StatisticsList } from '@/components/pages/dashboard/statistics-list';
 import { TrackRow } from '@/components/pages/dashboard/track-row';
 
+// how to off prerender
+
+
 export default function TeacherDashboard() {
   const statistics = [
     { label: 'Homeschool', percentage: 80 },

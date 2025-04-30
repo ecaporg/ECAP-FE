@@ -1,13 +1,13 @@
 import { getComplianceAdminFilter } from "@/lib/compliance";
-import { DirectorFilters } from "@/components/pages/compliance/filters";
-import {
-  type TeachersSectionProps,
-  TeacherSection,
-} from "@/components/pages/compliance/sections";
+
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 import { getDefaultAcademicYearIds } from "@/utils/academic-year";
+import { TeacherSection } from "@/components/pages/compliance/sections";
+import { DirectorFilters } from "@/components/pages/compliance/filters";
+import type { TeachersSectionProps } from "@/components/pages/compliance/sections/teachers-section";
+import { rolePage } from "@/components/layouts/role-page";
 
-export default async function CompliancePage({
+async function CompliancePage({
   searchParams,
 }: {
   searchParams: Promise<TeachersSectionProps["param"]>;
@@ -28,3 +28,5 @@ export default async function CompliancePage({
     </>
   );
 }
+
+export default rolePage(CompliancePage, ["DIRECTOR"]);

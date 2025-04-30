@@ -1,14 +1,13 @@
-import { getComplianceTeacherFilter } from '@/lib/compliance';
-import { TeacherFilters } from '@/components/pages/compliance/filters';
-import {
-  type SectionWithTableProps,
-  StudentsSection,
-} from '@/components/pages/compliance/sections';
+import { getComplianceTeacherFilter } from "@/lib/compliance";
+import { TeacherFilters } from "@/components/pages/compliance/filters";
+import { StudentsSection } from "@/components/pages/compliance/sections";
+import { SectionWithTableProps } from "@/components/pages/compliance/sections/students-section";
+import { rolePage } from "@/components/layouts/role-page";
 
-export default async function CompliancePage({
+async function CompliancePage({
   searchParams,
 }: {
-  searchParams: Promise<SectionWithTableProps['param']>;
+  searchParams: Promise<SectionWithTableProps["param"]>;
 }) {
   const tenant = await getComplianceTeacherFilter();
   return (
@@ -18,3 +17,5 @@ export default async function CompliancePage({
     </>
   );
 }
+
+export default rolePage(CompliancePage, ["TEACHER"]);
