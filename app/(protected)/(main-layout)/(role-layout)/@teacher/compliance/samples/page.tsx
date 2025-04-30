@@ -1,7 +1,8 @@
+import { rolePage } from '@/components/layouts/role-page';
 import { SamplesSection } from '@/components/pages/compliance/sections';
 import { getComplianceTeacherFilter } from '@/lib/compliance';
 
-export default async function CompliancePage({
+async function CompliancePage({
   searchParams,
 }: {
   searchParams: Promise<{ learning_period_id: string; student_id: string }>;
@@ -13,3 +14,5 @@ export default async function CompliancePage({
     </>
   );
 }
+
+export default rolePage(CompliancePage, ["TEACHER"]);
