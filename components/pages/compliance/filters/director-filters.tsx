@@ -4,10 +4,10 @@ import {
   LearningPeriodFilter,
   SchoolFilter,
   TrackFilter,
+  SearchTeacherFilter
 } from "@/components/filters";
 import { AcademicYearFilter } from "@/components/filters/academic-year.filter";
 import { GradeSpanFilter } from "@/components/filters/grade-span.filter";
-import { SearchStudentFilter } from "@/components/filters/search.filter";
 import { SemesterFilter } from "@/components/filters/semesrter.filter";
 import { SubjectFilter } from "@/components/filters/subject.filter";
 import { SampleStatusFilter } from "@/components/filters";
@@ -39,7 +39,7 @@ export function DirectorFilters({
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
-      <SearchStudentFilter />
+      <SearchTeacherFilter />
 
       <AcademyFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}

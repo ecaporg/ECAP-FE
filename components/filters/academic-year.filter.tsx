@@ -27,8 +27,6 @@ export function AcademicYearFilter({
         label: value,
         value: key.toString(),
       }))}
-      multiple
-      hasSearch={true}
       disabled={disabled}
     />
   );

@@ -20,7 +20,6 @@ export function GradeSpanFilter({
       slug={slug}
       options={GRADES}
       multiple
-      hasSearch={true}
     />
   );
 }

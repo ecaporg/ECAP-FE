@@ -8,3 +8,4 @@ export * from "./complation.filter";
 export * from "./sample-status.filter";
 export * from "./search";
 export * from "./academic-year.filter";
+export * from "./search.filter"

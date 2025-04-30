@@ -25,7 +25,10 @@ export const BackToCompliance = ({ student }: { student: Student }) => {
   );
 };
 
-export const BackToTeacherTable = ({ teacher }: { teacher: Teacher }) => {
+export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
+  if (!teacher) {
+    teacher = { user: {} } as Teacher;
+  }
   return (
     <div className="flex items-center justify-between w-full py-5 font-semibold">
       <Link
