@@ -63,17 +63,16 @@ export const TeachersTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <Link
-            className="contents"
-            href={`${routes.compliance.teacher.replace(
-              ":id",
-              assignment.teacher_id.toString()
-            )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
-              currentLearningPeriod.id
-            }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}`}
-            key={assignment.teacher_id}
-          >
-            <TableRow>
+          <TableRow key={assignment.teacher_id}>
+            <Link
+              className="contents"
+              href={`${routes.compliance.teacher.replace(
+                ":id",
+                assignment.teacher_id.toString()
+              )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
+                currentLearningPeriod.id
+              }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}`}
+            >
               <TableCell>
                 {assignment.teacher_firstname} {assignment.teacher_lastname}
               </TableCell>
@@ -93,8 +92,8 @@ export const TeachersTable = ({
               <TableCell>
                 {Number(assignment.completion_percentage).toFixed(2)}%
               </TableCell>
-            </TableRow>
-          </Link>
+            </Link>
+          </TableRow>
         ))}
         {assignments.length === 0 && (
           <TableRow className="h-80">

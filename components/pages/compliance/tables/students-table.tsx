@@ -62,16 +62,17 @@ export const StudentsTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <Link
-            className="contents"
-            href={`${pathname}/samples?student_id=${
-              assignment.student.user.id
-            }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
-              assignment.student.user
-            )}`}
+          <TableRow
             key={`${assignment.student.id}-${currentLearningPeriod.id}`}
           >
-            <TableRow>
+            <Link
+              className="contents"
+              href={`${pathname}/samples?student_id=${
+                assignment.student.user.id
+              }&learning_period_id=${
+                currentLearningPeriod.id
+              }&name=${getUserName(assignment.student.user)}`}
+            >
               <TableCell>{getUserName(assignment.student.user)}</TableCell>
               <TableCell>{assignment.student.id}</TableCell>
               <TableCell>{assignment.student.school?.name}</TableCell>
@@ -87,8 +88,8 @@ export const StudentsTable = ({
                 />
               </TableCell>
               <TableCell>{getProgressValue(assignment)}%</TableCell>
-            </TableRow>
-          </Link>
+            </Link>
+          </TableRow>
         ))}
         {assignments.length === 0 && (
           <TableRow className="h-80">
