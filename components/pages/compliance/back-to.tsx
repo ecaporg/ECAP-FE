@@ -1,8 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { routes } from "@/constants/routes";
 import type { Student, Teacher } from "@/types";
 import { getUserName } from "@/utils";
 import { ArrowLeftIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export const BackToCompliance = ({ student }: { student: Student }) => {
@@ -24,16 +26,15 @@ export const BackToCompliance = ({ student }: { student: Student }) => {
 };
 
 export const BackToTeacherTable = ({ teacher }: { teacher: Teacher }) => {
-  const router = useRouter();
   return (
     <div className="flex items-center justify-between w-full py-5 font-semibold">
-      <p
+      <Link
+        href={routes.compliance.root}
         className="text-primary cursor-pointer flex items-center gap-2 text-lg"
-        onClick={() => router.back()}
       >
         <ArrowLeftIcon className="size-4" />
         <span className="hidden md:block">Back to Teacher Table</span>
-      </p>
+      </Link>
       <span className="text-xl text-neutral-black">
         {getUserName(teacher.user)}
         <Button size="lg" className="ml-4">

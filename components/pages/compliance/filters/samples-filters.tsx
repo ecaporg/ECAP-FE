@@ -11,6 +11,7 @@ interface SamplesFiltersProps {
   samples: Sample[];
   student?: Student;
   defaultName?: string;
+  academicYearIds?: string[];
 }
 
 export function SamplesFilters({
@@ -18,6 +19,7 @@ export function SamplesFilters({
   samples,
   student,
   defaultName,
+  academicYearIds,
 }: SamplesFiltersProps) {
   return (
     <FilterWrapper className="pt-0">
@@ -30,7 +32,7 @@ export function SamplesFilters({
         }
       />
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(tenant)}
+        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
       <SampleStatusFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS}

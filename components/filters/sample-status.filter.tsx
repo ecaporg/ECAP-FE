@@ -32,9 +32,9 @@ interface FlagCategoryFilterProps {
 }
 
 const flagCategories: FilterProps["options"] = Object.entries({
-  [SAMPLE_STATUS.MISSING_SAMPLE]: SampleStatus.MISSING_SAMPLE,
-  [SAMPLE_STATUS.ERRORS_FOUND]: SampleStatus.ERRORS_FOUND,
-  [SAMPLE_STATUS.REASON_REJECTED]: SampleStatus.REASON_REJECTED,
+  [SampleStatus.MISSING_SAMPLE]: SAMPLE_STATUS.MISSING_SAMPLE,
+  [SampleStatus.ERRORS_FOUND]: SAMPLE_STATUS.ERRORS_FOUND,
+  [SampleStatus.REASON_REJECTED]: SAMPLE_STATUS.REASON_REJECTED,
 }).map(([key, value]) => ({
   label: value,
   value: key as SampleStatus,

@@ -6,7 +6,7 @@ import { PaginationSection } from "@/components/table/pagination-section";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 import { routes } from "@/constants/routes";
 import { getComplianceStudentSamples } from "@/lib/compliance";
-import type { Sample, Tenant, TrackLearningPeriod } from "@/types";
+import type { Sample, Tenant } from "@/types";
 import {
   assignDefaultLearningPeriod,
   getDueDate,
@@ -16,17 +16,19 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { SamplesTable } from "../tables";
 import { SamplesFilters } from "../filters";
+import { getDefaultAcademicYearIds } from "@/utils/academic-year";
 
-export interface SectionWithTableProps {
+export interface SamplesSectionProps {
   param: {
     [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string;
     [DEFAULT_FILTERS_KEYS.STUDENT_ID]: string;
+    [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string;
     name?: string;
   };
   tenant: Tenant;
 }
 
-export const SamplesSection = (props: SectionWithTableProps) => {
+export const SamplesSection = (props: SamplesSectionProps) => {
   return (
     <Suspense
       fallback={
@@ -42,12 +44,17 @@ export const SamplesSection = (props: SectionWithTableProps) => {
   );
 };
 
-const Samples = async ({ param, tenant }: SectionWithTableProps) => {
+const Samples = async ({ param, tenant }: SamplesSectionProps) => {
   if (!param[DEFAULT_FILTERS_KEYS.STUDENT_ID]) {
     return redirect(routes.compliance.root);
   }
 
-  const mergedLP = assignDefaultLearningPeriod(tenant, param);
+  const academicYearIds = getDefaultAcademicYearIds(
+    tenant,
+    param[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
+  );
+
+  const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const assignmentPeriods = await getComplianceStudentSamples(
     new URLSearchParams(param as any).toString(),
     param.student_id
@@ -97,6 +104,7 @@ const Samples = async ({ param, tenant }: SectionWithTableProps) => {
           assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student
         }
         defaultName={param.name}
+        academicYearIds={academicYearIds}
       />
       <PaginationSection
         totalPages={0}

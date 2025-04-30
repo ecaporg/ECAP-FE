@@ -51,6 +51,8 @@ async function CompliancePage({
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
 
+  console.log(academicYearIds);
+
   return (
     <div>
       <BackToTeacherTable teacher={{ user: {} } as any} />

@@ -7,10 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { routes } from "@/constants/routes";
 import type { AssignmentPeriod, Student, TrackLearningPeriod } from "@/types";
 import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
 
@@ -24,15 +23,14 @@ export const StudentsTable = ({
   currentLearningPeriod,
 }: StudentsTableProps) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = (student: Student) => {
     return () => {
       router.push(
-        `${routes.compliance.samples}?student_id=${
-          student.user.id
-        }&learning_period_id=${currentLearningPeriod.id}&name=${getUserName(
-          student.user
-        )}`
+        `${pathname}/samples?student_id=${student.user.id}&learning_period_id=${
+          currentLearningPeriod.id
+        }&name=${getUserName(student.user)}`
       );
     };
   };
@@ -93,7 +91,7 @@ export const StudentsTable = ({
           </TableRow>
         ))}
         {assignments.length === 0 && (
-          <TableRow  className="h-80">
+          <TableRow className="h-80">
             <TableCell colSpan={8} className="text-center">
               No students found
             </TableCell>

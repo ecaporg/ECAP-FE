@@ -5,7 +5,7 @@ const getDefaultAcademicYearIds = (
   academicYearIds?: string
 ) => {
   if (academicYearIds) {
-    return academicYearIds.split(",");
+    return academicYearIds.split(",").filter(Boolean);
   }
   const day = new Date();
   const id = tenant.tracks
