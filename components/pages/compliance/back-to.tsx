@@ -36,11 +36,11 @@ export const BackToTeacherTable = ({ teacher }: { teacher: Teacher }) => {
       </p>
       <span className="text-xl text-neutral-black">
         {getUserName(teacher.user)}
+        <Button size="lg" className="ml-4">
+          <UserIcon className="size-4" />
+          Sign in as {getUserName(teacher.user)}
+        </Button>
       </span>
-      <Button size="lg">
-        <UserIcon className="size-4" />
-        Sign in as {getUserName(teacher.user)}
-      </Button>
     </div>
   );
 };

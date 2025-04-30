@@ -10,6 +10,7 @@ export type ApiResponse<T = any, D = undefined> = {
   message?: string;
   details?: Record<string, any>;
   meta?: {
+    completedCount?: number;
     currentPage: number;
     itemCount: number;
     itemsPerPage: number;

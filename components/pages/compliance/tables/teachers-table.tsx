@@ -8,9 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { TeacherCompliance, TrackLearningPeriod } from "@/types";
-import { getCompletionStatus } from "@/utils";
+import { getCompletionStatus, getUserName } from "@/utils";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
+import { routes } from "@/constants/routes";
+import { useRouter } from "next/navigation";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
@@ -21,6 +24,20 @@ export const TeachersTable = ({
   assignments = [],
   currentLearningPeriod,
 }: TeachersTableProps) => {
+  const router = useRouter();
+
+  const handleClick = (teacher_id: string) => {
+    return () => {
+      router.push(
+        `${routes.compliance.teacher.replace(":id", teacher_id)}?${
+          DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
+        }=${currentLearningPeriod.id}&${
+          DEFAULT_FILTERS_KEYS.TEACHER_ID
+        }=${teacher_id}`
+      );
+    };
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -61,7 +78,10 @@ export const TeachersTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <TableRow key={assignment.teacher_id}>
+          <TableRow
+            key={assignment.teacher_id}
+            onClick={handleClick(assignment.teacher_id.toString())}
+          >
             <TableCell>
               {assignment.teacher_firstname} {assignment.teacher_lastname}
             </TableCell>
@@ -83,6 +103,13 @@ export const TeachersTable = ({
             </TableCell>
           </TableRow>
         ))}
+        {assignments.length === 0 && (
+          <TableRow className="h-80">
+            <TableCell colSpan={8} className="text-center">
+              No teachers found
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );

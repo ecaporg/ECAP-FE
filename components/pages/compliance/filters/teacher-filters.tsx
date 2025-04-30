@@ -14,13 +14,17 @@ import { FilterWrapper } from "./filter-wrapper";
 
 interface TeacherFiltersProps {
   tenant: Tenant;
+  academicYearIds?: string[];
 }
 
-export function TeacherFilters({ tenant }: TeacherFiltersProps) {
+export function TeacherFilters({
+  tenant,
+  academicYearIds,
+}: TeacherFiltersProps) {
   return (
     <FilterWrapper>
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(tenant)}
+        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
       <SearchStudentFilter />
       <SchoolFilter

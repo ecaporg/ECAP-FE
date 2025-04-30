@@ -74,7 +74,7 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
           </TableRow>
         ))}
         {rows.length === 0 && (
-          <TableRow>
+          <TableRow  className="h-80">
             <TableCell colSpan={9} className="text-center">
               No samples found
             </TableCell>

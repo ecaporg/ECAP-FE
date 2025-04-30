@@ -11,6 +11,7 @@ export const routes = {
     root: '/compliance',
     samples: '/compliance/samples',
     viewSample: '/samples/:id',
+    teacher: '/compliance/:id',
     // TODO: add other routes in feature
   },
   samples: {

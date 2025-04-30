@@ -1,5 +1,5 @@
 import type { AssignmentPeriod, TeacherCompliance, Tenant } from "@/types";
-import { type ApiResponse, apiFetch } from "./fetch";
+import { apiFetch } from "./fetch";
 
 export const getComplianceTeacherFilter = async () => {
   const response = await apiFetch<Tenant>(`/students-table/filters`);
@@ -9,17 +9,11 @@ export const getComplianceTeacherFilter = async () => {
   return response.data!;
 };
 
-type ComplianceStudentsResponse = ApiResponse<AssignmentPeriod[]> & {
-  meta: { completedCount: number };
-};
-
-export const getComplianceStudents = async (
-  queryParams: string
-): Promise<ComplianceStudentsResponse> => {
+export const getComplianceStudents = async (queryParams: string) => {
   const response = await apiFetch<AssignmentPeriod[]>(
     `/students-table?${queryParams}`
   );
-  return response as ComplianceStudentsResponse;
+  return response;
 };
 
 export const getComplianceStudentSamples = async (
@@ -47,7 +41,5 @@ export const getComplianceTeachers = async (queryParams: string) => {
   const response = await apiFetch<TeacherCompliance[]>(
     `/teachers-table?${queryParams}`
   );
-  return response as ApiResponse<TeacherCompliance[]> & {
-    meta: { completedCount: number };
-  };
+  return response;
 };

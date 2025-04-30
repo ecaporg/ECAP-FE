@@ -13,6 +13,7 @@ export const DEFAULT_FILTERS_KEYS = {
   SAMPLE_STATUS: 'sample_status',
   DONE_BY: 'done_by',
   ASSIGNMENT_PERIODS_LEARNING_PERIOD_ID: 'assignment_periods.learning_period_id',
+  TEACHER_ID: 'course.teacher_id',
 } as const;
 
 export const SPECIFIC_PAGE_FILTER_KEYS = {

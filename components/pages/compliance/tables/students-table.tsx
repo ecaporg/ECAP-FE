@@ -93,7 +93,7 @@ export const StudentsTable = ({
           </TableRow>
         ))}
         {assignments.length === 0 && (
-          <TableRow>
+          <TableRow  className="h-80">
             <TableCell colSpan={8} className="text-center">
               No students found
             </TableCell>
