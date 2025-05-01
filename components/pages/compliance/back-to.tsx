@@ -39,7 +39,7 @@ export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
   }
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between w-full py-5 font-semibold">
+    <div className="flex items-center justify-between w-full py-4 font-semibold h-20">
       <p
         onClick={() => router.back()}
         className="text-primary cursor-pointer flex items-center gap-2 text-lg"

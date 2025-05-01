@@ -34,7 +34,7 @@ export function DirectorTeacherFilters({
 
 export const DirectorSamplesFilters = () => {
   return (
-    <FilterWrapper>
+    <FilterWrapper className="pt-0 py-6">
       <FlagCategoryFilter />
       <SampleStatusFilter />
     </FilterWrapper>

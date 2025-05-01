@@ -1,7 +1,10 @@
-import type { Permissions, RolesWithPermissions, User } from "@/types";
-
-// Mock classes for permission checks
-const classes = [] as any;
+import {
+  SampleStatus,
+  type Permissions,
+  type RolesWithPermissions,
+  type Sample,
+  type User,
+} from "@/types";
 
 export const ROLES = {
   DIRECTOR: {
@@ -10,6 +13,7 @@ export const ROLES = {
       approve: false,
       correct: false,
       review: true,
+      upload: false,
     },
   },
   TEACHER: {
@@ -18,22 +22,27 @@ export const ROLES = {
       approve: true,
       correct: true,
       review: true,
+      upload: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
     },
   },
   ADMIN: {
     samples: {
-      flag: true,
+      flag: false,
       approve: true,
       correct: true,
       review: true,
+      upload: false,
     },
   },
   SUPER_ADMIN: {
     samples: {
-      flag: true,
+      flag: false,
       approve: true,
       correct: true,
       review: true,
+      upload: false,
     },
   },
   STUDENT: {
@@ -42,6 +51,7 @@ export const ROLES = {
       approve: false,
       correct: false,
       review: false,
+      upload: false,
     },
   },
 } as const satisfies RolesWithPermissions;

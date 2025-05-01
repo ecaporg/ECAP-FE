@@ -16,7 +16,7 @@ export type RolesWithPermissions = {
 export type Permissions = {
   samples: {
     dataType: Sample;
-    action: "flag" | "approve" | "correct" | "review";
+    action: "flag" | "approve" | "correct" | "review" | "upload";
   };
   users: {
     dataType: User;
