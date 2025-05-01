@@ -19,7 +19,7 @@ export function DirectorTeacherFilters({
   academicYearIds,
 }: DirectorTeacherFiltersProps) {
   return (
-    <FilterWrapper>
+    <FilterWrapper className="pt-0 pb-6">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map(
           (track) => track.academicYear
@@ -34,7 +34,7 @@ export function DirectorTeacherFilters({
 
 export const DirectorSamplesFilters = () => {
   return (
-    <FilterWrapper className="pt-0 py-6">
+    <FilterWrapper className="pt-9 pb-4">
       <FlagCategoryFilter />
       <SampleStatusFilter />
     </FilterWrapper>
