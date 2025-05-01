@@ -1,8 +1,8 @@
 import { getSampleById } from '@/lib/sample';
 
-import { SampleActionButtons } from '../components/sample-meta';
+import { SampleActionButtons } from '@/components/pages/sample/sample-meta';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SampleInputs } from '../components/sample-inputs';
+import { SampleInputs } from '@/components/pages/sample/sample-inputs';
 export default async function SampleDetailPage({
   params,
 }: {

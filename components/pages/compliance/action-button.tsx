@@ -5,8 +5,8 @@ import { SampleStatus, User, type Sample } from "@/types";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import {
-  FlagMissingWorkSamplerInfoModal,
-  FlagMissingWorkSamplerModal,
+  FlagMissingWorkSampleInfoModal,
+  FlagMissingWorkSampleModal,
 } from "./modals";
 import { useAuth } from "@/providers/auth";
 import { hasPermission } from "@/lib/permissions";
@@ -64,12 +64,12 @@ const getWrapper = (sample?: Sample) => {
     sample.status === SampleStatus.FLAGGED_TO_ADMIN &&
     sample.flag_missing_work
   ) {
-    return FlagMissingWorkSamplerInfoModal;
+    return FlagMissingWorkSampleInfoModal;
   }
   if (sample.status === SampleStatus.MISSING_SAMPLE) {
-    return FlagMissingWorkSamplerModal;
+    return FlagMissingWorkSampleModal;
   }
-  
+
   return (props: any) => <Fragment children={props.children} />;
 };
 

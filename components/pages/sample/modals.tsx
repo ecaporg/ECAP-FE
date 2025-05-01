@@ -5,12 +5,12 @@ import { Sample } from '@/types';
 import { Textarea } from '@/components/ui/textarea';
 import { ConfirmationModal } from '@/components/modals/confirmation';
 import { useState } from 'react';
-import { approveSampleAction } from '../[id]/actions';
 import { getFormattedLP, getUserName } from '@/utils';
 import { useFlagError } from '@/hooks/samples/use-flag-error';
 import { FormError } from '@/components/ui/form-error';
 import { Loader2 } from 'lucide-react';
 import { useAuth } from '@/providers/auth';
+import { approveSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
 export function UploadToStudentPathwaysModal({
   children,
   sample,
