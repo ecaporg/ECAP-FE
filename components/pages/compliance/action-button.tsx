@@ -1,32 +1,37 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/constants/routes";
-import { SampleStatus, type Sample } from "@/types";
+import { SampleStatus, User, type Sample } from "@/types";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import {
   FlagMissingWorkSamplerInfoModal,
   FlagMissingWorkSamplerModal,
 } from "./modals";
+import { useAuth } from "@/providers/auth";
+import { hasPermission } from "@/lib/permissions";
 
 interface ActionButtonProps {
   sample: Sample;
 }
 
-const getText = ({ status }: Sample) => {
-  switch (status) {
+const getText = (sample: Sample, user: User) => {
+  const text = (isAllowed: boolean, action: string) =>
+    isAllowed ? action : "Review";
+
+  switch (sample.status) {
     case SampleStatus.PENDING:
-      return "Approve";
+      return text(hasPermission(user, "samples", "approve"), "Approve");
     case SampleStatus.ERRORS_FOUND:
-      return "Correct";
+      return text(hasPermission(user, "samples", "correct"), "Correct");
     case SampleStatus.MISSING_SAMPLE:
-      return "Flag";
+      return text(hasPermission(user, "samples", "flag"), "Flag");
     case SampleStatus.FLAGGED_TO_ADMIN:
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
-      return "Review";
+      return text(hasPermission(user, "samples", "review"), "Review");
     default:
-      return "Action";
+      return text(false, "Review");
   }
 };
 
@@ -64,10 +69,12 @@ const getWrapper = (sample?: Sample) => {
   if (sample.status === SampleStatus.MISSING_SAMPLE) {
     return FlagMissingWorkSamplerModal;
   }
+  
   return (props: any) => <Fragment children={props.children} />;
 };
 
 const useActionButton = (sample: Sample) => {
+  const { user } = useAuth();
   if (!sample)
     return {
       text: "",
@@ -81,7 +88,7 @@ const useActionButton = (sample: Sample) => {
   );
 
   return {
-    text: getText(sample),
+    text: getText(sample, user),
     onClick: getOnClick(sample, {
       router,
       redirectUrl,

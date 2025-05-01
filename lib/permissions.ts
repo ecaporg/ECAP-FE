@@ -1,82 +1,62 @@
-import type { Permissions, RolesWithPermissions, User } from '@/types';
+import type { Permissions, RolesWithPermissions, User } from "@/types";
 
 // Mock classes for permission checks
 const classes = [] as any;
 
 export const ROLES = {
-  superadmin: {
-    classes: { view: true, create: true, update: true, delete: true },
-    students: { view: true, create: true, update: true, delete: true },
-    assignments: { view: true, create: true, update: true, delete: true },
-    grades: { view: true, create: true, update: true, delete: true },
-    users: { view: true, create: true, update: true, delete: true },
-  },
-  admin: {
-    classes: { view: true, create: true, update: true, delete: true },
-    students: { view: true, create: true, update: true, delete: true },
-    assignments: { view: true, create: true, update: true, delete: true },
-    grades: { view: true, create: true, update: true, delete: true },
-    users: {
-      view: true,
-      create: (user: User, targetUser: User) => targetUser.role === 'teacher',
-      update: (user: User, targetUser: User) => targetUser.role === 'teacher',
-      delete: (user: User, targetUser: User) => targetUser.role === 'teacher',
+  DIRECTOR: {
+    samples: {
+      flag: false,
+      approve: false,
+      correct: false,
+      review: true,
     },
   },
-  director: {
-    classes: { view: true, create: true, update: true, delete: false },
-    students: { view: true, create: true, update: true, delete: false },
-    assignments: { view: true, create: false, update: false, delete: false },
-    grades: { view: true, create: false, update: false, delete: false },
-    users: {
-      view: (user: User, targetUser: User) => targetUser.role === 'teacher',
-      create: false,
-      update: false,
-      delete: false,
+  TEACHER: {
+    samples: {
+      flag: true,
+      approve: true,
+      correct: true,
+      review: true,
     },
   },
-  teacher: {
-    classes: {
-      view: true,
-      create: false,
-      update: (user: User, classItem: any) => classItem.teacherId === user.id,
-      delete: false,
+  ADMIN: {
+    samples: {
+      flag: true,
+      approve: true,
+      correct: true,
+      review: true,
     },
-    students: {
-      view: (user: User, student: any) => {
-        // Can view students in their classes
-        const teacherClasses = classes.filter((c) => c.teacherId === user.id);
-        return teacherClasses.some((c) => c.id === student.classId);
-      },
-      create: false,
-      update: false,
-      delete: false,
+  },
+  SUPER_ADMIN: {
+    samples: {
+      flag: true,
+      approve: true,
+      correct: true,
+      review: true,
     },
-    assignments: {
-      view: (user: User, assignment: any) => assignment.teacherId === user.id,
-      create: true,
-      update: (user: User, assignment: any) => assignment.teacherId === user.id,
-      delete: (user: User, assignment: any) => assignment.teacherId === user.id,
+  },
+  STUDENT: {
+    samples: {
+      flag: false,
+      approve: false,
+      correct: false,
+      review: false,
     },
-    grades: {
-      view: (user: User, grade: any) => grade.teacherId === user.id,
-      create: true,
-      update: (user: User, grade: any) => grade.teacherId === user.id,
-      delete: (user: User, grade: any) => grade.teacherId === user.id,
-    },
-    users: { view: false, create: false, update: false, delete: false },
   },
 } as const satisfies RolesWithPermissions;
 
 export function hasPermission<Resource extends keyof Permissions>(
   user: User,
   resource: Resource,
-  action: Permissions[Resource]['action'],
-  data?: Permissions[Resource]['dataType']
+  action: Permissions[Resource]["action"],
+  data?: Permissions[Resource]["dataType"]
 ) {
-  const permission = (ROLES as RolesWithPermissions)[user.role][resource]?.[action];
+  const permission = (ROLES as RolesWithPermissions)[user.role!]?.[resource]?.[
+    action
+  ];
   if (permission == null) return false;
 
-  if (typeof permission === 'boolean') return permission;
+  if (typeof permission === "boolean") return permission;
   return data != null && permission(user, data);
 }
