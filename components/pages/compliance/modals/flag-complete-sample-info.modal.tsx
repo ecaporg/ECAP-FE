@@ -6,9 +6,9 @@ import { DialogClose } from "@/components/ui/dialog";
 import { useAuth } from "@/providers/auth";
 import { SampleInfoForModal } from "../../sample/modals";
 import { Badge } from "@/components/ui/badge";
-import { CircleAlertIcon } from "lucide-react";
+import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
 
-export function FlagMissingWorkSampleInfoModal({
+export function FlagCompleteSampleInfoModal({
   children,
   sample,
 }: React.PropsWithChildren<{ sample: Sample }>) {
@@ -16,9 +16,9 @@ export function FlagMissingWorkSampleInfoModal({
   const isDirector = user?.role === "DIRECTOR";
   const title = (
     <>
-      <Badge variant="red" className="mb-16">
-        <CircleAlertIcon className="size-4" />
-        Rejected:{" "}
+      <Badge variant="success" className="mb-16">
+        <CheckCircleIcon className="size-4" />
+        Approved:{" "}
         {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
@@ -29,21 +29,10 @@ export function FlagMissingWorkSampleInfoModal({
     <>
       <b className="text-primary">Reason for Missing Sample:</b>{" "}
       {sample.flag_missing_work?.reason}
-      <br />
-      <b className="text-primary pt-4">
-        Reason for rejecting missing sample:
-      </b>{" "}
-      {sample.flag_rejected?.reason}
     </>
   ) : (
     <>
-      <p>
-        <b>Reason given:</b> "{sample.flag_missing_work?.reason}"
-      </p>
-      <p>
-        <b>Reason for rejecting missing sample:</b> "
-        {sample.flag_rejected?.reason}"
-      </p>
+      <b>Reason given:</b> "{sample.flag_missing_work?.reason}"
     </>
   );
 

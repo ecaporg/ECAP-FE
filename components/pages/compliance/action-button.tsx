@@ -5,8 +5,10 @@ import { SampleStatus, User, type Sample } from "@/types";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import {
+  FlagCompleteSampleInfoModal,
   FlagMissingWorkSampleInfoModal,
   FlagMissingWorkSampleModal,
+  FlagRejectSampleInfoModal,
 } from "./modals";
 import { useAuth } from "@/providers/auth";
 import { hasPermission } from "@/lib/permissions";
@@ -55,7 +57,7 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
   }
 };
 
-const getWrapper = (sample?: Sample) => {
+const getWrapper = (sample: Sample | undefined, user: User) => {
   if (!sample) {
     return (props: any) => <Fragment children={props.children} />;
   }
@@ -66,22 +68,43 @@ const getWrapper = (sample?: Sample) => {
   ) {
     return FlagMissingWorkSampleInfoModal;
   }
+
   if (sample.status === SampleStatus.MISSING_SAMPLE) {
     return FlagMissingWorkSampleModal;
+  }
+
+  if (sample.status === SampleStatus.REASON_REJECTED) {
+    return FlagRejectSampleInfoModal;
+  }
+
+  if (
+    sample.status === SampleStatus.COMPLETED &&
+    sample.flag_missing_work &&
+    user?.role === "DIRECTOR"
+  ) {
+    return FlagCompleteSampleInfoModal;
   }
 
   return (props: any) => <Fragment children={props.children} />;
 };
 
+const getIsDisabled = (sample: Sample, user: User) => {
+  return (
+    sample.status === SampleStatus.MISSING_SAMPLE && user?.role === "DIRECTOR"
+  );
+};
+
 const useActionButton = (sample: Sample) => {
   const { user } = useAuth();
+  const router = useRouter();
+
   if (!sample)
     return {
       text: "",
       onClick: () => {},
-      Wrapper: getWrapper(sample),
+      Wrapper: getWrapper(sample, user),
+      isDisabled: true,
     };
-  const router = useRouter();
   const redirectUrl = routes.compliance.viewSample.replace(
     ":id",
     sample.id.toString()
@@ -93,12 +116,13 @@ const useActionButton = (sample: Sample) => {
       router,
       redirectUrl,
     }),
-    Wrapper: getWrapper(sample),
+    Wrapper: getWrapper(sample, user),
+    isDisabled: getIsDisabled(sample, user),
   };
 };
 
 export function ActionButton({ sample }: ActionButtonProps) {
-  const { text, onClick, Wrapper } = useActionButton(sample);
+  const { text, onClick, Wrapper, isDisabled } = useActionButton(sample);
 
   return (
     <Wrapper sample={sample}>
@@ -107,6 +131,7 @@ export function ActionButton({ sample }: ActionButtonProps) {
         size="sm"
         onClick={onClick}
         className="bg-transparent"
+        disabled={isDisabled}
       >
         {text}
       </Button>
