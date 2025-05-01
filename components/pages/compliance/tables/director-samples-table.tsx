@@ -9,7 +9,7 @@ import {
 import type { Sample } from "@/types";
 import { getUserName } from "@/utils";
 import { ActionButton } from "../action-button";
-import { SapmleStatus } from "../statuses";
+import { DirectorSampleStatus, SapmleStatus } from "../statuses";
 
 interface SamplesTableProps {
   samples: Sample[];
@@ -40,9 +40,11 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
             </TableCell>
             <TableCell>{sample.assignment_period.student_id}</TableCell>
             <TableCell>{sample.assignment_period.student.grade}</TableCell>
-            <TableCell>flag category</TableCell>
             <TableCell>
-              <SapmleStatus status={sample?.status || null} />
+              {sample.flag_missing_work ? "Missing Sample" : "Errors Found"}
+            </TableCell>
+            <TableCell>
+              <DirectorSampleStatus sample={sample} />
             </TableCell>
             <TableCell>
               <ActionButton sample={sample} />
