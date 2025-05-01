@@ -14,7 +14,7 @@ export function FlagMissingWorkSampleInfoModal({
 }: React.PropsWithChildren<{ sample: Sample }>) {
   const { user } = useAuth();
   const isDirector = user?.role === "DIRECTOR";
-  const title = isDirector ? (
+  const title = (
     <>
       <Badge variant="red" className="mb-16">
         <CircleAlertIcon className="size-4" />
@@ -23,8 +23,6 @@ export function FlagMissingWorkSampleInfoModal({
       </Badge>
       <p>Missing Work Sample</p>
     </>
-  ) : (
-    "You Flagged a Missing Work Sample"
   );
 
   const reason = isDirector ? (
@@ -38,7 +36,15 @@ export function FlagMissingWorkSampleInfoModal({
       {sample.flag_rejected?.reason}
     </>
   ) : (
-    `Reason given: "${sample.flag_missing_work?.reason}"`
+    <>
+      <p>
+        <b>Reason given:</b> "{sample.flag_missing_work?.reason}"
+      </p>
+      <p>
+        <b>Reason for rejecting missing sample:</b> "
+        {sample.flag_rejected?.reason}"
+      </p>
+    </>
   );
 
   const description = isDirector ? (
