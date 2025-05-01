@@ -21,6 +21,10 @@ export function TeacherFilters({
   tenant,
   academicYearIds,
 }: TeacherFiltersProps) {
+  const tracks = tenant.tracks.filter((track) =>
+    academicYearIds?.includes(track.academic_year_id.toString())
+  );
+
   return (
     <FilterWrapper>
       <LearningPeriodFilter
@@ -37,7 +41,7 @@ export function TeacherFilters({
       />
       <TrackFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID}
-        availableTracks={tenant.tracks}
+        availableTracks={tracks}
       />
       <GradeFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.GRADE} />
       <ComplationFilter />

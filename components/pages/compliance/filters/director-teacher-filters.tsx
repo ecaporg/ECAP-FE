@@ -7,6 +7,7 @@ import {
 import { getLearningPeriodFromTenant } from "@/utils";
 import { FilterWrapper } from "./filter-wrapper";
 import type { Tenant } from "@/types";
+import { SPECIFIC_PAGE_FILTER_KEYS } from "@/constants/filter";
 
 interface DirectorTeacherFiltersProps {
   tenant: Tenant;
