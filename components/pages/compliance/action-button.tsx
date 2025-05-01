@@ -80,7 +80,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
   if (
     sample.status === SampleStatus.COMPLETED &&
     sample.flag_missing_work &&
-    user?.role === "DIRECTOR"
+    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
   ) {
     return FlagCompleteSampleInfoModal;
   }
@@ -90,7 +90,8 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
 
 const getIsDisabled = (sample: Sample, user: User) => {
   return (
-    sample.status === SampleStatus.MISSING_SAMPLE && user?.role === "DIRECTOR"
+    sample.status === SampleStatus.MISSING_SAMPLE &&
+    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
   );
 };
 
