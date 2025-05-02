@@ -56,7 +56,7 @@ export async function apiClientFetch<T = any, D = undefined>(
   async function executeFetch(attempt = 1): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url, {
-        cache: "force-cache",
+        cache: "no-cache",
         next: {
           revalidate: 60,
           tags: [...(init?.tags || [])],
