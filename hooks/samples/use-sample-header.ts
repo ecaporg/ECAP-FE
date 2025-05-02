@@ -32,7 +32,7 @@ export function useSampleHeader({ sample }: { sample: Sample }) {
   };
 
   const onSubmit = async (data: z.infer<typeof sampleHeaderSchema>) => {
-    await updateSampleAction(sample);
+    await updateSampleAction(data as unknown as Sample);
   };
 
   return { form, onSubmit, formRef, onBlur };

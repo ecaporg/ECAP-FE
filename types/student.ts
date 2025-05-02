@@ -56,6 +56,7 @@ export type Sample = GenericEntity & {
   assignment_period_id: number;
   subject_id: number;
   subject: Subject;
+  grade: string;
   assignment_period: AssignmentPeriod;
   done_by: User | null;
   flag_errors: SampleFlagError | null;

@@ -33,7 +33,9 @@ export const ROLES = {
       approve: true,
       correct: true,
       review: true,
-      upload: false,
+      upload: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
     },
   },
   SUPER_ADMIN: {
@@ -42,7 +44,9 @@ export const ROLES = {
       approve: true,
       correct: true,
       review: true,
-      upload: false,
+      upload: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
     },
   },
   STUDENT: {

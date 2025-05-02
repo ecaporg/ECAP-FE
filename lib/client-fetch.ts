@@ -1,7 +1,6 @@
 "use client";
 
 import { routes } from "@/constants/routes";
-import { User } from "@/types";
 import { getToken } from "@/utils";
 
 export type ApiResponse<T = any, D = undefined> = {

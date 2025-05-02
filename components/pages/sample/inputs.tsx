@@ -4,11 +4,12 @@ import { Label } from "@/components/ui/label";
 import { Sample, SampleStatus } from "@/types/student";
 import { z } from "zod";
 
-import { getUserName } from "@/utils";
+import { getUserName, isAnyAdmin } from "@/utils";
 import {
   sampleHeaderSchema,
   useSampleHeader,
 } from "@/hooks/samples/use-sample-header";
+import { useAuth } from "@/providers/auth";
 
 type SampleMetaProps = {
   isReadOnly?: boolean;
@@ -16,6 +17,7 @@ type SampleMetaProps = {
 };
 
 export function SampleInputs({ sample }: SampleMetaProps) {
+  const { user } = useAuth();
   const inputs = [
     {
       label: "Student Name",
@@ -34,7 +36,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     },
     {
       label: "Grade",
-      //   defaultValue: sample.assignment_period.student.grade,
+      defaultValue: sample.grade,
       name: "grade",
     },
     {
@@ -44,13 +46,12 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     },
   ].map((input) => ({
     ...input,
-    ...(sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue
-      ? {
-          isReadOnly: false,
-        }
-      : {
-          isReadOnly: true,
-        }),
+    ...{
+      isReadOnly: !(
+        isAnyAdmin(user) ||
+        (sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue)
+      ),
+    },
   }));
 
   const { form, onSubmit, onBlur, formRef } = useSampleHeader({
