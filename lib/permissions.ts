@@ -18,7 +18,9 @@ export const ROLES = {
   },
   TEACHER: {
     samples: {
-      flag: true,
+      flag: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
       approve: true,
       correct: true,
       review: true,
@@ -29,7 +31,9 @@ export const ROLES = {
   },
   ADMIN: {
     samples: {
-      flag: false,
+      flag: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
       approve: true,
       correct: true,
       review: true,
@@ -40,7 +44,9 @@ export const ROLES = {
   },
   SUPER_ADMIN: {
     samples: {
-      flag: false,
+      flag: (user: User, data: Sample) => {
+        return data.status != SampleStatus.COMPLETED;
+      },
       approve: true,
       correct: true,
       review: true,

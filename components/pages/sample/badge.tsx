@@ -25,7 +25,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
                   sample.flag_errors?.user ||
                     sample.flag_missing_work?.user ||
                     defaultUser
-                )}: `}
+                )}`}
             {sample.flag_completed?.message}
           </p>
         )}

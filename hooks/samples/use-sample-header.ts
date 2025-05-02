@@ -41,21 +41,22 @@ export function useSampleHeader({ sample }: { sample: Sample }) {
     label: string
   ) => {
     if (e.target.value !== e.target.defaultValue) {
+      
       if (user?.role === "TEACHER") {
         await flagCompletedSampleAction(sample, {
           message: `Added ${label}`,
         } as any);
       }
 
-      await updateSampleAction(sample, {
-        [e.target.name]: e.target.value,
-      });
-
       if (isAnyAdmin(user)) {
         await flagCompletedSampleAction(sample, {
           message: `changed ${label} from ${e.target.defaultValue} to ${e.target.value}`,
         } as any);
       }
+
+      await updateSampleAction(sample, {
+        [e.target.name]: e.target.value,
+      });
     }
   };
 
