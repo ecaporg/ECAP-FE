@@ -9,7 +9,7 @@ import {
 import type { Sample } from "@/types";
 import { getUserName } from "@/utils";
 import { ActionButton } from "../action-button";
-import { DirectorSampleStatus, SapmleStatus } from "../statuses";
+import { DirectorSampleStatus } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
 
 interface SamplesTableProps {

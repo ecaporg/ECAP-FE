@@ -81,11 +81,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
     return FlagRejectSampleInfoModal;
   }
 
-  if (
-    sample.status === SampleStatus.COMPLETED &&
-    sample.flag_missing_work &&
-    isAdminOrDirector(user)
-  ) {
+  if (sample.status === SampleStatus.COMPLETED && sample.flag_missing_work) {
     return FlagCompleteSampleInfoModal;
   }
 
