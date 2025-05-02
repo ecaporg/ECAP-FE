@@ -10,6 +10,7 @@ import type { Sample } from "@/types";
 import { getUserName } from "@/utils";
 import { ActionButton } from "../action-button";
 import { DirectorSampleStatus, SapmleStatus } from "../statuses";
+import { SortableIcon } from "@/components/table/sortable-header";
 
 interface SamplesTableProps {
   samples: Sample[];
@@ -20,13 +21,25 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Sample Name</TableHead>
+          <TableHead>
+            Sample Name
+            <SortableIcon<Sample> name="assignment_title" />
+          </TableHead>
           <TableHead>Subject</TableHead>
           <TableHead>Student Name</TableHead>
-          <TableHead>Student ID</TableHead>
+          <TableHead>
+            Student ID
+            <SortableIcon<Sample> name="assignment_period.student_id" />
+          </TableHead>
           <TableHead>Grade</TableHead>
-          <TableHead>Flag Category</TableHead>
-          <TableHead>Sample Status</TableHead>
+          <TableHead>
+            Flag Category
+            <SortableIcon<Sample> name="status" />
+          </TableHead>
+          <TableHead>
+            Sample Status
+            <SortableIcon<Sample> name="status" />
+          </TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
