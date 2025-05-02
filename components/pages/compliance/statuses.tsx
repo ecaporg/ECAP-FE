@@ -3,7 +3,7 @@ import {
   type CompletionStatusProps,
 } from "@/components/table/complation-status";
 import { Badge, BadgeProps } from "@/components/ui/badge";
-import { Sample, SampleStatus } from "@/types";
+import { Sample, SampleFlagCategory, SampleStatus } from "@/types";
 import { cn } from "@/utils";
 import { getSampleStatus } from "@/utils/sample";
 import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
@@ -64,10 +64,10 @@ function DirectorSampleStatus({
   }
   let status = sample.status;
 
-  if (status === SampleStatus.FLAGGED_TO_ADMIN && sample.flag_missing_work) {
+  if (sample.flag_category === SampleFlagCategory.MISSING_SAMPLE) {
     status = SampleStatus.MISSING_SAMPLE;
   }
-  if (status === SampleStatus.FLAGGED_TO_ADMIN && sample.flag_errors) {
+  if (sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE) {
     status = SampleStatus.ERRORS_FOUND;
   }
 

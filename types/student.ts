@@ -25,6 +25,12 @@ export enum SampleStatus {
   REASON_REJECTED = "REASON_REJECTED",
 }
 
+export enum SampleFlagCategory {
+  ERROR_IN_SAMPLE = "ERROR_IN_SAMPLE",
+  MISSING_SAMPLE = "MISSING_SAMPLE",
+  REASON_REJECTED = "REASON_REJECTED",
+}
+
 export type SampleFlagError = GenericEntity & {
   user_id: number;
   user: User;
@@ -52,6 +58,7 @@ export type SampleFlagCompleted = GenericEntity & {
 export type Sample = GenericEntity & {
   assignment_title: string;
   status: SampleStatus;
+  flag_category: SampleFlagCategory;
   done_by_id: number | null;
   assignment_period_id: number;
   subject_id: number;

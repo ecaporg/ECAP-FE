@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Sample } from "@/types";
-import { getUserName } from "@/utils";
+import { getUserName, sampleCategoryToText } from "@/utils";
 import { ActionButton } from "../action-button";
 import { DirectorSampleStatus } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
@@ -53,9 +53,7 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
             </TableCell>
             <TableCell>{sample.assignment_period.student_id}</TableCell>
             <TableCell>{sample.assignment_period.student.grade}</TableCell>
-            <TableCell>
-              {sample.flag_missing_work ? "Missing Sample" : "Errors Found"}
-            </TableCell>
+            <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>
             <TableCell>
               <DirectorSampleStatus sample={sample} />
             </TableCell>

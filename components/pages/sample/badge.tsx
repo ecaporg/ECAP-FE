@@ -1,4 +1,4 @@
-import { Sample, SampleStatus } from "@/types/student";
+import { Sample, SampleFlagCategory, SampleStatus } from "@/types/student";
 import { CompletionStatus } from "@/components/table/complation-status";
 import { getUser } from "@/lib/get-user";
 import { getUserName } from "@/utils";
@@ -13,11 +13,11 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
     return (
       <div className="pb-6 flex items-center gap-4">
         <CompletionStatus variant="Complete" className="h-14 w-60">
-          {sample.flag_errors?.comment
+          {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
             ? "Error Corrected"
             : sample.flag_completed?.message || "Completed"}
         </CompletionStatus>
-        {sample.flag_errors?.comment && (
+        {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE && (
           <p>
             {isMyMessage
               ? "Your "

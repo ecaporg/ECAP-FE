@@ -5,6 +5,7 @@ import type {
   SampleStatus,
   TrackLearningPeriod,
 } from "@/types";
+import { SampleFlagCategory } from "@/types/student";
 import { getDueDate } from "./learning-period";
 
 export const getSampleStatus = (status: SampleStatus) => {
@@ -47,4 +48,17 @@ export const getCompletionStatus = (
   }
 
   return "In Progress";
+};
+
+export const sampleCategoryToText = (category: SampleFlagCategory) => {
+  switch (category) {
+    case SampleFlagCategory.MISSING_SAMPLE:
+      return "Missing Sample";
+    case SampleFlagCategory.ERROR_IN_SAMPLE:
+      return "Errors Found";
+    case SampleFlagCategory.REASON_REJECTED:
+      return "Reason Rejected";
+    default:
+      return "";
+  }
 };

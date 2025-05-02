@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/constants/routes";
-import { SampleStatus, User, type Sample } from "@/types";
+import { SampleFlagCategory, SampleStatus, User, type Sample } from "@/types";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import {
@@ -52,7 +52,7 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
     case SampleStatus.PENDING:
     case SampleStatus.ERRORS_FOUND:
     case SampleStatus.FLAGGED_TO_ADMIN:
-      if (sample.flag_missing_work) {
+      if (sample.flag_category === SampleFlagCategory.MISSING_SAMPLE) {
         return undefined;
       }
       return () => options.router.push(options.redirectUrl);
