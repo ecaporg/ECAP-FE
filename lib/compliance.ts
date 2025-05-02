@@ -2,7 +2,10 @@ import type { AssignmentPeriod, TeacherCompliance, Tenant } from "@/types";
 import { apiFetch } from "./fetch";
 
 export const getComplianceTeacherFilter = async () => {
-  const response = await apiFetch<Tenant>(`/students-table/filters`);
+  const response = await apiFetch<Tenant>(`/students-table/filters`, {
+    tags: [`teacher-filter`],
+    cache: "force-cache",
+  });
   if (response.error) {
     throw new Error(response.error);
   }
@@ -30,7 +33,10 @@ export const getComplianceStudentSamples = async (
 };
 
 export const getComplianceAdminFilter = async () => {
-  const response = await apiFetch<Tenant>(`/teachers-table/filters`);
+  const response = await apiFetch<Tenant>(`/teachers-table/filters`, {
+    tags: [`admin-filter`],
+    cache: "force-cache",
+  });
   if (response.error) {
     throw new Error(response.error);
   }

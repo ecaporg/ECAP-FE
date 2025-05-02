@@ -1,20 +1,20 @@
-'use client';
-import { signOutAction } from '@/app/auth/actions';
-import { Button } from '@/components/ui/button';
-import { routes } from '@/constants/routes';
-import { cn } from '@/utils';
-import { Loader2, LogOut, User } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import type React from 'react';
-import { useState } from 'react';
+"use client";
+import { signOutAction } from "@/app/auth/actions";
+import { Button } from "@/components/ui/button";
+import { routes } from "@/constants/routes";
+import { cn } from "@/utils";
+import { Loader2, LogOut, User } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type React from "react";
+import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../ui/navigation-menu';
+} from "../ui/navigation-menu";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -35,8 +35,8 @@ const NavLink = ({
     <Link
       href={href}
       className={cn(
-        'h-full w-52 md:hover:border-b-2 content-center py-5',
-        isActive && 'md:border-b-2',
+        "h-full w-52 md:hover:border-b-2 content-center py-5",
+        isActive && "md:border-b-2",
         className
       )}
     >
@@ -55,7 +55,10 @@ const NavMenu = () => {
       </nav>
 
       <nav className="contents md:flex justify-end items-center flex-1 gap-10">
-        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+        <NavLink
+          href={routes.profile.root}
+          className="flex items-center justify-center gap-2"
+        >
           <User className="h-4 w-4" />
           <span>My Profile</span>
         </NavLink>
@@ -83,14 +86,17 @@ const NavMenu = () => {
 const MobileNavMenu = () => {
   return (
     <div className="md:hidden flex items-center justify-between">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+      <Link
+        href={routes.dashboard.root}
+        className="font-extrabold text-xl content-center"
+      >
         ECAP
       </Link>
 
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger />
+            <NavigationMenuTrigger className="px-2 [&>svg]:ml-0 size-10" />
             <NavigationMenuContent className="flex flex-col">
               <NavMenu />
             </NavigationMenuContent>
@@ -104,7 +110,10 @@ const MobileNavMenu = () => {
 const DesktopNav = () => {
   return (
     <div className="md:flex justify-between items-center hidden">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+      <Link
+        href={routes.dashboard.root}
+        className="font-extrabold text-xl content-center"
+      >
         ECAP
       </Link>
 
