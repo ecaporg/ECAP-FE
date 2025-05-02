@@ -19,7 +19,7 @@ export const BackToCompliance = ({ student }: { student?: Student }) => {
         <ArrowLeftIcon className="w-4 h-4" />
         <span className="hidden md:block">Back to Student Table</span>
       </p>
-      <span className="text-xl text-neutral-black">
+      <span className="text-xl text-neutral-black truncate">
         {getUserName(student.user)}
       </span>
     </div>
@@ -38,13 +38,15 @@ export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
         className="text-primary cursor-pointer flex items-center gap-2 text-lg"
       >
         <ArrowLeftIcon className="size-4" />
-        <span className="hidden md:block">Back to Teacher Table</span>
+        <span className="hidden md:block truncate">Back to Teacher Table</span>
       </p>
       <span className="text-xl text-neutral-black">
         {getUserName(teacher.user)}
-        <Button size="lg" className="ml-4">
+        <Button size="lg" className="ml-4 ">
           <UserIcon className="size-4" />
-          Sign in as {getUserName(teacher.user)}
+          <span className="truncate max-w-32 lg:max-w-max">
+            Sign in as {getUserName(teacher.user)}
+          </span>
         </Button>
       </span>
     </div>
