@@ -1,20 +1,4 @@
-import { ComplianceSamplesPage as Samples } from "@/app/(protected)/(main-layout)/(role-layout)/@teacher/compliance/samples/page";
-import { LoadingTableSectionWithFilters } from "@/components/table/loading";
-import { Suspense } from "react";
+import { TabStudentsSamples } from "@/roles/@admin/compliance/[id]/@tabs/students/samples/page";
+import { rolePage } from "@/components/layouts/role-page";
 
-export default async function TabStudents({
-  searchParams,
-}: {
-  searchParams: Promise<any>;
-}) {
-  return (
-    <Suspense
-      key={new URLSearchParams(await searchParams).toString()}
-      fallback={
-        <LoadingTableSectionWithFilters columns={8} rows={15} filters={7} />
-      }
-    >
-      <Samples searchParams={searchParams} />
-    </Suspense>
-  );
-}
+export default rolePage(TabStudentsSamples, ["DIRECTOR"]);

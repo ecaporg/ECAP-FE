@@ -1,13 +1,17 @@
-import type { User } from '@/types';
+import type { User } from "@/types";
 
 export const getUserName = (user: User) => {
   return `${user.firstname} ${user.lastname}`;
 };
 
 export const setToken = (token: string) => {
-  localStorage.setItem('token', token);
+  localStorage.setItem("token", token);
 };
 
 export const getToken = () => {
-  return localStorage.getItem('token');
+  return localStorage.getItem("token");
+};
+
+export const isAdminOrDirector = (user: User) => {
+  return ["ADMIN", "DIRECTOR", "SUPER_ADMIN"].includes(user.role || "");
 };

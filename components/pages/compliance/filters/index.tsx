@@ -1,8 +1,8 @@
 export { TeacherFilters } from "./teacher-filters";
 export { SamplesFilters } from "./samples-filters";
-export { DirectorFilters } from "./director-filters";
+export { AdminFilters } from "./admin-filters";
 export { FilterWrapper } from "./filter-wrapper";
 export {
-  DirectorTeacherFilters,
-  DirectorSamplesFilters,
-} from "./director-teacher-filters";
+  AdminTeacherFilters,
+  AdminSamplesFilters,
+} from "./admin-teacher-filters";

@@ -4,7 +4,7 @@ import {
   LearningPeriodFilter,
   SchoolFilter,
   TrackFilter,
-  SearchTeacherFilter
+  SearchTeacherFilter,
 } from "@/components/filters";
 import { AcademicYearFilter } from "@/components/filters/academic-year.filter";
 import { GradeSpanFilter } from "@/components/filters/grade-span.filter";
@@ -16,15 +16,12 @@ import { getLearningPeriodFromTenant } from "@/utils";
 import { FilterWrapper } from "./filter-wrapper";
 import type { Tenant } from "@/types";
 
-interface DirectorFiltersProps {
+interface AdminFiltersProps {
   tenant: Tenant;
   academicYearIds: string[];
 }
 
-export function DirectorFilters({
-  tenant,
-  academicYearIds,
-}: DirectorFiltersProps) {
+export function AdminFilters({ tenant, academicYearIds }: AdminFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds.includes(track.academic_year_id.toString())
   );

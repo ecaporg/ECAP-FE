@@ -7,17 +7,16 @@ import {
 import { getLearningPeriodFromTenant } from "@/utils";
 import { FilterWrapper } from "./filter-wrapper";
 import type { Tenant } from "@/types";
-import { SPECIFIC_PAGE_FILTER_KEYS } from "@/constants/filter";
 
-interface DirectorTeacherFiltersProps {
+interface AdminTeacherFiltersProps {
   tenant: Tenant;
   academicYearIds: string[];
 }
 
-export function DirectorTeacherFilters({
+export function AdminTeacherFilters({
   tenant,
   academicYearIds,
-}: DirectorTeacherFiltersProps) {
+}: AdminTeacherFiltersProps) {
   return (
     <FilterWrapper className="pt-0 pb-6">
       <AcademicYearFilter
@@ -32,7 +31,7 @@ export function DirectorTeacherFilters({
   );
 }
 
-export const DirectorSamplesFilters = () => {
+export const AdminSamplesFilters = () => {
   return (
     <FilterWrapper className="pt-9 pb-4">
       <FlagCategoryFilter />

@@ -1,18 +1,3 @@
-import { LoadingTableSectionWithFilters } from "@/components/table/loading";
-import { Suspense } from "react";
+import ComplianceAdminTabsLayout from "@/roles/@admin/compliance/[id]/layout";
 
-export default function TeacherLayout({
-  children,
-  tabs,
-}: {
-  children: React.ReactNode;
-  tabs: React.ReactNode;
-}) {
-  return (
-    <>
-      {children}
-
-      {tabs}
-    </>
-  );
-}
+export default ComplianceAdminTabsLayout;

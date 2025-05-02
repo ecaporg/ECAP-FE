@@ -12,6 +12,7 @@ import {
 } from "./modals";
 import { useAuth } from "@/providers/auth";
 import { hasPermission } from "@/lib/permissions";
+import { isAdminOrDirector } from "@/utils";
 
 interface ActionButtonProps {
   sample: Sample;
@@ -80,7 +81,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
   if (
     sample.status === SampleStatus.COMPLETED &&
     sample.flag_missing_work &&
-    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
+    isAdminOrDirector(user)
   ) {
     return FlagCompleteSampleInfoModal;
   }
@@ -90,8 +91,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
 
 const getIsDisabled = (sample: Sample, user: User) => {
   return (
-    sample.status === SampleStatus.MISSING_SAMPLE &&
-    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
+    sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user)
   );
 };
 
