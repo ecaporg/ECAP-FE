@@ -67,7 +67,9 @@ const DirectorSamples = async ({
 
   const dueDate = getDueDate(learningPeriod);
   const totalItems = samples?.meta?.totalItems ?? 0;
-  const completedCount = samples?.meta?.completedCount ?? 0;
+  const completedCount =
+    samples?.meta?.completedCount ??
+    samples?.data?.filter((sample) => sample.status === "COMPLETED").length;
 
   const status = getStatusForTable(0, totalItems, dueDate);
 

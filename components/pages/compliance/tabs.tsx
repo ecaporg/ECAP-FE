@@ -21,11 +21,11 @@ export function ComplianceTabs() {
 
   const newSearchParams = new URLSearchParams(searchParams);
   const studentRoute = `${
-    (tab ? pathname.split(tab)[0] : pathname) + `/${TABS.students}`
+    (tab ? pathname.split(tab)[0] : pathname) + TABS.students
   }?${newSearchParams.toString()}`;
 
   const sampleRoute = `${
-    (tab ? pathname.split(tab)[0] : pathname) + `/${TABS.samples}`
+    (tab ? pathname.split(tab)[0] : pathname) + TABS.samples
   }?${newSearchParams.toString()}`;
 
   return (
