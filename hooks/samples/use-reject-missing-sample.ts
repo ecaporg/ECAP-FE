@@ -2,8 +2,7 @@ import { Sample, SampleFlagRejected } from "@/types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { rejectMissingWorkSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
-import { usePathname } from "next/navigation";
-import { useAuth } from "@/providers/auth";
+import { usePathname, useSearchParams } from "next/navigation";
 
 type FormData = {
   reason: string;
@@ -12,6 +11,7 @@ type FormData = {
 export function useRejectMissingSample({ sample }: { sample: Sample }) {
   const [openSuccessfullyModal, setOpenSuccessfullyModal] = useState(false);
   const path = usePathname();
+  const searchParams = useSearchParams();
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -26,7 +26,7 @@ export function useRejectMissingSample({ sample }: { sample: Sample }) {
       {
         reason,
       } as SampleFlagRejected,
-      path
+      `${path}?${new URLSearchParams(searchParams).toString()}`
     );
   };
 

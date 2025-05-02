@@ -9,7 +9,7 @@ import { isAdminOrDirector, isAnyAdmin } from "@/utils";
 import { useState } from "react";
 import { ConfirmationModal } from "@/components/modals";
 import { approveAdminSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { RejectMissingSampleModal } from "./reject-missing-sample.modal";
 
 export function FlagMissingWorkSampleInfoModal({
@@ -17,9 +17,8 @@ export function FlagMissingWorkSampleInfoModal({
   sample,
 }: React.PropsWithChildren<{ sample: Sample }>) {
   const [openSuccessfullyModal, setOpenSuccessfullyModal] = useState(false);
-  const [openRejectModal, setOpenRejectModal] = useState(false);
   const path = usePathname();
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const { user } = useAuth();
   const isDirector = isAdminOrDirector(user);
   const isAdmin = isAnyAdmin(user);
@@ -90,7 +89,11 @@ export function FlagMissingWorkSampleInfoModal({
           onOpenChange={setOpenSuccessfullyModal}
           title="Approved!"
           action={async () =>
-            await approveAdminSampleAction(sample, user, path)
+            await approveAdminSampleAction(
+              sample,
+              user,
+              `${path}?${new URLSearchParams(searchParams).toString()}`
+            )
           }
         >
           {children}

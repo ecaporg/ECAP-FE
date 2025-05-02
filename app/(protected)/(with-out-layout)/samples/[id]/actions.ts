@@ -111,6 +111,7 @@ export const approveAdminSampleAction = async (
   revalidatePathAndTag(sample);
   revalidatePath(path);
   revalidateTag(`compliance-admin-samples`);
+  redirect(path, RedirectType.replace);
 };
 
 export async function rejectMissingWorkSampleAction(
@@ -122,6 +123,7 @@ export async function rejectMissingWorkSampleAction(
   revalidatePathAndTag(sample);
   revalidatePath(path);
   revalidateTag(`compliance-admin-samples`);
+  redirect(path, RedirectType.replace);
 }
 
 export const flagCompletedSampleAction = async (

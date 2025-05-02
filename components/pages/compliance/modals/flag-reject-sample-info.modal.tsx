@@ -7,16 +7,17 @@ import { useAuth } from "@/providers/auth";
 import { ReasonForMissingSample, SampleInfoForModal } from "./shared";
 import { Badge } from "@/components/ui/badge";
 import { CircleAlertIcon } from "lucide-react";
+import { isAdminOrDirector } from "@/utils";
 
 export function FlagRejectSampleInfoModal({
   children,
   sample,
 }: React.PropsWithChildren<{ sample: Sample }>) {
   const { user } = useAuth();
-  const isDirector = user?.role === "DIRECTOR";
+  const isDirector = isAdminOrDirector(user);
   const title = (
     <>
-      <Badge variant="red" className="mb-16">
+      <Badge variant="red" className="mb-4 w-fit">
         <CircleAlertIcon className="size-4" />
         Rejected:{" "}
         {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
@@ -49,7 +50,7 @@ export function FlagRejectSampleInfoModal({
   const description = isDirector ? (
     <>
       <b>Date Flagged:</b>{" "}
-      {new Date(sample.flag_missing_work?.createdAt || "").toLocaleDateString()}
+      {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
     </>
   ) : (
     ""

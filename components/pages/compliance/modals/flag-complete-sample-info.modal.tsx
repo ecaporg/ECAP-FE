@@ -7,13 +7,14 @@ import { useAuth } from "@/providers/auth";
 import { SampleInfoForModal, ReasonForMissingSample } from "./shared";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
+import { isAdminOrDirector } from "@/utils";
 
 export function FlagCompleteSampleInfoModal({
   children,
   sample,
 }: React.PropsWithChildren<{ sample: Sample }>) {
   const { user } = useAuth();
-  const isDirector = user?.role === "DIRECTOR";
+  const isDirector = isAdminOrDirector(user);
   const title = (
     <>
       <Badge variant="success" className="mb-16">
