@@ -1,6 +1,6 @@
-import type { GenericEntity } from './shared';
+import type { GenericEntity } from "./shared";
 
-export type Role = 'TEACHER' | 'DIRECTOR' | 'ADMIN' | 'SUPER_ADMIN' | 'STUDENT';
+export type Role = "TEACHER" | "DIRECTOR" | "ADMIN" | "SUPER_ADMIN" | "STUDENT";
 
 export type User = GenericEntity & {
   email: string;
@@ -12,3 +12,8 @@ export type User = GenericEntity & {
   role?: Role;
   password: string;
 };
+
+export const defaultUser: User = {
+  firstname: "N",
+  lastname: "/A",
+} as User;

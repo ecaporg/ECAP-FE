@@ -1,20 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { routes } from "@/constants/routes";
-import type { Student, Teacher, User } from "@/types";
+import { defaultUser, type Student, type Teacher } from "@/types";
 import { getUserName } from "@/utils";
 import { ArrowLeftIcon, UserIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-const user = {
-  firstname: "N",
-  lastname: "/A",
-} as User;
 
 export const BackToCompliance = ({ student }: { student?: Student }) => {
   if (!student) {
-    student = { user } as Student;
+    student = { user: defaultUser } as Student;
   }
   const router = useRouter();
   return (
@@ -35,7 +28,7 @@ export const BackToCompliance = ({ student }: { student?: Student }) => {
 
 export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
   if (!teacher) {
-    teacher = { user } as Teacher;
+    teacher = { user: defaultUser } as Teacher;
   }
   const router = useRouter();
   return (

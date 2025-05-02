@@ -1,5 +1,6 @@
 "use server";
 import {
+  flagCompletedSample,
   flagMissingWorkSample,
   flagRejectedSample,
   flagSample,
@@ -7,6 +8,7 @@ import {
 } from "@/lib/sample";
 import {
   type Sample,
+  SampleFlagCompleted,
   SampleFlagError,
   SampleFlagMissingWork,
   SampleFlagRejected,
@@ -15,7 +17,7 @@ import {
 } from "@/types";
 import { redirect, RedirectType } from "next/navigation";
 import { routes } from "@/constants/routes";
-import { getUserName } from "@/utils";
+import { getUserName, isAnyAdmin } from "@/utils";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { ApiResponse } from "@/lib/fetch";
 
@@ -58,7 +60,9 @@ export const approveSampleAction = async (sample: Sample, done_by: User) => {
   revalidateTag("samples");
   const path = revalidatePathAndTag(sample);
 
-  redirect(path, RedirectType.replace);
+  if (!isAnyAdmin(done_by)) {
+    redirect(path, RedirectType.replace);
+  }
 };
 
 export const flagSampleAction = async (
@@ -81,9 +85,12 @@ export const flagMissingWorkSampleAction = async (
   revalidatePathAndTag(sample);
 };
 
-export const updateSampleAction = async (sample: Sample) => {
+export const updateSampleAction = async (
+  sample: Sample,
+  data: Partial<Sample>
+) => {
   const result = await updateSample(sample.id, {
-    ...sample,
+    ...data,
     status: SampleStatus.PENDING,
   });
 
@@ -116,3 +123,10 @@ export async function rejectMissingWorkSampleAction(
   revalidatePath(path);
   revalidateTag(`compliance-admin-samples`);
 }
+
+export const flagCompletedSampleAction = async (
+  sample: Sample,
+  data: SampleFlagCompleted
+) => {
+  await executeAction(flagCompletedSample, sample, data);
+};

@@ -67,7 +67,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
       {inputs.map((input) => (
         <>
           <Label
-            className="px-4 h-11 content-center text-right"
+            className="px-4 h-11 content-center md:text-right"
             key={`${input.name}-label`}
           >
             {input.label}:
@@ -85,7 +85,9 @@ export function SampleInputs({ sample }: SampleMetaProps) {
                 input.name as keyof z.infer<typeof sampleHeaderSchema>
               ]
             }
-            onBlur={onBlur}
+            onBlur={(e) => {
+              onBlur(e, input.label);
+            }}
           />
         </>
       ))}

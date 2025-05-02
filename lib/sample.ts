@@ -1,4 +1,10 @@
-import { Sample, SampleFlagError, SampleFlagMissingWork, SampleFlagRejected } from "@/types";
+import {
+  Sample,
+  SampleFlagCompleted,
+  SampleFlagError,
+  SampleFlagMissingWork,
+  SampleFlagRejected,
+} from "@/types";
 import { apiFetch } from "./fetch";
 import { revalidateTag } from "next/cache";
 
@@ -47,6 +53,17 @@ export const flagRejectedSample = async (
 ) => {
   revalidateTag(`sample-${id}`);
   return await apiFetch<Sample>(`/samples/${id}/flag-rejected`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+};
+
+export const flagCompletedSample = async (
+  id: Sample["id"],
+  data: SampleFlagCompleted
+) => {
+  revalidateTag(`sample-${id}`);
+  return await apiFetch<Sample>(`/samples/${id}/flag-completed`, {
     method: "POST",
     body: JSON.stringify(data),
   });
