@@ -96,7 +96,7 @@ export function FlagMissingWorkSampleInfoModal({
             )
           }
         >
-          {children}
+          {<></>}
         </ConfirmationModal>
       )}
     </>

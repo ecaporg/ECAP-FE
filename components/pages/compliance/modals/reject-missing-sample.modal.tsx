@@ -86,7 +86,7 @@ export function RejectMissingSampleModal({
           title="Successfully sent to teacher!!"
           action={submitSuccessfully}
         >
-          {children}
+          {<></>}
         </ConfirmationModal>
       )}
     </>

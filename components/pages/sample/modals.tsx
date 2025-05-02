@@ -93,7 +93,7 @@ export function FlagErrorModal({
           title="Successfully sent to Admin!"
           action={submitSuccessfully}
         >
-          {children}
+          {<></>}
         </ConfirmationModal>
       )}
     </>

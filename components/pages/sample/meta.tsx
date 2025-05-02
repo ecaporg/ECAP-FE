@@ -8,7 +8,6 @@ import { FlagErrorModal, UploadToStudentPathwaysModal } from "./modals";
 import { hasPermission } from "@/lib/permissions";
 import { useAuth } from "@/providers/auth";
 
-
 export function SampleActionButtons({ sample }: { sample: Sample }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -20,18 +19,19 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
 
   return (
     <>
-      {hasPermission(user, "samples", "flag", sample) && (
-        <FlagErrorModal sample={sample}>
-          <Button
-            className="fixed top-12 right-12 z-[2]"
-            size="lg"
-            disabled={isDisabled}
-          >
-            <Flag className="w-4 h-4 mr-2" />
-            Flag Error in Requirements
-          </Button>
-        </FlagErrorModal>
-      )}
+      {hasPermission(user, "samples", "flag", sample) &&
+        user.role === "TEACHER" && (
+          <FlagErrorModal sample={sample}>
+            <Button
+              className="fixed top-12 right-12 z-[2]"
+              size="lg"
+              disabled={isDisabled}
+            >
+              <Flag className="w-4 h-4 mr-2" />
+              Flag Error in Requirements
+            </Button>
+          </FlagErrorModal>
+        )}
 
       {hasPermission(user, "samples", "upload", sample) && (
         <UploadToStudentPathwaysModal sample={sample}>
