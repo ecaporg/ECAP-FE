@@ -58,4 +58,4 @@ export async function CompliancePageTeacher({
   );
 }
 
-export default rolePage(CompliancePageTeacher, ["ADMIN"]);
+export default rolePage(CompliancePageTeacher, ["ADMIN", "SUPER_ADMIN"]);

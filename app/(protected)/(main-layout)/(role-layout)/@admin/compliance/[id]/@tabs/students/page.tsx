@@ -19,4 +19,4 @@ export async function TabStudents({
   );
 }
 
-export default rolePage(TabStudents, ["ADMIN"]);
+export default rolePage(TabStudents, ["ADMIN", "SUPER_ADMIN"]);

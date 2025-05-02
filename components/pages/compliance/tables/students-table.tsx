@@ -7,12 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { AssignmentPeriod, Student, TrackLearningPeriod } from "@/types";
+import type {
+  AssignmentPeriod,
+  Student,
+  TrackLearningPeriod,
+  User,
+} from "@/types";
 import { getCompletionStatus, getProgressValue, getUserName } from "@/utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
 import Link from "next/link";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 
 interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
@@ -24,6 +30,14 @@ export const StudentsTable = ({
   currentLearningPeriod,
 }: StudentsTableProps) => {
   const pathname = usePathname();
+  const teacher_id = useSearchParams().get(DEFAULT_FILTERS_KEYS.TEACHER_ID);
+
+  const getPath = (user: User) =>
+    `${pathname}/samples?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${
+      DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
+    }=${currentLearningPeriod.id}&${
+      teacher_id ? `${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${teacher_id}` : ""
+    }&name=${getUserName(user)}`;
 
   return (
     <Table>
@@ -67,11 +81,7 @@ export const StudentsTable = ({
           >
             <Link
               className="contents"
-              href={`${pathname}/samples?student_id=${
-                assignment.student.user.id
-              }&learning_period_id=${
-                currentLearningPeriod.id
-              }&name=${getUserName(assignment.student.user)}`}
+              href={getPath(assignment.student.user)}
             >
               <TableCell>{getUserName(assignment.student.user)}</TableCell>
               <TableCell>{assignment.student.id}</TableCell>

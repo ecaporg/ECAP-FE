@@ -81,7 +81,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
   if (
     sample.status === SampleStatus.COMPLETED &&
     sample.flag_missing_work &&
-    isAdminOrDirector(user)
+    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
   ) {
     return FlagCompleteSampleInfoModal;
   }
@@ -131,7 +131,7 @@ export function ActionButton({ sample }: ActionButtonProps) {
         variant="secondary"
         size="sm"
         onClick={onClick}
-        className="bg-transparent"
+        className="bg-transparent disabled:bg-transparent"
         disabled={isDisabled}
       >
         {text}

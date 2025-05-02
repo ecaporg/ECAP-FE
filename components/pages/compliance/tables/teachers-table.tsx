@@ -63,7 +63,7 @@ export const TeachersTable = ({
       </TableHeader>
       <TableBody>
         {assignments.map((assignment) => (
-          <TableRow key={assignment.teacher_id}>
+          <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
             <Link
               className="contents"
               href={`${routes.compliance.teacher.replace(

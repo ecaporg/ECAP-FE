@@ -29,4 +29,4 @@ export async function CompliancePage({
   );
 }
 
-export default rolePage(CompliancePage, ["ADMIN"]);
+export default rolePage(CompliancePage, ["ADMIN", "SUPER_ADMIN"]);

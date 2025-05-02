@@ -40,7 +40,7 @@ export function SamplesFilters({
       <DoneByFilter
         availableUsers={samples
           .map((sample) => sample.done_by)
-          .filter((user) => user !== null)}
+          .filter((user) => user != null)}
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
       />
     </FilterWrapper>

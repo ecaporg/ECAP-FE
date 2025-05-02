@@ -48,4 +48,4 @@ const SampleComponent = async ({
   );
 };
 
-export default rolePage(TabSamples, ["ADMIN"]);
+export default rolePage(TabSamples, ["ADMIN", "SUPER_ADMIN"]);
