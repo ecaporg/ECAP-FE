@@ -27,6 +27,7 @@ export enum SampleStatus {
 
 export type SampleFlagError = GenericEntity & {
   user_id: number;
+  user: User;
   comment: string;
 };
 
