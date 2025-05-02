@@ -34,16 +34,19 @@ export type SampleFlagError = GenericEntity & {
 export type SampleFlagMissingWork = GenericEntity & {
   user_id: number;
   reason: string;
+  user: User;
 };
 
 export type SampleFlagRejected = GenericEntity & {
   user_id: number;
   reason: string;
+  user: User;
 };
 
 export type SampleFlagCompleted = GenericEntity & {
   user_id: number;
   message: string;
+  user: User;
 };
 
 export type Sample = GenericEntity & {
