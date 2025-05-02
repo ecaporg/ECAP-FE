@@ -18,23 +18,32 @@ export const formatLearningPeriodDate = (date: Date | string) => {
 
 export const getLearningPeriodFromTenant = (
   tenant: Tenant,
-  academic_year_ids?: (number | string)[]
+  academic_year_ids?: (number | string)[],
+  tracksIds?: string[]
 ) => {
-  return tenant?.tracks.flatMap((track) =>
-    track.learningPeriods
-      .map((period) => ({
-        ...period,
-        start_date: new Date(period.start_date),
-        end_date: new Date(period.end_date),
-        name: `${track.name}: ${getShortLearningPeriodName(period.name)}`,
-      }))
-      .filter(() => {
-        if (academic_year_ids?.length) {
-          return academic_year_ids.includes(track.academic_year_id.toString());
-        }
-        return true;
-      })
-  );
+  return tenant?.tracks
+    .filter((track) =>
+      tracksIds && tracksIds.length
+        ? tracksIds.includes(track.id.toString())
+        : true
+    )
+    .flatMap((track) =>
+      track.learningPeriods
+        .map((period) => ({
+          ...period,
+          start_date: new Date(period.start_date),
+          end_date: new Date(period.end_date),
+          name: `${track.name}: ${getShortLearningPeriodName(period.name)}`,
+        }))
+        .filter(() => {
+          if (academic_year_ids?.length) {
+            return academic_year_ids.includes(
+              track.academic_year_id.toString()
+            );
+          }
+          return true;
+        })
+    );
 };
 
 export const getFormattedLP = (lp: TrackLearningPeriod) => {

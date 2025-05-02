@@ -15,11 +15,13 @@ import { FilterWrapper } from "./filter-wrapper";
 interface TeacherFiltersProps {
   tenant: Tenant;
   academicYearIds?: string[];
+  tracksIds?: string[];
 }
 
 export function TeacherFilters({
   tenant,
   academicYearIds,
+  tracksIds,
 }: TeacherFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds?.includes(track.academic_year_id.toString())
@@ -28,7 +30,11 @@ export function TeacherFilters({
   return (
     <FilterWrapper>
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
+        availablePeriods={getLearningPeriodFromTenant(
+          tenant,
+          academicYearIds,
+          tracksIds
+        )}
       />
       <SearchStudentFilter />
       <SchoolFilter

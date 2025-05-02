@@ -19,9 +19,14 @@ import type { Tenant } from "@/types";
 interface AdminFiltersProps {
   tenant: Tenant;
   academicYearIds: string[];
+  tracksIds: string[];
 }
 
-export function AdminFilters({ tenant, academicYearIds }: AdminFiltersProps) {
+export function AdminFilters({
+  tenant,
+  academicYearIds,
+  tracksIds,
+}: AdminFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds.includes(track.academic_year_id.toString())
   );
@@ -34,7 +39,11 @@ export function AdminFilters({ tenant, academicYearIds }: AdminFiltersProps) {
         )}
       />
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
+        availablePeriods={getLearningPeriodFromTenant(
+          tenant,
+          academicYearIds,
+          tracksIds
+        )}
       />
       <SearchTeacherFilter />
 
@@ -59,7 +68,11 @@ export function AdminFilters({ tenant, academicYearIds }: AdminFiltersProps) {
       />
       <GradeSpanFilter />
       <SubjectFilter
-        availableSubjects={tracks.flatMap((track) => track.subjects)}
+        availableSubjects={tracks
+          .filter((track) =>
+            tracksIds?.length ? tracksIds.includes(track.id.toString()) : true
+          )
+          .flatMap((track) => track.subjects)}
       />
       <SampleStatusFilter />
     </FilterWrapper>

@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const TABS = {
-  samples: "samples",
+  samples: "flagged-samples",
   students: "students",
 };
 
@@ -21,11 +21,11 @@ export function ComplianceTabs() {
 
   const newSearchParams = new URLSearchParams(searchParams);
   const studentRoute = `${
-    tab ? pathname.replace(tab, TABS.students) : pathname + `/${TABS.students}`
+    (tab ? pathname.split(tab)[0] : pathname) + `/${TABS.students}`
   }?${newSearchParams.toString()}`;
 
   const sampleRoute = `${
-    tab ? pathname.replace(tab, TABS.samples) : pathname + `/${TABS.samples}`
+    (tab ? pathname.split(tab)[0] : pathname) + `/${TABS.samples}`
   }?${newSearchParams.toString()}`;
 
   return (

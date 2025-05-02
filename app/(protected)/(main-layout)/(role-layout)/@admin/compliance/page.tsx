@@ -1,6 +1,9 @@
 import { getComplianceAdminFilter } from "@/lib/compliance";
 
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import {
+  DEFAULT_FILTERS_KEYS,
+  SPECIFIC_PAGE_FILTER_KEYS,
+} from "@/constants/filter";
 import { getDefaultAcademicYearIds } from "@/utils/academic-year";
 import { TeacherSection } from "@/components/pages/compliance/sections";
 import { AdminFilters } from "@/components/pages/compliance/filters";
@@ -17,9 +20,17 @@ export async function CompliancePage({
     tenant,
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
+  const tracksIds = ((await searchParams) as any)[
+    SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID
+  ]?.split(",");
+
   return (
     <>
-      <AdminFilters tenant={tenant} academicYearIds={academicYearIds} />
+      <AdminFilters
+        tenant={tenant}
+        academicYearIds={academicYearIds}
+        tracksIds={tracksIds}
+      />
       <TeacherSection
         param={await searchParams}
         tenant={tenant!}
