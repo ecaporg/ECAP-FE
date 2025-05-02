@@ -27,6 +27,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
       LEARNING_PERIOD_ID: "assignment_period.learning_period_id",
       TEACHER_ID: "assignment_period.course.teacher_id",
       ACADEMIC_YEAR: "assignment_period.course.academic_year_id",
+      ACADEMY_ID: "assignment_period.student.academy_id",
     },
   },
   COMPLAIANCE_SAMPLES: {

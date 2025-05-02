@@ -1,4 +1,4 @@
-import { Sample, SampleFlagError, SampleFlagMissingWork } from "@/types";
+import { Sample, SampleFlagError, SampleFlagMissingWork, SampleFlagRejected } from "@/types";
 import { apiFetch } from "./fetch";
 import { revalidateTag } from "next/cache";
 
@@ -35,8 +35,19 @@ export const flagMissingWorkSample = async (
   });
 };
 
-export const getComplianceDirectorSamples = async (param: string) => {
+export const getComplianceAdminSamples = async (param: string) => {
   return await apiFetch<Sample[]>(`/samples/flagged?${param}`, {
-    tags: [`compliance-director-samples`],
+    tags: [`compliance-admin-samples`],
+  });
+};
+
+export const flagRejectedSample = async (
+  id: Sample["id"],
+  data: SampleFlagRejected
+) => {
+  revalidateTag(`sample-${id}`);
+  return await apiFetch<Sample>(`/samples/${id}/flag-rejected`, {
+    method: "POST",
+    body: JSON.stringify(data),
   });
 };

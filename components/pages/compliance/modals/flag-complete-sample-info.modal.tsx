@@ -4,7 +4,7 @@ import { Sample } from "@/types";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useAuth } from "@/providers/auth";
-import { SampleInfoForModal } from "../../sample/modals";
+import { SampleInfoForModal, ReasonForMissingSample } from "./shared";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
 
@@ -22,17 +22,6 @@ export function FlagCompleteSampleInfoModal({
         {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
-    </>
-  );
-
-  const reason = isDirector ? (
-    <>
-      <b className="text-primary">Reason for Missing Sample:</b>{" "}
-      {sample.flag_missing_work?.reason}
-    </>
-  ) : (
-    <>
-      <b>Reason given:</b> "{sample.flag_missing_work?.reason}"
     </>
   );
 
@@ -57,7 +46,9 @@ export function FlagCompleteSampleInfoModal({
         <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
           <SampleInfoForModal sample={sample} />
         </section>
-        <p className="py-6">{reason}</p>
+        <p className="py-6">
+          <ReasonForMissingSample sample={sample} isDirector={isDirector} />
+        </p>
         <DialogClose asChild>
           <Button className="w-fit self-end" size="lg">
             Close

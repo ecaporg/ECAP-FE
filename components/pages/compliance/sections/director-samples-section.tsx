@@ -12,7 +12,7 @@ import {
 } from "@/utils";
 import { Suspense } from "react";
 import { DirectorSamplesTable } from "../tables";
-import { getComplianceDirectorSamples } from "@/lib/sample";
+import { getComplianceAdminSamples } from "@/lib/sample";
 
 export interface DirectorSamplesSectionProps {
   param: {
@@ -59,7 +59,7 @@ const DirectorSamples = async ({
   academicYearIds,
 }: DirectorSamplesSectionProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
-  const samples = await getComplianceDirectorSamples(prepareParam(param));
+  const samples = await getComplianceAdminSamples(prepareParam(param));
   const totalPages = samples?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
     (learningPeriod) => learningPeriod.id == param.learning_period_id

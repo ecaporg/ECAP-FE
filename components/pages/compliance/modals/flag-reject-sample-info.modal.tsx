@@ -4,7 +4,7 @@ import { Sample } from "@/types";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { useAuth } from "@/providers/auth";
-import { SampleInfoForModal } from "../../sample/modals";
+import { ReasonForMissingSample, SampleInfoForModal } from "./shared";
 import { Badge } from "@/components/ui/badge";
 import { CircleAlertIcon } from "lucide-react";
 
@@ -27,8 +27,7 @@ export function FlagRejectSampleInfoModal({
 
   const reason = isDirector ? (
     <>
-      <b className="text-primary">Reason for Missing Sample:</b>{" "}
-      {sample.flag_missing_work?.reason}
+      <ReasonForMissingSample sample={sample} isDirector={isDirector} />
       <br />
       <b className="text-primary pt-4">
         Reason for rejecting missing sample:
@@ -38,7 +37,7 @@ export function FlagRejectSampleInfoModal({
   ) : (
     <>
       <p>
-        <b>Reason given:</b> "{sample.flag_missing_work?.reason}"
+        <ReasonForMissingSample sample={sample} isDirector={isDirector} />
       </p>
       <p>
         <b>Reason for rejecting missing sample:</b> "

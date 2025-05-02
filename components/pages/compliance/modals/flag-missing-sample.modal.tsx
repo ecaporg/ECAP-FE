@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SampleInfoForModal } from "@/components/pages/sample/modals";
+import { SampleInfoForModal } from "./shared";
 import { Button } from "@/components/ui/button";
 import { FLAG_MISSING_WORK_SAMPLE_REASONS } from "@/constants/sample";
 

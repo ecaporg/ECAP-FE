@@ -33,7 +33,7 @@ export function ConfirmationModal({
     <ResponsiveDialog
       open={open}
       onOpenChange={onOpenChange}
-      className="h-[24rem] md:w-1/2"
+      className="h-[24rem] md:w-1/2 rounded-sm"
       trigger={children}
     >
       <div className="flex flex-col items-center justify-center h-full">

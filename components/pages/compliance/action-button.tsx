@@ -12,7 +12,7 @@ import {
 } from "./modals";
 import { useAuth } from "@/providers/auth";
 import { hasPermission } from "@/lib/permissions";
-import { isAdminOrDirector } from "@/utils";
+import { isAdminOrDirector, isAnyAdmin } from "@/utils";
 
 interface ActionButtonProps {
   sample: Sample;
@@ -30,6 +30,9 @@ const getText = (sample: Sample, user: User) => {
     case SampleStatus.MISSING_SAMPLE:
       return text(hasPermission(user, "samples", "flag"), "Flag");
     case SampleStatus.FLAGGED_TO_ADMIN:
+      if (isAnyAdmin(user)) {
+        return "Approve";
+      }
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
       return text(hasPermission(user, "samples", "review"), "Review");
@@ -81,7 +84,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
   if (
     sample.status === SampleStatus.COMPLETED &&
     sample.flag_missing_work &&
-    ["DIRECTOR", "ADMIN", "SUPER_ADMIN"].includes(user?.role || "")
+    isAdminOrDirector(user)
   ) {
     return FlagCompleteSampleInfoModal;
   }

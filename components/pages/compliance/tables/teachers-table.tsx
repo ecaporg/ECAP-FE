@@ -11,7 +11,10 @@ import { getCompletionStatus, getUserName } from "@/utils";
 import { CompletionStatusForTable } from "../statuses";
 import { SortableIcon } from "@/components/table/sortable-header";
 import { routes } from "@/constants/routes";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import {
+  DEFAULT_FILTERS_KEYS,
+  SPECIFIC_PAGE_FILTER_KEYS,
+} from "@/constants/filter";
 import Link from "next/link";
 
 interface TeachersTableProps {
@@ -23,6 +26,16 @@ export const TeachersTable = ({
   assignments = [],
   currentLearningPeriod,
 }: TeachersTableProps) => {
+  const getPath = (assignment: TeacherCompliance) =>
+    `${routes.compliance.teacher.replace(
+      ":id",
+      assignment.teacher_id.toString()
+    )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriod.id}&${
+      DEFAULT_FILTERS_KEYS.TEACHER_ID
+    }=${assignment.teacher_id}&${
+      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DIRECTOR.ACADEMY_ID
+    }=${assignment.academy_id}`;
+
   return (
     <Table>
       <TableHeader>
@@ -64,15 +77,7 @@ export const TeachersTable = ({
       <TableBody>
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
-            <Link
-              className="contents"
-              href={`${routes.compliance.teacher.replace(
-                ":id",
-                assignment.teacher_id.toString()
-              )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
-                currentLearningPeriod.id
-              }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}`}
-            >
+            <Link className="contents" href={getPath(assignment)}>
               <TableCell>
                 {assignment.teacher_firstname} {assignment.teacher_lastname}
               </TableCell>

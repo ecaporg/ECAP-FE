@@ -15,3 +15,7 @@ export const getToken = () => {
 export const isAdminOrDirector = (user: User) => {
   return ["ADMIN", "DIRECTOR", "SUPER_ADMIN"].includes(user.role || "");
 };
+
+export const isAnyAdmin = (user: User) => {
+  return ["ADMIN", "SUPER_ADMIN"].includes(user.role || "");
+};
