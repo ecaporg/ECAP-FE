@@ -13,6 +13,7 @@ export const DEFAULT_FILTERS_KEYS = {
   SAMPLE_STATUS: "status",
   DONE_BY: "done_by",
   TEACHER_ID: "course.teacher_id",
+  FLAG_CATEGORY: "flag_category",
 } as const;
 
 export const SPECIFIC_PAGE_FILTER_KEYS = {
@@ -23,7 +24,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
     SCHOOL_ID: "course.school_id",
     SAMPLE_STATUS: "samples.status",
     DONE_BY: "samples.done_by_id",
-    DIRECTOR: {
+    ADMIN: {
       LEARNING_PERIOD_ID: "assignment_period.learning_period_id",
       TEACHER_ID: "assignment_period.course.teacher_id",
       ACADEMIC_YEAR: "assignment_period.course.academic_year_id",

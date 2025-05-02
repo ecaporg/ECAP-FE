@@ -14,7 +14,7 @@ import { Suspense } from "react";
 import { DirectorSamplesTable } from "../tables";
 import { getComplianceAdminSamples } from "@/lib/sample";
 
-export interface DirectorSamplesSectionProps {
+export interface AdminSamplesSectionProps {
   param: {
     [DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]: string;
     [DEFAULT_FILTERS_KEYS.TEACHER_ID]: string;
@@ -25,24 +25,24 @@ export interface DirectorSamplesSectionProps {
   academicYearIds: string[];
 }
 
-const prepareParam = (param: DirectorSamplesSectionProps["param"]) => {
+const prepareParam = (param: AdminSamplesSectionProps["param"]) => {
   return new URLSearchParams(param)
     .toString()
     .replace(
       DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID,
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DIRECTOR.LEARNING_PERIOD_ID
+      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.LEARNING_PERIOD_ID
     )
     .replace(
       DEFAULT_FILTERS_KEYS.TEACHER_ID,
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DIRECTOR.TEACHER_ID
+      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.TEACHER_ID
     )
     .replace(
       DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR,
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DIRECTOR.ACADEMIC_YEAR
+      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.ACADEMIC_YEAR
     );
 };
 
-export const DirectorSamplesSection = (props: DirectorSamplesSectionProps) => {
+export const AdminSamplesSection = (props: AdminSamplesSectionProps) => {
   return (
     <Suspense
       fallback={<LoadingTableSection columns={8} />}
@@ -57,7 +57,7 @@ const DirectorSamples = async ({
   param,
   tenant,
   academicYearIds,
-}: DirectorSamplesSectionProps) => {
+}: AdminSamplesSectionProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const samples = await getComplianceAdminSamples(prepareParam(param));
   const totalPages = samples?.meta?.totalPages ?? 0;

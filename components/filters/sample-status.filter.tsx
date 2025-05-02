@@ -41,7 +41,7 @@ const flagCategories: FilterProps["options"] = Object.entries({
 }));
 
 export function FlagCategoryFilter({
-  slug = DEFAULT_FILTERS_KEYS.SAMPLE_STATUS,
+  slug = DEFAULT_FILTERS_KEYS.FLAG_CATEGORY,
 }: SampleStatusFilterProps) {
   return (
     <BaseFilter

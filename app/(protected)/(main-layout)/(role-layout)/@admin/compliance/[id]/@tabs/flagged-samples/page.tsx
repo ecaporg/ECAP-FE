@@ -1,7 +1,7 @@
 import { rolePage } from "@/components/layouts/role-page";
 import { AdminSamplesFilters } from "@/components/pages/compliance/filters";
-import { DirectorSamplesSection } from "@/components/pages/compliance/sections";
-import type { DirectorSamplesSectionProps } from "@/components/pages/compliance/sections/director-samples-section";
+import { AdminSamplesSection } from "@/components/pages/compliance/sections";
+import type { AdminSamplesSectionProps } from "@/components/pages/compliance/sections/admin-samples-section";
 import { LoadingTableSectionWithFilters } from "@/components/table/loading";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 import { getComplianceTeacherFilter } from "@/lib/compliance";
@@ -11,7 +11,7 @@ import { Suspense } from "react";
 export async function TabSamples({
   searchParams,
 }: {
-  searchParams: Promise<DirectorSamplesSectionProps["param"]>;
+  searchParams: Promise<AdminSamplesSectionProps["param"]>;
 }) {
   return (
     <Suspense
@@ -28,7 +28,7 @@ export async function TabSamples({
 const SampleComponent = async ({
   searchParams,
 }: {
-  searchParams: Promise<DirectorSamplesSectionProps["param"]>;
+  searchParams: Promise<AdminSamplesSectionProps["param"]>;
 }) => {
   const tenant = await getComplianceTeacherFilter();
   const academicYearIds = getDefaultAcademicYearIds(
@@ -39,7 +39,7 @@ const SampleComponent = async ({
   return (
     <>
       <AdminSamplesFilters />
-      <DirectorSamplesSection
+      <AdminSamplesSection
         param={await searchParams}
         tenant={tenant}
         academicYearIds={academicYearIds}
