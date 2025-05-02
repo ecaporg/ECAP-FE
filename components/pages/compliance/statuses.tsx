@@ -64,10 +64,16 @@ function DirectorSampleStatus({
   }
   let status = sample.status;
 
-  if (sample.flag_category === SampleFlagCategory.MISSING_SAMPLE) {
+  if (
+    status === SampleStatus.FLAGGED_TO_ADMIN &&
+    sample.flag_category === SampleFlagCategory.MISSING_SAMPLE
+  ) {
     status = SampleStatus.MISSING_SAMPLE;
   }
-  if (sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE) {
+  if (
+    status === SampleStatus.FLAGGED_TO_ADMIN &&
+    sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
+  ) {
     status = SampleStatus.ERRORS_FOUND;
   }
 
