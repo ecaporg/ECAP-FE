@@ -20,7 +20,7 @@ export function FlagCompleteSampleInfoModal({
       <Badge variant="success" className="mb-16">
         <CheckCircleIcon className="size-4" />
         Approved:{" "}
-        {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
+        {new Date(sample.flag_completed?.createdAt || "").toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
     </>
