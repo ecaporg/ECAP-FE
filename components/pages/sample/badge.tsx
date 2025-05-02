@@ -21,11 +21,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
           <p>
             {isMyMessage
               ? "Your "
-              : `${getUserName(
-                  sample.flag_errors?.user ||
-                    sample.flag_missing_work?.user ||
-                    defaultUser
-                )}`}
+              : `${getUserName(sample.flag_completed?.user || defaultUser)}`}
             {sample.flag_completed?.message}
           </p>
         )}
