@@ -27,8 +27,12 @@ export const getProgressValue = (assignment: AssignmentPeriod) => {
 
 export const getCompletionStatus = (
   assignment: AssignmentPeriod | boolean,
-  currentLearningPeriod: TrackLearningPeriod
+  currentLearningPeriod?: TrackLearningPeriod
 ): CompletionStatusProps["variant"] => {
+  if (!currentLearningPeriod) {
+    return "Overdue";
+  }
+
   const isCompleted =
     typeof assignment === "object" && "completed" in assignment
       ? assignment.completed

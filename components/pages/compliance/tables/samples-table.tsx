@@ -6,11 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Sample, Subject } from "@/types";
+import type { AssignmentPeriod, Sample, Subject } from "@/types";
 import { getUserName } from "@/utils";
 import { ActionButton } from "../action-button";
 import { SapmleStatus } from "../statuses";
 import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+import { SortableIcon } from "@/components/table/sortable-header";
 
 interface SamplesTableProps {
   rows: {
@@ -35,13 +36,22 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Subject</TableHead>
+          <TableHead>
+            Subject
+            <SortableIcon<AssignmentPeriod> name="samples.subject.name" />
+          </TableHead>
           <TableHead>Assignment Title</TableHead>
-          <TableHead>Sample Status</TableHead>
+          <TableHead>
+            Sample Status
+            <SortableIcon<AssignmentPeriod> name="samples.status" />
+          </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
           <TableHead>Assignment Title</TableHead>
-          <TableHead>Sample Status</TableHead>
+          <TableHead>
+            Sample Status
+            <SortableIcon<AssignmentPeriod> name="samples.status" />
+          </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
         </TableRow>

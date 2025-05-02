@@ -19,7 +19,7 @@ import Link from "next/link";
 
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
-  currentLearningPeriod: TrackLearningPeriod;
+  currentLearningPeriod?: TrackLearningPeriod;
 }
 
 export const TeachersTable = ({
@@ -30,7 +30,7 @@ export const TeachersTable = ({
     `${routes.compliance.teacher.replace(
       ":id",
       assignment.teacher_id.toString()
-    )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriod.id}&${
+    )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriod?.id}&${
       DEFAULT_FILTERS_KEYS.TEACHER_ID
     }=${assignment.teacher_id}&${
       SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DIRECTOR.ACADEMY_ID
