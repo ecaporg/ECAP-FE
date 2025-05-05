@@ -65,6 +65,7 @@ export type AssignmentPeriod = GenericEntity & {
   student_id: number;
   learning_period_id: number;
   completed: boolean;
+  percentage: number;
   learning_period: TrackLearningPeriod;
   course: Course;
   student: Student;

@@ -1,18 +1,28 @@
-import type React from 'react';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import type React from "react";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/utils";
 
 interface ProgressCardProps {
   title: string;
   percentage: number;
+  className?: string;
 }
 
-export const ProgressCard: React.FC<ProgressCardProps> = ({ title, percentage }) => {
+export const ProgressCard: React.FC<ProgressCardProps> = ({
+  title,
+  percentage,
+  className,
+}) => {
   return (
-    <Card className="flex flex-col items-center justify-center p-4">
-      <div className="text-lg font-bold mb-2">{title}</div>
-      <Progress value={percentage} className="w-24 h-24" />
-      <div className="text-xl font-bold mt-2">{percentage}%</div>
+    <Card
+      className={cn(
+        "flex flex-col items-center justify-center p-6 gap-8",
+        className
+      )}
+    >
+      <h2 className="font-bold">{title}</h2>
+      <Progress value={percentage} className="size-[12.5rem]" />
     </Card>
   );
 };

@@ -42,11 +42,12 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
                 {item.label}
               </label>
               <input
-                className="text-end outline-none"
+                className="text-end outline-none truncate"
                 type="text"
                 id={item.label}
                 value={item.value}
                 readOnly
+                title={item.value.toString()}
               />
             </div>
           ))}

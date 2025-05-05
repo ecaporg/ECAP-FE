@@ -1,4 +1,7 @@
-import type React from 'react';
+import { Card } from "@/components/ui/card";
+import { Track } from "@/types";
+import { ArrowDown } from "lucide-react";
+import type React from "react";
 
 interface TrackRowProps {
   track: string;
@@ -7,14 +10,37 @@ interface TrackRowProps {
   statusColor: string;
 }
 
-export const TrackRow: React.FC<TrackRowProps> = ({ track, dateRange, status, statusColor }) => {
+// export const TrackRow: React.FC<{
+//   tracks: Track[];
+// }> = ({ tracks }) => {
+//   // add trnsform logic here
+
+//   return (
+//     <TrackRowView
+//       track={""}
+//       dateRange={""}
+//       status={""}
+//       statusColor={"statusColor"}
+//     />
+//   );
+// };
+
+export const TrackRow: React.FC<TrackRowProps> = ({
+  track,
+  dateRange,
+  status,
+  statusColor,
+}) => {
   return (
-    <div className="flex justify-between items-center p-2 border-b">
-      <div className="flex flex-col">
-        <span className="font-bold">{track}</span>
-        <span className="text-sm text-gray-500">{dateRange}</span>
-      </div>
-      <span className={`text-sm font-bold ${statusColor}`}>{status}</span>
-    </div>
+    <Card className="p-2 text-lg">
+      <h2 className="font-bold">{track}</h2>
+      <p className="flex justify-between mt-2">
+        {dateRange} <b className={statusColor}>{status}</b>
+      </p>
+    </Card>
   );
+};
+
+export const TrackArrow = () => {
+  return <ArrowDown className="size-5 text-center justify-self-center" />;
 };

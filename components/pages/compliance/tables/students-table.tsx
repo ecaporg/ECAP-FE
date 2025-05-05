@@ -71,7 +71,10 @@ export const StudentsTable = ({
             Completion Status
             <SortableIcon<AssignmentPeriod> name="completed" />
           </TableHead>
-          <TableHead>Progress (%)</TableHead>
+          <TableHead>
+            Progress (%)
+            <SortableIcon<AssignmentPeriod> name="percentage" />
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -79,10 +82,7 @@ export const StudentsTable = ({
           <TableRow
             key={`${assignment.student.id}-${currentLearningPeriod.id}`}
           >
-            <Link
-              className="contents"
-              href={getPath(assignment.student.user)}
-            >
+            <Link className="contents" href={getPath(assignment.student.user)}>
               <TableCell>{getUserName(assignment.student.user)}</TableCell>
               <TableCell>{assignment.student.id}</TableCell>
               <TableCell>{assignment.student.school?.name}</TableCell>
@@ -97,7 +97,7 @@ export const StudentsTable = ({
                   )}
                 />
               </TableCell>
-              <TableCell>{getProgressValue(assignment)}%</TableCell>
+              <TableCell>{assignment.percentage}%</TableCell>
             </Link>
           </TableRow>
         ))}

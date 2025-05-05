@@ -7,9 +7,6 @@
     --background: 208 79% 51%;
     --foreground: 222.2 84% 4.9%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
@@ -51,6 +48,9 @@
     --neutral-black: 0 0% 13%;
     --darker-gray: 200 10% 49%;
     --black-overlay: 217 26% 17%;
+
+    --card: 0 0% 100%;
+    --card-foreground: var(--neutral-black);
   }
 }
 
@@ -60,5 +60,8 @@
   }
   body {
     @apply bg-white text-foreground;
+  }
+  main:has(> div.dashboard) {
+    @apply bg-light-gray;
   }
 }

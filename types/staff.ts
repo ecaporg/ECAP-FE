@@ -23,3 +23,9 @@ export type Admin = Staff & {
   tenant_id: number;
   tenant: Tenant;
 };
+
+export type StaffUser = User & {
+  director?: Director;
+  admin?: Admin;
+  teacher?: Teacher;
+};

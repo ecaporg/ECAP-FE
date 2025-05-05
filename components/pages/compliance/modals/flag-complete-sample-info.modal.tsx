@@ -17,10 +17,10 @@ export function FlagCompleteSampleInfoModal({
   const isDirector = isAdminOrDirector(user);
   const title = (
     <>
-      <Badge variant="success" className="mb-16">
+      <Badge variant="success" className="mb-4 w-fit">
         <CheckCircleIcon className="size-4" />
         Approved:{" "}
-        {new Date(sample.flag_completed?.createdAt || "").toLocaleDateString()}
+        {new Date(sample.updatedAt || "").toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
     </>
