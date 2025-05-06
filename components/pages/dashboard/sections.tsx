@@ -2,15 +2,18 @@ import { LearningPeriodCard } from "./learning-period-card";
 import { ProgressCard } from "./progress-card";
 import { TrackArrow, TrackRow } from "./track-row";
 
+export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
+  return <section className="flex gap-10 flex-wrap">{children}</section>;
+};
+
 export const CurrentLPSection = ({ children }: React.PropsWithChildren) => {
   return (
-    <section className="flex gap-10 flex-wrap">
+    <SectionWrapper>
       <ProgressCard
         className="md:w-[19.75rem]"
         title="Current LP Compliance"
         percentage={80}
       />
-
       {children}
 
       <div className="flex-1">
@@ -42,13 +45,13 @@ export const CurrentLPSection = ({ children }: React.PropsWithChildren) => {
           statusColor="text-gray-500"
         />
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
 
 export const LPCardsSection = ({ children }: React.PropsWithChildren) => {
   return (
-    <section className="flex gap-10 flex-wrap">
+    <SectionWrapper>
       {children}
       <LearningPeriodCard
         title="Current Learning Period"
@@ -82,6 +85,6 @@ export const LPCardsSection = ({ children }: React.PropsWithChildren) => {
           },
         ]}
       />
-    </section>
+    </SectionWrapper>
   );
 };

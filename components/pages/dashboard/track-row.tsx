@@ -1,12 +1,13 @@
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Track } from "@/types";
 import { ArrowDown } from "lucide-react";
 import type React from "react";
 
 interface TrackRowProps {
-  track: string;
-  dateRange: string;
-  status: string;
+  track: React.ReactNode;
+  dateRange: React.ReactNode;
+  status: React.ReactNode;
   statusColor: string;
 }
 
@@ -38,6 +39,17 @@ export const TrackRow: React.FC<TrackRowProps> = ({
         {dateRange} <b className={statusColor}>{status}</b>
       </p>
     </Card>
+  );
+};
+
+export const TrackRowSkeleton = () => {
+  return (
+    <TrackRow
+      track={<Skeleton className="w-32" />}
+      dateRange={<Skeleton className="w-40" />}
+      status={<Skeleton className="w-20" />}
+      statusColor={"statusColor"}
+    />
   );
 };
 

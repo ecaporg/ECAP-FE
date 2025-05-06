@@ -7,12 +7,14 @@ interface ProgressCardProps {
   title: string;
   percentage: number;
   className?: string;
+  progressClassName?: string;
 }
 
 export const ProgressCard: React.FC<ProgressCardProps> = ({
   title,
   percentage,
   className,
+  progressClassName,
 }) => {
   return (
     <Card
@@ -22,7 +24,26 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
       )}
     >
       <h2 className="font-bold">{title}</h2>
-      <Progress value={percentage} className="size-[12.5rem]" />
+      <Progress
+        value={percentage}
+        className={cn("size-[12.5rem]", progressClassName)}
+      />
     </Card>
   );
 };
+
+export const ProgressCardSkeleton = ({
+  title,
+  className,
+}: Pick<ProgressCardProps, "title" | "className">) => {
+  return (
+    <ProgressCard
+      title={title}
+      percentage={30}
+      className={className}
+      progressClassName="animate-spin [&_text]:hidden [&_circle]:animate-pulse"
+    />
+  );
+};
+
+

@@ -7,3 +7,4 @@ export * from "./track";
 export * from "./staff";
 export * from "./shared";
 export * from "./course";
+export * from "./statistic";

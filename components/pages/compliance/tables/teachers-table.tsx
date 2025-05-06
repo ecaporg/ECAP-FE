@@ -65,11 +65,11 @@ export const TeachersTable = ({
             <SortableIcon<TeacherCompliance> name="incompleted_count" />
           </TableHead>
           <TableHead>
-            Completion Status
+            Completion
             <SortableIcon<TeacherCompliance> name="is_complated" />
           </TableHead>
           <TableHead>
-            Completion Percentage
+            Progress
             <SortableIcon<TeacherCompliance> name="completion_percentage" />
           </TableHead>
         </TableRow>

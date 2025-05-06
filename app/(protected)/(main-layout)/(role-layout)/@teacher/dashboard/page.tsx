@@ -9,9 +9,10 @@ import {
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
 
-export default function TeacherDashboard() {
-  const user = getUser();
+export default async function TeacherDashboard() {
+  const user = await getUser();
   // const stats = getDashboardStats();
+  await new Promise((resolve) => setTimeout(resolve, 100000));
 
   return (
     <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">
