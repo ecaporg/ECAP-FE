@@ -11,6 +11,14 @@ export const getShortLearningPeriodName = (learningPeriod: string) => {
     .join("");
 };
 
+export const getLearningPeriodDateRange = (
+  learningPeriod: TrackLearningPeriod
+) => {
+  return `${formatLearningPeriodDate(
+    learningPeriod.start_date
+  )} - ${formatLearningPeriodDate(learningPeriod.end_date)}`;
+};
+
 export const formatLearningPeriodDate = (date: Date | string) => {
   return new Date(date).toLocaleDateString("en-US", {
     month: "long",
@@ -51,9 +59,7 @@ export const getLearningPeriodFromTenant = (
 export const getFormattedLP = (lp: TrackLearningPeriod) => {
   return `${lp.track.name}, ${getShortLearningPeriodName(
     lp.name
-  )} (${formatLearningPeriodDate(lp.start_date)} - ${formatLearningPeriodDate(
-    lp.end_date
-  )})`;
+  )} (${getLearningPeriodDateRange(lp)})`;
 };
 
 const compareDates = (date1: Date, date2: Date) => {

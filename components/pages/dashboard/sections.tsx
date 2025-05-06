@@ -2,10 +2,13 @@ import { DashboardStats } from "@/types";
 import { LearningPeriodCard } from "./learning-period-card";
 import { ProgressCard } from "./progress-card";
 import { TrackArrow, TrackRow } from "./track-row";
-import { getShortLearningPeriodName, mergeLearningPeriods } from "@/utils";
 
 export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
-  return <section className="flex gap-10 flex-wrap">{children}</section>;
+  return (
+    <section className="flex gap-10 flex-wrap justify-center">
+      {children}
+    </section>
+  );
 };
 
 export const CurrentLPSection = ({
@@ -17,79 +20,53 @@ export const CurrentLPSection = ({
       <ProgressCard
         className="md:w-[19.75rem]"
         title="Current LP Compliance"
-        percentage={stats.currentCompliance}
+        percentage={stats.currentLP.compliance}
       />
       {children}
 
       <div className="flex-1">
-        <TrackRow
-          track={}
-          dateRange="July 1 - Aug 3"
-          status="Complete"
-          statusColor="text-green-500"
-        />
-        <TrackArrow />
-        <TrackRow
-          track="Track A: LP3, Track B: LP1"
-          dateRange="Aug 28 - Oct 4"
-          status="Incomplete"
-          statusColor="text-red-500"
-        />
-        <TrackArrow />
-        <TrackRow
-          track="Track A: LP4, Track B: LP2"
-          dateRange="Oct 7 - Nov 22"
-          status="In Progress"
-          statusColor="text-blue-500"
-        />
-        <TrackArrow />
-        <TrackRow
-          track="Track A: LP5, Track B: LP3"
-          dateRange="Dec 2 - Jan 17"
-          status="Upcoming"
-          statusColor="text-gray-500"
-        />
+        {stats.beforeThePreviousOne.learningPeriods.length > 0 && (
+          <>
+            <TrackRow item={stats.beforeThePreviousOne} />
+            <TrackArrow />
+          </>
+        )}
+        {stats.previousLP.learningPeriods.length > 0 && (
+          <>
+            <TrackRow item={stats.previousLP} />
+            <TrackArrow />
+          </>
+        )}
+        <TrackRow item={stats.currentLP} />
+        {stats.upcomingLP.learningPeriods.length > 0 && (
+          <>
+            <TrackArrow />
+            <TrackRow item={stats.upcomingLP} />
+          </>
+        )}
       </div>
     </SectionWrapper>
   );
 };
 
-export const LPCardsSection = ({ children }: React.PropsWithChildren) => {
+export const LPCardsSection = ({
+  children,
+  stats,
+}: React.PropsWithChildren<{ stats: DashboardStats }>) => {
   return (
     <SectionWrapper>
       {children}
       <LearningPeriodCard
         title="Current Learning Period"
-        track="Track A: LP5, Track B: LP3"
-        fields={[
-          { label: "Date:", value: "Dec 2 - Jan 17" },
-          { label: "Deadline:", value: "Jan 24" },
-          {
-            label: "Status:",
-            value: "In Progress",
-            className: "text-primary",
-          },
-          { label: "Compliance:", value: "0%", className: "text-primary" },
-        ]}
+        stats={stats.currentLP}
+        isCurrentLP={true}
       />
-      <LearningPeriodCard
-        track="Track A: LP5, Track B: LP3"
-        title="Upcoming Learning Period"
-        fields={[
-          { label: "Date:", value: "Dec 2 - Jan 17" },
-          { label: "Deadline:", value: "Jan 24" },
-          {
-            label: "Status:",
-            value: "In Progress",
-            className: "text-darker-gray",
-          },
-          {
-            label: "Compliance:",
-            value: "0%",
-            className: "text-darker-gray",
-          },
-        ]}
-      />
+      {stats.upcomingLP.learningPeriods.length > 0 && (
+        <LearningPeriodCard
+          title="Upcoming Learning Period"
+          stats={stats.upcomingLP}
+        />
+      )}
     </SectionWrapper>
   );
 };

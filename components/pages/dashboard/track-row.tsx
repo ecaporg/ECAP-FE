@@ -1,6 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Track } from "@/types";
+import { StatsItem, Track } from "@/types";
+import {
+  formatLearningPeriodDate,
+  getDueDate,
+  getFormattedLP,
+  getLearningPeriodDateRange,
+  getStatusColorForDashboard,
+  getStatusForDashboard,
+  mergeLearningPeriods,
+} from "@/utils";
 import { ArrowDown } from "lucide-react";
 import type React from "react";
 
@@ -11,22 +20,24 @@ interface TrackRowProps {
   statusColor: string;
 }
 
-// export const TrackRow: React.FC<{
-//   tracks: Track[];
-// }> = ({ tracks }) => {
-//   // add trnsform logic here
 
-//   return (
-//     <TrackRowView
-//       track={""}
-//       dateRange={""}
-//       status={""}
-//       statusColor={"statusColor"}
-//     />
-//   );
-// };
+export const TrackRow: React.FC<{
+  item: StatsItem;
+}> = ({ item }) => {
+  const lp = mergeLearningPeriods(item.learningPeriods)[0];
+  const status = getStatusForDashboard(item);
+  const statusColor = getStatusColorForDashboard(status);
+  return (
+    <TrackRowView
+      track={lp.name}
+      dateRange={getLearningPeriodDateRange(lp)}
+      status={status}
+      statusColor={statusColor}
+    />
+  );
+};
 
-export const TrackRow: React.FC<TrackRowProps> = ({
+export const TrackRowView: React.FC<TrackRowProps> = ({
   track,
   dateRange,
   status,
@@ -44,7 +55,7 @@ export const TrackRow: React.FC<TrackRowProps> = ({
 
 export const TrackRowSkeleton = () => {
   return (
-    <TrackRow
+    <TrackRowView
       track={<Skeleton className="w-32" />}
       dateRange={<Skeleton className="w-40" />}
       status={<Skeleton className="w-20" />}

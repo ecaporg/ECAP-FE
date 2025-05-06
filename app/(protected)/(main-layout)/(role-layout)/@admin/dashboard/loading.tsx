@@ -1,5 +1,6 @@
 import React from "react";
 
+import { getUser } from "@/lib/get-user";
 import {
   CurrentLPSectionSkeleton,
   LPCardSkeletonSection,

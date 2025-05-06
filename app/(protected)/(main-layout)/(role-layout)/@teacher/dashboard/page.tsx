@@ -20,8 +20,8 @@ export default async function TeacherDashboard() {
     <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">
       <WelcomeBack user={user!} academicYear={stats.academicYear} />
       <div className="grid grid-cols-1 gap-10">
-        <CurrentLPSection  />
-        <LPCardsSection />
+        <CurrentLPSection stats={stats} />
+        <LPCardsSection stats={stats} />
       </div>
     </div>
   );

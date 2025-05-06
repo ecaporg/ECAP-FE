@@ -1,6 +1,15 @@
 import type React from "react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { StatsItem } from "@/types";
+import {
+  formatLearningPeriodDate,
+  getDueDate,
+  getLearningPeriodDateRange,
+  getStatusColorForDashboard,
+  getStatusForDashboard,
+  mergeLearningPeriods,
+} from "@/utils";
 
 interface LearningPeriodCardProps {
   title: React.ReactNode;
@@ -13,7 +22,40 @@ interface LearningPeriodCardProps {
   }[];
 }
 
-export const LearningPeriodCard: React.FC<LearningPeriodCardProps> = ({
+export const LearningPeriodCard = ({
+  title,
+  stats,
+  isCurrentLP = false,
+}: {
+  title: string;
+  stats: StatsItem;
+  isCurrentLP?: boolean;
+}) => {
+  const lp = mergeLearningPeriods(stats.learningPeriods)[0];
+  const status = getStatusForDashboard(stats);
+  const statusColor = getStatusColorForDashboard(status);
+  return (
+    <LearningPeriodCardView
+      title={title}
+      track={lp.name}
+      fields={[
+        { label: "Date:", value: getLearningPeriodDateRange(lp) },
+        {
+          label: isCurrentLP ? "Deadline:" : "Due:",
+          value: formatLearningPeriodDate(getDueDate(lp)),
+        },
+        { label: "Status:", value: status, className: statusColor },
+        {
+          label: "Compliance:",
+          value: `${stats.compliance}%`,
+          className: statusColor,
+        },
+      ]}
+    />
+  );
+};
+
+export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
   title,
   track,
   fields = [],
@@ -60,7 +102,7 @@ export const LearningPeriodCardSkeleton = ({
   ] as any,
 }: Pick<LearningPeriodCardProps, "title" | "fields">) => {
   return (
-    <LearningPeriodCard
+    <LearningPeriodCardView
       title={title}
       track={<Skeleton className="w-full" />}
       fields={fields.map((field) => ({ ...field, skeleton: true, value: "" }))}
