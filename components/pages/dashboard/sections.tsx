@@ -1,24 +1,29 @@
+import { DashboardStats } from "@/types";
 import { LearningPeriodCard } from "./learning-period-card";
 import { ProgressCard } from "./progress-card";
 import { TrackArrow, TrackRow } from "./track-row";
+import { getShortLearningPeriodName, mergeLearningPeriods } from "@/utils";
 
 export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
   return <section className="flex gap-10 flex-wrap">{children}</section>;
 };
 
-export const CurrentLPSection = ({ children }: React.PropsWithChildren) => {
+export const CurrentLPSection = ({
+  children,
+  stats,
+}: React.PropsWithChildren<{ stats: DashboardStats }>) => {
   return (
     <SectionWrapper>
       <ProgressCard
         className="md:w-[19.75rem]"
         title="Current LP Compliance"
-        percentage={80}
+        percentage={stats.currentCompliance}
       />
       {children}
 
       <div className="flex-1">
         <TrackRow
-          track="Track A: LP1"
+          track={}
           dateRange="July 1 - Aug 3"
           status="Complete"
           statusColor="text-green-500"

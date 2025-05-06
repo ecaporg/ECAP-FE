@@ -3,10 +3,12 @@ import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 import type { Tenant, TrackLearningPeriod } from "@/types";
 
 export const getShortLearningPeriodName = (learningPeriod: string) => {
+  if (learningPeriod.split(" ").length === 1) return learningPeriod;
+
   return learningPeriod
     .split(" ")
     .map((word) => word.charAt(0).toLocaleUpperCase())
-    .join(" ");
+    .join("");
 };
 
 export const formatLearningPeriodDate = (date: Date | string) => {
