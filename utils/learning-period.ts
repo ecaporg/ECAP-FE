@@ -69,20 +69,26 @@ const compareDates = (date1: Date, date2: Date) => {
 export const mergeLearningPeriods = (
   learningPeriods: TrackLearningPeriod[]
 ) => {
-  const res = learningPeriods.reduce((acc, period) => {
-    const existingPeriod = acc.find(
-      (p) =>
-        compareDates(p.start_date, period.start_date) &&
-        compareDates(p.end_date, period.end_date)
-    );
-    if (existingPeriod) {
-      existingPeriod.name = `${existingPeriod.name}, ${period.name}`;
-      existingPeriod.id = `${existingPeriod.id},${period.id}`;
-    } else {
-      acc.push(Object.assign({}, period));
-    }
-    return acc;
-  }, [] as TrackLearningPeriod[]);
+  const res = learningPeriods
+    .map((lp) => ({
+      ...lp,
+      start_date: new Date(lp.start_date),
+      end_date: new Date(lp.end_date),
+    }))
+    .reduce((acc, period) => {
+      const existingPeriod = acc.find(
+        (p) =>
+          compareDates(p.start_date, period.start_date) &&
+          compareDates(p.end_date, period.end_date)
+      );
+      if (existingPeriod) {
+        existingPeriod.name = `${existingPeriod.name}, ${period.name}`;
+        existingPeriod.id = `${existingPeriod.id},${period.id}`;
+      } else {
+        acc.push(Object.assign({}, period));
+      }
+      return acc;
+    }, [] as TrackLearningPeriod[]);
   res.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
   return res;
 };

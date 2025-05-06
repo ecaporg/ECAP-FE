@@ -20,7 +20,6 @@ interface TrackRowProps {
   statusColor: string;
 }
 
-
 export const TrackRow: React.FC<{
   item: StatsItem;
 }> = ({ item }) => {

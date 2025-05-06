@@ -47,7 +47,7 @@ export const LearningPeriodCard = ({
         { label: "Status:", value: status, className: statusColor },
         {
           label: "Compliance:",
-          value: `${stats.compliance}%`,
+          value: `${stats.compliance.toFixed(2)}%`,
           className: statusColor,
         },
       ]}
