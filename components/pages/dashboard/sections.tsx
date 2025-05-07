@@ -1,7 +1,8 @@
-import { DashboardStats, TrackLearningPeriod } from "@/types";
+import { DashboardStats, TrackLearningPeriod, User } from "@/types";
 import { LearningPeriodCard } from "./learning-period-card";
 import { ProgressCard } from "./progress-card";
 import { TrackArrow, TrackRow } from "./track-row";
+import { WelcomeBack } from "./welcome-back";
 
 export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
   return (
@@ -78,5 +79,18 @@ export const LPCardsSection = ({
         />
       )}
     </SectionWrapper>
+  );
+};
+
+export const PageWrapper = ({
+  children,
+  user,
+  stats,
+}: React.PropsWithChildren<{ user: User; stats: DashboardStats }>) => {
+  return (
+    <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">
+      <WelcomeBack user={user!} academicYear={stats.academicYear} />
+      <div className="grid grid-cols-1 gap-10">{children}</div>
+    </div>
   );
 };

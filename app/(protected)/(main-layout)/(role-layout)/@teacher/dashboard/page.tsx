@@ -2,6 +2,7 @@ import React from "react";
 import {
   CurrentLPSection,
   LPCardsSection,
+  PageWrapper,
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
 import { getDashboardStats } from "@/lib/statistic";
@@ -12,12 +13,9 @@ export default async function TeacherDashboard() {
   const stats = await getDashboardStats();
 
   return (
-    <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">
-      <WelcomeBack user={user!} academicYear={stats.academicYear} />
-      <div className="grid grid-cols-1 gap-10">
-        <CurrentLPSection stats={stats} />
-        <LPCardsSection stats={stats} />
-      </div>
-    </div>
+    <PageWrapper user={user!} stats={stats}>
+      <CurrentLPSection stats={stats} />
+      <LPCardsSection stats={stats} />
+    </PageWrapper>
   );
 }
