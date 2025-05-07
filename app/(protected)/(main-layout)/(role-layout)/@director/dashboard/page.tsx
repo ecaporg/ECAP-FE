@@ -25,7 +25,7 @@ export default async function TeacherDashboard() {
           <ProgressCard
             className="md:w-[19.75rem]"
             title="Year to Date"
-            percentage={stats.currentLP.compliance}
+            percentage={stats.yearToDateCompliance ?? 0}
           />
         </LPCardsSection>
       </div>

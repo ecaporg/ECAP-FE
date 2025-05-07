@@ -13,4 +13,5 @@ export type DashboardStats = {
   currentLP: StatsItem;
   upcomingLP: StatsItem;
   academicYear: AcademicYear;
+  yearToDateCompliance?: number;
 };
