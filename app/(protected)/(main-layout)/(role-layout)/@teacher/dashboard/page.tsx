@@ -1,8 +1,4 @@
 import React from "react";
-import { LearningPeriodCard } from "@/components/pages/dashboard/learning-period-card";
-import { ProgressCard } from "@/components/pages/dashboard/progress-card";
-import { StatisticsList } from "@/components/pages/dashboard/statistics-list";
-import { TrackArrow, TrackRow } from "@/components/pages/dashboard/track-row";
 import {
   CurrentLPSection,
   LPCardsSection,
@@ -14,7 +10,6 @@ import { WelcomeBack } from "@/components/pages/dashboard/welcome-back";
 export default async function TeacherDashboard() {
   const user = await getUser();
   const stats = await getDashboardStats();
-  // await new Promise((resolve) => setTimeout(resolve, 100000));
 
   return (
     <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">

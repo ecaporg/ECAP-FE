@@ -12,7 +12,9 @@ export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
       <p>
         Welcome back, {getUserName(user)}
         {user.role == "DIRECTOR" && (
-          <span className="block">{user.director?.academy?.name}</span>
+          <span className="block text-xl font-semibold">
+            {user.director?.academy?.name}
+          </span>
         )}
       </p>
       <span className="ml-auto ">

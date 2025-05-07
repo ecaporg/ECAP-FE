@@ -7,15 +7,13 @@ import {
   getDueDate,
   getLearningPeriodDateRange,
   getLPNameForDashboard,
-  getShortLearningPeriodName,
   getStatusColorForDashboard,
   getStatusForDashboard,
-  mergeLearningPeriods,
 } from "@/utils";
 
 interface LearningPeriodCardProps {
   title: React.ReactNode;
-  track: string;
+  track: React.ReactNode;
   fields?: {
     label: string;
     value: string;
@@ -38,7 +36,13 @@ export const LearningPeriodCard = ({
   return (
     <LearningPeriodCardView
       title={title}
-      track={getLPNameForDashboard(stats.learningPeriods)}
+      track={
+        <h3
+          dangerouslySetInnerHTML={{
+            __html: getLPNameForDashboard(stats.learningPeriods),
+          }}
+        />
+      }
       fields={[
         {
           label: "Date:",
@@ -68,7 +72,7 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
     <Card className="p-2 pb-8">
       <h2 className="p-2 font-bold">{title}</h2>
       <form className="p-2 space-y-4 mt-10">
-        <h3 dangerouslySetInnerHTML={{ __html: track }}></h3>
+        {track}
 
         {fields.map((field) => (
           <div

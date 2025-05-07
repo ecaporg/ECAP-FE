@@ -1,11 +1,11 @@
 import React from "react";
 
-import { getUser } from "@/lib/get-user";
 import {
   CurrentLPSectionSkeleton,
   LPCardSkeletonSection,
 } from "@/components/pages/dashboard/loading";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProgressCardSkeleton } from "@/components/pages/dashboard/progress-card";
 
 export default function TeacherDashboard() {
   return (
@@ -16,10 +16,14 @@ export default function TeacherDashboard() {
           Academic Year: <Skeleton className="w-20 inline-block" />
         </span>
       </section>
-      {/* <WelcomeBack user={user} academicYear={academicYear} /> */}
       <div className="grid grid-cols-1 gap-10">
         <CurrentLPSectionSkeleton />
-        <LPCardSkeletonSection />
+        <LPCardSkeletonSection>
+          <ProgressCardSkeleton
+            className="md:w-[19.75rem]"
+            title="Year to Date"
+          />
+        </LPCardSkeletonSection>
       </div>
     </div>
   );

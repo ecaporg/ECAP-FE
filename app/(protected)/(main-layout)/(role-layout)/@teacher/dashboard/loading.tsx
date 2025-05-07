@@ -15,7 +15,6 @@ export default function TeacherDashboard() {
           Academic Year: <Skeleton className="w-20 inline-block" />
         </span>
       </section>
-      {/* <WelcomeBack user={user} academicYear={academicYear} /> */}
       <div className="grid grid-cols-1 gap-10">
         <CurrentLPSectionSkeleton />
         <LPCardSkeletonSection />
