@@ -7,6 +7,13 @@ export type StatsItem = {
   completed: boolean;
 };
 
+export type AcademyStatItem = {
+  academy_id: string;
+  academy_name: string;
+  compliance: number;
+  yearToDateCompliance: number;
+};
+
 export type DashboardStats = {
   beforeThePreviousOne: StatsItem;
   previousLP: StatsItem;
@@ -14,4 +21,5 @@ export type DashboardStats = {
   upcomingLP: StatsItem;
   academicYear: AcademicYear;
   yearToDateCompliance?: number;
+  academies?: AcademyStatItem[];
 };

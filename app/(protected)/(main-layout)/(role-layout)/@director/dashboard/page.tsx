@@ -7,8 +7,9 @@ import {
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
 import { getDashboardStats } from "@/lib/statistic";
+import { rolePage } from "@/components/layouts/role-page";
 
-export default async function TeacherDashboard() {
+const Dashboard = async () => {
   const user = await getUser();
   const stats = await getDashboardStats();
 
@@ -19,9 +20,11 @@ export default async function TeacherDashboard() {
         <ProgressCard
           className="md:w-[19.75rem]"
           title="Year to Date"
-          percentage={stats.yearToDateCompliance ?? 0}
+          percentage={stats?.yearToDateCompliance ?? 0}
         />
       </LPCardsSection>
     </PageWrapper>
   );
 }
+
+export default rolePage(Dashboard, ["DIRECTOR"]);

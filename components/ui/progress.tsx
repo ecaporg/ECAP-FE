@@ -90,4 +90,24 @@ const Progress = React.forwardRef<
 });
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress };
+const LinearProgress = ({
+  value,
+  className,
+}: {
+  value: number;
+  className: string;
+}) => {
+  return (
+    <ProgressPrimitive.Root
+      className={cn("w-full bg-transparent", className)}
+      value={value}
+    >
+      <ProgressPrimitive.Indicator
+        className="bg-primary rounded-sm h-full"
+        style={{ width: `${value}%` }}
+      />
+    </ProgressPrimitive.Root>
+  );
+};
+
+export { Progress, LinearProgress };

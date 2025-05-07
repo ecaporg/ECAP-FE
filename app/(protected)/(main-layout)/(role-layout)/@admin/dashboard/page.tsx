@@ -7,8 +7,10 @@ import {
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
 import { getDashboardStats } from "@/lib/statistic";
+import { rolePage } from "@/components/layouts/role-page";
+import { StatisticsList } from "@/components/pages/dashboard/statistics-list";
 
-export default async function TeacherDashboard() {
+async function Dashboard() {
   const user = await getUser();
   const stats = await getDashboardStats();
 
@@ -21,7 +23,11 @@ export default async function TeacherDashboard() {
           percentage={stats.yearToDateCompliance ?? 0}
         />
       </CurrentLPSection>
-      <LPCardsSection stats={stats}></LPCardsSection>
+      <LPCardsSection stats={stats}>
+        <StatisticsList items={stats.academies ?? []} />
+      </LPCardsSection>
     </PageWrapper>
   );
 }
+
+export default rolePage(Dashboard, ["ADMIN", "SUPER_ADMIN"]);
