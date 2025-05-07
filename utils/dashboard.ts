@@ -1,5 +1,5 @@
-import { StatsItem } from "@/types";
-import { getDueDate } from "./learning-period";
+import { StatsItem, TrackLearningPeriod } from "@/types";
+import { getDueDate, getShortLearningPeriodName } from "./learning-period";
 export type LPStatusForDashboard =
   | "Overdue"
   | "Complete"
@@ -35,4 +35,15 @@ export const getStatusColorForDashboard = (status: LPStatusForDashboard) => {
     return "text-darker-gray";
   }
   return "text-primary";
+};
+
+export const getLPNameForDashboard = (
+  learningPeriods: TrackLearningPeriod[]
+) => {
+  return learningPeriods
+    .map(
+      (lp, index, arr) =>
+        `<b>${`${lp.track.name}:`}</b> ${getShortLearningPeriodName(lp.name)}`
+    )
+    .join(", ");
 };

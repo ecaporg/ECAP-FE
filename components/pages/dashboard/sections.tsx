@@ -1,4 +1,4 @@
-import { DashboardStats } from "@/types";
+import { DashboardStats, TrackLearningPeriod } from "@/types";
 import { LearningPeriodCard } from "./learning-period-card";
 import { ProgressCard } from "./progress-card";
 import { TrackArrow, TrackRow } from "./track-row";
@@ -9,6 +9,14 @@ export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
       {children}
     </section>
   );
+};
+
+const hasLPs = ({
+  learningPeriods,
+}: {
+  learningPeriods: TrackLearningPeriod[];
+}) => {
+  return learningPeriods.length > 0;
 };
 
 export const CurrentLPSection = ({
@@ -24,21 +32,21 @@ export const CurrentLPSection = ({
       />
       {children}
 
-      <div className="flex-1">
-        {stats.beforeThePreviousOne.learningPeriods.length > 0 && (
+      <div className="flex-1 md:min-w-96">
+        {hasLPs(stats.beforeThePreviousOne) && (
           <>
             <TrackRow item={stats.beforeThePreviousOne} />
             <TrackArrow />
           </>
         )}
-        {stats.previousLP.learningPeriods.length > 0 && (
+        {hasLPs(stats.previousLP) && (
           <>
             <TrackRow item={stats.previousLP} />
             <TrackArrow />
           </>
         )}
-        <TrackRow item={stats.currentLP} />
-        {stats.upcomingLP.learningPeriods.length > 0 && (
+        {hasLPs(stats.currentLP) && <TrackRow item={stats.currentLP} />}
+        {hasLPs(stats.upcomingLP) && (
           <>
             <TrackArrow />
             <TrackRow item={stats.upcomingLP} />
@@ -56,12 +64,14 @@ export const LPCardsSection = ({
   return (
     <SectionWrapper>
       {children}
-      <LearningPeriodCard
-        title="Current Learning Period"
-        stats={stats.currentLP}
-        isCurrentLP={true}
-      />
-      {stats.upcomingLP.learningPeriods.length > 0 && (
+      {hasLPs(stats.currentLP) && (
+        <LearningPeriodCard
+          title="Current Learning Period"
+          stats={stats.currentLP}
+          isCurrentLP={true}
+        />
+      )}
+      {hasLPs(stats.upcomingLP) && (
         <LearningPeriodCard
           title="Upcoming Learning Period"
           stats={stats.upcomingLP}

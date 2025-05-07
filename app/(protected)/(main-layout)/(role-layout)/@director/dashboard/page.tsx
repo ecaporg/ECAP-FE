@@ -21,7 +21,13 @@ export default async function TeacherDashboard() {
       <WelcomeBack user={user!} academicYear={stats.academicYear} />
       <div className="grid grid-cols-1 gap-10">
         <CurrentLPSection stats={stats} />
-        <LPCardsSection stats={stats} />
+        <LPCardsSection stats={stats}>
+          <ProgressCard
+            className="md:w-[19.75rem]"
+            title="Year to Date"
+            percentage={stats.currentLP.compliance}
+          />
+        </LPCardsSection>
       </div>
     </div>
   );

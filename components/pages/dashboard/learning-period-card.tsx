@@ -6,6 +6,8 @@ import {
   formatLearningPeriodDate,
   getDueDate,
   getLearningPeriodDateRange,
+  getLPNameForDashboard,
+  getShortLearningPeriodName,
   getStatusColorForDashboard,
   getStatusForDashboard,
   mergeLearningPeriods,
@@ -13,7 +15,7 @@ import {
 
 interface LearningPeriodCardProps {
   title: React.ReactNode;
-  track: React.ReactNode;
+  track: string;
   fields?: {
     label: string;
     value: string;
@@ -31,18 +33,20 @@ export const LearningPeriodCard = ({
   stats: StatsItem;
   isCurrentLP?: boolean;
 }) => {
-  const lp = mergeLearningPeriods(stats.learningPeriods)[0];
   const status = getStatusForDashboard(stats);
   const statusColor = getStatusColorForDashboard(status);
   return (
     <LearningPeriodCardView
       title={title}
-      track={lp.name}
+      track={getLPNameForDashboard(stats.learningPeriods)}
       fields={[
-        { label: "Date:", value: getLearningPeriodDateRange(lp) },
+        {
+          label: "Date:",
+          value: getLearningPeriodDateRange(stats.learningPeriods[0]),
+        },
         {
           label: isCurrentLP ? "Deadline:" : "Due:",
-          value: formatLearningPeriodDate(getDueDate(lp)),
+          value: formatLearningPeriodDate(getDueDate(stats.learningPeriods[0])),
         },
         { label: "Status:", value: status, className: statusColor },
         {
@@ -64,7 +68,7 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
     <Card className="p-2 pb-8">
       <h2 className="p-2 font-bold">{title}</h2>
       <form className="p-2 space-y-4 mt-10">
-        <h3>{track}</h3>
+        <h3 dangerouslySetInnerHTML={{ __html: track }}></h3>
 
         {fields.map((field) => (
           <div

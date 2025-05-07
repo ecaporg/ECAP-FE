@@ -6,6 +6,7 @@ import {
   getDueDate,
   getFormattedLP,
   getLearningPeriodDateRange,
+  getLPNameForDashboard,
   getStatusColorForDashboard,
   getStatusForDashboard,
   mergeLearningPeriods,
@@ -28,7 +29,13 @@ export const TrackRow: React.FC<{
   const statusColor = getStatusColorForDashboard(status);
   return (
     <TrackRowView
-      track={lp.name}
+      track={
+        <h2
+          dangerouslySetInnerHTML={{
+            __html: getLPNameForDashboard(item.learningPeriods),
+          }}
+        ></h2>
+      }
       dateRange={getLearningPeriodDateRange(lp)}
       status={status}
       statusColor={statusColor}
@@ -44,7 +51,7 @@ export const TrackRowView: React.FC<TrackRowProps> = ({
 }) => {
   return (
     <Card className="p-2 text-lg">
-      <h2 className="font-bold">{track}</h2>
+      {track}
       <p className="flex justify-between mt-2">
         {dateRange} <b className={statusColor}>{status}</b>
       </p>
