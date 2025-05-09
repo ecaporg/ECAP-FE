@@ -1,4 +1,4 @@
-import { apiFetch } from "./fetch";
+import { apiFetch, ApiResponse } from "./fetch";
 
 type FetchType<T, D> = typeof apiFetch<T, D>;
 type FetchAdditionalInit<T, D> = Parameters<FetchType<T, D>>[1];
@@ -11,8 +11,11 @@ export class BaseApi<T = any, D = any> {
     this.fetch = fetch;
   }
 
-  async findAll(searchParams: string, options?: FetchAdditionalInit<T, D>) {
-    return await this.fetch(`${this.url}?${searchParams}`, options);
+  async findAll(searchParams?: string, options?: FetchAdditionalInit<T[], D>) {
+    return (await this.fetch(
+      `${this.url}?${searchParams}`,
+      options
+    )) as ApiResponse<T[], D>;
   }
 
   async findOne(id: string, options?: FetchAdditionalInit<T, D>) {

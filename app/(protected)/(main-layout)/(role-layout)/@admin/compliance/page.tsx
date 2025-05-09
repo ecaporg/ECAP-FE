@@ -1,4 +1,4 @@
-import { getComplianceAdminFilter } from "@/lib/compliance";
+import { getComplianceAdminFilter } from "@/lib/api/compliance";
 
 import {
   DEFAULT_FILTERS_KEYS,

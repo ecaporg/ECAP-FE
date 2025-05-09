@@ -4,7 +4,7 @@ import { AdminSamplesSection } from "@/components/pages/compliance/sections";
 import type { AdminSamplesSectionProps } from "@/components/pages/compliance/sections/admin-samples-section";
 import { LoadingTableSectionWithFilters } from "@/components/table/loading";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { getComplianceTeacherFilter } from "@/lib/compliance";
+import { getComplianceTeacherFilter } from "@/lib/api/compliance";
 import { getDefaultAcademicYearIds } from "@/utils/academic-year";
 import { Suspense } from "react";
 

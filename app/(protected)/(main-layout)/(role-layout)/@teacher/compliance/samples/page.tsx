@@ -1,6 +1,6 @@
 import { rolePage } from "@/components/layouts/role-page";
 import { SamplesSection } from "@/components/pages/compliance/sections";
-import { getComplianceTeacherFilter } from "@/lib/compliance";
+import { getComplianceTeacherFilter } from "@/lib/api/compliance";
 import type { SamplesSectionProps } from "@/components/pages/compliance/sections/samples-section";
 export async function ComplianceSamplesPage({
   searchParams,

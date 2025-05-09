@@ -1,4 +1,4 @@
-import { getComplianceTeacherFilter } from "@/lib/compliance";
+import { getComplianceTeacherFilter } from "@/lib/api/compliance";
 import { TeacherFilters } from "@/components/pages/compliance/filters";
 import { StudentsSection } from "@/components/pages/compliance/sections";
 import { rolePage } from "@/components/layouts/role-page";

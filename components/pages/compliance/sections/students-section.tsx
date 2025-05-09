@@ -1,7 +1,7 @@
 import { LoadingTableSection } from "@/components/table/loading";
 import { PaginationSection } from "@/components/table/pagination-section";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { getComplianceStudents } from "@/lib/compliance";
+import { getComplianceStudents } from "@/lib/api/compliance";
 import type { Tenant, TrackLearningPeriod } from "@/types";
 import {
   assignDefaultLearningPeriod,
