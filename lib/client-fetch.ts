@@ -30,7 +30,7 @@ export const API_BASE_URL =
 export const wait = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-export const RETRIES = 3;
+export const RETRIES = 0;
 export const RETRY_DELAY = 10000;
 
 export async function apiClientFetch<T = any, D = undefined>(

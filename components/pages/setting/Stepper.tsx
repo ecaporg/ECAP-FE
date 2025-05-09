@@ -32,4 +32,4 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onClick }) => {
   );
 };
 
-export default Stepper;
+export { Stepper };

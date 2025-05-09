@@ -1,10 +1,10 @@
 import { rolePage } from "@/components/layouts/role-page";
-import Stepper from "@/components/pages/setting/Stepper";
+import { Stepper } from "@/components/pages/setting/Stepper";
 import { STEPS } from "@/components/pages/setting/steps";
 import { SETUP_STEPS } from "@/constants/setupSteps";
 
 function TabSetup() {
-  const activeStep = 0;
+  const activeStep = 2;
   const Step = STEPS[activeStep];
   return (
     <section className="p-10 h-full flex flex-col">

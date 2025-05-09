@@ -1,6 +1,6 @@
 "use client";
 
-import { School } from "@/types";
+import { Academy, School, Track } from "@/types";
 import { Actions, InputWithButton } from "./form";
 import {
   Table,
@@ -10,8 +10,11 @@ import {
   TableBody,
   TableCell,
 } from "./table";
-import { useStep1 } from "@/hooks/settings/steps/use-step1";
+import { StepSchool, useStep1 } from "@/hooks/settings/steps/use-step1";
 import { useState } from "react";
+import { StepAcademy, useStep2 } from "@/hooks/settings/steps/use-step2";
+import { StepTrack, useStep3 } from "@/hooks/settings/steps/use-step3";
+import { formatTrackDate } from "@/utils";
 
 export const Step1 = ({
   schools: schoolsFromProps = [],
@@ -29,7 +32,7 @@ export const Step1 = ({
   } = useStep1(_schools, setSchools);
 
   return (
-    <div className="flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4">
+    <>
       <InputWithButton
         fields={[
           {
@@ -50,7 +53,7 @@ export const Step1 = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>School Name</TableHead>
+            <TableHead>School</TableHead>
             <TableHead className="text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -59,7 +62,9 @@ export const Step1 = ({
             <TableRow
               key={school.id || "new-school"}
               className={
-                !school.id || editingSchoolId === school.id ? "opacity-50" : ""
+                (school as StepSchool).disabled
+                  ? "opacity-50 pointer-events-none"
+                  : ""
               }
             >
               <TableCell className="text-truncate max-w-80">
@@ -75,6 +80,146 @@ export const Step1 = ({
           ))}
         </TableBody>
       </Table>
-    </div>
+    </>
+  );
+};
+
+export const Step2 = ({
+  academies: academiesFromProps = [],
+}: {
+  academies: Academy[];
+}) => {
+  const [_academies, setAcademies] = useState<Academy[]>(academiesFromProps);
+  const {
+    onAddClick,
+    onEditClick,
+    onDeleteClick,
+    form,
+    editingAcademyId,
+    academies,
+  } = useStep2(_academies, setAcademies);
+
+  return (
+    <>
+      <InputWithButton
+        fields={[
+          {
+            label: { htmlFor: "academy-name", children: "Add Academies" },
+            input: {
+              id: "academy-name",
+              ...form.register("name"),
+            },
+          },
+        ]}
+        button={{
+          children: editingAcademyId ? "Update Academy Name" : "Add Academy",
+          disabled: form.formState.isSubmitting || !form.formState.isValid,
+        }}
+        onSubmit={form.handleSubmit(onAddClick)}
+        className="w-80"
+      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Academy</TableHead>
+            <TableHead className="text-center">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {academies.map((academy) => (
+            <TableRow
+              key={academy.id || "new-academy"}
+              className={
+                (academy as StepAcademy).disabled
+                  ? "opacity-50 pointer-events-none"
+                  : ""
+              }
+            >
+              <TableCell className="text-truncate max-w-80">
+                {academy.name}
+              </TableCell>
+              <TableCell>
+                <Actions
+                  edit={{ onClick: () => onEditClick(academy) }}
+                  deletе={{ onClick: () => onDeleteClick(academy) }}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
+  );
+};
+
+export const Step3 = ({
+  tracks: tracksFromProps = [],
+}: {
+  tracks: Track[];
+}) => {
+  const [_tracks, setTracks] = useState<Track[]>(tracksFromProps);
+  const {
+    onAddClick,
+    onEditClick,
+    onDeleteClick,
+    form,
+    editingTrackId,
+    tracks,
+  } = useStep3(_tracks, setTracks);
+
+  return (
+    <>
+      <InputWithButton
+        fields={[
+          {
+            label: { htmlFor: "track-name", children: "Track Name" },
+            input: {
+              id: "track-name",
+              ...form.register("name"),
+            },
+          },
+        ]}
+        button={{
+          children: editingTrackId ? "Update Track Name" : "Add Track",
+          disabled: form.formState.isSubmitting || !form.formState.isValid,
+        }}
+        onSubmit={form.handleSubmit(onAddClick)}
+        className="w-80"
+      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Track</TableHead>
+            <TableHead>Start Date</TableHead>
+            <TableHead>End Date</TableHead>
+            <TableHead className="text-center">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {tracks.map((track) => (
+            <TableRow
+              key={track.id || "new-track"}
+              className={
+                (track as StepTrack).disabled
+                  ? "opacity-50 pointer-events-none"
+                  : ""
+              }
+            >
+              <TableCell className="text-truncate max-w-80">
+                {track.name}
+              </TableCell>
+              <TableCell>{formatTrackDate(track.start_date)}</TableCell>
+              <TableCell>{formatTrackDate(track.end_date)}</TableCell>
+              <TableCell>
+                <Actions
+                  edit={{ onClick: () => onEditClick(track) }}
+                  deletе={{ onClick: () => onDeleteClick(track) }}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 };

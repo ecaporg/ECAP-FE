@@ -20,9 +20,13 @@ export const schoolClientApi = new BaseApi<School, undefined>(
   apiClientFetch
 );
 
+export type StepSchool = School & {
+  disabled?: boolean;
+};
+
 type UpdateSchoolType = {
   action: "add" | "edit" | "delete";
-  school: School;
+  school: StepSchool;
 };
 
 const schoolFormSchema = z.object({
@@ -31,13 +35,13 @@ const schoolFormSchema = z.object({
 type SchoolForm = z.infer<typeof schoolFormSchema>;
 
 const schoolsReducer = (prev: School[], updated: UpdateSchoolType) => {
+  updated.school.disabled = true;
   switch (updated.action) {
     case "add":
-      return [...prev, updated.school];
+      return [updated.school, ...prev];
     case "edit":
-      return prev.map((s) => (s.id === updated.school.id ? updated.school : s));
     case "delete":
-      return prev.filter((s) => s.id !== updated.school.id);
+      return prev.map((s) => (s.id === updated.school.id ? updated.school : s));
   }
 };
 
@@ -61,8 +65,11 @@ export const useStep1 = (
   const addSchool = async (school: School) => {
     try {
       setOptimisticSchools({ action: "add", school });
+
       const res = await schoolClientApi.post(school);
       setSchools((prev) => [res.data!, ...prev]);
+
+      toast.success("School added successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to add school");
@@ -72,10 +79,13 @@ export const useStep1 = (
   const editSchool = async (school: School) => {
     try {
       setOptimisticSchools({ action: "edit", school });
-      const res = await schoolClientApi.patch(school.id.toString(), school);
+
+      const res = await schoolClientApi.put(school.id.toString(), school);
       setSchools((prev) =>
         prev.map((s) => (s.id === school.id ? res.data! : s))
       );
+
+      toast.success("School updated successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to edit school");
@@ -84,9 +94,13 @@ export const useStep1 = (
 
   const deleteSchool = async (school: School) => {
     try {
+      toast.info("Deleting school...");
       setOptimisticSchools({ action: "delete", school });
+
       await schoolClientApi.delete(school.id.toString());
       setSchools((prev) => prev.filter((s) => s.id !== school.id));
+
+      toast.success("School deleted successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete school");
