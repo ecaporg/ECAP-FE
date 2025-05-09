@@ -31,6 +31,10 @@ type UpdateTrackType = {
 
 const trackFormSchema = z.object({
   name: z.string().min(1, validationMessages.required("Track Name")),
+  start_date: z
+    .date()
+    .min(new Date(), validationMessages.required("Start Date")),
+  end_date: z.date().min(new Date(), validationMessages.required("End Date")),
 });
 type TrackForm = z.infer<typeof trackFormSchema>;
 
@@ -131,6 +135,8 @@ export const useStep3 = (
     } else {
       setTrackToEdit(track);
       form.setValue("name", track.name);
+      form.setValue("start_date", track.start_date);
+      form.setValue("end_date", track.end_date);
     }
   };
 

@@ -167,10 +167,30 @@ export const Step3 = ({
     tracks,
   } = useStep3(_tracks, setTracks);
 
+  console.log(form.formState.errors);
+
   return (
     <>
       <InputWithButton
         fields={[
+          {
+            label: { htmlFor: "track-start-date", children: "Start Date" },
+            input: {
+              id: "track-start-date",
+              type: "date",
+              ...form.register("start_date"),
+            },
+            error: form.formState.errors.start_date?.message,
+          },
+          {
+            label: { htmlFor: "track-end-date", children: "End Date" },
+            input: {
+              id: "track-end-date",
+              type: "date",
+              ...form.register("end_date"),
+            },
+            error: form.formState.errors.end_date?.message,
+          },
           {
             label: { htmlFor: "track-name", children: "Track Name" },
             input: {

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ButtonProps } from "@/components/ui/button";
+import { FormError } from "@/components/ui/form-error";
 import { Input, InputProps } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/utils";
@@ -12,6 +13,7 @@ interface InputWithButtonProps extends React.PropsWithChildren<{}> {
   fields: {
     label: LabelProps;
     input: InputProps;
+    error?: string;
   }[];
   className?: string;
 }
@@ -29,6 +31,13 @@ export const InputWithButton = ({
         <>
           <Label key={field.label.htmlFor} className="p-2" {...field.label} />
           <Input key={field.input.id} {...field.input} />
+          {field.error && (
+            <FormError
+              id={field.input.id + "-error"}
+              message={field.error}
+              className="text-wrap"
+            />
+          )}
         </>
       ))}
       {children}
