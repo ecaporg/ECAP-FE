@@ -1,6 +1,6 @@
 import { rolePage } from "@/components/layouts/role-page";
 import Stepper from "@/components/pages/setting/Stepper";
-import { Step1 } from "@/components/pages/setting/steps/indext";
+// import { Step1 } from "@/components/pages/setting/steps/indext";
 import { SETUP_STEPS } from "@/constants/setupSteps";
 
 function TabSetup() {
@@ -11,7 +11,7 @@ function TabSetup() {
 
       {/* Placeholder for active step content */}
       <div className="flex-1 flex justify-center items-center">
-        <Step1 schools={[]} />
+        {/* <Step1 schools={[]} /> */}
       </div>
     </section>
   );

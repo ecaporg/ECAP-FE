@@ -1,5 +1,5 @@
 import { Teacher } from "@/types";
-import { apiFetch } from "./fetch";
+import { apiFetch } from "../fetch";
 
 export const searchTeacher = async (value: string) => {
   const response = await apiFetch<Teacher[]>(

@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { ComplianceTabs } from "@/components/pages/compliance/tabs";
 import { BackToTeacherTable } from "@/components/pages/compliance/back-to";
-import { getTeacher } from "@/lib/teacher";
+import { getTeacher } from "@/lib/api/teacher";
 
 async function addSearchParamsTeacherId({
   params,
