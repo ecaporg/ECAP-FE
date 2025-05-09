@@ -1,4 +1,4 @@
-import { BaseApi } from "../api";
+import { BaseApi } from "../base-api";
 import { apiFetch } from "../fetch";
 import { apiClientFetch } from "../client-fetch";
 import { School } from "@/types";

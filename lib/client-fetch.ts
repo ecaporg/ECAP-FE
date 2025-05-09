@@ -31,7 +31,7 @@ export const wait = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 export const RETRIES = 3;
-export const RETRY_DELAY = 1000;
+export const RETRY_DELAY = 10000;
 
 export async function apiClientFetch<T = any, D = undefined>(
   endpoint: string,
@@ -77,7 +77,7 @@ export async function apiClientFetch<T = any, D = undefined>(
       return data as ApiResponse<T>;
     } catch (error) {
       console.error(error);
-      if (attempt < RETRIES) {
+      if (attempt <= RETRIES) {
         await wait(RETRY_DELAY * attempt);
         return executeFetch(attempt + 1);
       }
