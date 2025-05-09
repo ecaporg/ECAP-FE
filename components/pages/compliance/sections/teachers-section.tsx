@@ -52,7 +52,7 @@ const Teachers = async ({
 
   const dueDate = getDueDate(learningPeriod);
   const totalItems = assignment?.meta?.totalItems ?? 0;
-  const completedCount = assignment?.meta?.completedCount ?? 0;
+  const completedCount = assignment?.meta?.additionalData?.completedCount ?? 0;
 
   const status = getStatusForTable(0, totalItems, dueDate);
 

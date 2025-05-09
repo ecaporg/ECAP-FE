@@ -42,7 +42,9 @@ export const flagMissingWorkSample = async (
 };
 
 export const getComplianceAdminSamples = async (param: string) => {
-  return await apiFetch<Sample[]>(`/samples/flagged?${param}`, {
+  return await apiFetch<Sample[], {
+    completedCount: number;
+  }>(`/samples/flagged?${param}`, {
     tags: [`compliance-admin-samples`],
   });
 };

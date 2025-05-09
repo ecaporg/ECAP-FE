@@ -13,9 +13,12 @@ export const getComplianceTeacherFilter = async () => {
 };
 
 export const getComplianceStudents = async (queryParams: string) => {
-  const response = await apiFetch<AssignmentPeriod[]>(
-    `/students-table?${queryParams}`
-  );
+  const response = await apiFetch<
+    AssignmentPeriod[],
+    {
+      completedCount: number;
+    }
+  >(`/students-table?${queryParams}`);
   return response;
 };
 
@@ -44,8 +47,11 @@ export const getComplianceAdminFilter = async () => {
 };
 
 export const getComplianceTeachers = async (queryParams: string) => {
-  const response = await apiFetch<TeacherCompliance[]>(
-    `/teachers-table?${queryParams}`
-  );
+  const response = await apiFetch<
+    TeacherCompliance[],
+    {
+      completedCount: number;
+    }
+  >(`/teachers-table?${queryParams}`);
   return response;
 };
