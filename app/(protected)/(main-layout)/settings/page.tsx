@@ -1,29 +1,9 @@
-'use client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { rolePage } from "@/components/layouts/role-page";
 
-export default function SettingsPage() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-        <p className="text-muted-foreground">Manage system settings and configurations</p>
-      </div>
+import { SettingsTabs } from "@/components/pages/setting/tabs";
 
-      <Card>
-        <CardHeader>
-          <CardTitle>System Settings</CardTitle>
-          <CardDescription>
-            This page is under development. Settings will be available in a future update.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex h-40 items-center justify-center rounded-md border border-dashed">
-            <p className="text-sm text-muted-foreground">
-              Settings configuration will be available soon
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
+function SettingsPage() {
+  return <SettingsTabs />;
 }
+
+export default rolePage(SettingsPage, ["SUPER_ADMIN"]);
