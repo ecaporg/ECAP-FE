@@ -1,19 +1,8 @@
-"use client";
+import { Step1 } from "./steps";
 
-import { Actions, InputWithButton } from "./form";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "./table";
+const Step1ServerWrapper = async () => {
+  const schools = await getSchools();
+  return <Step1 schools={schools} />;
+};
 
-export const STEPS = [
-  {
-    id: "1",
-    name: "Step 1",
-  },
-];
-export * from "./steps";
+export const STEPS = [Step1ServerWrapper];

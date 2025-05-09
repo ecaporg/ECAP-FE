@@ -5,7 +5,7 @@ import {
   flagRejectedSample,
   flagSample,
   updateSample,
-} from "@/lib/sample";
+} from "@/lib/api/sample";
 import {
   type Sample,
   SampleFlagCompleted,

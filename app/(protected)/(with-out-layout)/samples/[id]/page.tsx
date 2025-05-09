@@ -1,4 +1,4 @@
-import { getSampleById } from "@/lib/sample";
+import { getSampleById } from "@/lib/api/sample";
 
 import { SampleActionButtons } from "@/components/pages/sample/meta";
 import { Skeleton } from "@/components/ui/skeleton";

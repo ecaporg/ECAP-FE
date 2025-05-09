@@ -1,5 +1,5 @@
 import { DashboardStats } from "@/types";
-import { apiFetch } from "./fetch";
+import { apiFetch } from "../fetch";
 
 export const getDashboardStats = async () => {
   const res = await apiFetch<DashboardStats>("/dashboard/stats");

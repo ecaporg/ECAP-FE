@@ -1,5 +1,5 @@
 import type { AssignmentPeriod, TeacherCompliance, Tenant } from "@/types";
-import { apiFetch } from "./fetch";
+import { apiFetch } from "../fetch";
 
 export const getComplianceTeacherFilter = async () => {
   const response = await apiFetch<Tenant>(`/students-table/filters`, {

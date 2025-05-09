@@ -5,7 +5,7 @@ import {
   SampleFlagMissingWork,
   SampleFlagRejected,
 } from "@/types";
-import { apiFetch } from "./fetch";
+import { apiFetch } from "../fetch";
 import { revalidateTag } from "next/cache";
 
 export const getSampleById = async (id: Sample["id"]) => {
@@ -42,9 +42,12 @@ export const flagMissingWorkSample = async (
 };
 
 export const getComplianceAdminSamples = async (param: string) => {
-  return await apiFetch<Sample[], {
-    completedCount: number;
-  }>(`/samples/flagged?${param}`, {
+  return await apiFetch<
+    Sample[],
+    {
+      completedCount: number;
+    }
+  >(`/samples/flagged?${param}`, {
     tags: [`compliance-admin-samples`],
   });
 };

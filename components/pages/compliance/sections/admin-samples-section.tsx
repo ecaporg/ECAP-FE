@@ -12,7 +12,7 @@ import {
 } from "@/utils";
 import { Suspense } from "react";
 import { DirectorSamplesTable } from "../tables";
-import { getComplianceAdminSamples } from "@/lib/sample";
+import { getComplianceAdminSamples } from "@/lib/api/sample";
 
 export interface AdminSamplesSectionProps {
   param: {

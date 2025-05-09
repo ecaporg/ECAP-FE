@@ -5,7 +5,7 @@ import {
   PageWrapper,
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
-import { getDashboardStats } from "@/lib/statistic";
+import { getDashboardStats } from "@/lib/api/statistic";
 import { rolePage } from "@/components/layouts/role-page";
 
 async function Dashboard() {

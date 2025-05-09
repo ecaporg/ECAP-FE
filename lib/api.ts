@@ -1,45 +1,52 @@
 import { apiFetch } from "./fetch";
 
+type FetchType<T, D> = typeof apiFetch<T, D>;
+type FetchAdditionalInit<T, D> = Parameters<FetchType<T, D>>[1];
+
 export class BaseApi<T = any, D = any> {
   private url: string;
-  private fetch: typeof apiFetch<T, D>;
-  constructor(url: string, fetch: typeof apiFetch<T, D>) {
+  private fetch: FetchType<T, D>;
+  constructor(url: string, fetch: FetchType<T, D>) {
     this.url = url;
     this.fetch = fetch;
   }
 
-  async getAll() {
-    return await this.fetch(`${this.url}`);
+  async findAll(searchParams: string, options?: FetchAdditionalInit<T, D>) {
+    return await this.fetch(`${this.url}?${searchParams}`, options);
   }
 
-  async getById(id: string) {
-    return await this.fetch(`${this.url}/${id}`);
+  async findOne(id: string, options?: FetchAdditionalInit<T, D>) {
+    return await this.fetch(`${this.url}/${id}`, options);
   }
 
-  async post(body: any) {
+  async post(body: any, options?: FetchAdditionalInit<T, D>) {
     return await this.fetch(`${this.url}`, {
       method: "POST",
       body: JSON.stringify(body),
+      ...options,
     });
   }
 
-  async put(id: string, body: any) {
+  async put(id: string, body: any, options?: FetchAdditionalInit<T, D>) {
     return await this.fetch(`${this.url}/${id}`, {
       method: "PUT",
       body: JSON.stringify(body),
+      ...options,
     });
   }
 
-  async patch(id: string, body: any) {
+  async patch(id: string, body: any, options?: FetchAdditionalInit<T, D>) {
     return await this.fetch(`${this.url}/${id}`, {
       method: "PATCH",
       body: JSON.stringify(body),
+      ...options,
     });
   }
 
-  async delete(id: string) {
+  async delete(id: string, options?: FetchAdditionalInit<T, D>) {
     return await this.fetch(`${this.url}/${id}`, {
       method: "DELETE",
+      ...options,
     });
   }
 }

@@ -6,7 +6,7 @@ import {
   PageWrapper,
 } from "@/components/pages/dashboard/sections";
 import { getUser } from "@/lib/get-user";
-import { getDashboardStats } from "@/lib/statistic";
+import { getDashboardStats } from "@/lib/api/statistic";
 import { rolePage } from "@/components/layouts/role-page";
 
 const Dashboard = async () => {
@@ -25,6 +25,6 @@ const Dashboard = async () => {
       </LPCardsSection>
     </PageWrapper>
   );
-}
+};
 
 export default rolePage(Dashboard, ["DIRECTOR"]);
