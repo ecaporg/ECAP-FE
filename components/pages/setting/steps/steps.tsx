@@ -11,22 +11,22 @@ import {
   TableCell,
 } from "./table";
 import { useStep1 } from "@/hooks/settings/steps/use-step1";
-import { useTransition } from "react";
-
-export const STEPS = [
-  {
-    id: "1",
-    name: "Step 1",
-  },
-];
+import { useState } from "react";
 
 export const Step1 = ({
   schools: schoolsFromProps = [],
 }: {
   schools: School[];
 }) => {
-  const { onAddClick, onEditClick, onDeleteClick, form, schools, isEditing } =
-    useStep1(schoolsFromProps);
+  const [_schools, setSchools] = useState<School[]>(schoolsFromProps);
+  const {
+    onAddClick,
+    onEditClick,
+    onDeleteClick,
+    form,
+    editingSchoolId,
+    schools,
+  } = useStep1(_schools, setSchools);
 
   return (
     <div className="flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4">
@@ -41,7 +41,7 @@ export const Step1 = ({
           },
         ]}
         button={{
-          children: isEditing ? "Update School Name" : "Add School",
+          children: editingSchoolId ? "Update School Name" : "Add School",
           disabled: form.formState.isSubmitting || !form.formState.isValid,
         }}
         onSubmit={form.handleSubmit(onAddClick)}
@@ -56,7 +56,12 @@ export const Step1 = ({
         </TableHeader>
         <TableBody>
           {schools.map((school) => (
-            <TableRow key={school.id || "new-school"}>
+            <TableRow
+              key={school.id || "new-school"}
+              className={
+                !school.id || editingSchoolId === school.id ? "opacity-50" : ""
+              }
+            >
               <TableCell className="text-truncate max-w-80">
                 {school.name}
               </TableCell>

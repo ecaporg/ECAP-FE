@@ -1,11 +1,24 @@
 "use client";
+import { BaseApi } from "@/lib/base-api";
+import { apiClientFetch } from "@/lib/client-fetch";
 import { School } from "@/types";
 import { validationMessages } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useOptimistic, useState, useTransition } from "react";
+import {
+  useOptimistic,
+  useState,
+  useTransition,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
+export const schoolClientApi = new BaseApi<School, undefined>(
+  "/schools",
+  apiClientFetch
+);
 
 type UpdateSchoolType = {
   action: "add" | "edit" | "delete";
@@ -28,7 +41,10 @@ const schoolsReducer = (prev: School[], updated: UpdateSchoolType) => {
   }
 };
 
-export const useStep1 = (schools: School[] = []) => {
+export const useStep1 = (
+  schools: School[] = [],
+  setSchools: Dispatch<SetStateAction<School[]>>
+) => {
   const [_, startTransition] = useTransition();
   const [optimisticSchools, setOptimisticSchools] = useOptimistic(
     schools,
@@ -45,7 +61,8 @@ export const useStep1 = (schools: School[] = []) => {
   const addSchool = async (school: School) => {
     try {
       setOptimisticSchools({ action: "add", school });
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      const res = await schoolClientApi.post(school);
+      setSchools((prev) => [res.data!, ...prev]);
     } catch (error) {
       console.error(error);
       toast.error("Failed to add school");
@@ -55,7 +72,10 @@ export const useStep1 = (schools: School[] = []) => {
   const editSchool = async (school: School) => {
     try {
       setOptimisticSchools({ action: "edit", school });
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      const res = await schoolClientApi.patch(school.id.toString(), school);
+      setSchools((prev) =>
+        prev.map((s) => (s.id === school.id ? res.data! : s))
+      );
     } catch (error) {
       console.error(error);
       toast.error("Failed to edit school");
@@ -65,7 +85,8 @@ export const useStep1 = (schools: School[] = []) => {
   const deleteSchool = async (school: School) => {
     try {
       setOptimisticSchools({ action: "delete", school });
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await schoolClientApi.delete(school.id.toString());
+      setSchools((prev) => prev.filter((s) => s.id !== school.id));
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete school");
@@ -113,6 +134,6 @@ export const useStep1 = (schools: School[] = []) => {
     onEditClick,
     onDeleteClick,
     form,
-    isEditing: !!schoolToEdit,
+    editingSchoolId: schoolToEdit?.id,
   };
 };
