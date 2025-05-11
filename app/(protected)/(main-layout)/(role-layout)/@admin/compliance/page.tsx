@@ -9,6 +9,11 @@ import { TeacherSection } from "@/components/pages/compliance/sections";
 import { AdminFilters } from "@/components/pages/compliance/filters";
 import type { TeachersSectionProps } from "@/components/pages/compliance/sections/teachers-section";
 import { rolePage } from "@/components/layouts/role-page";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Compliance",
+};
 
 export async function CompliancePage({
   searchParams,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Academy, School, Track } from "@/types";
+import { Academy, School, Track, TrackCalendar } from "@/types";
 import { Actions, InputWithButton } from "./form";
 import {
   Table,
@@ -253,4 +253,8 @@ export const Step3 = ({
       </Table>
     </>
   );
+};
+
+export const Step4 = ({ calendars = [] }: { calendars: TrackCalendar[] }) => {
+  return <div>Step4</div>;
 };

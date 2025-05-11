@@ -1,6 +1,7 @@
 import ForbiddenPage from "@/app/403";
 import { getUser } from "@/lib/get-user";
 
+
 export default async function RoleLayout({
   teacher,
   admin,

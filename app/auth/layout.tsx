@@ -1,4 +1,9 @@
-import type React from 'react';
+import { Metadata } from 'next';
+import type React from "react";
+
+export const metadata: Metadata = {
+  title: "Authentication",
+};
 
 export default function AuthLayout({ children }: React.PropsWithChildren) {
   return (

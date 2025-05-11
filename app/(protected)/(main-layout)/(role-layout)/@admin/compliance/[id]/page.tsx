@@ -11,6 +11,10 @@ import { ComplianceTabs } from "@/components/pages/compliance/tabs";
 import { BackToTeacherTable } from "@/components/pages/compliance/back-to";
 import { getTeacher } from "@/lib/api/teacher";
 
+export const metadata: Metadata = {
+  title: "Teacher Compliance",
+};
+
 async function addSearchParamsTeacherId({
   params,
   searchParams,

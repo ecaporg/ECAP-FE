@@ -7,6 +7,11 @@ import {
   DEFAULT_FILTERS_KEYS,
   SPECIFIC_PAGE_FILTER_KEYS,
 } from "@/constants/filter";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Compliance",
+};
 
 export async function CompliancePage({
   searchParams,

@@ -8,6 +8,11 @@ import {
 import { getUser } from "@/lib/get-user";
 import { getDashboardStats } from "@/lib/api/statistic";
 import { rolePage } from "@/components/layouts/role-page";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Director Dashboard",
+};
 
 const Dashboard = async () => {
   const user = await getUser();
