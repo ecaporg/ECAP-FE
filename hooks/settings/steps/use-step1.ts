@@ -73,6 +73,7 @@ export const useStep1 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to add school");
+      throw error;
     }
   };
 
@@ -89,6 +90,7 @@ export const useStep1 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to edit school");
+      throw error;
     }
   };
 
@@ -110,18 +112,22 @@ export const useStep1 = (
   const onAddClick = ({ name }: SchoolForm) => {
     form.reset();
     startTransition(async () => {
-      if (schoolToEdit) {
-        toast.info("Updating school...");
-        await editSchool({
-          ...schoolToEdit,
-          name,
-        });
-        setSchoolToEdit(null);
-      } else {
-        toast.info("Adding school...");
-        await addSchool({
-          name,
-        } as School);
+      try {
+        if (schoolToEdit) {
+          toast.info("Updating school...");
+          await editSchool({
+            ...schoolToEdit,
+            name,
+          });
+          setSchoolToEdit(null);
+        } else {
+          toast.info("Adding school...");
+          await addSchool({
+            name,
+          } as School);
+        }
+      } catch (error) {
+        form.setValue("name", name);
       }
     });
   };

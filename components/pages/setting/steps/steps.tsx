@@ -15,6 +15,7 @@ import { useState } from "react";
 import { StepAcademy, useStep2 } from "@/hooks/settings/steps/use-step2";
 import { StepTrack, useStep3 } from "@/hooks/settings/steps/use-step3";
 import { formatTrackDate } from "@/utils";
+import { useWatch } from "react-hook-form";
 
 export const Step1 = ({
   schools: schoolsFromProps = [],
@@ -167,18 +168,30 @@ export const Step3 = ({
     tracks,
   } = useStep3(_tracks, setTracks);
 
-  console.log(form.formState.errors);
+  const start_date = useWatch({ control: form.control, name: "start_date" });
+  const end_date = useWatch({ control: form.control, name: "end_date" });
 
   return (
     <>
       <InputWithButton
         fields={[
           {
+            label: { htmlFor: "track-name", children: "Track Name" },
+            input: {
+              id: "track-name",
+              ...form.register("name"),
+            },
+            error: form.formState.errors.name?.message,
+          },
+          {
             label: { htmlFor: "track-start-date", children: "Start Date" },
             input: {
               id: "track-start-date",
               type: "date",
+              className: "hidden",
               ...form.register("start_date"),
+              min: new Date().toISOString(),
+              value: start_date as any,
             },
             error: form.formState.errors.start_date?.message,
           },
@@ -187,16 +200,14 @@ export const Step3 = ({
             input: {
               id: "track-end-date",
               type: "date",
+              className: "hidden",
               ...form.register("end_date"),
+              min: start_date
+                ? start_date.toISOString()
+                : new Date().toISOString(),
+              value: end_date as any,
             },
             error: form.formState.errors.end_date?.message,
-          },
-          {
-            label: { htmlFor: "track-name", children: "Track Name" },
-            input: {
-              id: "track-name",
-              ...form.register("name"),
-            },
           },
         ]}
         button={{

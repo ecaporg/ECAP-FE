@@ -75,6 +75,7 @@ export const useStep2 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to add academy");
+      throw error;
     }
   };
 
@@ -91,6 +92,7 @@ export const useStep2 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to edit academy");
+      throw error;
     }
   };
 
@@ -112,18 +114,22 @@ export const useStep2 = (
   const onAddClick = ({ name }: AcademyForm) => {
     form.reset();
     startTransition(async () => {
-      if (academyToEdit) {
-        toast.info("Updating academy...");
-        await editAcademy({
-          ...academyToEdit,
-          name,
-        });
-        setAcademyToEdit(null);
-      } else {
-        toast.info("Adding academy...");
-        await addAcademy({
-          name,
-        } as Academy);
+      try {
+        if (academyToEdit) {
+          toast.info("Updating academy...");
+          await editAcademy({
+            ...academyToEdit,
+            name,
+          });
+          setAcademyToEdit(null);
+        } else {
+          toast.info("Adding academy...");
+          await addAcademy({
+            name,
+          } as Academy);
+        }
+      } catch (error) {
+        form.setValue("name", name);
       }
     });
   };

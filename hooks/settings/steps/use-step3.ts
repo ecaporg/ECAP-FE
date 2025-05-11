@@ -2,7 +2,7 @@
 import { BaseApi } from "@/lib/base-api";
 import { apiClientFetch } from "@/lib/client-fetch";
 import { Track } from "@/types";
-import { validationMessages } from "@/utils";
+import { formatTrackDate, validationMessages } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   useOptimistic,
@@ -29,13 +29,36 @@ type UpdateTrackType = {
   track: StepTrack;
 };
 
-const trackFormSchema = z.object({
-  name: z.string().min(1, validationMessages.required("Track Name")),
-  start_date: z
-    .date()
-    .min(new Date(), validationMessages.required("Start Date")),
-  end_date: z.date().min(new Date(), validationMessages.required("End Date")),
-});
+const trackFormSchema = z
+  .object({
+    name: z.string().min(1, validationMessages.required("Track Name")),
+    start_date: z
+      .date({
+        message: validationMessages.required("Start Date"),
+      })
+      .min(
+        new Date(),
+        validationMessages.minDate("Start Date", formatTrackDate(new Date()))
+      ),
+    end_date: z
+      .date({
+        message: validationMessages.required("End Date"),
+      })
+      .min(
+        new Date(),
+        validationMessages.minDate("End Date", formatTrackDate(new Date()))
+      ),
+  })
+  .refine(
+    ({ start_date = new Date(), end_date }) => {
+      if (!start_date || !end_date) return true;
+      return end_date >= start_date;
+    },
+    {
+      message: "End date must be after start date",
+      path: ["end_date"],
+    }
+  );
 type TrackForm = z.infer<typeof trackFormSchema>;
 
 const tracksReducer = (prev: Track[], updated: UpdateTrackType) => {
@@ -61,8 +84,11 @@ export const useStep3 = (
   const [trackToEdit, setTrackToEdit] = useState<Track | null>(null);
   const form = useForm<TrackForm>({
     resolver: zodResolver(trackFormSchema),
+    mode: "onChange",
     defaultValues: {
       name: "",
+      start_date: undefined,
+      end_date: undefined,
     },
   });
 
@@ -77,6 +103,7 @@ export const useStep3 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to add track");
+      throw error;
     }
   };
 
@@ -91,6 +118,7 @@ export const useStep3 = (
     } catch (error) {
       console.error(error);
       toast.error("Failed to edit track");
+      throw error;
     }
   };
 
@@ -109,21 +137,27 @@ export const useStep3 = (
     }
   };
 
-  const onAddClick = ({ name }: TrackForm) => {
+  const onAddClick = (values: TrackForm) => {
     form.reset();
     startTransition(async () => {
-      if (trackToEdit) {
-        toast.info("Updating track...");
-        await editTrack({
-          ...trackToEdit,
-          name,
-        });
-        setTrackToEdit(null);
-      } else {
-        toast.info("Adding track...");
-        await addTrack({
-          name,
-        } as Track);
+      try {
+        if (trackToEdit) {
+          toast.info("Updating track...");
+          await editTrack({
+            ...trackToEdit,
+            ...values,
+          });
+          setTrackToEdit(null);
+        } else {
+          toast.info("Adding track...");
+          await addTrack({
+            ...values,
+          } as Track);
+        }
+      } catch (error) {
+        form.setValue("name", values.name);
+        form.setValue("start_date", values.start_date);
+        form.setValue("end_date", values.end_date);
       }
     });
   };
@@ -135,8 +169,8 @@ export const useStep3 = (
     } else {
       setTrackToEdit(track);
       form.setValue("name", track.name);
-      form.setValue("start_date", track.start_date);
-      form.setValue("end_date", track.end_date);
+      form.setValue("start_date", new Date(track.start_date));
+      form.setValue("end_date", new Date(track.end_date));
     }
   };
 
