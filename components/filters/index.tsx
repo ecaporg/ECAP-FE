@@ -4,7 +4,7 @@ export * from "./academy.filter";
 export * from "./track.filter";
 export * from "./grade.filter";
 export * from "./base";
-export * from "./complation.filter";
+export * from "./completion.filter";
 export * from "./sample-status.filter";
 export * from "./search";
 export * from "./academic-year.filter";

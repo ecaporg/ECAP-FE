@@ -1,5 +1,5 @@
 import { Sample, SampleFlagCategory, SampleStatus } from "@/types/student";
-import { CompletionStatus } from "@/components/table/complation-status";
+import { CompletionStatus } from "@/components/table/completion-status";
 import { getUser } from "@/lib/get-user";
 import { getUserName } from "@/utils";
 import { defaultUser } from "@/types";

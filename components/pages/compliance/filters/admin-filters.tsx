@@ -1,6 +1,6 @@
 import {
   AcademyFilter,
-  ComplationFilter,
+  CompletionFilter,
   LearningPeriodFilter,
   SchoolFilter,
   TrackFilter,
@@ -51,7 +51,7 @@ export function AdminFilters({
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
         availableAcademies={tenant.academies}
       />
-      <ComplationFilter />
+      <CompletionFilter />
 
       <SchoolFilter
         availableSchools={tenant.schools}

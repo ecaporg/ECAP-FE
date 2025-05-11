@@ -1,4 +1,4 @@
-import type { CompletionStatusProps } from "@/components/table/complation-status";
+import type { CompletionStatusProps } from "@/components/table/completion-status";
 import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
 import type { Tenant, TrackLearningPeriod } from "@/types";
 

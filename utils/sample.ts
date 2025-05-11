@@ -1,4 +1,4 @@
-import type { CompletionStatusProps } from "@/components/table/complation-status";
+import type { CompletionStatusProps } from "@/components/table/completion-status";
 import { SAMPLE_STATUS } from "@/constants/sample";
 import type {
   AssignmentPeriod,

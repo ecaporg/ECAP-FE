@@ -1,6 +1,6 @@
 import {
   AcademyFilter,
-  ComplationFilter,
+  CompletionFilter,
   GradeFilter,
   LearningPeriodFilter,
   SchoolFilter,
@@ -50,7 +50,7 @@ export function TeacherFilters({
         availableTracks={tracks}
       />
       <GradeFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.GRADE} />
-      <ComplationFilter />
+      <CompletionFilter />
     </FilterWrapper>
   );
 }

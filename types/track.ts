@@ -13,10 +13,11 @@ export type Subject = GenericEntity & {
   samples: Sample[];
 };
 
-export type TrackCalendar = {
-  track_id: number;
-  date: Date;
-  type: string;
+export type TrackCalendar = GenericEntity & {
+  days: {
+    date: Date;
+    type: string;
+  }[];
   track: Track;
 };
 

@@ -1,7 +1,7 @@
 import {
   CompletionStatus,
   type CompletionStatusProps,
-} from "@/components/table/complation-status";
+} from "@/components/table/completion-status";
 import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Sample, SampleFlagCategory, SampleStatus } from "@/types";
 import { cn } from "@/utils";
