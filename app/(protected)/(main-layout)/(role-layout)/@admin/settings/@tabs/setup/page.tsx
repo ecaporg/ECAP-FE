@@ -1,5 +1,5 @@
 import { rolePage } from "@/components/layouts/role-page";
-import { Stepper } from "@/components/pages/setting/Stepper";
+import { Stepper } from "@/components/pages/setting/steppe";
 import { STEPS } from "@/components/pages/setting/steps";
 import { SETUP_STEPS } from "@/constants/setupSteps";
 
