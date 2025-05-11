@@ -13,7 +13,7 @@ export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
         Welcome back, {getUserName(user)}
         {user.role == "DIRECTOR" && (
           <span className="block text-xl font-semibold">
-            {user.director?.academy?.name}
+            {user.director?.academy?.name} {" Academy"}
           </span>
         )}
       </p>
