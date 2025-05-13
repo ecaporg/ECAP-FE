@@ -32,7 +32,6 @@ export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve,
 export const RETRIES = 3;
 export const RETRY_DELAY = 10000;
 
-// Основна функція для виконання запитів
 export async function apiFetch<T = any, D = undefined>(
   endpoint: string,
   init?: RequestInit & ApiAdditionalInit
