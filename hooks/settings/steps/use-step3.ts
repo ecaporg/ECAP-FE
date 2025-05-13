@@ -2,7 +2,7 @@
 import { BaseApi } from "@/lib/base-api";
 import { apiClientFetch } from "@/lib/client-fetch";
 import { Track } from "@/types";
-import { formatTrackDate, validationMessages } from "@/utils";
+import { formatTrackDateWithShortMonth, validationMessages } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   useOptimistic,
@@ -32,21 +32,19 @@ type UpdateTrackType = {
 const trackFormSchema = z
   .object({
     name: z.string().min(1, validationMessages.required("Track Name")),
-    start_date: z
-      .date({
-        message: validationMessages.required("Start Date"),
-      })
-      .min(
-        new Date(),
-        validationMessages.minDate("Start Date", formatTrackDate(new Date()))
-      ),
+    start_date: z.date({
+      message: validationMessages.required("Start Date"),
+    }),
     end_date: z
       .date({
         message: validationMessages.required("End Date"),
       })
       .min(
         new Date(),
-        validationMessages.minDate("End Date", formatTrackDate(new Date()))
+        validationMessages.minDate(
+          "End Date",
+          formatTrackDateWithShortMonth(new Date())
+        )
       ),
   })
   .refine(

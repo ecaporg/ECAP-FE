@@ -6,7 +6,7 @@ import { DayPicker } from "@/components/ui/day-picker";
 import { FormError } from "@/components/ui/form-error";
 import { Input, InputProps } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn, formatTrackDate } from "@/utils";
+import { cn, formatTrackDateWithShortMonth } from "@/utils";
 import { LabelProps } from "@radix-ui/react-label";
 import { formatDate } from "date-fns";
 import { ChangeEvent } from "react";
@@ -76,7 +76,7 @@ const DatePikerWrapper = ({
             } as unknown as ChangeEvent<HTMLInputElement>);
           }
         }}
-        format={formatTrackDate}
+        format={formatTrackDateWithShortMonth}
         fromDate={field.input.min ? new Date(field.input.min) : undefined}
       />
     );

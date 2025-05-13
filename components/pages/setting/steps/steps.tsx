@@ -14,9 +14,18 @@ import { StepSchool, useStep1 } from "@/hooks/settings/steps/use-step1";
 import { useState } from "react";
 import { StepAcademy, useStep2 } from "@/hooks/settings/steps/use-step2";
 import { StepTrack, useStep3 } from "@/hooks/settings/steps/use-step3";
-import { formatTrackDate } from "@/utils";
+import { formatTrackDateWithShortMonth } from "@/utils";
 import { useWatch } from "react-hook-form";
-
+import { SetupButton, TrackCard } from "./track-card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeftIcon } from "lucide-react";
+import {
+  TrackCalendarWrapper,
+  CalendarForTrack,
+  CalendarButtons,
+} from "./track-calendar";
+import { useStep4 } from "@/hooks/settings/steps/use-step4";
+import { ConfirmationModal } from "@/components/modals";
 export const Step1 = ({
   schools: schoolsFromProps = [],
 }: {
@@ -239,8 +248,12 @@ export const Step3 = ({
               <TableCell className="text-truncate max-w-80">
                 {track.name}
               </TableCell>
-              <TableCell>{formatTrackDate(track.start_date)}</TableCell>
-              <TableCell>{formatTrackDate(track.end_date)}</TableCell>
+              <TableCell>
+                {formatTrackDateWithShortMonth(track.start_date)}
+              </TableCell>
+              <TableCell>
+                {formatTrackDateWithShortMonth(track.end_date)}
+              </TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(track) }}
@@ -255,6 +268,75 @@ export const Step3 = ({
   );
 };
 
-export const Step4 = ({ calendars = [] }: { calendars: TrackCalendar[] }) => {
-  return <div>Step4</div>;
+export const Step4 = ({
+  calendars: defaultCalendars = [],
+}: {
+  calendars: TrackCalendar[];
+}) => {
+  const {
+    selectedCalendar,
+    handleSelectCalendar,
+    handleBackToTracks,
+    selectedDateRange,
+    dayMap,
+    assignDayType,
+    onSave,
+    onSelectDateRange,
+    isOpenConfirmation,
+    setIsOpenConfirmation,
+    isDirty,
+    calendars,
+  } = useStep4(defaultCalendars);
+
+  if (selectedCalendar) {
+    return (
+      <>
+        <Button
+          variant="outline"
+          onClick={() => {
+            if (isDirty) {
+              setIsOpenConfirmation(true);
+            } else {
+              handleBackToTracks();
+            }
+          }}
+          className="absolute top-10 left-11"
+        >
+          <ArrowLeftIcon className="size-4" />
+          Back to Tracks
+        </Button>
+        <TrackCalendarWrapper track={selectedCalendar.track}>
+          <CalendarForTrack
+            calendar={selectedCalendar}
+            selectedDateRange={selectedDateRange}
+            onSelectDateRange={onSelectDateRange}
+            dayMap={dayMap!}
+          />
+          <CalendarButtons onSave={onSave} assignDayType={assignDayType} />
+        </TrackCalendarWrapper>
+        <ConfirmationModal
+          title="Are you sure you want to back to tracks? You will lose all changes."
+          action={async () => {
+            handleBackToTracks();
+            setIsOpenConfirmation(false);
+          }}
+          open={isOpenConfirmation}
+          onOpenChange={setIsOpenConfirmation}
+        />
+      </>
+    );
+  }
+
+  return calendars.map((calendar) => (
+    <TrackCard
+      key={calendar.id}
+      track={calendar.track}
+      isCompleted={calendar.days.length > 0}
+    >
+      <SetupButton
+        onClick={handleSelectCalendar(calendar)}
+        isCompleted={calendar.days.length > 0}
+      />
+    </TrackCard>
+  ));
 };

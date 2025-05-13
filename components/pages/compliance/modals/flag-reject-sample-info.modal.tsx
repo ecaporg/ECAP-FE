@@ -17,7 +17,7 @@ export function FlagRejectSampleInfoModal({
   const isDirector = isAdminOrDirector(user);
   const title = (
     <>
-      <Badge variant="red" className="mb-4 w-fit">
+      <Badge variant="red" className="mb-4">
         <CircleAlertIcon className="size-4" />
         Rejected:{" "}
         {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}

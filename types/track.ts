@@ -13,11 +13,13 @@ export type Subject = GenericEntity & {
   samples: Sample[];
 };
 
+export type TrackCalendarDay = {
+  day: Date | string;
+  type: string;
+};
+
 export type TrackCalendar = GenericEntity & {
-  days: {
-    date: Date;
-    type: string;
-  }[];
+  days: TrackCalendarDay[];
   track: Track;
 };
 
@@ -38,7 +40,7 @@ export type Track = GenericEntity & {
   academic_year_id: number;
   academicYear: AcademicYear;
   tenant: Tenant;
-  calendar: TrackCalendar[];
+  calendar: TrackCalendar;
   subjects: Subject[];
   learningPeriods: TrackLearningPeriod[];
   students: Student[];

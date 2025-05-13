@@ -40,8 +40,13 @@ export function DayPicker({
           mode="single"
           selected={value}
           onSelect={onChange}
-          initialFocus
-          fromDate={fromDate}
+          disabled={
+            fromDate
+              ? {
+                  before: fromDate,
+                }
+              : undefined
+          }
         />
       </PopoverContent>
     </Popover>

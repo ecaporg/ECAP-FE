@@ -38,7 +38,7 @@ export function ConfirmationModal({
     >
       <div className="flex flex-col items-center justify-center h-full">
         <div className="flex flex-col gap-4 w-fit">
-          <Badge className="w-fit">
+          <Badge>
             <CheckCircleIcon className="size-4" />
             {title}
           </Badge>

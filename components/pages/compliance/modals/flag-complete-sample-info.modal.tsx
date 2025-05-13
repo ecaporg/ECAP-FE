@@ -17,7 +17,7 @@ export function FlagCompleteSampleInfoModal({
   const isDirector = isAdminOrDirector(user);
   const title = (
     <>
-      <Badge variant="success" className="mb-4 w-fit">
+      <Badge variant="success" className="mb-4">
         <CheckCircleIcon className="size-4" />
         Approved:{" "}
         {new Date(sample.updatedAt || "").toLocaleDateString()}

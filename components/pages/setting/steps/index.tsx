@@ -1,7 +1,7 @@
-import { Step1, Step2, Step3 } from "./steps";
+import { Step1, Step2, Step3, Step4 } from "./steps";
 import { schoolServerApi } from "@/lib/api/school";
 import { academyServerApi } from "@/lib/api/academy";
-import { trackServerApi } from "@/lib/api/track";
+import { trackServerApi, calendarServerApi } from "@/lib/api/track";
 import { cn } from "@/utils";
 
 const DefaultWrapper = ({
@@ -30,7 +30,7 @@ const Step1ServerWrapper = async () => {
   );
 };
 
-const StepAcademyServerWrapper = async () => {
+const Step2ServerWrapper = async () => {
   const academies = await academyServerApi.findAll();
 
   return (
@@ -50,8 +50,21 @@ const Step3ServerWrapper = async () => {
   );
 };
 
+const Step4ServerWrapper = async () => {
+  const calendars = await calendarServerApi.findAll();
+
+  return (
+    <DefaultWrapper className="flex-1 h-full px-6 py-10">
+      <DefaultWrapper className="border border-border py-10 flex-1 h-full relative">
+        <Step4 calendars={calendars.data!} />
+      </DefaultWrapper>
+    </DefaultWrapper>
+  );
+};
+
 export const STEPS = [
   Step1ServerWrapper,
-  StepAcademyServerWrapper,
+  Step2ServerWrapper,
   Step3ServerWrapper,
+  Step4ServerWrapper,
 ];
