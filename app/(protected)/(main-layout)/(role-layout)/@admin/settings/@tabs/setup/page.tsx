@@ -1,7 +1,9 @@
+import { PageLoading } from '@/components/layouts/loading';
 import { rolePage } from '@/components/layouts/role-page';
 import { Stepper } from '@/components/pages/setting/stepper';
 import { STEPS } from '@/components/pages/setting/steps';
 import { SETUP_STEPS } from '@/constants/setupSteps';
+import { Suspense } from 'react';
 
 function getStep(step: string = '0') {
   const stepNumber = parseInt(step);
@@ -21,7 +23,9 @@ async function TabSetup({
       <Stepper steps={SETUP_STEPS} activeStep={activeStep} />
 
       <div className="flex-1 flex flex-col justify-between items-center">
-        <StepComponent />
+        <Suspense fallback={<PageLoading />}>
+          <StepComponent />
+        </Suspense>
       </div>
     </section>
   );
