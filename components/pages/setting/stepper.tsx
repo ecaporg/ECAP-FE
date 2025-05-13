@@ -1,6 +1,6 @@
 "use client";
 import { Circle } from "lucide-react";
-import { useRouter, usePathname, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 
 interface StepperProps {
