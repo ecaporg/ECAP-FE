@@ -18,6 +18,7 @@ export const TrackCard = ({
     <div
       className={cn(
         "p-4 w-80 space-y-5 rounded-sm border-2 border-border",
+        isCompleted && "border-success-foreground",
         className
       )}
     >
@@ -41,7 +42,7 @@ export const TrackCard = ({
   );
 };
 
-export const SetupButton = ({
+export const SetupCalendarButton = ({
   onClick,
   isCompleted,
 }: {
@@ -52,6 +53,21 @@ export const SetupButton = ({
     <Button className="w-full" onClick={onClick}>
       <Calendar1 className="size-4 mr-2" />
       {isCompleted ? "Edit Day Types" : "Set Up Day Types"}
+    </Button>
+  );
+};
+
+export const SetupLearningPeriodButton = ({
+  onClick,
+  isCompleted,
+}: {
+  onClick: () => void;
+  isCompleted: boolean;
+}) => {
+  return (
+    <Button className="w-full" onClick={onClick}>
+      <Calendar1 className="size-4 mr-2" />
+      {isCompleted ? "Edit Learning Periods" : "Set Up Learning Periods"}
     </Button>
   );
 };

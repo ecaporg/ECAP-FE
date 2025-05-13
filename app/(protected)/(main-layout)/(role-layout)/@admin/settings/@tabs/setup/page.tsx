@@ -4,7 +4,7 @@ import { STEPS } from "@/components/pages/setting/steps";
 import { SETUP_STEPS } from "@/constants/setupSteps";
 
 function TabSetup() {
-  const activeStep = 3;
+  const activeStep = 4;
   const Step = STEPS[activeStep];
   return (
     <section className="p-10 h-full flex flex-col">

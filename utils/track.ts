@@ -43,7 +43,7 @@ const getTrackCalendarDaysWithWeekends = (calendar: TrackCalendar) => {
     if (dayOfWeek === 0 || dayOfWeek === 6) {
       const dateString = currentDate.toISOString().split("T")[0];
       acc[dateString] = {
-        date: dateString,
+        day: dateString,
         type: dayTypeMap["Non-School Day"],
       };
     }

@@ -73,4 +73,8 @@ export class BaseApi<T = any, D = any> {
       })
     );
   }
+
+  async get(path: string, options?: FetchAdditionalInit<T, D>) {
+    return ThrowErrorIfError(await this.fetch(`${this.url}/${path}`, options));
+  }
 }

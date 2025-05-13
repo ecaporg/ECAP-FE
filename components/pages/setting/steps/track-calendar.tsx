@@ -37,7 +37,7 @@ const dayButtonVariants = cva("w-full text-natural-black", {
     dayType: {
       [dayTypeMap.Schooldays]: "bg-[#90CBFF]",
       [dayTypeMap["Non-School Day"]]: "bg-[#CFD8DC]",
-      [dayTypeMap.HOL]: "bg-[#FFD591]",
+      [dayTypeMap.HOL]: "bg-[#98ECA2]",
       [dayTypeMap.EMC]: "bg-[#FBA7A7]",
       [dayTypeMap.OTH]: "bg-[#DCBE6C]",
       [dayTypeMap.ACA]: "bg-[#3FD8E9]",
@@ -66,7 +66,7 @@ const DayButton = ({
       className={cn(
         className,
         dayButtonVariants({ dayType: dayType }),
-        "rounded-none"
+        "rounded-none h-8 w-10"
       )}
       {...props}
     />
@@ -104,7 +104,12 @@ export const CalendarForTrack = ({
           },
         }}
         classNames={{
+          months:
+            "flex flex-col sm:flex-row flex-wrap space-y-4 sm:space-y-0 relative",
           week: "flex w-full gap-[1px] mt-[1px]",
+          month: "space-y-4 rounded-md border border-border px-2 py-4",
+          nav: "flex items-center justify-between w-full absolute top-3",
+          day: "w-10 h-8 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         }}
       />
     </section>

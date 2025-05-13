@@ -46,8 +46,9 @@ export const useStep4 = (defaultCalendars: TrackCalendar[]) => {
         : [];
 
     const daysWithType = days.reduce((acc, day) => {
-      acc[day.toISOString().split("T")[0]] = {
-        day: day.toISOString().split("T")[0],
+      const dayString = day.toISOString().split("T")[0];
+      acc[dayString] = {
+        day: dayString,
         type,
       };
       return acc;
