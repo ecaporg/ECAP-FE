@@ -1,9 +1,9 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { defaultUser, type Student, type Teacher } from "@/types";
-import { getUserName } from "@/utils";
-import { ArrowLeftIcon, UserIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+'use client';
+import { Button } from '@/components/ui/button';
+import { defaultUser, type Student, type Teacher } from '@/types';
+import { getUserName } from '@/utils';
+import { ArrowLeftIcon, UserIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export const BackToCompliance = ({ student }: { student?: Student }) => {
   if (!student) {
@@ -19,9 +19,7 @@ export const BackToCompliance = ({ student }: { student?: Student }) => {
         <ArrowLeftIcon className="w-4 h-4" />
         <span className="hidden md:block">Back to Student Table</span>
       </p>
-      <span className="text-xl text-neutral-black truncate">
-        {getUserName(student.user)}
-      </span>
+      <span className="text-xl text-neutral-black truncate">{getUserName(student.user)}</span>
     </div>
   );
 };

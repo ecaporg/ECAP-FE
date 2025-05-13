@@ -1,7 +1,7 @@
-import type React from "react";
-import { LinearProgress, Progress } from "@/components/ui/progress";
-import type { AcademyStatItem } from "@/types";
-import { Card } from "@/components/ui/card";
+import type React from 'react';
+import { LinearProgress, Progress } from '@/components/ui/progress';
+import type { AcademyStatItem } from '@/types';
+import { Card } from '@/components/ui/card';
 
 interface StatisticsListProps {
   items: AcademyStatItem[];
@@ -15,9 +15,7 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
           key={item.academy_id}
           className="grid grid-rows-2 grid-cols-[120px_minmax(150px,2fr)_200px] gap-y-4 w-full"
         >
-          <h3 className="font-bold col-start-1 row-start-1">
-            {item.academy_name}
-          </h3>
+          <h3 className="font-bold col-start-1 row-start-1">{item.academy_name}</h3>
 
           <LinearProgress
             value={Math.round(item.yearToDateCompliance)}

@@ -1,7 +1,7 @@
-import { rolePage } from "@/components/layouts/role-page";
+import { rolePage } from '@/components/layouts/role-page';
 
 function TabUsers() {
   return <div>TabUsers</div>;
 }
 
-export default rolePage(TabUsers, ["SUPER_ADMIN"]);
+export default rolePage(TabUsers, ['SUPER_ADMIN']);

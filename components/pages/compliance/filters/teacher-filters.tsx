@@ -5,12 +5,12 @@ import {
   LearningPeriodFilter,
   SchoolFilter,
   TrackFilter,
-} from "@/components/filters";
-import { SearchStudentFilter } from "@/components/filters/search.filter";
-import { SPECIFIC_PAGE_FILTER_KEYS } from "@/constants/filter";
-import type { Tenant } from "@/types";
-import { getLearningPeriodFromTenant } from "@/utils";
-import { FilterWrapper } from "./filter-wrapper";
+} from '@/components/filters';
+import { SearchStudentFilter } from '@/components/filters/search.filter';
+import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import type { Tenant } from '@/types';
+import { getLearningPeriodFromTenant } from '@/utils';
+import { FilterWrapper } from './filter-wrapper';
 
 interface TeacherFiltersProps {
   tenant: Tenant;
@@ -18,11 +18,7 @@ interface TeacherFiltersProps {
   tracksIds?: string[];
 }
 
-export function TeacherFilters({
-  tenant,
-  academicYearIds,
-  tracksIds,
-}: TeacherFiltersProps) {
+export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds?.includes(track.academic_year_id.toString())
   );
@@ -30,11 +26,7 @@ export function TeacherFilters({
   return (
     <FilterWrapper>
       <LearningPeriodFilter
-        availablePeriods={getLearningPeriodFromTenant(
-          tenant,
-          academicYearIds,
-          tracksIds
-        )}
+        availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds, tracksIds)}
       />
       <SearchStudentFilter />
       <SchoolFilter
@@ -45,10 +37,7 @@ export function TeacherFilters({
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
         availableAcademies={tenant.academies}
       />
-      <TrackFilter
-        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID}
-        availableTracks={tracks}
-      />
+      <TrackFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID} availableTracks={tracks} />
       <GradeFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.GRADE} />
       <CompletionFilter />
     </FilterWrapper>

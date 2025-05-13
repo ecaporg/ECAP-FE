@@ -1,28 +1,26 @@
-import type { CompletionStatusProps } from "@/components/table/completion-status";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import type { Tenant, TrackLearningPeriod } from "@/types";
+import type { CompletionStatusProps } from '@/components/table/completion-status';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import type { Tenant, TrackLearningPeriod } from '@/types';
 
 export const getShortLearningPeriodName = (learningPeriod: string) => {
-  if (learningPeriod.split(" ").length === 1) return learningPeriod;
+  if (learningPeriod.split(' ').length === 1) return learningPeriod;
 
   return learningPeriod
-    .split(" ")
+    .split(' ')
     .map((word) => word.charAt(0).toLocaleUpperCase())
-    .join("");
+    .join('');
 };
 
-export const getLearningPeriodDateRange = (
-  learningPeriod: TrackLearningPeriod
-) => {
+export const getLearningPeriodDateRange = (learningPeriod: TrackLearningPeriod) => {
   return `${formatLearningPeriodDate(
     learningPeriod.start_date
   )} - ${formatLearningPeriodDate(learningPeriod.end_date)}`;
 };
 
 export const formatLearningPeriodDate = (date: Date | string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
   });
 };
 
@@ -33,9 +31,7 @@ export const getLearningPeriodFromTenant = (
 ) => {
   return tenant?.tracks
     .filter((track) =>
-      tracksIds && tracksIds.length
-        ? tracksIds.includes(track.id.toString())
-        : true
+      tracksIds && tracksIds.length ? tracksIds.includes(track.id.toString()) : true
     )
     .flatMap((track) =>
       track.learningPeriods
@@ -47,9 +43,7 @@ export const getLearningPeriodFromTenant = (
         }))
         .filter(() => {
           if (academic_year_ids?.length) {
-            return academic_year_ids.includes(
-              track.academic_year_id.toString()
-            );
+            return academic_year_ids.includes(track.academic_year_id.toString());
           }
           return true;
         })
@@ -63,12 +57,10 @@ export const getFormattedLP = (lp: TrackLearningPeriod) => {
 };
 
 const compareDates = (date1: Date, date2: Date) => {
-  return date1.toISOString().split("T")[0] == date2.toISOString().split("T")[0];
+  return date1.toISOString().split('T')[0] == date2.toISOString().split('T')[0];
 };
 
-export const mergeLearningPeriods = (
-  learningPeriods: TrackLearningPeriod[]
-) => {
+export const mergeLearningPeriods = (learningPeriods: TrackLearningPeriod[]) => {
   const res = learningPeriods
     .map((lp) => ({
       ...lp,
@@ -78,8 +70,7 @@ export const mergeLearningPeriods = (
     .reduce((acc, period) => {
       const existingPeriod = acc.find(
         (p) =>
-          compareDates(p.start_date, period.start_date) &&
-          compareDates(p.end_date, period.end_date)
+          compareDates(p.start_date, period.start_date) && compareDates(p.end_date, period.end_date)
       );
       if (existingPeriod) {
         existingPeriod.name = `${existingPeriod.name}, ${period.name}`;
@@ -100,9 +91,7 @@ export const assignDefaultLearningPeriod = (
   },
   academicYearIds?: string[]
 ) => {
-  const mergedLP = mergeLearningPeriods(
-    getLearningPeriodFromTenant(tenant, academicYearIds)
-  );
+  const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant, academicYearIds));
   if (!param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]) {
     const learningPeriod = mergedLP[0];
     param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID] = learningPeriod.id;
@@ -121,13 +110,13 @@ export const getStatusForTable = (
   completedCount: number,
   totalItems: number,
   dueDate: Date
-): CompletionStatusProps["variant"] => {
+): CompletionStatusProps['variant'] => {
   const now = new Date();
   if (now > dueDate && completedCount < totalItems) {
-    return "Overdue";
+    return 'Overdue';
   }
   if (completedCount == totalItems) {
-    return "Complete";
+    return 'Complete';
   }
-  return "In Progress";
+  return 'In Progress';
 };

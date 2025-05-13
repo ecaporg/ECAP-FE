@@ -5,13 +5,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import type { AssignmentPeriod, Sample, Subject } from "@/types";
-import { getUserName } from "@/utils";
-import { ActionButton } from "../action-button";
-import { SapmleStatus } from "../statuses";
-import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
-import { SortableIcon } from "@/components/table/sortable-header";
+} from '@/components/ui/table';
+import type { AssignmentPeriod, Sample, Subject } from '@/types';
+import { getUserName } from '@/utils';
+import { ActionButton } from '../action-button';
+import { SapmleStatus } from '../statuses';
+import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
+import { SortableIcon } from '@/components/table/sortable-header';
 
 interface SamplesTableProps {
   rows: {
@@ -23,9 +23,9 @@ interface SamplesTableProps {
 
 const AvatarColumn = ({ sample }: { sample: Sample }) => {
   return (
-    <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ""}>
+    <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ''}>
       <AvatarFallback>
-        {sample?.done_by ? getInitials(getUserName(sample.done_by)) : "--"}
+        {sample?.done_by ? getInitials(getUserName(sample.done_by)) : '--'}
       </AvatarFallback>
     </Avatar>
   );

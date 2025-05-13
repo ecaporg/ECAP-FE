@@ -1,30 +1,30 @@
-import { Sample } from "@/types";
-import { getUserName, getFormattedLP } from "@/utils";
+import { Sample } from '@/types';
+import { getUserName, getFormattedLP } from '@/utils';
 
 export function SampleInfoForModal({ sample }: { sample: Sample }) {
   const metadata = [
     [
       {
-        label: "Student Name: ",
+        label: 'Student Name: ',
         value: getUserName(sample.assignment_period.student.user),
       },
       {
-        label: "Student ID",
+        label: 'Student ID',
         value: sample.assignment_period.student.id,
       },
       {
-        label: "Grade",
+        label: 'Grade',
         value: sample.assignment_period.student.grade,
       },
     ],
     [
       {
-        label: "Subject:",
+        label: 'Subject:',
         value: sample.subject.name,
       },
-      { label: "Assignment:", value: "empty" },
+      { label: 'Assignment:', value: 'empty' },
       {
-        label: "LP:",
+        label: 'LP:',
         value: getFormattedLP(sample.assignment_period.learning_period),
       },
     ],
@@ -32,10 +32,7 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
   return (
     <>
       {metadata.map((row, idx) => (
-        <div
-          key={`metadata-row-${idx}`}
-          className="space-y-1 text-neutral-black text-base flex-1"
-        >
+        <div key={`metadata-row-${idx}`} className="space-y-1 text-neutral-black text-base flex-1">
           {row.map((item) => (
             <div key={item.label} className="grid grid-cols-2 gap-4">
               <label className="text-primary text-start" htmlFor={item.label}>
@@ -66,8 +63,7 @@ export const ReasonForMissingSample = ({
 }) => {
   return isDirector ? (
     <>
-      <b className="text-primary">Reason for Missing Sample:</b>{" "}
-      {sample.flag_missing_work?.reason}
+      <b className="text-primary">Reason for Missing Sample:</b> {sample.flag_missing_work?.reason}
     </>
   ) : (
     <>

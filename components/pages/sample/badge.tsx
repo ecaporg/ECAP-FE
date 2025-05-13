@@ -1,8 +1,8 @@
-import { Sample, SampleFlagCategory, SampleStatus } from "@/types/student";
-import { CompletionStatus } from "@/components/table/completion-status";
-import { getUser } from "@/lib/get-user";
-import { getUserName } from "@/utils";
-import { defaultUser } from "@/types";
+import { Sample, SampleFlagCategory, SampleStatus } from '@/types/student';
+import { CompletionStatus } from '@/components/table/completion-status';
+import { getUser } from '@/lib/get-user';
+import { getUserName } from '@/utils';
+import { defaultUser } from '@/types';
 
 export async function SampleBagde({ sample }: { sample: Sample }) {
   const user = await getUser();
@@ -14,14 +14,12 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
       <div className="pb-6 flex items-center gap-4">
         <CompletionStatus variant="Complete" className="h-14 w-60">
           {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
-            ? "Error Corrected"
-            : sample.flag_completed?.message || "Completed"}
+            ? 'Error Corrected'
+            : sample.flag_completed?.message || 'Completed'}
         </CompletionStatus>
         {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE && (
           <p>
-            {isMyMessage
-              ? "Your "
-              : `${getUserName(sample.flag_completed?.user || defaultUser)} `}
+            {isMyMessage ? 'Your ' : `${getUserName(sample.flag_completed?.user || defaultUser)} `}
             {sample.flag_completed?.message}
           </p>
         )}
@@ -30,8 +28,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
   }
 
   const isMyComment =
-    (sample.flag_errors?.user_id || sample.flag_missing_work?.user_id) ==
-    user?.id;
+    (sample.flag_errors?.user_id || sample.flag_missing_work?.user_id) == user?.id;
 
   if (
     sample.status === SampleStatus.ERRORS_FOUND ||
@@ -44,11 +41,9 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
         </CompletionStatus>
         <b>
           {isMyComment
-            ? "Your comment: "
+            ? 'Your comment: '
             : `${getUserName(
-                sample.flag_errors?.user ||
-                  sample.flag_missing_work?.user ||
-                  defaultUser
+                sample.flag_errors?.user || sample.flag_missing_work?.user || defaultUser
               )}'s comment: `}
         </b>
         <p>{sample.flag_errors?.comment || sample.flag_missing_work?.reason}</p>

@@ -5,12 +5,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import type { Sample } from "@/types";
-import { getUserName, sampleCategoryToText } from "@/utils";
-import { ActionButton } from "../action-button";
-import { DirectorSampleStatus } from "../statuses";
-import { SortableIcon } from "@/components/table/sortable-header";
+} from '@/components/ui/table';
+import type { Sample } from '@/types';
+import { getUserName, sampleCategoryToText } from '@/utils';
+import { ActionButton } from '../action-button';
+import { DirectorSampleStatus } from '../statuses';
+import { SortableIcon } from '@/components/table/sortable-header';
 
 interface SamplesTableProps {
   samples: Sample[];
@@ -48,9 +48,7 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
           <TableRow key={`${sample.id}`}>
             <TableCell>{sample.assignment_title}</TableCell>
             <TableCell>{sample.subject.name}</TableCell>
-            <TableCell>
-              {getUserName(sample.assignment_period.student.user)}
-            </TableCell>
+            <TableCell>{getUserName(sample.assignment_period.student.user)}</TableCell>
             <TableCell>{sample.assignment_period.student_id}</TableCell>
             <TableCell>{sample.assignment_period.student.grade}</TableCell>
             <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>

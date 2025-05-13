@@ -1,10 +1,6 @@
-import {
-  type AcademicYear,
-  type AssignmentPeriod,
-  type Tenant,
-} from "./school";
-import type { GenericEntity } from "./shared";
-import type { Sample, Student } from "./student";
+import { type AcademicYear, type AssignmentPeriod, type Tenant } from './school';
+import type { GenericEntity } from './shared';
+import type { Sample, Student } from './student';
 
 export type Subject = GenericEntity & {
   track_id: number;

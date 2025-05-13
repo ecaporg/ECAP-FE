@@ -1,9 +1,9 @@
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { BaseFilter } from "./base";
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { BaseFilter } from './base';
 
 const COMPLETION_OPTIONS = [
-  { label: "Complete", value: "true" },
-  { label: "Incomplete", value: "false" },
+  { label: 'Complete', value: 'true' },
+  { label: 'Incomplete', value: 'false' },
 ];
 
 export function CompletionFilter({
@@ -11,12 +11,5 @@ export function CompletionFilter({
 }: {
   slug?: string;
 }) {
-  return (
-    <BaseFilter
-      label="Completion"
-      slug={slug}
-      options={COMPLETION_OPTIONS}
-      multiple
-    />
-  );
+  return <BaseFilter label="Completion" slug={slug} options={COMPLETION_OPTIONS} multiple />;
 }

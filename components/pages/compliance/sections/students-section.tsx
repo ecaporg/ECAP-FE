@@ -1,15 +1,11 @@
-import { LoadingTableSection } from "@/components/table/loading";
-import { PaginationSection } from "@/components/table/pagination-section";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { getComplianceStudents } from "@/lib/api/compliance";
-import type { Tenant, TrackLearningPeriod } from "@/types";
-import {
-  assignDefaultLearningPeriod,
-  getDueDate,
-  getStatusForTable,
-} from "@/utils";
-import { Suspense } from "react";
-import { StudentsTable } from "../tables";
+import { LoadingTableSection } from '@/components/table/loading';
+import { PaginationSection } from '@/components/table/pagination-section';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { getComplianceStudents } from '@/lib/api/compliance';
+import type { Tenant, TrackLearningPeriod } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
+import { Suspense } from 'react';
+import { StudentsTable } from '../tables';
 
 export interface SectionWithTableProps {
   param: {
@@ -33,9 +29,7 @@ export const StudentsSection = (props: SectionWithTableProps) => {
 
 const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param);
-  const assignment = await getComplianceStudents(
-    new URLSearchParams(param as any).toString()
-  );
+  const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
     (learningPeriod) => learningPeriod.id == param.learning_period_id
@@ -51,7 +45,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completedCount} / ${totalItems} Students Completed`}
         status={status}

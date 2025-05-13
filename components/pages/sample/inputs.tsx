@@ -1,15 +1,12 @@
-"use client";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Sample, SampleStatus } from "@/types/student";
-import { z } from "zod";
+'use client';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Sample, SampleStatus } from '@/types/student';
+import { z } from 'zod';
 
-import { getUserName, isAnyAdmin } from "@/utils";
-import {
-  sampleHeaderSchema,
-  useSampleHeader,
-} from "@/hooks/samples/use-sample-header";
-import { useAuth } from "@/providers/auth";
+import { getUserName, isAnyAdmin } from '@/utils';
+import { sampleHeaderSchema, useSampleHeader } from '@/hooks/samples/use-sample-header';
+import { useAuth } from '@/providers/auth';
 
 type SampleMetaProps = {
   isReadOnly?: boolean;
@@ -20,29 +17,29 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   const { user } = useAuth();
   const inputs = [
     {
-      label: "Student Name",
+      label: 'Student Name',
       defaultValue: getUserName(sample.assignment_period.student.user),
-      name: "student_name",
+      name: 'student_name',
     },
     {
-      label: "Course Title",
+      label: 'Course Title',
       defaultValue: sample.subject.name,
-      name: "course_title",
+      name: 'course_title',
     },
     {
-      label: "Assignment Title",
+      label: 'Assignment Title',
       defaultValue: sample.assignment_title,
-      name: "assignment_title",
+      name: 'assignment_title',
     },
     {
-      label: "Grade",
+      label: 'Grade',
       defaultValue: sample.grade,
-      name: "grade",
+      name: 'grade',
     },
     {
-      label: "Date",
+      label: 'Date',
       defaultValue: new Date(sample?.createdAt).toLocaleDateString(),
-      name: "date",
+      name: 'date',
     },
   ].map((input) => ({
     ...input,
@@ -66,24 +63,17 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     >
       {inputs.map((input) => (
         <>
-          <Label
-            className="px-4 h-11 content-center md:text-right"
-            key={`${input.name}-label`}
-          >
+          <Label className="px-4 h-11 content-center md:text-right" key={`${input.name}-label`}>
             {input.label}:
           </Label>
           <Input
             key={`${input.name}-input`}
-            className={input.isReadOnly ? "border-none !ring-transparent" : ""}
+            className={input.isReadOnly ? 'border-none !ring-transparent' : ''}
             readOnly={input.isReadOnly}
             defaultValue={input?.defaultValue}
-            {...form.register(
-              input.name as keyof z.infer<typeof sampleHeaderSchema>
-            )}
+            {...form.register(input.name as keyof z.infer<typeof sampleHeaderSchema>)}
             aria-invalid={
-              !!form.formState.errors[
-                input.name as keyof z.infer<typeof sampleHeaderSchema>
-              ]
+              !!form.formState.errors[input.name as keyof z.infer<typeof sampleHeaderSchema>]
             }
             onBlur={(e) => {
               onBlur(e, input.label);

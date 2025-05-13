@@ -1,43 +1,42 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/constants/routes";
-import { SampleFlagCategory, SampleStatus, User, type Sample } from "@/types";
-import { useRouter } from "next/navigation";
-import { Fragment } from "react";
+'use client';
+import { Button } from '@/components/ui/button';
+import { routes } from '@/constants/routes';
+import { SampleFlagCategory, SampleStatus, User, type Sample } from '@/types';
+import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
 import {
   FlagCompleteSampleInfoModal,
   FlagMissingWorkSampleInfoModal,
   FlagMissingWorkSampleModal,
   FlagRejectSampleInfoModal,
-} from "./modals";
-import { useAuth } from "@/providers/auth";
-import { hasPermission } from "@/lib/permissions";
-import { isAdminOrDirector, isAnyAdmin } from "@/utils";
+} from './modals';
+import { useAuth } from '@/providers/auth';
+import { hasPermission } from '@/lib/permissions';
+import { isAdminOrDirector, isAnyAdmin } from '@/utils';
 
 interface ActionButtonProps {
   sample: Sample;
 }
 
 const getText = (sample: Sample, user: User) => {
-  const text = (isAllowed: boolean, action: string) =>
-    isAllowed ? action : "Review";
+  const text = (isAllowed: boolean, action: string) => (isAllowed ? action : 'Review');
 
   switch (sample.status) {
     case SampleStatus.PENDING:
-      return text(hasPermission(user, "samples", "approve"), "Approve");
+      return text(hasPermission(user, 'samples', 'approve'), 'Approve');
     case SampleStatus.ERRORS_FOUND:
-      return text(hasPermission(user, "samples", "correct"), "Correct");
+      return text(hasPermission(user, 'samples', 'correct'), 'Correct');
     case SampleStatus.MISSING_SAMPLE:
-      return text(hasPermission(user, "samples", "flag"), "Flag");
+      return text(hasPermission(user, 'samples', 'flag'), 'Flag');
     case SampleStatus.FLAGGED_TO_ADMIN:
       if (isAnyAdmin(user)) {
-        return "Approve";
+        return 'Approve';
       }
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
-      return text(hasPermission(user, "samples", "review"), "Review");
+      return text(hasPermission(user, 'samples', 'review'), 'Review');
     default:
-      return text(false, "Review");
+      return text(false, 'Review');
   }
 };
 
@@ -66,10 +65,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
     return (props: any) => <Fragment children={props.children} />;
   }
 
-  if (
-    sample.status === SampleStatus.FLAGGED_TO_ADMIN &&
-    sample.flag_missing_work
-  ) {
+  if (sample.status === SampleStatus.FLAGGED_TO_ADMIN && sample.flag_missing_work) {
     return FlagMissingWorkSampleInfoModal;
   }
 
@@ -89,9 +85,7 @@ const getWrapper = (sample: Sample | undefined, user: User) => {
 };
 
 const getIsDisabled = (sample: Sample, user: User) => {
-  return (
-    sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user)
-  );
+  return sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user);
 };
 
 const useActionButton = (sample: Sample) => {
@@ -100,15 +94,12 @@ const useActionButton = (sample: Sample) => {
 
   if (!sample)
     return {
-      text: "",
+      text: '',
       onClick: () => {},
       Wrapper: getWrapper(sample, user),
       isDisabled: true,
     };
-  const redirectUrl = routes.compliance.viewSample.replace(
-    ":id",
-    sample.id.toString()
-  );
+  const redirectUrl = routes.compliance.viewSample.replace(':id', sample.id.toString());
 
   return {
     text: getText(sample, user),

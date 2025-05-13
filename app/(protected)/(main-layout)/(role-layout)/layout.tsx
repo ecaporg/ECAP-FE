@@ -1,6 +1,5 @@
-import ForbiddenPage from "@/app/403";
-import { getUser } from "@/lib/get-user";
-
+import ForbiddenPage from '@/app/403';
+import { getUser } from '@/lib/get-user';
 
 export default async function RoleLayout({
   teacher,
@@ -13,15 +12,15 @@ export default async function RoleLayout({
 }) {
   const user = await getUser();
 
-  if (user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") {
+  if (user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') {
     return <>{admin}</>;
   }
 
-  if (user?.role === "TEACHER") {
+  if (user?.role === 'TEACHER') {
     return <>{teacher}</>;
   }
 
-  if (user?.role === "DIRECTOR") {
+  if (user?.role === 'DIRECTOR') {
     return <>{director}</>;
   }
 

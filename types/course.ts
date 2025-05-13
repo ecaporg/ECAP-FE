@@ -1,6 +1,6 @@
-import type { AcademicYear, AssignmentPeriod, School } from "./school";
-import type { GenericEntity } from "./shared";
-import type { Teacher } from "./staff";
+import type { AcademicYear, AssignmentPeriod, School } from './school';
+import type { GenericEntity } from './shared';
+import type { Teacher } from './staff';
 
 export type Course = GenericEntity & {
   school_id: number;

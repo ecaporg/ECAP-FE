@@ -1,3 +1,3 @@
-import SettingsPage from "./page";
+import SettingsPage from './page';
 
 export default SettingsPage;

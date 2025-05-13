@@ -1,13 +1,13 @@
-"use client";
-import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
-import { Sample } from "@/types";
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
-import { useAuth } from "@/providers/auth";
-import { SampleInfoForModal, ReasonForMissingSample } from "./shared";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
-import { isAdminOrDirector } from "@/utils";
+'use client';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { Sample } from '@/types';
+import { Button } from '@/components/ui/button';
+import { DialogClose } from '@/components/ui/dialog';
+import { useAuth } from '@/providers/auth';
+import { SampleInfoForModal, ReasonForMissingSample } from './shared';
+import { Badge } from '@/components/ui/badge';
+import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
+import { isAdminOrDirector } from '@/utils';
 
 export function FlagCompleteSampleInfoModal({
   children,
@@ -19,8 +19,7 @@ export function FlagCompleteSampleInfoModal({
     <>
       <Badge variant="success" className="mb-4">
         <CheckCircleIcon className="size-4" />
-        Approved:{" "}
-        {new Date(sample.updatedAt || "").toLocaleDateString()}
+        Approved: {new Date(sample.updatedAt || '').toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
     </>
@@ -28,11 +27,11 @@ export function FlagCompleteSampleInfoModal({
 
   const description = isDirector ? (
     <>
-      <b>Date Flagged:</b>{" "}
-      {new Date(sample.flag_missing_work?.createdAt || "").toLocaleDateString()}
+      <b>Date Flagged:</b>{' '}
+      {new Date(sample.flag_missing_work?.createdAt || '').toLocaleDateString()}
     </>
   ) : (
-    ""
+    ''
   );
 
   return (

@@ -1,22 +1,15 @@
-import {
-  LoadingFilters,
-  LoadingTableSection,
-} from "@/components/table/loading";
-import { PaginationSection } from "@/components/table/pagination-section";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { routes } from "@/constants/routes";
-import { getComplianceStudentSamples } from "@/lib/api/compliance";
-import type { Sample, Tenant } from "@/types";
-import {
-  assignDefaultLearningPeriod,
-  getDueDate,
-  getStatusForTable,
-} from "@/utils";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import { SamplesTable } from "../tables";
-import { SamplesFilters } from "../filters";
-import { getDefaultAcademicYearIds } from "@/utils/academic-year";
+import { LoadingFilters, LoadingTableSection } from '@/components/table/loading';
+import { PaginationSection } from '@/components/table/pagination-section';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
+import { getComplianceStudentSamples } from '@/lib/api/compliance';
+import type { Sample, Tenant } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { SamplesTable } from '../tables';
+import { SamplesFilters } from '../filters';
+import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 
 export interface SamplesSectionProps {
   param: {
@@ -66,21 +59,22 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap(
-    (assignment) => assignment.samples
-  );
+  const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
 
   const rows = Object.entries(
     (assignmentPeriods.data || [])
       ?.flatMap(({ samples }) => samples)
-      .reduce((acc, sample) => {
-        if (acc[sample.subject_id]) {
-          acc[sample.subject_id].push(sample);
-        } else {
-          acc[sample.subject_id] = [sample];
-        }
-        return acc;
-      }, {} as Record<number, Sample[]>)
+      .reduce(
+        (acc, sample) => {
+          if (acc[sample.subject_id]) {
+            acc[sample.subject_id].push(sample);
+          } else {
+            acc[sample.subject_id] = [sample];
+          }
+          return acc;
+        },
+        {} as Record<number, Sample[]>
+      )
   ).map(([_, samples = []]) => ({
     sample_1: samples[0],
     sample_2: samples[1],
@@ -100,15 +94,13 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       <SamplesFilters
         tenant={tenant}
         samples={samples || []}
-        student={
-          assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student
-        }
+        student={assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student}
         defaultName={param.name}
         academicYearIds={academicYearIds}
       />
       <PaginationSection
         totalPages={0}
-        learningPeriod={learningPeriod?.name ?? ""}
+        learningPeriod={learningPeriod?.name ?? ''}
         dueDate={dueDate.toLocaleDateString()}
         completedString={`${completeCount} / ${totalItems} Subjects Completed`}
         status={status}

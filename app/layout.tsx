@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import type React from "react";
-import "@/styles/globals.css";
-import { ThemeProvider } from "@/providers/theme";
-import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import type React from 'react';
+import '@/styles/globals.css';
+import { ThemeProvider } from '@/providers/theme';
+import { Toaster } from '@/components/ui/sonner';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: "ECAP",
-    template: "%s | ECAP",
+    default: 'ECAP',
+    template: '%s | ECAP',
   },
 };
 

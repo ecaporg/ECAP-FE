@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { StatsItem, Track } from "@/types";
+import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { StatsItem, Track } from '@/types';
 import {
   formatLearningPeriodDate,
   getDueDate,
@@ -10,9 +10,9 @@ import {
   getStatusColorForDashboard,
   getStatusForDashboard,
   mergeLearningPeriods,
-} from "@/utils";
-import { ArrowDown } from "lucide-react";
-import type React from "react";
+} from '@/utils';
+import { ArrowDown } from 'lucide-react';
+import type React from 'react';
 
 interface TrackRowProps {
   track: React.ReactNode;
@@ -65,7 +65,7 @@ export const TrackRowSkeleton = () => {
       track={<Skeleton className="w-32" />}
       dateRange={<Skeleton className="w-40" />}
       status={<Skeleton className="w-20" />}
-      statusColor={"statusColor"}
+      statusColor={'statusColor'}
     />
   );
 };

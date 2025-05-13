@@ -1,10 +1,8 @@
-import { Teacher } from "@/types";
-import { apiFetch } from "../fetch";
+import { Teacher } from '@/types';
+import { apiFetch } from '../fetch';
 
 export const searchTeacher = async (value: string) => {
-  const response = await apiFetch<Teacher[]>(
-    `/teachers-table/teachers/${value}`
-  );
+  const response = await apiFetch<Teacher[]>(`/teachers-table/teachers/${value}`);
   return response.data || [];
 };
 

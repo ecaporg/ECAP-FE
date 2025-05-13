@@ -1,18 +1,18 @@
-import { getComplianceAdminFilter } from "@/lib/api/compliance";
+import { getComplianceAdminFilter } from '@/lib/api/compliance';
 
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { getDefaultAcademicYearIds } from "@/utils/academic-year";
-import { AdminTeacherFilters } from "@/components/pages/compliance/filters";
-import type { TeachersSectionProps } from "@/components/pages/compliance/sections/teachers-section";
-import { rolePage } from "@/components/layouts/role-page";
-import { redirect } from "next/navigation";
-import { Metadata } from "next";
-import { ComplianceTabs } from "@/components/pages/compliance/tabs";
-import { BackToTeacherTable } from "@/components/pages/compliance/back-to";
-import { getTeacher } from "@/lib/api/teacher";
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import { AdminTeacherFilters } from '@/components/pages/compliance/filters';
+import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
+import { rolePage } from '@/components/layouts/role-page';
+import { redirect } from 'next/navigation';
+import { Metadata } from 'next';
+import { ComplianceTabs } from '@/components/pages/compliance/tabs';
+import { BackToTeacherTable } from '@/components/pages/compliance/back-to';
+import { getTeacher } from '@/lib/api/teacher';
 
 export const metadata: Metadata = {
-  title: "Teacher Compliance",
+  title: 'Teacher Compliance',
 };
 
 async function addSearchParamsTeacherId({
@@ -26,7 +26,7 @@ async function addSearchParamsTeacherId({
   const awaitSearchParams = await searchParams;
 
   if (!awaitSearchParams[DEFAULT_FILTERS_KEYS.TEACHER_ID]) {
-    console.log("Adding teacher_id to URL");
+    console.log('Adding teacher_id to URL');
     const newSearchParams = new URLSearchParams(awaitSearchParams as any);
 
     newSearchParams.set(DEFAULT_FILTERS_KEYS.TEACHER_ID, awaitParams.id);
@@ -40,7 +40,7 @@ export async function CompliancePageTeacher({
   searchParams,
   params,
 }: {
-  searchParams: Promise<TeachersSectionProps["param"]>;
+  searchParams: Promise<TeachersSectionProps['param']>;
   params: Promise<{ id: string }>;
 }) {
   await addSearchParamsTeacherId({ params, searchParams });
@@ -62,4 +62,4 @@ export async function CompliancePageTeacher({
   );
 }
 
-export default rolePage(CompliancePageTeacher, ["ADMIN", "SUPER_ADMIN"]);
+export default rolePage(CompliancePageTeacher, ['ADMIN', 'SUPER_ADMIN']);

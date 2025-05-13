@@ -1,15 +1,11 @@
-import { DashboardStats, TrackLearningPeriod, User } from "@/types";
-import { LearningPeriodCard } from "./learning-period-card";
-import { ProgressCard } from "./progress-card";
-import { TrackArrow, TrackRow } from "./track-row";
-import { WelcomeBack } from "./welcome-back";
+import { DashboardStats, TrackLearningPeriod, User } from '@/types';
+import { LearningPeriodCard } from './learning-period-card';
+import { ProgressCard } from './progress-card';
+import { TrackArrow, TrackRow } from './track-row';
+import { WelcomeBack } from './welcome-back';
 
 export const SectionWrapper = ({ children }: React.PropsWithChildren) => {
-  return (
-    <section className="flex gap-10 flex-wrap justify-center">
-      {children}
-    </section>
-  );
+  return <section className="flex gap-10 flex-wrap justify-center">{children}</section>;
 };
 
 const hasLPs = ({
@@ -73,10 +69,7 @@ export const LPCardsSection = ({
         />
       )}
       {hasLPs(stats.upcomingLP) && (
-        <LearningPeriodCard
-          title="Upcoming Learning Period"
-          stats={stats.upcomingLP}
-        />
+        <LearningPeriodCard title="Upcoming Learning Period" stats={stats.upcomingLP} />
       )}
     </SectionWrapper>
   );

@@ -1,20 +1,21 @@
-"use client";
-import { signOutAction } from "@/app/auth/actions";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/constants/routes";
-import { cn } from "@/utils";
-import { Loader2, LogOut, User } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type React from "react";
-import { useState } from "react";
+'use client';
+import { signOutAction } from '@/app/auth/actions';
+import { Button } from '@/components/ui/button';
+import { routes } from '@/constants/routes';
+import { cn } from '@/utils';
+import { Loader2, LogOut, Settings, User } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type React from 'react';
+import { useState } from 'react';
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu";
+} from '../ui/navigation-menu';
+import { useAuth } from '@/providers/auth';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -35,8 +36,8 @@ const NavLink = ({
     <Link
       href={href}
       className={cn(
-        "h-full w-52 md:hover:border-b-2 content-center py-5",
-        isActive && "md:border-b-2",
+        'h-full w-52 md:hover:border-b-2 content-center py-5',
+        isActive && 'md:border-b-2',
         className
       )}
     >
@@ -47,6 +48,8 @@ const NavLink = ({
 
 const NavMenu = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { user } = useAuth();
+
   return (
     <>
       <nav className="contents md:flex justify-center items-center flex-1 ">
@@ -55,11 +58,12 @@ const NavMenu = () => {
       </nav>
 
       <nav className="contents md:flex justify-end items-center flex-1 gap-10">
-        <NavLink
-          href={routes.profile.root}
-          className="flex items-center justify-center gap-2"
-        >
-          <User className="h-4 w-4" />
+        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+          <Settings />
+          <span>Setting</span>
+        </NavLink>
+        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+          <User />
           <span>My Profile</span>
         </NavLink>
         <Button
@@ -86,10 +90,7 @@ const NavMenu = () => {
 const MobileNavMenu = () => {
   return (
     <div className="md:hidden flex items-center justify-between">
-      <Link
-        href={routes.dashboard.root}
-        className="font-extrabold text-xl content-center"
-      >
+      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
         ECAP
       </Link>
 
@@ -110,10 +111,7 @@ const MobileNavMenu = () => {
 const DesktopNav = () => {
   return (
     <div className="md:flex justify-between items-center hidden">
-      <Link
-        href={routes.dashboard.root}
-        className="font-extrabold text-xl content-center"
-      >
+      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
         ECAP
       </Link>
 

@@ -1,3 +1,3 @@
-import TabSetup from "./setup/page";
+import TabSetup from './setup/page';
 
 export default TabSetup;

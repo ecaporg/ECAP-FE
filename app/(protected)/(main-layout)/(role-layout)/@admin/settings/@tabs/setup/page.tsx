@@ -1,9 +1,9 @@
-import { rolePage } from "@/components/layouts/role-page";
-import { Stepper } from "@/components/pages/setting/stepper";
-import { STEPS } from "@/components/pages/setting/steps";
-import { SETUP_STEPS } from "@/constants/setupSteps";
+import { rolePage } from '@/components/layouts/role-page';
+import { Stepper } from '@/components/pages/setting/stepper';
+import { STEPS } from '@/components/pages/setting/steps';
+import { SETUP_STEPS } from '@/constants/setupSteps';
 
-function getStep(step: string = "0") {
+function getStep(step: string = '0') {
   const stepNumber = parseInt(step);
   return Math.max(0, Math.min(stepNumber, SETUP_STEPS.length - 1));
 }
@@ -27,4 +27,4 @@ async function TabSetup({
   );
 }
 
-export default rolePage(TabSetup, ["SUPER_ADMIN"]);
+export default rolePage(TabSetup, ['SUPER_ADMIN']);

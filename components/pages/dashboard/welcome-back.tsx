@@ -1,5 +1,5 @@
-import { AcademicYear, StaffUser, User } from "@/types";
-import { getUserName } from "@/utils";
+import { AcademicYear, StaffUser, User } from '@/types';
+import { getUserName } from '@/utils';
 
 interface WelcomeBackProps {
   user: StaffUser;
@@ -11,9 +11,9 @@ export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
     <section className="text-2xl font-bold flex w-full py-4 px-6">
       <p>
         Welcome back, {getUserName(user)}
-        {user.role == "DIRECTOR" && (
+        {user.role == 'DIRECTOR' && (
           <span className="block text-xl font-semibold">
-            {user.director?.academy?.name} {" Academy"}
+            {user.director?.academy?.name} {' Academy'}
           </span>
         )}
       </p>

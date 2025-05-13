@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Tabs, TabsTrigger, TabsList } from "@/components/ui/tabs";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Tabs, TabsTrigger, TabsList } from '@/components/ui/tabs';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 const TABS = {
-  setup: "setup",
-  users: "users",
+  setup: 'setup',
+  users: 'users',
 };
 
 export function SettingsTabs() {
@@ -16,16 +16,16 @@ export function SettingsTabs() {
   const tab = pathname.includes(TABS.setup)
     ? TABS.setup
     : pathname.includes(TABS.users)
-    ? TABS.users
-    : undefined;
+      ? TABS.users
+      : undefined;
 
   const newSearchParams = new URLSearchParams(searchParams);
   const setup = `${
-    (tab ? pathname.split(tab)[0] : pathname + "/") + TABS.setup
+    (tab ? pathname.split(tab)[0] : pathname + '/') + TABS.setup
   }?${newSearchParams.toString()}`;
 
   const users = `${
-    (tab ? pathname.split(tab)[0] : pathname + "/") + TABS.users
+    (tab ? pathname.split(tab)[0] : pathname + '/') + TABS.users
   }?${newSearchParams.toString()}`;
 
   return (

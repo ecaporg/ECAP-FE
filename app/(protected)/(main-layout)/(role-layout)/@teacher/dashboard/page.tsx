@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import {
   CurrentLPSection,
   LPCardsSection,
   PageWrapper,
-} from "@/components/pages/dashboard/sections";
-import { getUser } from "@/lib/get-user";
-import { getDashboardStats } from "@/lib/api/statistic";
-import { rolePage } from "@/components/layouts/role-page";
-import { Metadata } from "next";
+} from '@/components/pages/dashboard/sections';
+import { getUser } from '@/lib/get-user';
+import { getDashboardStats } from '@/lib/api/statistic';
+import { rolePage } from '@/components/layouts/role-page';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Teacher Dashboard",
+  title: 'Teacher Dashboard',
 };
 
 async function Dashboard() {
@@ -25,4 +25,4 @@ async function Dashboard() {
   );
 }
 
-export default rolePage(Dashboard, ["TEACHER"]);
+export default rolePage(Dashboard, ['TEACHER']);

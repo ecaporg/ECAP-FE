@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Tabs, TabsTrigger, TabsList } from "@/components/ui/tabs";
-import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Tabs, TabsTrigger, TabsList } from '@/components/ui/tabs';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 const TABS = {
-  samples: "flagged-samples",
-  students: "students",
+  samples: 'flagged-samples',
+  students: 'students',
 };
 
 export function ComplianceTabs() {
@@ -16,16 +16,16 @@ export function ComplianceTabs() {
   const tab = pathname.includes(TABS.samples)
     ? TABS.samples
     : pathname.includes(TABS.students)
-    ? TABS.students
-    : undefined;
+      ? TABS.students
+      : undefined;
 
   const newSearchParams = new URLSearchParams(searchParams);
   const studentRoute = `${
-    (tab ? pathname.split(tab)[0] : pathname + "/") + TABS.students
+    (tab ? pathname.split(tab)[0] : pathname + '/') + TABS.students
   }?${newSearchParams.toString()}`;
 
   const sampleRoute = `${
-    (tab ? pathname.split(tab)[0] : pathname + "/") + TABS.samples
+    (tab ? pathname.split(tab)[0] : pathname + '/') + TABS.samples
   }?${newSearchParams.toString()}`;
 
   return (

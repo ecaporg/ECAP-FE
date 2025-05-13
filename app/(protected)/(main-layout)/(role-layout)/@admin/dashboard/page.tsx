@@ -1,18 +1,18 @@
-import React from "react";
-import { ProgressCard } from "@/components/pages/dashboard/progress-card";
+import React from 'react';
+import { ProgressCard } from '@/components/pages/dashboard/progress-card';
 import {
   CurrentLPSection,
   LPCardsSection,
   PageWrapper,
-} from "@/components/pages/dashboard/sections";
-import { getUser } from "@/lib/get-user";
-import { getDashboardStats } from "@/lib/api/statistic";
-import { rolePage } from "@/components/layouts/role-page";
-import { StatisticsList } from "@/components/pages/dashboard/statistics-list";
-import { Metadata } from "next";
+} from '@/components/pages/dashboard/sections';
+import { getUser } from '@/lib/get-user';
+import { getDashboardStats } from '@/lib/api/statistic';
+import { rolePage } from '@/components/layouts/role-page';
+import { StatisticsList } from '@/components/pages/dashboard/statistics-list';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
+  title: 'Admin Dashboard',
 };
 
 async function Dashboard() {
@@ -35,4 +35,4 @@ async function Dashboard() {
   );
 }
 
-export default rolePage(Dashboard, ["ADMIN", "SUPER_ADMIN"]);
+export default rolePage(Dashboard, ['ADMIN', 'SUPER_ADMIN']);

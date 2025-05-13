@@ -1,46 +1,25 @@
-"use client";
+'use client';
 
-import {
-  Academy,
-  School,
-  Track,
-  TrackCalendar,
-  TrackLearningPeriod,
-} from "@/types";
-import { Actions, InputWithButton, NextButton, NextButtonProps } from "./form";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "./table";
-import { StepSchool, useStep1 } from "@/hooks/settings/steps/use-step1";
-import { Dispatch, SetStateAction, useState } from "react";
-import { StepAcademy, useStep2 } from "@/hooks/settings/steps/use-step2";
-import { StepTrack, useStep3 } from "@/hooks/settings/steps/use-step3";
-import { cn, formatTrackDateWithShortMonth } from "@/utils";
-import { useWatch } from "react-hook-form";
-import {
-  SetupCalendarButton,
-  SetupLearningPeriodButton,
-  TrackCard,
-} from "./track-card";
-import { Button } from "@/components/ui/button";
-import { ArrowLeftIcon } from "lucide-react";
-import {
-  TrackCalendarWrapper,
-  CalendarForTrack,
-  CalendarButtons,
-} from "./track-calendar";
-import { useStep4 } from "@/hooks/settings/steps/use-step4";
-import { ConfirmationModal } from "@/components/modals";
+import { Academy, School, Track, TrackCalendar, TrackLearningPeriod } from '@/types';
+import { Actions, InputWithButton, NextButton, NextButtonProps } from './form';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from './table';
+import { StepSchool, useStep1 } from '@/hooks/settings/steps/use-step1';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { StepAcademy, useStep2 } from '@/hooks/settings/steps/use-step2';
+import { StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
+import { cn, formatTrackDateWithShortMonth } from '@/utils';
+import { useWatch } from 'react-hook-form';
+import { SetupCalendarButton, SetupLearningPeriodButton, TrackCard } from './track-card';
+import { Button } from '@/components/ui/button';
+import { ArrowLeftIcon } from 'lucide-react';
+import { TrackCalendarWrapper, CalendarForTrack, CalendarButtons } from './track-calendar';
+import { useStep4 } from '@/hooks/settings/steps/use-step4';
+import { ConfirmationModal } from '@/components/modals';
 import {
   StepTrackLP,
   useStep5Track,
   useStep5LearningPeriod,
-} from "@/hooks/settings/steps/use-step5";
+} from '@/hooks/settings/steps/use-step5';
 
 const DefaultWrapper = ({
   children,
@@ -60,7 +39,7 @@ const DefaultWrapper = ({
     <>
       <div
         className={cn(
-          "flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 flex-1 size-full py-10",
+          'flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 flex-1 size-full py-10',
           className
         )}
       >
@@ -87,29 +66,25 @@ export const Step1 = ({
   schools: School[];
 }) => {
   const [_schools, setSchools] = useState<School[]>(schoolsFromProps);
-  const {
-    onAddClick,
-    onEditClick,
-    onDeleteClick,
-    form,
-    editingSchoolId,
-    schools,
-  } = useStep1(_schools, setSchools);
+  const { onAddClick, onEditClick, onDeleteClick, form, editingSchoolId, schools } = useStep1(
+    _schools,
+    setSchools
+  );
 
   return (
     <DefaultWrapper isNextAllowed={schools.length > 0} currentStep={0}>
       <InputWithButton
         fields={[
           {
-            label: { htmlFor: "school-name", children: "School Name" },
+            label: { htmlFor: 'school-name', children: 'School Name' },
             input: {
-              id: "school-name",
-              ...form.register("name"),
+              id: 'school-name',
+              ...form.register('name'),
             },
           },
         ]}
         button={{
-          children: editingSchoolId ? "Update School Name" : "Add School",
+          children: editingSchoolId ? 'Update School Name' : 'Add School',
           disabled: form.formState.isSubmitting || !form.formState.isValid,
         }}
         onSubmit={form.handleSubmit(onAddClick)}
@@ -125,16 +100,10 @@ export const Step1 = ({
         <TableBody>
           {schools.map((school) => (
             <TableRow
-              key={school.id || "new-school"}
-              className={
-                (school as StepSchool).disabled
-                  ? "opacity-50 pointer-events-none"
-                  : ""
-              }
+              key={school.id || 'new-school'}
+              className={(school as StepSchool).disabled ? 'opacity-50 pointer-events-none' : ''}
             >
-              <TableCell className="text-truncate max-w-80">
-                {school.name}
-              </TableCell>
+              <TableCell className="text-truncate max-w-80">{school.name}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(school) }}
@@ -155,29 +124,25 @@ export const Step2 = ({
   academies: Academy[];
 }) => {
   const [_academies, setAcademies] = useState<Academy[]>(academiesFromProps);
-  const {
-    onAddClick,
-    onEditClick,
-    onDeleteClick,
-    form,
-    editingAcademyId,
-    academies,
-  } = useStep2(_academies, setAcademies);
+  const { onAddClick, onEditClick, onDeleteClick, form, editingAcademyId, academies } = useStep2(
+    _academies,
+    setAcademies
+  );
 
   return (
     <DefaultWrapper isNextAllowed={academies.length > 0} currentStep={1}>
       <InputWithButton
         fields={[
           {
-            label: { htmlFor: "academy-name", children: "Add Academies" },
+            label: { htmlFor: 'academy-name', children: 'Add Academies' },
             input: {
-              id: "academy-name",
-              ...form.register("name"),
+              id: 'academy-name',
+              ...form.register('name'),
             },
           },
         ]}
         button={{
-          children: editingAcademyId ? "Update Academy Name" : "Add Academy",
+          children: editingAcademyId ? 'Update Academy Name' : 'Add Academy',
           disabled: form.formState.isSubmitting || !form.formState.isValid,
         }}
         onSubmit={form.handleSubmit(onAddClick)}
@@ -193,16 +158,10 @@ export const Step2 = ({
         <TableBody>
           {academies.map((academy) => (
             <TableRow
-              key={academy.id || "new-academy"}
-              className={
-                (academy as StepAcademy).disabled
-                  ? "opacity-50 pointer-events-none"
-                  : ""
-              }
+              key={academy.id || 'new-academy'}
+              className={(academy as StepAcademy).disabled ? 'opacity-50 pointer-events-none' : ''}
             >
-              <TableCell className="text-truncate max-w-80">
-                {academy.name}
-              </TableCell>
+              <TableCell className="text-truncate max-w-80">{academy.name}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(academy) }}
@@ -223,59 +182,53 @@ export const Step3 = ({
   tracks: Track[];
 }) => {
   const [_tracks, setTracks] = useState<Track[]>(tracksFromProps);
-  const {
-    onAddClick,
-    onEditClick,
-    onDeleteClick,
-    form,
-    editingTrackId,
-    tracks,
-  } = useStep3(_tracks, setTracks);
+  const { onAddClick, onEditClick, onDeleteClick, form, editingTrackId, tracks } = useStep3(
+    _tracks,
+    setTracks
+  );
 
-  const start_date = useWatch({ control: form.control, name: "start_date" });
-  const end_date = useWatch({ control: form.control, name: "end_date" });
+  const start_date = useWatch({ control: form.control, name: 'start_date' });
+  const end_date = useWatch({ control: form.control, name: 'end_date' });
 
   return (
     <DefaultWrapper isNextAllowed={tracks.length > 0} currentStep={2}>
       <InputWithButton
         fields={[
           {
-            label: { htmlFor: "track-name", children: "Track Name" },
+            label: { htmlFor: 'track-name', children: 'Track Name' },
             input: {
-              id: "track-name",
-              ...form.register("name"),
+              id: 'track-name',
+              ...form.register('name'),
             },
             error: form.formState.errors.name?.message,
           },
           {
-            label: { htmlFor: "track-start-date", children: "Start Date" },
+            label: { htmlFor: 'track-start-date', children: 'Start Date' },
             input: {
-              id: "track-start-date",
-              type: "date",
-              className: "hidden",
-              ...form.register("start_date"),
+              id: 'track-start-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('start_date'),
               min: new Date().toISOString(),
               value: start_date as any,
             },
             error: form.formState.errors.start_date?.message,
           },
           {
-            label: { htmlFor: "track-end-date", children: "End Date" },
+            label: { htmlFor: 'track-end-date', children: 'End Date' },
             input: {
-              id: "track-end-date",
-              type: "date",
-              className: "hidden",
-              ...form.register("end_date"),
-              min: start_date
-                ? start_date.toISOString()
-                : new Date().toISOString(),
+              id: 'track-end-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('end_date'),
+              min: start_date ? start_date.toISOString() : new Date().toISOString(),
               value: end_date as any,
             },
             error: form.formState.errors.end_date?.message,
           },
         ]}
         button={{
-          children: editingTrackId ? "Update Track Name" : "Add Track",
+          children: editingTrackId ? 'Update Track Name' : 'Add Track',
           disabled: form.formState.isSubmitting || !form.formState.isValid,
         }}
         onSubmit={form.handleSubmit(onAddClick)}
@@ -293,22 +246,12 @@ export const Step3 = ({
         <TableBody>
           {tracks.map((track) => (
             <TableRow
-              key={track.id || "new-track"}
-              className={
-                (track as StepTrack).disabled
-                  ? "opacity-50 pointer-events-none"
-                  : ""
-              }
+              key={track.id || 'new-track'}
+              className={(track as StepTrack).disabled ? 'opacity-50 pointer-events-none' : ''}
             >
-              <TableCell className="text-truncate max-w-80">
-                {track.name}
-              </TableCell>
-              <TableCell>
-                {formatTrackDateWithShortMonth(track.start_date)}
-              </TableCell>
-              <TableCell>
-                {formatTrackDateWithShortMonth(track.end_date)}
-              </TableCell>
+              <TableCell className="text-truncate max-w-80">{track.name}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(track.start_date)}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(track.end_date)}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(track) }}
@@ -350,7 +293,7 @@ export const Step4 = ({
         currentStep={3}
         withBorder
         backButton={{
-          variant: "outline",
+          variant: 'outline',
           onClick: () => {
             if (isDirty) {
               setIsOpenConfirmation(true);
@@ -395,11 +338,7 @@ export const Step4 = ({
       withBorder
     >
       {calendars.map((calendar) => (
-        <TrackCard
-          key={calendar.id}
-          track={calendar.track}
-          isCompleted={calendar.days.length > 0}
-        >
+        <TrackCard key={calendar.id} track={calendar.track} isCompleted={calendar.days.length > 0}>
           <SetupCalendarButton
             onClick={handleSelectCalendar(calendar)}
             isCompleted={calendar.days.length > 0}
@@ -423,12 +362,10 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
   if (selectedTrack) {
     return (
       <DefaultWrapper
-        isNextAllowed={tracks.every(
-          (track) => track.learningPeriods.length > 0
-        )}
+        isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
         currentStep={4}
         backButton={{
-          variant: "outline",
+          variant: 'outline',
           onClick: handleBackToTracks,
           children: (
             <>
@@ -443,9 +380,7 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
           setTrack={(fn: any) => {
             setSelectedTrack(fn);
             setTracks((prev) =>
-              prev.map((track) =>
-                track.id === selectedTrack.id ? fn?.(track) ?? fn : track
-              )
+              prev.map((track) => (track.id === selectedTrack.id ? (fn?.(track) ?? fn) : track))
             );
           }}
         />
@@ -460,11 +395,7 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
       withBorder
     >
       {tracks.map((track) => (
-        <TrackCard
-          key={track.id}
-          track={track}
-          isCompleted={track.learningPeriods.length > 0}
-        >
+        <TrackCard key={track.id} track={track} isCompleted={track.learningPeriods.length > 0}>
           <SetupLearningPeriodButton
             onClick={handleSelectTrack(track)}
             isCompleted={track.learningPeriods.length > 0}
@@ -482,16 +413,10 @@ const Step5LearningPeriod = ({
   track: Track;
   setTrack: Dispatch<SetStateAction<Track>>;
 }) => {
-  const {
-    onAddClick,
-    onEditClick,
-    onDeleteClick,
-    form,
-    learningPeriods,
-    editingLearningPeriodId,
-  } = useStep5LearningPeriod(track, setTrack);
-  const start_date = useWatch({ control: form.control, name: "start_date" });
-  const end_date = useWatch({ control: form.control, name: "end_date" });
+  const { onAddClick, onEditClick, onDeleteClick, form, learningPeriods, editingLearningPeriodId } =
+    useStep5LearningPeriod(track, setTrack);
+  const start_date = useWatch({ control: form.control, name: 'start_date' });
+  const end_date = useWatch({ control: form.control, name: 'end_date' });
 
   return (
     <>
@@ -499,46 +424,42 @@ const Step5LearningPeriod = ({
         fields={[
           {
             label: {
-              htmlFor: "learning-period-name",
-              children: "Learning Period",
+              htmlFor: 'learning-period-name',
+              children: 'Learning Period',
             },
             input: {
-              id: "learning-period-name",
-              ...form.register("name"),
+              id: 'learning-period-name',
+              ...form.register('name'),
             },
             error: form.formState.errors.name?.message,
           },
           {
-            label: { htmlFor: "track-start-date", children: "Start Date" },
+            label: { htmlFor: 'track-start-date', children: 'Start Date' },
             input: {
-              id: "learning-period-start-date",
-              type: "date",
-              className: "hidden",
-              ...form.register("start_date"),
+              id: 'learning-period-start-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('start_date'),
               min: new Date().toISOString(),
               value: start_date as any,
             },
             error: form.formState.errors.start_date?.message,
           },
           {
-            label: { htmlFor: "track-end-date", children: "End Date" },
+            label: { htmlFor: 'track-end-date', children: 'End Date' },
             input: {
-              id: "learning-period-end-date",
-              type: "date",
-              className: "hidden",
-              ...form.register("end_date"),
-              min: start_date
-                ? start_date.toISOString()
-                : new Date().toISOString(),
+              id: 'learning-period-end-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('end_date'),
+              min: start_date ? start_date.toISOString() : new Date().toISOString(),
               value: end_date as any,
             },
             error: form.formState.errors.end_date?.message,
           },
         ]}
         button={{
-          children: editingLearningPeriodId
-            ? "Update Learning Period"
-            : "Add Learning Period",
+          children: editingLearningPeriodId ? 'Update Learning Period' : 'Add Learning Period',
           disabled: form.formState.isSubmitting || !form.formState.isValid,
         }}
         onSubmit={form.handleSubmit(onAddClick)}
@@ -556,22 +477,14 @@ const Step5LearningPeriod = ({
         <TableBody>
           {learningPeriods.map((learningPeriod) => (
             <TableRow
-              key={learningPeriod.id || "new-learning-period"}
+              key={learningPeriod.id || 'new-learning-period'}
               className={
-                (learningPeriod as StepTrackLP).disabled
-                  ? "opacity-50 pointer-events-none"
-                  : ""
+                (learningPeriod as StepTrackLP).disabled ? 'opacity-50 pointer-events-none' : ''
               }
             >
-              <TableCell className="text-truncate max-w-80">
-                {learningPeriod.name}
-              </TableCell>
-              <TableCell>
-                {formatTrackDateWithShortMonth(learningPeriod.start_date)}
-              </TableCell>
-              <TableCell>
-                {formatTrackDateWithShortMonth(learningPeriod.end_date)}
-              </TableCell>
+              <TableCell className="text-truncate max-w-80">{learningPeriod.name}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(learningPeriod.start_date)}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(learningPeriod.end_date)}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(learningPeriod) }}

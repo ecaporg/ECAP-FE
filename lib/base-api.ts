@@ -1,4 +1,4 @@
-import { apiFetch, ApiResponse } from "./fetch";
+import { apiFetch, ApiResponse } from './fetch';
 
 type FetchType<T, D> = typeof apiFetch<T, D>;
 type FetchAdditionalInit<T, D> = Parameters<FetchType<T, D>>[1];
@@ -19,15 +19,9 @@ export class BaseApi<T = any, D = any> {
     this.fetch = fetch;
   }
 
-  async findAll(
-    searchParams: string = "",
-    options?: FetchAdditionalInit<T[], D>
-  ) {
+  async findAll(searchParams: string = '', options?: FetchAdditionalInit<T[], D>) {
     return ThrowErrorIfError(
-      (await this.fetch(`${this.url}?${searchParams}`, options)) as ApiResponse<
-        T[],
-        D
-      >
+      (await this.fetch(`${this.url}?${searchParams}`, options)) as ApiResponse<T[], D>
     );
   }
 
@@ -38,7 +32,7 @@ export class BaseApi<T = any, D = any> {
   async post(body: any = {}, options?: FetchAdditionalInit<T, D>) {
     return ThrowErrorIfError(
       await this.fetch(`${this.url}`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(body),
         ...options,
       })
@@ -48,7 +42,7 @@ export class BaseApi<T = any, D = any> {
   async put(id: string, body: any, options?: FetchAdditionalInit<T, D>) {
     return ThrowErrorIfError(
       await this.fetch(`${this.url}/${id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify(body),
         ...options,
       })
@@ -58,7 +52,7 @@ export class BaseApi<T = any, D = any> {
   async patch(id: string, body: any, options?: FetchAdditionalInit<T, D>) {
     return ThrowErrorIfError(
       await this.fetch(`${this.url}/${id}`, {
-        method: "PATCH",
+        method: 'PATCH',
         body: JSON.stringify(body),
         ...options,
       })
@@ -68,7 +62,7 @@ export class BaseApi<T = any, D = any> {
   async delete(id: string, options?: FetchAdditionalInit<T, D>) {
     return ThrowErrorIfError(
       await this.fetch(`${this.url}/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         ...options,
       })
     );

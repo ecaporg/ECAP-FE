@@ -1,17 +1,17 @@
-import { rolePage } from "@/components/layouts/role-page";
-import { SamplesSection } from "@/components/pages/compliance/sections";
-import { getComplianceTeacherFilter } from "@/lib/api/compliance";
-import type { SamplesSectionProps } from "@/components/pages/compliance/sections/samples-section";
-import { Metadata } from "next";
+import { rolePage } from '@/components/layouts/role-page';
+import { SamplesSection } from '@/components/pages/compliance/sections';
+import { getComplianceTeacherFilter } from '@/lib/api/compliance';
+import type { SamplesSectionProps } from '@/components/pages/compliance/sections/samples-section';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Compliance Samples",
+  title: 'Compliance Samples',
 };
 
 export async function ComplianceSamplesPage({
   searchParams,
 }: {
-  searchParams: Promise<SamplesSectionProps["param"]>;
+  searchParams: Promise<SamplesSectionProps['param']>;
 }) {
   const tenant = await getComplianceTeacherFilter();
 
@@ -22,4 +22,4 @@ export async function ComplianceSamplesPage({
   );
 }
 
-export default rolePage(ComplianceSamplesPage, ["TEACHER"]);
+export default rolePage(ComplianceSamplesPage, ['TEACHER']);

@@ -1,16 +1,16 @@
-"use client";
-import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
-import { Sample } from "@/types";
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
-import { useAuth } from "@/providers/auth";
-import { ReasonForMissingSample, SampleInfoForModal } from "./shared";
-import { isAdminOrDirector, isAnyAdmin } from "@/utils";
-import { useState } from "react";
-import { ConfirmationModal } from "@/components/modals";
-import { approveAdminSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
-import { usePathname, useSearchParams } from "next/navigation";
-import { RejectMissingSampleModal } from "./reject-missing-sample.modal";
+'use client';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { Sample } from '@/types';
+import { Button } from '@/components/ui/button';
+import { DialogClose } from '@/components/ui/dialog';
+import { useAuth } from '@/providers/auth';
+import { ReasonForMissingSample, SampleInfoForModal } from './shared';
+import { isAdminOrDirector, isAnyAdmin } from '@/utils';
+import { useState } from 'react';
+import { ConfirmationModal } from '@/components/modals';
+import { approveAdminSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { RejectMissingSampleModal } from './reject-missing-sample.modal';
 
 export function FlagMissingWorkSampleInfoModal({
   children,
@@ -23,17 +23,15 @@ export function FlagMissingWorkSampleInfoModal({
   const isDirector = isAdminOrDirector(user);
   const isAdmin = isAnyAdmin(user);
 
-  const title = isDirector
-    ? "Missing Work Sample"
-    : "You Flagged a Missing Work Sample";
+  const title = isDirector ? 'Missing Work Sample' : 'You Flagged a Missing Work Sample';
 
   const description = isDirector ? (
     <>
-      <b>Date Flagged:</b>{" "}
-      {new Date(sample.flag_missing_work?.createdAt || "").toLocaleDateString()}
+      <b>Date Flagged:</b>{' '}
+      {new Date(sample.flag_missing_work?.createdAt || '').toLocaleDateString()}
     </>
   ) : (
-    ""
+    ''
   );
 
   return (
@@ -63,20 +61,11 @@ export function FlagMissingWorkSampleInfoModal({
           {isAdmin && (
             <div className="flex gap-2 w-full justify-end ">
               <RejectMissingSampleModal sample={sample}>
-                <Button
-                  className="basis-40"
-                  size="lg"
-                  variant="warning"
-                  type="button"
-                >
+                <Button className="basis-40" size="lg" variant="warning" type="button">
                   Reject
                 </Button>
               </RejectMissingSampleModal>
-              <Button
-                className="basis-40"
-                size="lg"
-                onClick={() => setOpenSuccessfullyModal(true)}
-              >
+              <Button className="basis-40" size="lg" onClick={() => setOpenSuccessfullyModal(true)}>
                 Approve
               </Button>
             </div>

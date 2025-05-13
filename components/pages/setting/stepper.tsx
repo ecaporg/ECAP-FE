@@ -1,7 +1,7 @@
-"use client";
-import { Circle } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
-import React from "react";
+'use client';
+import { Circle } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import React from 'react';
 
 interface StepperProps {
   steps: string[];
@@ -31,9 +31,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep }) => {
             onClick={() => handleClick(index)}
           />
 
-          <p className="text-lg text-neutral-black font-medium mt-6 text-center">
-            {step}
-          </p>
+          <p className="text-lg text-neutral-black font-medium mt-6 text-center">{step}</p>
         </div>
       ))}
     </div>

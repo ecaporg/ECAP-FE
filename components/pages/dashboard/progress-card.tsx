@@ -1,7 +1,7 @@
-import type React from "react";
-import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { cn } from "@/utils";
+import type React from 'react';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { cn } from '@/utils';
 
 interface ProgressCardProps {
   title: string;
@@ -17,17 +17,9 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
   progressClassName,
 }) => {
   return (
-    <Card
-      className={cn(
-        "flex flex-col items-center justify-center p-6 gap-8",
-        className
-      )}
-    >
+    <Card className={cn('flex flex-col items-center justify-center p-6 gap-8', className)}>
       <h2 className="font-bold">{title}</h2>
-      <Progress
-        value={percentage}
-        className={cn("size-[12.5rem]", progressClassName)}
-      />
+      <Progress value={percentage} className={cn('size-[12.5rem]', progressClassName)} />
     </Card>
   );
 };
@@ -35,7 +27,7 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
 export const ProgressCardSkeleton = ({
   title,
   className,
-}: Pick<ProgressCardProps, "title" | "className">) => {
+}: Pick<ProgressCardProps, 'title' | 'className'>) => {
   return (
     <ProgressCard
       title={title}
@@ -45,5 +37,3 @@ export const ProgressCardSkeleton = ({
     />
   );
 };
-
-

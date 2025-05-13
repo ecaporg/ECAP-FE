@@ -5,30 +5,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import type { TeacherCompliance, TrackLearningPeriod } from "@/types";
-import { getCompletionStatus, getUserName } from "@/utils";
-import { CompletionStatusForTable } from "../statuses";
-import { SortableIcon } from "@/components/table/sortable-header";
-import { routes } from "@/constants/routes";
-import {
-  DEFAULT_FILTERS_KEYS,
-  SPECIFIC_PAGE_FILTER_KEYS,
-} from "@/constants/filter";
-import Link from "next/link";
+} from '@/components/ui/table';
+import type { TeacherCompliance, TrackLearningPeriod } from '@/types';
+import { getCompletionStatus, getUserName } from '@/utils';
+import { CompletionStatusForTable } from '../statuses';
+import { SortableIcon } from '@/components/table/sortable-header';
+import { routes } from '@/constants/routes';
+import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import Link from 'next/link';
 
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
   currentLearningPeriod?: TrackLearningPeriod;
 }
 
-export const TeachersTable = ({
-  assignments = [],
-  currentLearningPeriod,
-}: TeachersTableProps) => {
+export const TeachersTable = ({ assignments = [], currentLearningPeriod }: TeachersTableProps) => {
   const getPath = (assignment: TeacherCompliance) =>
     `${routes.compliance.teacher.replace(
-      ":id",
+      ':id',
       assignment.teacher_id.toString()
     )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
       currentLearningPeriod?.id
@@ -88,15 +82,10 @@ export const TeachersTable = ({
               <TableCell>{assignment.incompleted_count}</TableCell>
               <TableCell>
                 <CompletionStatusForTable
-                  variant={getCompletionStatus(
-                    assignment.is_complated,
-                    currentLearningPeriod
-                  )}
+                  variant={getCompletionStatus(assignment.is_complated, currentLearningPeriod)}
                 />
               </TableCell>
-              <TableCell>
-                {Number(assignment.completion_percentage).toFixed(2)}%
-              </TableCell>
+              <TableCell>{Number(assignment.completion_percentage).toFixed(2)}%</TableCell>
             </Link>
           </TableRow>
         ))}

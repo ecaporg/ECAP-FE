@@ -1,8 +1,8 @@
-import { Sample, SampleFlagRejected } from "@/types";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { rejectMissingWorkSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
-import { usePathname, useSearchParams } from "next/navigation";
+import { Sample, SampleFlagRejected } from '@/types';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { rejectMissingWorkSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 type FormData = {
   reason: string;
@@ -15,12 +15,12 @@ export function useRejectMissingSample({ sample }: { sample: Sample }) {
 
   const form = useForm<FormData>({
     defaultValues: {
-      reason: "",
+      reason: '',
     },
   });
 
   const submitSuccessfully = async () => {
-    const reason = form.getValues("reason");
+    const reason = form.getValues('reason');
     await rejectMissingWorkSampleAction(
       sample,
       {

@@ -1,29 +1,21 @@
-"use client";
-import { cn } from "@/utils";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type React from "react";
-import {
-  NextButton,
-  PageButton,
-  Pagination,
-  PrevButton,
-} from "react-headless-pagination";
-import { buttonVariants } from "../ui/button";
-import {
-  CompletionStatus,
-  type CompletionStatusProps,
-} from "./completion-status";
+'use client';
+import { cn } from '@/utils';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type React from 'react';
+import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
+import { buttonVariants } from '../ui/button';
+import { CompletionStatus, type CompletionStatusProps } from './completion-status';
 
 interface PaginationSectionProps {
   totalPages: number;
   learningPeriod: string;
   dueDate: string;
   completedString: string;
-  status: CompletionStatusProps["variant"];
+  status: CompletionStatusProps['variant'];
 }
 
-export const PAGE_KEY = "page";
+export const PAGE_KEY = 'page';
 
 export const PaginationSection: React.FC<PaginationSectionProps> = ({
   totalPages,
@@ -35,7 +27,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get(PAGE_KEY) || "1");
+  const currentPage = Number(searchParams.get(PAGE_KEY) || '1');
 
   const handlePageChange = (page: number) => {
     const query = new URLSearchParams({
@@ -68,12 +60,10 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
             </PrevButton>
             <PageButton
               as={<button type="button" />}
-              activeClassName={cn(
-                buttonVariants({ variant: "default", size: "md" })
-              )}
+              activeClassName={cn(buttonVariants({ variant: 'default', size: 'md' }))}
               inactiveClassName={cn(
-                buttonVariants({ variant: "outline", size: "md" }),
-                "text-neutral-black border border-border"
+                buttonVariants({ variant: 'outline', size: 'md' }),
+                'text-neutral-black border border-border'
               )}
             />
             <NextButton className="size-10 flex items-center justify-center">

@@ -1,22 +1,18 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { format as formatDateFns } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import * as React from 'react';
+import { format as formatDateFns } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 export function DayPicker({
   value,
   onChange,
   fromDate,
-  format = (date: Date) => formatDateFns(date, "PPP"),
+  format = (date: Date) => formatDateFns(date, 'PPP'),
 }: {
   value: Date | undefined;
   onChange: (date: Date | undefined) => void;
@@ -27,7 +23,7 @@ export function DayPicker({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className="w-full justify-start text-left font-normal relative border border-input text-neutral-black"
           size="lg"
         >

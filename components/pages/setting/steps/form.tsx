@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { ButtonProps } from "@/components/ui/button";
-import { DayPicker } from "@/components/ui/day-picker";
-import { FormError } from "@/components/ui/form-error";
-import { Input, InputProps } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn, formatTrackDateWithShortMonth } from "@/utils";
-import { LabelProps } from "@radix-ui/react-label";
-import { formatDate } from "date-fns";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { ChangeEvent } from "react";
+import { Button } from '@/components/ui/button';
+import { ButtonProps } from '@/components/ui/button';
+import { DayPicker } from '@/components/ui/day-picker';
+import { FormError } from '@/components/ui/form-error';
+import { Input, InputProps } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn, formatTrackDateWithShortMonth } from '@/utils';
+import { LabelProps } from '@radix-ui/react-label';
+import { formatDate } from 'date-fns';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent } from 'react';
 interface InputWithButtonProps extends React.PropsWithChildren<{}> {
   onSubmit: (data: any) => Promise<void>;
   button: ButtonProps;
@@ -31,20 +31,16 @@ export const InputWithButton = ({
   className,
 }: InputWithButtonProps) => {
   return (
-    <form className={cn("space-y-2 text-lg", className)} onSubmit={onSubmit}>
+    <form className={cn('space-y-2 text-lg', className)} onSubmit={onSubmit}>
       {fields.map((field) => (
         <>
-          <Label
-            key={field.label.htmlFor + "label"}
-            className="p-2"
-            {...field.label}
-          />
+          <Label key={field.label.htmlFor + 'label'} className="p-2" {...field.label} />
           <Input key={field.input.id} {...field.input} />
           <DatePikerWrapper field={field} />
           {field.error && (
             <FormError
-              key={field.input.id + "error"}
-              id={field.input.id + "error"}
+              key={field.input.id + 'error'}
+              id={field.input.id + 'error'}
               message={field.error}
               className="text-wrap"
             />
@@ -62,12 +58,10 @@ const DatePikerWrapper = ({
 }: {
   field: { input: InputProps; error?: string };
 }) => {
-  if (field.input.type === "date") {
+  if (field.input.type === 'date') {
     return (
       <DayPicker
-        value={
-          field.input.value ? new Date(field.input.value as string) : undefined
-        }
+        value={field.input.value ? new Date(field.input.value as string) : undefined}
         onChange={(date) => {
           if (field.input.onChange) {
             field.input.onChange({
@@ -126,18 +120,9 @@ export const NextButton = ({
 
   return (
     <div className="flex w-full justify-between">
-      <Button
-        children="Back"
-        disabled={currentStep === 0}
-        onClick={handleBack}
-        {...backButton}
-      />
+      <Button children="Back" disabled={currentStep === 0} onClick={handleBack} {...backButton} />
       {!backButton && (
-        <Button
-          disabled={!isNextAllowed && isLastStep}
-          children="Next"
-          onClick={handleNext}
-        />
+        <Button disabled={!isNextAllowed && isLastStep} children="Next" onClick={handleNext} />
       )}
     </div>
   );

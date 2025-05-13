@@ -1,3 +1,3 @@
-import CompliancePage from "./page";
+import CompliancePage from './page';
 
 export default CompliancePage;

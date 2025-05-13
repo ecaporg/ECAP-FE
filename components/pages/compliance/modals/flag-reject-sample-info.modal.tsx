@@ -1,13 +1,13 @@
-"use client";
-import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
-import { Sample } from "@/types";
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
-import { useAuth } from "@/providers/auth";
-import { ReasonForMissingSample, SampleInfoForModal } from "./shared";
-import { Badge } from "@/components/ui/badge";
-import { CircleAlertIcon } from "lucide-react";
-import { isAdminOrDirector } from "@/utils";
+'use client';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { Sample } from '@/types';
+import { Button } from '@/components/ui/button';
+import { DialogClose } from '@/components/ui/dialog';
+import { useAuth } from '@/providers/auth';
+import { ReasonForMissingSample, SampleInfoForModal } from './shared';
+import { Badge } from '@/components/ui/badge';
+import { CircleAlertIcon } from 'lucide-react';
+import { isAdminOrDirector } from '@/utils';
 
 export function FlagRejectSampleInfoModal({
   children,
@@ -19,8 +19,7 @@ export function FlagRejectSampleInfoModal({
     <>
       <Badge variant="red" className="mb-4">
         <CircleAlertIcon className="size-4" />
-        Rejected:{" "}
-        {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
+        Rejected: {new Date(sample.flag_rejected?.createdAt || '').toLocaleDateString()}
       </Badge>
       <p>Missing Work Sample</p>
     </>
@@ -30,9 +29,7 @@ export function FlagRejectSampleInfoModal({
     <>
       <ReasonForMissingSample sample={sample} isDirector={isDirector} />
       <br />
-      <b className="text-primary pt-4">
-        Reason for rejecting missing sample:
-      </b>{" "}
+      <b className="text-primary pt-4">Reason for rejecting missing sample:</b>{' '}
       {sample.flag_rejected?.reason}
     </>
   ) : (
@@ -41,19 +38,17 @@ export function FlagRejectSampleInfoModal({
         <ReasonForMissingSample sample={sample} isDirector={isDirector} />
       </p>
       <p>
-        <b>Reason for rejecting missing sample:</b> "
-        {sample.flag_rejected?.reason}"
+        <b>Reason for rejecting missing sample:</b> "{sample.flag_rejected?.reason}"
       </p>
     </>
   );
 
   const description = isDirector ? (
     <>
-      <b>Date Flagged:</b>{" "}
-      {new Date(sample.flag_rejected?.createdAt || "").toLocaleDateString()}
+      <b>Date Flagged:</b> {new Date(sample.flag_rejected?.createdAt || '').toLocaleDateString()}
     </>
   ) : (
-    ""
+    ''
   );
 
   return (

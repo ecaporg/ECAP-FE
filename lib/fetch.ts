@@ -1,7 +1,7 @@
-import { routes } from "@/constants/routes";
-import { redirect } from "next/navigation";
+import { routes } from '@/constants/routes';
+import { redirect } from 'next/navigation';
 
-import { getAuthToken, refresh } from "./auth";
+import { getAuthToken, refresh } from './auth';
 
 // Типи для відповіді
 export type ApiResponse<T = any, D = undefined> = {
@@ -25,11 +25,9 @@ export interface ApiAdditionalInit {
   tags?: string[];
 }
 
-export const API_BASE_URL =
-  process.env.BACKEND_URL || "http://localhost:8080/api";
+export const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080/api';
 
-export const wait = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const RETRIES = 3;
 export const RETRY_DELAY = 10000;
@@ -41,9 +39,7 @@ export async function apiFetch<T = any, D = undefined>(
 ): Promise<ApiResponse<T, D>> {
   let authHeaders = {};
 
-  const url = endpoint.startsWith("http")
-    ? endpoint
-    : `${API_BASE_URL}${endpoint}`;
+  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
 
   if (!init?.withoutAuth) {
     const token = await getAuthToken();
@@ -57,14 +53,14 @@ export async function apiFetch<T = any, D = undefined>(
   async function executeFetch(attempt = 1): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(url, {
-        cache: "no-cache",
+        cache: 'no-cache',
         next: {
           revalidate: 60,
           tags: [...(init?.tags || [])],
         },
         ...init,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           ...init?.headers,
           ...authHeaders,
         },

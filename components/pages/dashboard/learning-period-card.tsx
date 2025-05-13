@@ -1,7 +1,7 @@
-import type React from "react";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { StatsItem } from "@/types";
+import type React from 'react';
+import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { StatsItem } from '@/types';
 import {
   formatLearningPeriodDate,
   getDueDate,
@@ -9,7 +9,7 @@ import {
   getLPNameForDashboard,
   getStatusColorForDashboard,
   getStatusForDashboard,
-} from "@/utils";
+} from '@/utils';
 
 interface LearningPeriodCardProps {
   title: React.ReactNode;
@@ -45,16 +45,16 @@ export const LearningPeriodCard = ({
       }
       fields={[
         {
-          label: "Date:",
+          label: 'Date:',
           value: getLearningPeriodDateRange(stats.learningPeriods[0]),
         },
         {
-          label: isCurrentLP ? "Deadline:" : "Due:",
+          label: isCurrentLP ? 'Deadline:' : 'Due:',
           value: formatLearningPeriodDate(getDueDate(stats.learningPeriods[0])),
         },
-        { label: "Status:", value: status, className: statusColor },
+        { label: 'Status:', value: status, className: statusColor },
         {
-          label: "Compliance:",
+          label: 'Compliance:',
           value: `${stats.compliance.toFixed(2)}%`,
           className: statusColor,
         },
@@ -75,10 +75,7 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
         {track}
 
         {fields.map((field) => (
-          <div
-            key={field.label + field.value}
-            className="flex items-center justify-between"
-          >
+          <div key={field.label + field.value} className="flex items-center justify-between">
             <label htmlFor={field.label} className="font-bold">
               {field.label}
             </label>
@@ -103,17 +100,17 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
 export const LearningPeriodCardSkeleton = ({
   title,
   fields = [
-    { label: "Date:" },
-    { label: "Deadline:" },
-    { label: "Status:" },
-    { label: "Compliance:" },
+    { label: 'Date:' },
+    { label: 'Deadline:' },
+    { label: 'Status:' },
+    { label: 'Compliance:' },
   ] as any,
-}: Pick<LearningPeriodCardProps, "title" | "fields">) => {
+}: Pick<LearningPeriodCardProps, 'title' | 'fields'>) => {
   return (
     <LearningPeriodCardView
       title={title}
       track={<Skeleton className="w-full" />}
-      fields={fields.map((field) => ({ ...field, skeleton: true, value: "" }))}
+      fields={fields.map((field) => ({ ...field, skeleton: true, value: '' }))}
     />
   );
 };
