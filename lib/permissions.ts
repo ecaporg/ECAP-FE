@@ -15,6 +15,10 @@ export const ROLES = {
       review: true,
       upload: false,
     },
+    navigation: {
+      settings: false,
+      profile: true,
+    },
   },
   TEACHER: {
     samples: {
@@ -27,6 +31,10 @@ export const ROLES = {
       upload: (user: User, data: Sample) => {
         return data.status != SampleStatus.COMPLETED;
       },
+    },
+    navigation: {
+      settings: false,
+      profile: true,
     },
   },
   ADMIN: {
@@ -41,6 +49,10 @@ export const ROLES = {
         return data.status != SampleStatus.COMPLETED;
       },
     },
+    navigation: {
+      settings: true,
+      profile: true,
+    },
   },
   SUPER_ADMIN: {
     samples: {
@@ -54,6 +66,10 @@ export const ROLES = {
         return data.status != SampleStatus.COMPLETED;
       },
     },
+    navigation: {
+      settings: true,
+      profile: true,
+    },
   },
   STUDENT: {
     samples: {
@@ -62,6 +78,10 @@ export const ROLES = {
       correct: false,
       review: false,
       upload: false,
+    },
+    navigation: {
+      settings: false,
+      profile: true,
     },
   },
 } as const satisfies RolesWithPermissions;

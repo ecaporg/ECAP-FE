@@ -16,6 +16,7 @@ import {
   NavigationMenuTrigger,
 } from '../ui/navigation-menu';
 import { useAuth } from '@/providers/auth';
+import { hasPermission } from '@/lib/permissions';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -57,15 +58,19 @@ const NavMenu = () => {
         <NavLink href={routes.compliance.root}>Compliance Tasks</NavLink>
       </nav>
 
-      <nav className="contents md:flex justify-end items-center flex-1 gap-10">
-        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
-          <Settings />
-          <span>Setting</span>
-        </NavLink>
-        <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
-          <User />
-          <span>My Profile</span>
-        </NavLink>
+      <nav className="contents md:flex justify-end items-center flex-1 gap-6">
+        {hasPermission(user, 'navigation', 'settings') && (
+          <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+            <Settings className="size-4" />
+            <span>Setting</span>
+          </NavLink>
+        )}
+        {hasPermission(user, 'navigation', 'profile') && (
+          <NavLink href={routes.profile.root} className="flex items-center justify-center gap-2">
+            <User className="size-4" />
+            <span>My Profile</span>
+          </NavLink>
+        )}
         <Button
           variant="secondary"
           size="lg"
@@ -76,9 +81,9 @@ const NavMenu = () => {
           disabled={isLoggingOut}
         >
           {isLoggingOut ? (
-            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            <Loader2 className="size-4 mr-2 animate-spin" />
           ) : (
-            <LogOut className="h-4 w-4 mr-2" />
+            <LogOut className="size-4 mr-2" />
           )}
           Sign Out
         </Button>

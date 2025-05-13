@@ -22,4 +22,8 @@ export type Permissions = {
     dataType: User;
     action: 'view' | 'create' | 'update' | 'delete';
   };
+  navigation: {
+    dataType: string;
+    action: 'settings' | 'profile';
+  };
 };

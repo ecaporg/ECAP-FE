@@ -502,7 +502,7 @@ const Step5LearningPeriod = ({
 export const Step6 = () => {
   return (
     <DefaultWrapper isNextAllowed={false} currentStep={5} isLastStep>
-      Not implemented yet
+      Not implemented yet. Require discussion with Natalie
     </DefaultWrapper>
   );
 };
