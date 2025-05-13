@@ -105,6 +105,7 @@ const MobileNavMenu = () => {
             <NavigationMenuTrigger className="px-2 [&>svg]:ml-0 size-10" />
             <NavigationMenuContent className="flex flex-col">
               <NavMenu />
+              
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
