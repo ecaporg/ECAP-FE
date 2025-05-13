@@ -23,8 +23,8 @@ async function TabSetup({
       <Stepper steps={SETUP_STEPS} activeStep={activeStep} />
 
       <div className="flex-1 flex flex-col justify-between items-center">
-        <Suspense fallback={<PageLoading />}>
-          <StepComponent />
+        <Suspense fallback={<PageLoading />} key={activeStep}>
+          <StepComponent key={activeStep} />
         </Suspense>
       </div>
     </section>
