@@ -7,7 +7,7 @@ import {
   TrackCalendar,
   TrackLearningPeriod,
 } from "@/types";
-import { Actions, InputWithButton } from "./form";
+import { Actions, InputWithButton, NextButton, NextButtonProps } from "./form";
 import {
   Table,
   TableHeader,
@@ -20,7 +20,7 @@ import { StepSchool, useStep1 } from "@/hooks/settings/steps/use-step1";
 import { Dispatch, SetStateAction, useState } from "react";
 import { StepAcademy, useStep2 } from "@/hooks/settings/steps/use-step2";
 import { StepTrack, useStep3 } from "@/hooks/settings/steps/use-step3";
-import { formatTrackDateWithShortMonth } from "@/utils";
+import { cn, formatTrackDateWithShortMonth } from "@/utils";
 import { useWatch } from "react-hook-form";
 import {
   SetupCalendarButton,
@@ -41,6 +41,46 @@ import {
   useStep5Track,
   useStep5LearningPeriod,
 } from "@/hooks/settings/steps/use-step5";
+
+const DefaultWrapper = ({
+  children,
+  className,
+  isLastStep = false,
+  isNextAllowed = false,
+  currentStep = 0,
+  backButton,
+  withBorder = false,
+}: React.PropsWithChildren<
+  {
+    className?: string;
+    withBorder?: boolean;
+  } & NextButtonProps
+>) => {
+  return (
+    <>
+      <div
+        className={cn(
+          "flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 flex-1 size-full py-10",
+          className
+        )}
+      >
+        {withBorder && (
+          <div className="flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 border border-border py-5 flex-1 h-full relative">
+            {children}
+          </div>
+        )}
+        {!withBorder && children}
+      </div>
+      <NextButton
+        currentStep={currentStep}
+        isNextAllowed={isNextAllowed}
+        isLastStep={isLastStep}
+        backButton={backButton}
+      />
+    </>
+  );
+};
+
 export const Step1 = ({
   schools: schoolsFromProps = [],
 }: {
@@ -57,7 +97,7 @@ export const Step1 = ({
   } = useStep1(_schools, setSchools);
 
   return (
-    <>
+    <DefaultWrapper isNextAllowed={schools.length > 0} currentStep={0}>
       <InputWithButton
         fields={[
           {
@@ -105,7 +145,7 @@ export const Step1 = ({
           ))}
         </TableBody>
       </Table>
-    </>
+    </DefaultWrapper>
   );
 };
 
@@ -125,7 +165,7 @@ export const Step2 = ({
   } = useStep2(_academies, setAcademies);
 
   return (
-    <>
+    <DefaultWrapper isNextAllowed={academies.length > 0} currentStep={1}>
       <InputWithButton
         fields={[
           {
@@ -173,7 +213,7 @@ export const Step2 = ({
           ))}
         </TableBody>
       </Table>
-    </>
+    </DefaultWrapper>
   );
 };
 
@@ -196,7 +236,7 @@ export const Step3 = ({
   const end_date = useWatch({ control: form.control, name: "end_date" });
 
   return (
-    <>
+    <DefaultWrapper isNextAllowed={tracks.length > 0} currentStep={2}>
       <InputWithButton
         fields={[
           {
@@ -279,7 +319,7 @@ export const Step3 = ({
           ))}
         </TableBody>
       </Table>
-    </>
+    </DefaultWrapper>
   );
 };
 
@@ -305,21 +345,27 @@ export const Step4 = ({
 
   if (selectedCalendar) {
     return (
-      <>
-        <Button
-          variant="outline"
-          onClick={() => {
+      <DefaultWrapper
+        isNextAllowed={calendars.every((calendar) => calendar.days.length > 0)}
+        currentStep={3}
+        withBorder
+        backButton={{
+          variant: "outline",
+          onClick: () => {
             if (isDirty) {
               setIsOpenConfirmation(true);
             } else {
               handleBackToTracks();
             }
-          }}
-          className="absolute -top-10 lg:top-10 lg:left-11 left-1"
-        >
-          <ArrowLeftIcon className="size-4" />
-          Back to Tracks
-        </Button>
+          },
+          children: (
+            <>
+              <ArrowLeftIcon className="size-4" />
+              Back to Tracks
+            </>
+          ),
+        }}
+      >
         <TrackCalendarWrapper track={selectedCalendar.track}>
           <CalendarForTrack
             calendar={selectedCalendar}
@@ -338,22 +384,30 @@ export const Step4 = ({
           open={isOpenConfirmation}
           onOpenChange={setIsOpenConfirmation}
         />
-      </>
+      </DefaultWrapper>
     );
   }
 
-  return calendars.map((calendar) => (
-    <TrackCard
-      key={calendar.id}
-      track={calendar.track}
-      isCompleted={calendar.days.length > 0}
+  return (
+    <DefaultWrapper
+      isNextAllowed={calendars.every((calendar) => calendar.days.length > 0)}
+      currentStep={3}
+      withBorder
     >
-      <SetupCalendarButton
-        onClick={handleSelectCalendar(calendar)}
-        isCompleted={calendar.days.length > 0}
-      />
-    </TrackCard>
-  ));
+      {calendars.map((calendar) => (
+        <TrackCard
+          key={calendar.id}
+          track={calendar.track}
+          isCompleted={calendar.days.length > 0}
+        >
+          <SetupCalendarButton
+            onClick={handleSelectCalendar(calendar)}
+            isCompleted={calendar.days.length > 0}
+          />
+        </TrackCard>
+      ))}
+    </DefaultWrapper>
+  );
 };
 
 export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
@@ -368,15 +422,22 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
 
   if (selectedTrack) {
     return (
-      <>
-        <Button
-          variant="outline"
-          onClick={handleBackToTracks}
-          className=""
-        >
-          <ArrowLeftIcon className="size-4" />
-          Back to Tracks
-        </Button>
+      <DefaultWrapper
+        isNextAllowed={tracks.every(
+          (track) => track.learningPeriods.length > 0
+        )}
+        currentStep={4}
+        backButton={{
+          variant: "outline",
+          onClick: handleBackToTracks,
+          children: (
+            <>
+              <ArrowLeftIcon className="size-4" />
+              Back to Tracks
+            </>
+          ),
+        }}
+      >
         <Step5LearningPeriod
           track={selectedTrack}
           setTrack={(fn: any) => {
@@ -388,12 +449,16 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
             );
           }}
         />
-      </>
+      </DefaultWrapper>
     );
   }
 
   return (
-    <div className="flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 border border-border py-5 flex-1 h-full relative">
+    <DefaultWrapper
+      isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
+      currentStep={4}
+      withBorder
+    >
       {tracks.map((track) => (
         <TrackCard
           key={track.id}
@@ -406,7 +471,7 @@ export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
           />
         </TrackCard>
       ))}
-    </div>
+    </DefaultWrapper>
   );
 };
 

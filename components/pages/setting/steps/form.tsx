@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { cn, formatTrackDateWithShortMonth } from "@/utils";
 import { LabelProps } from "@radix-ui/react-label";
 import { formatDate } from "date-fns";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 interface InputWithButtonProps extends React.PropsWithChildren<{}> {
   onSubmit: (data: any) => Promise<void>;
@@ -95,5 +97,48 @@ export const Actions = ({ edit, deletе }: ActionsProps) => {
       <Button children="Edit" {...edit} />
       <Button children="Delete" {...deletе} />
     </>
+  );
+};
+
+export type NextButtonProps = {
+  currentStep: number;
+  isNextAllowed: boolean;
+  isLastStep?: boolean;
+  backButton?: ButtonProps;
+};
+
+export const NextButton = ({
+  currentStep,
+  isNextAllowed,
+  backButton,
+  isLastStep = false,
+}: NextButtonProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNext = () => {
+    router.push(`${pathname}?step=${currentStep + 1}`);
+  };
+
+  const handleBack = () => {
+    router.push(`${pathname}?step=${currentStep - 1}`);
+  };
+
+  return (
+    <div className="flex w-full justify-between">
+      <Button
+        children="Back"
+        disabled={currentStep === 0}
+        onClick={handleBack}
+        {...backButton}
+      />
+      {!backButton && (
+        <Button
+          disabled={!isNextAllowed && isLastStep}
+          children="Next"
+          onClick={handleNext}
+        />
+      )}
+    </div>
   );
 };

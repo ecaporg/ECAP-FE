@@ -1,17 +1,27 @@
 import { rolePage } from "@/components/layouts/role-page";
-import { Stepper } from "@/components/pages/setting/steppe";
+import { Stepper } from "@/components/pages/setting/stepper";
 import { STEPS } from "@/components/pages/setting/steps";
 import { SETUP_STEPS } from "@/constants/setupSteps";
 
-function TabSetup() {
-  const activeStep = 4;
-  const Step = STEPS[activeStep];
+function getStep(step: string = "0") {
+  const stepNumber = parseInt(step);
+  return Math.max(0, Math.min(stepNumber, SETUP_STEPS.length - 1));
+}
+
+async function TabSetup({
+  searchParams,
+}: {
+  searchParams: Promise<{ step: string }>;
+}) {
+  const awaiedParams = await searchParams;
+  const activeStep = getStep(awaiedParams.step);
+  const StepComponent = STEPS[activeStep];
   return (
     <section className="p-10 h-full flex flex-col">
       <Stepper steps={SETUP_STEPS} activeStep={activeStep} />
 
-      <div className="flex-1 flex justify-center items-center">
-        {Step && <Step />}
+      <div className="flex-1 flex flex-col justify-between items-center">
+        <StepComponent />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
 import { Circle } from "lucide-react";
+import { useRouter, usePathname, usePathname } from "next/navigation";
 import React from "react";
 
 interface StepperProps {
@@ -8,7 +9,14 @@ interface StepperProps {
   onClick?: (step: number) => void;
 }
 
-const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onClick }) => {
+const Stepper: React.FC<StepperProps> = ({ steps, activeStep }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleClick = (step: number) => {
+    router.push(`${pathname}?step=${step}`);
+  };
+
   return (
     <div className="grid grid-flow-col flex-wrap grid-rows-3 sm:grid-rows-2 gap-y-14 lg:grid-rows-none">
       {steps.map((step, index) => (
@@ -20,7 +28,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onClick }) => {
           <Circle
             className="relative size-8 text-primary stroke-[0.5px] mx-auto fill-white data-[active=true]:fill-primary cursor-pointer"
             data-active={index === activeStep}
-            onClick={() => onClick && onClick(index)}
+            onClick={() => handleClick(index)}
           />
 
           <p className="text-lg text-neutral-black font-medium mt-6 text-center">
