@@ -28,7 +28,7 @@ export const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080/ap
 
 export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const RETRIES = 0;
+export const RETRIES = 3;
 export const RETRY_DELAY = 10000;
 
 export async function apiClientFetch<T = any, D = undefined>(
