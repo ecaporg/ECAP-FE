@@ -12,12 +12,14 @@ export function DayPicker({
   value,
   onChange,
   fromDate,
+  toDate,
   format = (date: Date) => formatDateFns(date, 'PPP'),
 }: {
   value: Date | undefined;
   onChange: (date: Date | undefined) => void;
   format?: (date: Date) => string;
   fromDate?: Date;
+  toDate?: Date;
 }) {
   return (
     <Popover>
@@ -37,11 +39,10 @@ export function DayPicker({
           selected={value}
           onSelect={onChange}
           disabled={
-            fromDate
-              ? {
-                  before: fromDate,
-                }
-              : undefined
+            {
+              before: fromDate,
+              after: toDate,
+            } as any
           }
         />
       </PopoverContent>

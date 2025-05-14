@@ -19,6 +19,7 @@ import {
   StepTrackLP,
   useStep5Track,
   useStep5LearningPeriod,
+  getLearningPeriodStartDate,
 } from '@/hooks/settings/steps/use-step5';
 import { NotImplemented } from '@/components/layouts/not-implemnted';
 
@@ -210,7 +211,6 @@ export const Step3 = ({
               type: 'date',
               className: 'hidden',
               ...form.register('start_date'),
-              min: new Date().toISOString(),
               value: start_date as any,
             },
             error: form.formState.errors.start_date?.message,
@@ -222,7 +222,7 @@ export const Step3 = ({
               type: 'date',
               className: 'hidden',
               ...form.register('end_date'),
-              min: start_date ? start_date.toISOString() : new Date().toISOString(),
+              min: start_date ? start_date.toISOString() : undefined,
               value: end_date as any,
             },
             error: form.formState.errors.end_date?.message,
@@ -419,6 +419,9 @@ const Step5LearningPeriod = ({
   const start_date = useWatch({ control: form.control, name: 'start_date' });
   const end_date = useWatch({ control: form.control, name: 'end_date' });
 
+  const minStartDate = getLearningPeriodStartDate(track) as any;
+  const minEndDate = track.end_date ? (new Date(track.end_date) as any) : undefined;
+
   return (
     <>
       <InputWithButton
@@ -441,7 +444,8 @@ const Step5LearningPeriod = ({
               type: 'date',
               className: 'hidden',
               ...form.register('start_date'),
-              min: new Date().toISOString(),
+              min: minStartDate,
+              max: minEndDate,
               value: start_date as any,
             },
             error: form.formState.errors.start_date?.message,
@@ -453,7 +457,8 @@ const Step5LearningPeriod = ({
               type: 'date',
               className: 'hidden',
               ...form.register('end_date'),
-              min: start_date ? start_date.toISOString() : new Date().toISOString(),
+              min: minStartDate,
+              max: minEndDate,
               value: end_date as any,
             },
             error: form.formState.errors.end_date?.message,

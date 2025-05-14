@@ -29,14 +29,9 @@ const trackLPFormSchema = z
     start_date: z.date({
       message: validationMessages.required('Start Date'),
     }),
-    end_date: z
-      .date({
-        message: validationMessages.required('End Date'),
-      })
-      .min(
-        new Date(),
-        validationMessages.minDate('End Date', formatTrackDateWithShortMonth(new Date()))
-      ),
+    end_date: z.date({
+      message: validationMessages.required('End Date'),
+    }),
   })
   .refine(
     ({ start_date = new Date(), end_date }) => {
@@ -83,6 +78,26 @@ export const useStep5Track = (defaultTracks: Track[]) => {
   };
 };
 
+const getLearningPeriodName = (track: Track) => {
+  return `Learning Period ${track.learningPeriods.length + 1}`;
+};
+
+export const getLearningPeriodStartDate = (track: Track) => {
+  if (track.learningPeriods.length === 0) {
+    return new Date(track.start_date);
+  }
+  const endDate = new Date(track.learningPeriods[track.learningPeriods.length - 1].end_date);
+  return new Date(endDate.setDate(endDate.getDate() + 1));
+};
+
+const getDefaultValues = (track: Track) => {
+  return {
+    name: getLearningPeriodName(track),
+    start_date: getLearningPeriodStartDate(track),
+    end_date: undefined as any,
+  };
+};
+
 export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetStateAction<Track>>) => {
   const [_, startTransition] = useTransition();
   const [optimisticLearningPeriods, setOptimisticLearningPeriods] = useOptimistic(
@@ -94,11 +109,7 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
   );
   const form = useForm<TrackLPForm>({
     resolver: zodResolver(trackLPFormSchema),
-    defaultValues: {
-      name: '',
-      start_date: undefined,
-      end_date: undefined,
-    },
+    defaultValues: getDefaultValues(track),
   });
 
   const addTrack = async (lp: TrackLearningPeriod) => {
@@ -109,10 +120,18 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
         ...lp,
         track_id: track.id,
       });
-      setTrack((prev) => ({
-        ...prev,
-        learningPeriods: [res.data!, ...prev.learningPeriods],
-      }));
+      setTrack((prev) => {
+        const newLearningPeriods = [...prev.learningPeriods, res.data!];
+
+        const newTrack = {
+          ...prev,
+          learningPeriods: newLearningPeriods,
+        };
+
+        form.reset(getDefaultValues(newTrack));
+
+        return newTrack;
+      });
 
       toast.success('Track added successfully');
     } catch (error) {
@@ -127,10 +146,19 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
       setOptimisticLearningPeriods({ action: 'edit', lp });
 
       const res = await trackClientApi.put(lp.id.toString(), lp);
-      setTrack((prev) => ({
-        ...prev,
-        learningPeriods: prev.learningPeriods.map((s) => (s.id === lp.id ? res.data! : s)),
-      }));
+      setTrack((prev) => {
+        const newLearningPeriods = prev.learningPeriods.map((s) =>
+          s.id === lp.id ? res.data! : s
+        );
+
+        const newTrack = {
+          ...prev,
+          learningPeriods: newLearningPeriods,
+        };
+
+        form.reset(getDefaultValues(newTrack));
+        return newTrack;
+      });
 
       toast.success('Track updated successfully');
     } catch (error) {
@@ -146,11 +174,17 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
       setOptimisticLearningPeriods({ action: 'delete', lp });
 
       await trackClientApi.delete(lp.id.toString());
-      setTrack((prev) => ({
-        ...prev,
-        learningPeriods: prev.learningPeriods.filter((s) => s.id !== lp.id),
-      }));
+      setTrack((prev) => {
+        const newLearningPeriods = prev.learningPeriods.filter((s) => s.id !== lp.id);
 
+        const newTrack = {
+          ...prev,
+          learningPeriods: newLearningPeriods,
+        };
+
+        form.reset(getDefaultValues(newTrack));
+        return newTrack;
+      });
       toast.success('Track deleted successfully');
     } catch (error) {
       console.error(error);
@@ -159,7 +193,7 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
   };
 
   const onAddClick = (values: TrackLPForm) => {
-    form.reset();
+    form.reset(getDefaultValues(track));
     startTransition(async () => {
       try {
         if (learningPeriodToEdit) {
@@ -186,7 +220,7 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
   const onEditClick = (lp: TrackLearningPeriod) => {
     if (learningPeriodToEdit?.id === lp.id) {
       setLearningPeriodToEdit(null);
-      form.reset();
+      form.reset(getDefaultValues(track));
     } else {
       setLearningPeriodToEdit(lp);
       form.setValue('name', lp.name);

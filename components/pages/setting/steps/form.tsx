@@ -74,6 +74,7 @@ const DatePikerWrapper = ({
         }}
         format={formatTrackDateWithShortMonth}
         fromDate={field.input.min ? new Date(field.input.min) : undefined}
+        toDate={field.input.max ? new Date(field.input.max) : undefined}
       />
     );
   }
@@ -122,7 +123,7 @@ export const NextButton = ({
     <div className="flex w-full justify-between">
       <Button children="Back" disabled={currentStep === 0} onClick={handleBack} {...backButton} />
       {!backButton && (
-        <Button disabled={!isNextAllowed && isLastStep} children="Next" onClick={handleNext} />
+        <Button disabled={!isNextAllowed || isLastStep} children="Next" onClick={handleNext} />
       )}
     </div>
   );
