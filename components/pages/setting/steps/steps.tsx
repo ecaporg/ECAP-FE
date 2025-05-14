@@ -20,6 +20,7 @@ import {
   useStep5Track,
   useStep5LearningPeriod,
 } from '@/hooks/settings/steps/use-step5';
+import { NotImplemented } from '@/components/layouts/not-implemnted';
 
 const DefaultWrapper = ({
   children,
@@ -502,7 +503,8 @@ const Step5LearningPeriod = ({
 export const Step6 = () => {
   return (
     <DefaultWrapper isNextAllowed={false} currentStep={5} isLastStep>
-      Not implemented yet. Require discussion with Natalie
+     <NotImplemented />
+     Require discussion with Natalie
     </DefaultWrapper>
   );
 };
