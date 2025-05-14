@@ -26,14 +26,9 @@ const trackFormSchema = z
     start_date: z.date({
       message: validationMessages.required('Start Date'),
     }),
-    end_date: z
-      .date({
-        message: validationMessages.required('End Date'),
-      })
-      .min(
-        new Date(),
-        validationMessages.minDate('End Date', formatTrackDateWithShortMonth(new Date()))
-      ),
+    end_date: z.date({
+      message: validationMessages.required('End Date'),
+    }),
   })
   .refine(
     ({ start_date = new Date(), end_date }) => {
