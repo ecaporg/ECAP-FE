@@ -17,6 +17,7 @@ async function TabSetup({
 }) {
   const awaiedParams = await searchParams;
   const activeStep = getStep(awaiedParams.step);
+  console.log('TabSetup', activeStep);
   const StepComponent = STEPS[activeStep];
   return (
     <section className="p-10 h-full flex flex-col">
@@ -24,7 +25,7 @@ async function TabSetup({
 
       <div className="flex-1 flex flex-col justify-between items-center">
         <Suspense fallback={<PageLoading />} key={activeStep}>
-          <StepComponent key={activeStep} />
+          <StepComponent />
         </Suspense>
       </div>
     </section>

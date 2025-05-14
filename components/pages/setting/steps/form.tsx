@@ -36,7 +36,7 @@ export const InputWithButton = ({
         <>
           <Label key={field.label.htmlFor + 'label'} className="p-2" {...field.label} />
           <Input key={field.input.id} {...field.input} />
-          <DatePikerWrapper field={field} />
+          <DatePikerWrapper field={field} key={field.input.id + 'date-picker'} />
           {field.error && (
             <FormError
               key={field.input.id + 'error'}

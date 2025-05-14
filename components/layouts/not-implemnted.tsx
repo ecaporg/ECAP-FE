@@ -1,12 +1,15 @@
 import { Frown } from 'lucide-react';
-import { Card, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 
-export function NotImplemented() {
+export function NotImplemented({ children }: React.PropsWithChildren) {
     return (
-        <Card className="flex flex-col items-center justify-center h-[90vh]">
+        <Card className='w-full'>
             <CardHeader>
-                <CardTitle>This feature is not implemented yet <Frown /></CardTitle>
+                <CardTitle>This feature is not implemented yet <Frown className='size-6 inline-block' /></CardTitle>
             </CardHeader>
+            <CardContent>
+                {children}
+            </CardContent>
         </Card>
     )
 }

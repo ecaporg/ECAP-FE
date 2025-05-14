@@ -19,6 +19,7 @@ export const routes = {
   },
   settings: {
     root: '/settings',
+    setup: '/settings/setup',
   },
   profile: {
     root: '/profile',
