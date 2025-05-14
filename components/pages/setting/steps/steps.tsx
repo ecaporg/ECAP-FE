@@ -20,6 +20,7 @@ import {
   useStep5Track,
   useStep5LearningPeriod,
   getLearningPeriodStartDate,
+  getLearningPeriodEndDate,
 } from '@/hooks/settings/steps/use-step5';
 import { NotImplemented } from '@/components/layouts/not-implemnted';
 
@@ -420,7 +421,7 @@ const Step5LearningPeriod = ({
   const end_date = useWatch({ control: form.control, name: 'end_date' });
 
   const minStartDate = getLearningPeriodStartDate(track) as any;
-  const minEndDate = track.end_date ? (new Date(track.end_date) as any) : undefined;
+  const minEndDate = getLearningPeriodEndDate(track) as any;
 
   return (
     <>

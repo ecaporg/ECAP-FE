@@ -90,6 +90,11 @@ export const getLearningPeriodStartDate = (track: Track) => {
   return new Date(endDate.setDate(endDate.getDate() + 1));
 };
 
+export const getLearningPeriodEndDate = (track: Track) => {
+  const endDate = new Date(track.end_date);
+  return new Date(endDate.setDate(endDate.getDate() + 1));
+};
+
 const getDefaultValues = (track: Track) => {
   return {
     name: getLearningPeriodName(track),
