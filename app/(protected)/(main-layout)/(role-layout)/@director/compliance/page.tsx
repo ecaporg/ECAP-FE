@@ -3,7 +3,7 @@ import { getComplianceAdminFilter } from '@/lib/api/compliance';
 import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import { TeacherSection } from '@/components/pages/compliance/sections';
-import {  DirectorFilters } from '@/components/pages/compliance/filters';
+import { DirectorFilters } from '@/components/pages/compliance/filters';
 import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
 import { rolePage } from '@/components/layouts/role-page';
 import { Metadata } from 'next';

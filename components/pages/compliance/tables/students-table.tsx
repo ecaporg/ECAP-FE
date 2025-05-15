@@ -25,7 +25,7 @@ interface StudentsTableProps {
 export const StudentsTable = ({ assignments = [], currentLearningPeriod }: StudentsTableProps) => {
   const pathname = usePathname();
   const teacher_id = useSearchParams().get(DEFAULT_FILTERS_KEYS.TEACHER_ID);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const getPath = (user: User) =>
     `${pathname}/samples?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${

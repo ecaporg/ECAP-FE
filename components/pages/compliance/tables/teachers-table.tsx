@@ -20,8 +20,11 @@ interface TeachersTableProps {
   user: User;
 }
 
-export const TeachersTable = ({ assignments = [], currentLearningPeriod, user }: TeachersTableProps) => {
-  
+export const TeachersTable = ({
+  assignments = [],
+  currentLearningPeriod,
+  user,
+}: TeachersTableProps) => {
   const getPath = (assignment: TeacherCompliance) =>
     `${routes.compliance.teacher.replace(
       ':id',

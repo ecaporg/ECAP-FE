@@ -40,7 +40,10 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   return (
     <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start pb-7">
       <h2 className="text-lg font-semibold text-neutral-black order-1">
-        Showing Table for {learningPeriod?.name} <span className="font-normal">({learningPeriod && getLearningPeriodDateRange(learningPeriod)})</span>
+        Showing Table for {learningPeriod?.name}{' '}
+        <span className="font-normal">
+          ({learningPeriod && getLearningPeriodDateRange(learningPeriod)})
+        </span>
       </h2>
 
       <Pagination
@@ -78,7 +81,8 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
         <div className="text-base text-neutral-black">
           <b>{completedString}</b>
           <br />
-          <b>Due: </b>{formatDueDateWithYear(dueDate)}
+          <b>Due: </b>
+          {formatDueDateWithYear(dueDate)}
         </div>
       </div>
     </section>

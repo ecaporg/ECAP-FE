@@ -34,7 +34,7 @@ export const TeacherSection = (props: TeachersSectionProps) => {
 };
 
 const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps) => {
-  const user = await getUser(); 
+  const user = await getUser();
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const assignment = await getComplianceTeachers(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
