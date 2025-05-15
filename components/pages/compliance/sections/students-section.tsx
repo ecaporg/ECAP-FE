@@ -45,8 +45,8 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ''}
-        dueDate={dueDate.toLocaleDateString()}
+        learningPeriod={learningPeriod}
+        dueDate={dueDate}
         completedString={`${completedCount} / ${totalItems} Students Completed`}
         status={status}
       />

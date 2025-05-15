@@ -63,8 +63,8 @@ const DirectorSamples = async ({ param, tenant, academicYearIds }: AdminSamplesS
     <>
       <PaginationSection
         totalPages={totalPages}
-        learningPeriod={learningPeriod?.name ?? ''}
-        dueDate={dueDate.toLocaleDateString()}
+        learningPeriod={learningPeriod}
+        dueDate={dueDate}
         completedString={`${completedCount} / ${totalItems} Samples Completed`}
         status={status}
       />

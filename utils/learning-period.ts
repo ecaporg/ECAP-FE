@@ -24,6 +24,14 @@ export const formatLearningPeriodDate = (date: Date | string) => {
   });
 };
 
+export const formatDueDateWithYear = (date: Date | string) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+};
+
 export const getLearningPeriodFromTenant = (
   tenant: Tenant,
   academic_year_ids?: (number | string)[],

@@ -100,8 +100,8 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       />
       <PaginationSection
         totalPages={0}
-        learningPeriod={learningPeriod?.name ?? ''}
-        dueDate={dueDate.toLocaleDateString()}
+        learningPeriod={learningPeriod}
+        dueDate={dueDate}
         completedString={`${completeCount} / ${totalItems} Subjects Completed`}
         status={status}
       />
