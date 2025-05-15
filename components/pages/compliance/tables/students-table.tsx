@@ -14,6 +14,8 @@ import { CompletionStatusForTable } from '../statuses';
 import { SortableIcon } from '@/components/table/sortable-header';
 import Link from 'next/link';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { hasPermission } from '@/lib/permissions';
+import { useAuth } from '@/providers/auth';
 
 interface StudentsTableProps {
   assignments?: AssignmentPeriod[];
@@ -23,6 +25,7 @@ interface StudentsTableProps {
 export const StudentsTable = ({ assignments = [], currentLearningPeriod }: StudentsTableProps) => {
   const pathname = usePathname();
   const teacher_id = useSearchParams().get(DEFAULT_FILTERS_KEYS.TEACHER_ID);
+  const {user} = useAuth();
 
   const getPath = (user: User) =>
     `${pathname}/samples?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${
@@ -35,7 +38,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="min-w-[200px]">
+          <TableHead>
             Student Name
             <SortableIcon<AssignmentPeriod> name="student.user.firstname" />
           </TableHead>
@@ -49,7 +52,9 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
           </TableHead>
           <TableHead>
             Academy
-            <SortableIcon<AssignmentPeriod> name="student.academy.name" />
+            {hasPermission(user, 'sorting', 'sort:academy') && (
+              <SortableIcon<AssignmentPeriod> name="student.academy.name" />
+            )}
           </TableHead>
           <TableHead>
             Track

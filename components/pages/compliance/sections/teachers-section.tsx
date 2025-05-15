@@ -6,6 +6,7 @@ import type { Tenant, TrackLearningPeriod } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { TeachersTable } from '../tables';
+import { getUser } from '@/lib/get-user';
 
 export interface SectionWithTableProps {
   param: {
@@ -33,6 +34,7 @@ export const TeacherSection = (props: TeachersSectionProps) => {
 };
 
 const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps) => {
+  const user = await getUser(); 
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const assignment = await getComplianceTeachers(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
@@ -58,6 +60,7 @@ const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps
       <TeachersTable
         assignments={assignment?.data ?? []}
         currentLearningPeriod={learningPeriod as TrackLearningPeriod}
+        user={user!}
       />
     </>
   );

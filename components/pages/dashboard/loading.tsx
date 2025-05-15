@@ -11,7 +11,7 @@ export const CurrentLPSectionSkeleton = ({ children }: React.PropsWithChildren) 
         <ProgressCardSkeleton className="md:w-[19.75rem]" title="Current LP Compliance" />
         {children}
 
-        <div className="flex-1">
+        <div className="flex-1 sm:w-[25rem]">
           <TrackRowSkeleton />
           <TrackArrow />
           <TrackRowSkeleton />

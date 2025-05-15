@@ -16,19 +16,19 @@ import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
 import type { Tenant } from '@/types';
 
-interface AdminFiltersProps {
+interface DirectorFiltersProps {
   tenant: Tenant;
   academicYearIds: string[];
   tracksIds: string[];
 }
 
-export function AdminFilters({ tenant, academicYearIds, tracksIds }: AdminFiltersProps) {
+export function DirectorFilters({ tenant, academicYearIds, tracksIds }: DirectorFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds.includes(track.academic_year_id.toString())
   );
 
   return (
-    <FilterWrapper className="lg:grid-flow-row grid-cols-6">
+    <FilterWrapper className="lg:[&_button:has(input)]:col-span-3 lg:grid-flow-row grid-cols-6">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
       />
@@ -37,10 +37,6 @@ export function AdminFilters({ tenant, academicYearIds, tracksIds }: AdminFilter
       />
       <SearchTeacherFilter />
 
-      <AcademyFilter
-        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
-        availableAcademies={tenant.academies}
-      />
       <CompletionFilter />
 
       <SchoolFilter

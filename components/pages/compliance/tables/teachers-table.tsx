@@ -6,20 +6,22 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { TeacherCompliance, TrackLearningPeriod } from '@/types';
+import type { TeacherCompliance, TrackLearningPeriod, User } from '@/types';
 import { getCompletionStatus, getUserName } from '@/utils';
 import { CompletionStatusForTable } from '../statuses';
 import { SortableIcon } from '@/components/table/sortable-header';
 import { routes } from '@/constants/routes';
 import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
 import Link from 'next/link';
-
+import { hasPermission } from '@/lib/permissions';
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
   currentLearningPeriod?: TrackLearningPeriod;
+  user: User;
 }
 
-export const TeachersTable = ({ assignments = [], currentLearningPeriod }: TeachersTableProps) => {
+export const TeachersTable = ({ assignments = [], currentLearningPeriod, user }: TeachersTableProps) => {
+  
   const getPath = (assignment: TeacherCompliance) =>
     `${routes.compliance.teacher.replace(
       ':id',
@@ -40,7 +42,9 @@ export const TeachersTable = ({ assignments = [], currentLearningPeriod }: Teach
           </TableHead>
           <TableHead>
             Academy
-            <SortableIcon<TeacherCompliance> name="academy_name" />
+            {hasPermission(user, 'sorting', 'sort:academy') && (
+              <SortableIcon<TeacherCompliance> name="academy_name" />
+            )}
           </TableHead>
           <TableHead>
             Students

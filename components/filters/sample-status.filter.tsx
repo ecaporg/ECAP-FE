@@ -4,6 +4,7 @@ import { SampleStatus } from '@/types';
 import { BaseFilter, type FilterProps } from './base';
 interface SampleStatusFilterProps {
   slug?: string;
+  options?: FilterProps['options'];
 }
 
 const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS).map(([key, value]) => ({
@@ -13,10 +14,9 @@ const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS).map(([key
 
 export function SampleStatusFilter({
   slug = DEFAULT_FILTERS_KEYS.SAMPLE_STATUS,
+  options = statuses,
 }: SampleStatusFilterProps) {
-  return (
-    <BaseFilter label="Sample Status" slug={slug} options={statuses} multiple hasSearch={true} />
-  );
+  return <BaseFilter label="Sample Status" slug={slug} options={options} multiple />;
 }
 
 interface FlagCategoryFilterProps {
@@ -26,7 +26,6 @@ interface FlagCategoryFilterProps {
 const flagCategories: FilterProps['options'] = Object.entries({
   [SampleStatus.MISSING_SAMPLE]: SAMPLE_STATUS.MISSING_SAMPLE,
   [SampleStatus.ERRORS_FOUND]: SAMPLE_STATUS.ERRORS_FOUND,
-  [SampleStatus.REASON_REJECTED]: SAMPLE_STATUS.REASON_REJECTED,
 }).map(([key, value]) => ({
   label: value,
   value: key as SampleStatus,
@@ -34,7 +33,7 @@ const flagCategories: FilterProps['options'] = Object.entries({
 
 export function FlagCategoryFilter({
   slug = DEFAULT_FILTERS_KEYS.FLAG_CATEGORY,
-}: SampleStatusFilterProps) {
+}: FlagCategoryFilterProps) {
   return (
     <BaseFilter
       label="Flag Category"

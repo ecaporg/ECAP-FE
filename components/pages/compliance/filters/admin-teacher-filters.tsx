@@ -3,10 +3,12 @@ import {
   LearningPeriodFilter,
   SampleStatusFilter,
   AcademicYearFilter,
+  FilterProps,
 } from '@/components/filters';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
-import type { Tenant } from '@/types';
+import { SampleStatus, Tenant } from '@/types';
+import { SAMPLE_STATUS } from '@/constants/sample';
 
 interface AdminTeacherFiltersProps {
   tenant: Tenant;
@@ -15,7 +17,7 @@ interface AdminTeacherFiltersProps {
 
 export function AdminTeacherFilters({ tenant, academicYearIds }: AdminTeacherFiltersProps) {
   return (
-    <FilterWrapper className="pt-0 pb-6">
+    <FilterWrapper className="pt-0 pb-6" grid={false}>
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
       />
@@ -26,11 +28,21 @@ export function AdminTeacherFilters({ tenant, academicYearIds }: AdminTeacherFil
   );
 }
 
+const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS)
+  .map(([key, value]) => ({
+    label: value as string,
+    value: key as SampleStatus,
+  }))
+  .filter(
+    ({ value }) =>
+      ![SampleStatus.PENDING, SampleStatus.FLAGGED_TO_ADMIN].includes(value as SampleStatus)
+  );
+
 export const AdminSamplesFilters = () => {
   return (
-    <FilterWrapper className="pt-9 pb-4">
+    <FilterWrapper className="pt-9 pb-4" grid={false}>
       <FlagCategoryFilter />
-      <SampleStatusFilter />
+      <SampleStatusFilter options={statuses} />
     </FilterWrapper>
   );
 };

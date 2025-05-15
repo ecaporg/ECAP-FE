@@ -22,7 +22,7 @@ export function SamplesFilters({
   academicYearIds,
 }: SamplesFiltersProps) {
   return (
-    <FilterWrapper className="pt-0">
+    <FilterWrapper className="pt-0" grid={false}>
       <BackToCompliance
         student={
           student ??

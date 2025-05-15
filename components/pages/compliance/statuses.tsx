@@ -98,7 +98,7 @@ const getLabelCompletionStatus = (variant: CompletionStatusProps['variant']) => 
     case 'Overdue':
       return 'Overdue';
     default:
-      return 'In Progress';
+      return 'Incomplete';
   }
 };
 

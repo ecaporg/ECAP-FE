@@ -54,11 +54,11 @@ export async function CompliancePageTeacher({
   console.log(academicYearIds);
 
   return (
-    <div>
+    <>
       <BackToTeacherTable teacher={await getTeacher((await params).id)} />
       <AdminTeacherFilters tenant={tenant} academicYearIds={academicYearIds} />
       <ComplianceTabs />
-    </div>
+    </>
   );
 }
 

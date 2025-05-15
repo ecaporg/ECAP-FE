@@ -19,6 +19,9 @@ export const ROLES = {
       settings: false,
       profile: true,
     },
+    sorting: {
+      'sort:academy': false,
+    },
   },
   TEACHER: {
     samples: {
@@ -35,6 +38,9 @@ export const ROLES = {
     navigation: {
       settings: false,
       profile: true,
+    },
+    sorting: {
+      'sort:academy': true,
     },
   },
   ADMIN: {
@@ -53,6 +59,9 @@ export const ROLES = {
       settings: true,
       profile: true,
     },
+    sorting: {
+      'sort:academy': true,
+    },
   },
   SUPER_ADMIN: {
     samples: {
@@ -70,6 +79,9 @@ export const ROLES = {
       settings: true,
       profile: true,
     },
+    sorting: {
+      'sort:academy': true,
+    },
   },
   STUDENT: {
     samples: {
@@ -82,6 +94,9 @@ export const ROLES = {
     navigation: {
       settings: false,
       profile: true,
+    },
+    sorting: {
+      'sort:academy': false,
     },
   },
 } as const satisfies RolesWithPermissions;

@@ -6,3 +6,4 @@ export {
   AdminTeacherFilters,
   AdminSamplesFilters,
 } from './admin-teacher-filters';
+export { DirectorFilters } from './director-filters';
