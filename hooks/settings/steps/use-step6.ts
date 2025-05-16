@@ -151,9 +151,7 @@ export const useStep6Semesters = (track: Track, setTrack: Dispatch<SetStateActio
 
       const res = await semesterClientApi.put(semester.id.toString(), semester);
       setTrack((prev) => {
-        const newSemesters = prev.semesters.map((s) =>
-          s.id === semester.id ? res.data! : s
-        );
+        const newSemesters = prev.semesters.map((s) => (s.id === semester.id ? res.data! : s));
 
         const newTrack = {
           ...prev,

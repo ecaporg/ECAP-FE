@@ -67,3 +67,18 @@ export const SetupLearningPeriodButton = ({
     </Button>
   );
 };
+
+
+export const SetupSemesterButton = ({
+  onClick,
+  isCompleted,
+}: {
+  onClick: () => void;
+  isCompleted: boolean;
+}) => {
+  return (
+    <Button className="w-full" onClick={onClick}>
+      <Calendar1 className="size-4 mr-2" />
+      {isCompleted ? 'Edit Semesters' : 'Set Up Semesters'}
+    </Button>
+  );

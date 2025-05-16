@@ -9,7 +9,7 @@ import { StepAcademy, useStep2 } from '@/hooks/settings/steps/use-step2';
 import { StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
 import { cn, formatTrackDateWithShortMonth } from '@/utils';
 import { useWatch } from 'react-hook-form';
-import { SetupCalendarButton, SetupLearningPeriodButton, TrackCard } from './track-card';
+import { SetupCalendarButton, SetupLearningPeriodButton, SetupSemesterButton, TrackCard } from './track-card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon } from 'lucide-react';
 import { TrackCalendarWrapper, CalendarForTrack, CalendarButtons } from './track-calendar';
@@ -520,8 +520,9 @@ export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
   if (selectedTrack) {
     return (
       <DefaultWrapper
-        isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
-        currentStep={4}
+        isLastStep
+        isNextAllowed={false}
+        currentStep={5}
         backButton={{
           variant: 'outline',
           onClick: handleBackToTracks,
@@ -548,15 +549,16 @@ export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
 
   return (
     <DefaultWrapper
-      isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
-      currentStep={4}
+      isLastStep
+      isNextAllowed={false}
+      currentStep={5}
       withBorder
     >
       {tracks.map((track) => (
-        <TrackCard key={track.id} track={track} isCompleted={track.learningPeriods.length > 0}>
-          <SetupLearningPeriodButton
+        <TrackCard key={track.id} track={track} isCompleted={track.semesters.length > 0}>
+          <SetupSemesterButton
             onClick={handleSelectTrack(track)}
-            isCompleted={track.learningPeriods.length > 0}
+            isCompleted={track.semesters.length > 0}
           />
         </TrackCard>
       ))}
