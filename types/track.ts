@@ -1,4 +1,4 @@
-import { type AcademicYear, type AssignmentPeriod, type Tenant } from './school';
+import { type AcademicYear, type AssignmentPeriod, type Tenant, type Semester } from './school';
 import type { GenericEntity } from './shared';
 import type { Sample, Student } from './student';
 
@@ -40,4 +40,5 @@ export type Track = GenericEntity & {
   subjects: Subject[];
   learningPeriods: TrackLearningPeriod[];
   students: Student[];
+  semesters: Semester[];
 };

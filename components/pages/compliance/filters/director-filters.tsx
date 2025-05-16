@@ -45,7 +45,7 @@ export function DirectorFilters({ tenant, academicYearIds, tracksIds }: Director
       />
       <TrackFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID} availableTracks={tracks} />
       <SemesterFilter
-        availableSemesters={tracks.flatMap((track) => track.academicYear.semesters)}
+        availableSemesters={tracks.flatMap((track) => track.semesters)}
       />
       <GradeSpanFilter />
       <SubjectFilter

@@ -34,7 +34,9 @@ const Step5ServerWrapper = async () => {
 };
 
 const Step6ServerWrapper = async () => {
-  return <Step6 />;
+  const tracks = await trackServerApi.findAllWithSemesters();
+
+  return <Step6 tracks={tracks.data!} />;
 };
 
 export const STEPS = [

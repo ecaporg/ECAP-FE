@@ -10,6 +10,10 @@ class TrackServerApi extends BaseApi<Track, undefined> {
   async findAllWithLearningPeriods() {
     return this.get('periods') as ApiResponse<Track[], undefined>;
   }
+
+  async findAllWithSemesters() {
+    return this.get('semesters') as ApiResponse<Track[], undefined>;
+  }
 }
 
 export const trackServerApi = new TrackServerApi();

@@ -138,10 +138,10 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
         return newTrack;
       });
 
-      toast.success('Track added successfully');
+      toast.success('Learning period added successfully');
     } catch (error) {
       console.error(error);
-      toast.error('Failed to add track');
+      toast.error('Failed to add learning period');
       throw error;
     }
   };
@@ -165,10 +165,10 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
         return newTrack;
       });
 
-      toast.success('Track updated successfully');
+      toast.success('Learning period updated successfully');
     } catch (error) {
       console.error(error);
-      toast.error('Failed to edit track');
+      toast.error('Failed to edit learning period');
       throw error;
     }
   };
@@ -190,10 +190,10 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
         form.reset(getDefaultValues(newTrack));
         return newTrack;
       });
-      toast.success('Track deleted successfully');
+      toast.success('Learning period deleted successfully');
     } catch (error) {
       console.error(error);
-      toast.error('Failed to delete track');
+      toast.error('Failed to delete learning period');
     }
   };
 
@@ -202,14 +202,14 @@ export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetState
     startTransition(async () => {
       try {
         if (learningPeriodToEdit) {
-          toast.info('Updating track...');
+          toast.info('Updating learning period...');
           await editLearningPeriod({
             ...learningPeriodToEdit,
             ...values,
           });
           setLearningPeriodToEdit(null);
         } else {
-          toast.info('Adding track...');
+          toast.info('Adding learning period...');
           await addTrack({
             ...values,
           } as TrackLearningPeriod);

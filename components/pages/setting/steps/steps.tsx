@@ -23,6 +23,7 @@ import {
   getLearningPeriodEndDate,
 } from '@/hooks/settings/steps/use-step5';
 import { NotImplemented } from '@/components/layouts/not-implemnted';
+import { StepSemester, useStep6Semesters, useStep6Track } from '@/hooks/settings/steps/use-step6';
 
 const DefaultWrapper = ({
   children,
@@ -506,10 +507,157 @@ const Step5LearningPeriod = ({
   );
 };
 
-export const Step6 = () => {
+export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
+  const {
+    tracks,
+    handleSelectTrack,
+    selectedTrack,
+    setTracks,
+    setSelectedTrack,
+    handleBackToTracks,
+  } = useStep6Track(defaultTracks);
+
+  if (selectedTrack) {
+    return (
+      <DefaultWrapper
+        isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
+        currentStep={4}
+        backButton={{
+          variant: 'outline',
+          onClick: handleBackToTracks,
+          children: (
+            <>
+              <ArrowLeftIcon className="size-4" />
+              Back to Tracks
+            </>
+          ),
+        }}
+      >
+        <Step6Semesters
+          track={selectedTrack}
+          setTrack={(fn: any) => {
+            setSelectedTrack(fn);
+            setTracks((prev) =>
+              prev.map((track) => (track.id === selectedTrack.id ? (fn?.(track) ?? fn) : track))
+            );
+          }}
+        />
+      </DefaultWrapper>
+    );
+  }
+
   return (
-    <DefaultWrapper isNextAllowed={false} currentStep={5} isLastStep>
-      <NotImplemented>Require discussion with Natalie</NotImplemented>
+    <DefaultWrapper
+      isNextAllowed={tracks.every((track) => track.learningPeriods.length > 0)}
+      currentStep={4}
+      withBorder
+    >
+      {tracks.map((track) => (
+        <TrackCard key={track.id} track={track} isCompleted={track.learningPeriods.length > 0}>
+          <SetupLearningPeriodButton
+            onClick={handleSelectTrack(track)}
+            isCompleted={track.learningPeriods.length > 0}
+          />
+        </TrackCard>
+      ))}
     </DefaultWrapper>
+  );
+};
+
+const Step6Semesters = ({
+  track,
+  setTrack,
+}: {
+  track: Track;
+  setTrack: Dispatch<SetStateAction<Track>>;
+}) => {
+  const { onAddClick, onEditClick, onDeleteClick, form, semesters, editingSemesterId } =
+    useStep6Semesters(track, setTrack);
+  const start_date = useWatch({ control: form.control, name: 'start_date' });
+  const end_date = useWatch({ control: form.control, name: 'end_date' });
+
+  const minStartDate = getLearningPeriodStartDate(track) as any;
+  const minEndDate = getLearningPeriodEndDate(track) as any;
+
+  return (
+    <>
+      <InputWithButton
+        fields={[
+          {
+            label: {
+              htmlFor: 'semester-name',
+              children: 'Semester',
+            },
+            input: {
+              id: 'semester-name',
+              ...form.register('name'),
+            },
+            error: form.formState.errors.name?.message,
+          },
+          {
+            label: { htmlFor: 'semester-start-date', children: 'Start Date' },
+            input: {
+              id: 'semester-start-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('start_date'),
+              min: minStartDate,
+              max: minEndDate,
+              value: start_date as any,
+            },
+            error: form.formState.errors.start_date?.message,
+          },
+          {
+            label: { htmlFor: 'track-end-date', children: 'End Date' },
+            input: {
+              id: 'semester-end-date',
+              type: 'date',
+              className: 'hidden',
+              ...form.register('end_date'),
+              min: minStartDate,
+              max: minEndDate,
+              value: end_date as any,
+            },
+            error: form.formState.errors.end_date?.message,
+          },
+        ]}
+        button={{
+          children: editingSemesterId ? 'Update Semester' : 'Add Semester',
+          disabled: form.formState.isSubmitting || !form.formState.isValid,
+        }}
+        onSubmit={form.handleSubmit(onAddClick)}
+        className="w-80"
+      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Semester</TableHead>
+            <TableHead>Start Date</TableHead>
+            <TableHead>End Date</TableHead>
+            <TableHead className="text-center">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {semesters.map((semester) => (
+            <TableRow
+              key={semester.id || 'new-semester'}
+              className={
+                (semester as StepSemester).disabled ? 'opacity-50 pointer-events-none' : ''
+              }
+            >
+              <TableCell className="text-truncate max-w-80">{semester.name}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(semester.start_date)}</TableCell>
+              <TableCell>{formatTrackDateWithShortMonth(semester.end_date)}</TableCell>
+              <TableCell>
+                <Actions
+                  edit={{ onClick: () => onEditClick(semester) }}
+                  deletе={{ onClick: () => onDeleteClick(semester) }}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 };

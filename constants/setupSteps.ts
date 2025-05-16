@@ -4,5 +4,5 @@ export const SETUP_STEPS = [
   'Add Tracks',
   'Set Calendar',
   'Add Learning Periods',
-  'Set Reporting Periods',
+  'Add Semesters',
 ];

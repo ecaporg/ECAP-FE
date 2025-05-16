@@ -10,7 +10,6 @@ export type Tenant = GenericEntity & {
   admins: Admin[];
   academies: Academy[];
   tracks: Track[];
-  semesters: Semester[];
 };
 
 export type Academy = GenericEntity & {
@@ -25,38 +24,26 @@ export type Semester = GenericEntity & {
   name: string;
   start_date: Date;
   end_date: Date;
-  academic_year_id: number;
-  academic_year: AcademicYear;
+  track_id: number;
+  track: Track;
   tenant: Tenant;
 };
 
 export type School = GenericEntity & {
   name: string;
-
   tenant_id: number;
-
   tenant: Tenant;
-
   semesters: Semester[];
-
   students: Student[];
-
   teachers: Teacher[];
-
   directors: Director[];
-
   courses: Course[];
 };
 
 export type AcademicYear = GenericEntity & {
   from: number;
-
   to: number;
-
-  semesters: Semester[];
-
   tracks: Track[];
-
   courses: Course[];
 };
 
