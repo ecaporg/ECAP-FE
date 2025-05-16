@@ -9,7 +9,12 @@ import { StepAcademy, useStep2 } from '@/hooks/settings/steps/use-step2';
 import { StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
 import { cn, formatTrackDateWithShortMonth } from '@/utils';
 import { useWatch } from 'react-hook-form';
-import { SetupCalendarButton, SetupLearningPeriodButton, SetupSemesterButton, TrackCard } from './track-card';
+import {
+  SetupCalendarButton,
+  SetupLearningPeriodButton,
+  SetupSemesterButton,
+  TrackCard,
+} from './track-card';
 import { ArrowLeftIcon } from 'lucide-react';
 import { TrackCalendarWrapper, CalendarForTrack, CalendarButtons } from './track-calendar';
 import { useStep4 } from '@/hooks/settings/steps/use-step4';
@@ -21,7 +26,13 @@ import {
   getLearningPeriodStartDate,
   getLearningPeriodEndDate,
 } from '@/hooks/settings/steps/use-step5';
-import { getSemesterEndDate, getSemesterStartDate, StepSemester, useStep6Semesters, useStep6Track } from '@/hooks/settings/steps/use-step6';
+import {
+  getSemesterEndDate,
+  getSemesterStartDate,
+  StepSemester,
+  useStep6Semesters,
+  useStep6Track,
+} from '@/hooks/settings/steps/use-step6';
 
 const DefaultWrapper = ({
   children,
@@ -546,12 +557,7 @@ export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
   }
 
   return (
-    <DefaultWrapper
-      isLastStep
-      isNextAllowed={false}
-      currentStep={5}
-      withBorder
-    >
+    <DefaultWrapper isLastStep isNextAllowed={false} currentStep={5} withBorder>
       {tracks.map((track) => (
         <TrackCard key={track.id} track={track} isCompleted={track.semesters.length > 0}>
           <SetupSemesterButton

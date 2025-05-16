@@ -68,7 +68,6 @@ export const SetupLearningPeriodButton = ({
   );
 };
 
-
 export const SetupSemesterButton = ({
   onClick,
   isCompleted,
@@ -82,3 +81,4 @@ export const SetupSemesterButton = ({
       {isCompleted ? 'Edit Semesters' : 'Set Up Semesters'}
     </Button>
   );
+};

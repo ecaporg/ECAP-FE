@@ -48,7 +48,10 @@ export function AdminFilters({ tenant, academicYearIds, tracksIds }: AdminFilter
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID}
       />
       <TrackFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID} availableTracks={tracks} />
-      <SemesterFilter availableSemesters={tracks.flatMap((track) => track.semesters)} />
+      <SemesterFilter
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.SEMESTER_ID}
+        availableSemesters={tracks.flatMap((track) => track.semesters)}
+      />
       <GradeSpanFilter />
       <SubjectFilter
         availableSubjects={tracks

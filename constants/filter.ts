@@ -5,7 +5,7 @@ export const DEFAULT_FILTERS_KEYS = {
   ACADEMY_ID: 'academy_id',
   TRACK_ID: 'track_id',
   ACADEMIC_YEAR: 'academic_year',
-  SEMESTER: 'semester',
+  SEMESTER: 'semesters.id',
   SUBJECT: 'subject',
   GRADE: 'student.grade',
   SEARCH: 'search',
@@ -29,6 +29,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
       TEACHER_ID: 'assignment_period.course.teacher_id',
       ACADEMIC_YEAR: 'assignment_period.course.academic_year_id',
       ACADEMY_ID: 'assignment_period.student.academy_id',
+      SEMESTER_ID: 'student.track.semesters.id',
     },
   },
   COMPLAIANCE_SAMPLES: {
