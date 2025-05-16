@@ -2,8 +2,8 @@
 import { BaseApi } from '@/lib/base-api';
 import { apiClientFetch } from '@/lib/client-fetch';
 import { Semester } from '@/types';
-import { Track, TrackLearningPeriod } from '@/types/track';
-import { validationMessages, formatTrackDateWithShortMonth } from '@/utils';
+import { Track } from '@/types/track';
+import { validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useOptimistic, useState, useTransition, Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';

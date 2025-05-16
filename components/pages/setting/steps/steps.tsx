@@ -1,6 +1,6 @@
 'use client';
 
-import { Academy, School, Track, TrackCalendar, TrackLearningPeriod } from '@/types';
+import { Academy, School, Track, TrackCalendar } from '@/types';
 import { Actions, InputWithButton, NextButton, NextButtonProps } from './form';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from './table';
 import { StepSchool, useStep1 } from '@/hooks/settings/steps/use-step1';
@@ -10,7 +10,6 @@ import { StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
 import { cn, formatTrackDateWithShortMonth } from '@/utils';
 import { useWatch } from 'react-hook-form';
 import { SetupCalendarButton, SetupLearningPeriodButton, SetupSemesterButton, TrackCard } from './track-card';
-import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon } from 'lucide-react';
 import { TrackCalendarWrapper, CalendarForTrack, CalendarButtons } from './track-calendar';
 import { useStep4 } from '@/hooks/settings/steps/use-step4';
@@ -22,8 +21,7 @@ import {
   getLearningPeriodStartDate,
   getLearningPeriodEndDate,
 } from '@/hooks/settings/steps/use-step5';
-import { NotImplemented } from '@/components/layouts/not-implemnted';
-import { StepSemester, useStep6Semesters, useStep6Track } from '@/hooks/settings/steps/use-step6';
+import { getSemesterEndDate, getSemesterStartDate, StepSemester, useStep6Semesters, useStep6Track } from '@/hooks/settings/steps/use-step6';
 
 const DefaultWrapper = ({
   children,
@@ -578,8 +576,8 @@ const Step6Semesters = ({
   const start_date = useWatch({ control: form.control, name: 'start_date' });
   const end_date = useWatch({ control: form.control, name: 'end_date' });
 
-  const minStartDate = getLearningPeriodStartDate(track) as any;
-  const minEndDate = getLearningPeriodEndDate(track) as any;
+  const minStartDate = getSemesterStartDate(track) as any;
+  const minEndDate = getSemesterEndDate(track) as any;
 
   return (
     <>
