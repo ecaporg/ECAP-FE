@@ -1,4 +1,3 @@
-
 import { NotImplemented } from '@/components/layouts/not-implemnted';
 
 // todo: move this page to the role layout in feature

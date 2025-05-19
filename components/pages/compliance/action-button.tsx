@@ -19,7 +19,8 @@ interface ActionButtonProps {
 }
 
 const getText = (sample: Sample, user: User) => {
-  const text = (isAllowed: boolean, action: string) => (isAllowed ? action : 'Review');
+  const text = (isAllowed: boolean, action?: string) =>
+    isAllowed ? action : user.role === 'DIRECTOR' ? 'View' : 'Review';
 
   switch (sample.status) {
     case SampleStatus.PENDING:
@@ -34,9 +35,8 @@ const getText = (sample: Sample, user: User) => {
       }
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
-      return text(hasPermission(user, 'samples', 'review'), 'Review');
     default:
-      return text(false, 'Review');
+      return text(false);
   }
 };
 
