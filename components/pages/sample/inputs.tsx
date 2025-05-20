@@ -5,6 +5,7 @@ import { type Sample, SampleStatus } from '@/types/student';
 import type { z } from 'zod';
 
 import { type sampleHeaderSchema, useSampleHeader } from '@/hooks/samples/use-sample-header';
+import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
 import { getUserName, isAnyAdmin } from '@/utils';
 
@@ -44,9 +45,12 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   ].map((input) => ({
     ...input,
     ...{
-      isReadOnly: !(isAnyAdmin(user)
-        ? sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue
-        : false),
+      isReadOnly: hasPermission(user, 'samples', 'correct')
+        ? !(
+            isAnyAdmin(user) ||
+            (sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue)
+          )
+        : true,
     },
   }));
 
