@@ -44,10 +44,9 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   ].map((input) => ({
     ...input,
     ...{
-      isReadOnly: !(
-        isAnyAdmin(user) ||
-        (sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue)
-      ),
+      isReadOnly: !(isAnyAdmin(user)
+        ? sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue
+        : false),
     },
   }));
 
