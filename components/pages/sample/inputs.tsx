@@ -1,12 +1,12 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Sample, SampleStatus } from '@/types/student';
-import { z } from 'zod';
+import { type Sample, SampleStatus } from '@/types/student';
+import type { z } from 'zod';
 
-import { getUserName, isAnyAdmin } from '@/utils';
-import { sampleHeaderSchema, useSampleHeader } from '@/hooks/samples/use-sample-header';
+import { type sampleHeaderSchema, useSampleHeader } from '@/hooks/samples/use-sample-header';
 import { useAuth } from '@/providers/auth';
+import { getUserName, isAnyAdmin } from '@/utils';
 
 type SampleMetaProps = {
   isReadOnly?: boolean;
@@ -18,7 +18,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   const inputs = [
     {
       label: 'Student Name',
-      defaultValue: getUserName(sample.assignment_period.student.user),
+      defaultValue: getUserName(sample.student_lp_enrollment.student.user),
       name: 'student_name',
     },
     {

@@ -1,4 +1,4 @@
-import type { Academy, AssignmentPeriod, School } from './school';
+import type { Academy, School, StudentLPEnrollment } from './school';
 import type { DatedEntity, GenericEntity } from './shared';
 import type { Subject, Track } from './track';
 import type { User } from './user';
@@ -13,7 +13,7 @@ export type Student = DatedEntity & {
   user: User;
   academy: Academy | null;
   track: Track | null;
-  assignment_periods: AssignmentPeriod[];
+  student_lp_enrollments: StudentLPEnrollment[];
 };
 
 export enum SampleStatus {
@@ -60,11 +60,11 @@ export type Sample = GenericEntity & {
   status: SampleStatus;
   flag_category: SampleFlagCategory;
   done_by_id: number | null;
-  assignment_period_id: number;
+  student_lp_enrollment_id: number;
   subject_id: number;
   subject: Subject;
   grade: string;
-  assignment_period: AssignmentPeriod;
+  student_lp_enrollment: StudentLPEnrollment;
   done_by: User | null;
   flag_errors: SampleFlagError | null;
   flag_missing_work: SampleFlagMissingWork | null;

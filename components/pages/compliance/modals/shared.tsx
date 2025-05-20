@@ -1,20 +1,20 @@
-import { Sample } from '@/types';
-import { getUserName, getFormattedLP } from '@/utils';
+import type { Sample } from '@/types';
+import { getFormattedLP, getUserName } from '@/utils';
 
 export function SampleInfoForModal({ sample }: { sample: Sample }) {
   const metadata = [
     [
       {
         label: 'Student Name: ',
-        value: getUserName(sample.assignment_period.student.user),
+        value: getUserName(sample.student_lp_enrollment.student.user),
       },
       {
         label: 'Student ID',
-        value: sample.assignment_period.student.id,
+        value: sample.student_lp_enrollment.student.id,
       },
       {
         label: 'Grade',
-        value: sample.assignment_period.student.grade,
+        value: sample.student_lp_enrollment.student.grade,
       },
     ],
     [
@@ -25,7 +25,7 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
       { label: 'Assignment:', value: 'empty' },
       {
         label: 'LP:',
-        value: getFormattedLP(sample.assignment_period.learning_period),
+        value: getFormattedLP(sample.student_lp_enrollment.learning_period),
       },
     ],
   ];

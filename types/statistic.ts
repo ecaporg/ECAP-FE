@@ -1,5 +1,5 @@
-import { AcademicYear } from './school';
-import { TrackLearningPeriod } from './track';
+import type { AcademicYear } from './school';
+import type { TrackLearningPeriod } from './track';
 
 export type StatsItem = {
   learningPeriods: TrackLearningPeriod[];

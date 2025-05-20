@@ -1,4 +1,4 @@
-import { type AcademicYear, type AssignmentPeriod, type Tenant, type Semester } from './school';
+import type { AcademicYear, Semester, StudentLPEnrollment, Tenant } from './school';
 import type { GenericEntity } from './shared';
 import type { Sample, Student } from './student';
 
@@ -25,7 +25,7 @@ export type TrackLearningPeriod = GenericEntity & {
   start_date: Date;
   end_date: Date;
   track: Track;
-  assignment_periods: AssignmentPeriod[];
+  student_lp_enrollments: StudentLPEnrollment[];
 };
 
 export type Track = GenericEntity & {

@@ -1,4 +1,5 @@
 'use server';
+import { routes } from '@/constants/routes';
 import {
   flagCompletedSample,
   flagMissingWorkSample,
@@ -6,29 +7,28 @@ import {
   flagSample,
   updateSample,
 } from '@/lib/api/sample';
+import type { ApiResponse } from '@/lib/fetch';
 import {
   type Sample,
-  SampleFlagCompleted,
-  SampleFlagError,
-  SampleFlagMissingWork,
-  SampleFlagRejected,
+  type SampleFlagCompleted,
+  type SampleFlagError,
+  type SampleFlagMissingWork,
+  type SampleFlagRejected,
   SampleStatus,
-  User,
+  type User,
 } from '@/types';
-import { redirect, RedirectType } from 'next/navigation';
-import { routes } from '@/constants/routes';
 import { getUserName, isAnyAdmin } from '@/utils';
 import { revalidatePath, revalidateTag } from 'next/cache';
-import { ApiResponse } from '@/lib/fetch';
+import { RedirectType, redirect } from 'next/navigation';
 
 const revalidatePathAndTag = (sample: Sample) => {
   const path = `${routes.compliance.samples}?student_id=${
-    sample.assignment_period.student.user.id
+    sample.student_lp_enrollment.student.user.id
   }&name=${getUserName(
-    sample.assignment_period.student.user
-  )}&learning_period_id=${sample.assignment_period.learning_period.id}`;
+    sample.student_lp_enrollment.student.user
+  )}&learning_period_id=${sample.student_lp_enrollment.learning_period.id}`;
 
-  revalidateTag(`samples-${sample.assignment_period.student.user.id}`);
+  revalidateTag(`samples-${sample.student_lp_enrollment.student.user.id}`);
   revalidatePath(path);
 
   return path;
@@ -82,7 +82,7 @@ export const updateSampleAction = async (sample: Sample, data: Partial<Sample>) 
     status: SampleStatus.PENDING,
   });
 
-  revalidateTag(`samples-${sample.assignment_period.student.user.id}`);
+  revalidateTag(`samples-${sample.student_lp_enrollment.student.user.id}`);
 
   return result;
 };

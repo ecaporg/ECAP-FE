@@ -1,4 +1,4 @@
-import { Course } from './course';
+import type { TeacherSchoolYearEnrollment } from './enrollment';
 import type { GenericEntity } from './shared';
 import type { Admin, Director, Teacher } from './staff';
 import type { Sample, Student } from './student';
@@ -37,30 +37,30 @@ export type School = GenericEntity & {
   students: Student[];
   teachers: Teacher[];
   directors: Director[];
-  courses: Course[];
+  teacher_school_year_enrollments: TeacherSchoolYearEnrollment[];
 };
 
 export type AcademicYear = GenericEntity & {
   from: number;
   to: number;
   tracks: Track[];
-  courses: Course[];
+  teacher_school_year_enrollments: TeacherSchoolYearEnrollment[];
 };
 
-export type AssignmentPeriod = GenericEntity & {
-  course_id: number;
+export type StudentLPEnrollment = GenericEntity & {
+  teacher_school_year_enrollment_id: number;
   student_id: number;
   learning_period_id: number;
   completed: boolean;
   percentage: number;
   learning_period: TrackLearningPeriod;
-  course: Course;
+  teacher_school_year_enrollment: TeacherSchoolYearEnrollment;
   student: Student;
   samples: Sample[];
 };
 
 export type TeacherCompliance = {
-  course_id: number;
+  teacher_school_year_enrollment_id: number;
   teacher_id: number;
   teacher_firstname: string;
   teacher_lastname: string;

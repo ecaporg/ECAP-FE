@@ -1,4 +1,4 @@
-import { Course } from './course';
+import type { TeacherSchoolYearEnrollment } from './enrollment';
 import type { Academy, School, Tenant } from './school';
 import type { DatedEntity } from './shared';
 import type { User } from './user';
@@ -9,7 +9,7 @@ export type Staff = DatedEntity & {
 };
 
 export type Teacher = Staff & {
-  courses: Course[];
+  teacher_school_year_enrollments: TeacherSchoolYearEnrollment[];
 };
 
 export type Director = Staff & {

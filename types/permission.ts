@@ -1,4 +1,4 @@
-import { Sample } from './student';
+import type { Sample } from './student';
 import type { Role, User } from './user';
 
 export type PermissionCheck<Key extends keyof Permissions> =

@@ -1,3 +1,4 @@
+import { SortableIcon } from '@/components/table/sortable-header';
 import {
   Table,
   TableBody,
@@ -10,7 +11,6 @@ import type { Sample } from '@/types';
 import { getUserName, sampleCategoryToText } from '@/utils';
 import { ActionButton } from '../action-button';
 import { DirectorSampleStatus } from '../statuses';
-import { SortableIcon } from '@/components/table/sortable-header';
 
 interface SamplesTableProps {
   samples: Sample[];
@@ -29,7 +29,7 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
           <TableHead>Student Name</TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<Sample> name="assignment_period.student_id" />
+            <SortableIcon<Sample> name="student_lp_enrollment.student_id" />
           </TableHead>
           <TableHead>Grade</TableHead>
           <TableHead>
@@ -48,9 +48,9 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
           <TableRow key={`${sample.id}`}>
             <TableCell>{sample.assignment_title}</TableCell>
             <TableCell>{sample.subject.name}</TableCell>
-            <TableCell>{getUserName(sample.assignment_period.student.user)}</TableCell>
-            <TableCell>{sample.assignment_period.student_id}</TableCell>
-            <TableCell>{sample.assignment_period.student.grade}</TableCell>
+            <TableCell>{getUserName(sample.student_lp_enrollment.student.user)}</TableCell>
+            <TableCell>{sample.student_lp_enrollment.student_id}</TableCell>
+            <TableCell>{sample.student_lp_enrollment.student.grade}</TableCell>
             <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>
             <TableCell>
               <DirectorSampleStatus sample={sample} />

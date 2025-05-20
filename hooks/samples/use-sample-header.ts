@@ -4,7 +4,7 @@ import {
   updateSampleAction,
 } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
 import { useAuth } from '@/providers/auth';
-import { Sample } from '@/types';
+import type { Sample } from '@/types';
 import { isAnyAdmin, validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef } from 'react';

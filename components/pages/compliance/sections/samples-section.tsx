@@ -5,11 +5,11 @@ import { routes } from '@/constants/routes';
 import { getComplianceStudentSamples } from '@/lib/api/compliance';
 import type { Sample, Tenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
+import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { SamplesTable } from '../tables';
 import { SamplesFilters } from '../filters';
-import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import { SamplesTable } from '../tables';
 
 export interface SamplesSectionProps {
   param: {
@@ -94,7 +94,7 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       <SamplesFilters
         tenant={tenant}
         samples={samples || []}
-        student={assignmentPeriods.data?.[0]?.samples?.[0]?.assignment_period.student}
+        student={assignmentPeriods.data?.[0]?.samples?.[0]?.student_lp_enrollment.student}
         defaultName={param.name}
         academicYearIds={academicYearIds}
       />

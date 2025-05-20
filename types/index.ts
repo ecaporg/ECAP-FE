@@ -6,5 +6,5 @@ export * from './student';
 export * from './track';
 export * from './staff';
 export * from './shared';
-export * from './course';
+export * from './enrollment';
 export * from './statistic';
