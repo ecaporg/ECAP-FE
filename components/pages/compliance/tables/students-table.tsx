@@ -1,4 +1,5 @@
 'use client';
+import { SortableIcon } from '@/components/table/sortable-header';
 import {
   Table,
   TableBody,
@@ -7,18 +8,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { AssignmentPeriod, Student, TrackLearningPeriod, User } from '@/types';
-import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { CompletionStatusForTable } from '../statuses';
-import { SortableIcon } from '@/components/table/sortable-header';
-import Link from 'next/link';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
+import type { StudentLPEnrollment, TrackLearningPeriod, User } from '@/types';
+import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { CompletionStatusForTable } from '../statuses';
 
 interface StudentsTableProps {
-  assignments?: AssignmentPeriod[];
+  assignments?: StudentLPEnrollment[];
   currentLearningPeriod: TrackLearningPeriod;
 }
 
@@ -40,37 +40,37 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         <TableRow>
           <TableHead>
             Student Name
-            <SortableIcon<AssignmentPeriod> name="student.user.firstname" />
+            <SortableIcon<StudentLPEnrollment> name="student.user.firstname" />
           </TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<AssignmentPeriod> name="student_id" />
+            <SortableIcon<StudentLPEnrollment> name="student_id" />
           </TableHead>
           <TableHead>
             School
-            <SortableIcon<AssignmentPeriod> name="student.school.name" />
+            <SortableIcon<StudentLPEnrollment> name="student.school.name" />
           </TableHead>
           <TableHead>
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
-              <SortableIcon<AssignmentPeriod> name="student.academy.name" />
+              <SortableIcon<StudentLPEnrollment> name="student.academy.name" />
             )}
           </TableHead>
           <TableHead>
             Track
-            <SortableIcon<AssignmentPeriod> name="student.track.name" />
+            <SortableIcon<StudentLPEnrollment> name="student.track.name" />
           </TableHead>
           <TableHead>
             Grade
-            <SortableIcon<AssignmentPeriod> name="student.grade" />
+            <SortableIcon<StudentLPEnrollment> name="student.grade" />
           </TableHead>
           <TableHead>
             Completion Status
-            <SortableIcon<AssignmentPeriod> name="completed" />
+            <SortableIcon<StudentLPEnrollment> name="completed" />
           </TableHead>
           <TableHead>
             Progress (%)
-            <SortableIcon<AssignmentPeriod> name="percentage" />
+            <SortableIcon<StudentLPEnrollment> name="percentage" />
           </TableHead>
         </TableRow>
       </TableHeader>

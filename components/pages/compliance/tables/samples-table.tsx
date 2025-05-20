@@ -1,3 +1,5 @@
+import { SortableIcon } from '@/components/table/sortable-header';
+import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
 import {
   Table,
   TableBody,
@@ -6,12 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { AssignmentPeriod, Sample, Subject } from '@/types';
+import type { Sample, StudentLPEnrollment, Subject } from '@/types';
 import { getUserName } from '@/utils';
 import { ActionButton } from '../action-button';
 import { SapmleStatus } from '../statuses';
-import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
-import { SortableIcon } from '@/components/table/sortable-header';
 
 interface SamplesTableProps {
   rows: {
@@ -38,19 +38,19 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
         <TableRow>
           <TableHead>
             Subject
-            <SortableIcon<AssignmentPeriod> name="samples.subject.name" />
+            <SortableIcon<StudentLPEnrollment> name="samples.subject.name" />
           </TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
             Sample Status
-            <SortableIcon<AssignmentPeriod> name="samples.status" />
+            <SortableIcon<StudentLPEnrollment> name="samples.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
             Sample Status
-            <SortableIcon<AssignmentPeriod> name="samples.status" />
+            <SortableIcon<StudentLPEnrollment> name="samples.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>

@@ -1,4 +1,4 @@
-import type { AssignmentPeriod, TeacherCompliance, Tenant } from '@/types';
+import type { StudentLPEnrollment, TeacherCompliance, Tenant } from '@/types';
 import { apiFetch } from '../fetch';
 
 export const getComplianceTeacherFilter = async () => {
@@ -14,7 +14,7 @@ export const getComplianceTeacherFilter = async () => {
 
 export const getComplianceStudents = async (queryParams: string) => {
   const response = await apiFetch<
-    AssignmentPeriod[],
+    StudentLPEnrollment[],
     {
       completedCount: number;
     }
@@ -23,9 +23,12 @@ export const getComplianceStudents = async (queryParams: string) => {
 };
 
 export const getComplianceStudentSamples = async (queryParams: string, tag_id: string) => {
-  const response = await apiFetch<AssignmentPeriod[]>(`/students-table/subjects?${queryParams}`, {
-    tags: [`samples-${tag_id}`, `samples`],
-  });
+  const response = await apiFetch<StudentLPEnrollment[]>(
+    `/students-table/subjects?${queryParams}`,
+    {
+      tags: [`samples-${tag_id}`, `samples`],
+    }
+  );
   return response;
 };
 
