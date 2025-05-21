@@ -56,6 +56,7 @@ export type StudentLPEnrollment = GenericEntity & {
   learning_period: TrackLearningPeriod;
   teacher_school_year_enrollment: TeacherSchoolYearEnrollment;
   student: Student;
+  student_grade: string;
   samples: Sample[];
 };
 

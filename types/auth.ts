@@ -14,6 +14,5 @@ export type SignInDTO = {
 export type CreateUserDTO = {
   email: string;
   password: string;
-  firstname: string;
-  lastname: string;
+  name: string;
 };

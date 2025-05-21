@@ -14,7 +14,7 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
       },
       {
         label: 'Grade',
-        value: sample.student_lp_enrollment.student.grade,
+        value: sample.student_lp_enrollment.student_grade,
       },
     ],
     [

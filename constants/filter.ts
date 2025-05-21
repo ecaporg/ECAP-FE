@@ -7,7 +7,7 @@ export const DEFAULT_FILTERS_KEYS = {
   ACADEMIC_YEAR: 'academic_year',
   SEMESTER: 'semesters.id',
   SUBJECT: 'subject',
-  GRADE: 'student.grade',
+  GRADE: 'student_grade',
   SEARCH: 'search',
   COMPLETED: 'completed',
   SAMPLE_STATUS: 'status',
@@ -20,7 +20,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
   COMPLIANCE: {
     ACADEMY_ID: 'student.academy_id',
     TRACK_ID: 'student.track_id',
-    GRADE: 'student.grade',
+    GRADE: 'student_grade',
     SCHOOL_ID: 'teacher_school_year_enrollment.school_id',
     SAMPLE_STATUS: 'samples.status',
     DONE_BY: 'samples.done_by_id',

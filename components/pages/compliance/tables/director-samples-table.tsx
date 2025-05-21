@@ -50,7 +50,7 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
             <TableCell>{sample.subject.name}</TableCell>
             <TableCell>{getUserName(sample.student_lp_enrollment.student.user)}</TableCell>
             <TableCell>{sample.student_lp_enrollment.student_id}</TableCell>
-            <TableCell>{sample.student_lp_enrollment.student.grade}</TableCell>
+            <TableCell>{sample.student_lp_enrollment.student_grade}</TableCell>
             <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>
             <TableCell>
               <DirectorSampleStatus sample={sample} />

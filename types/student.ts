@@ -8,7 +8,6 @@ export type Student = DatedEntity & {
   school_id: number;
   academy_id: number | null;
   track_id: number | null;
-  grade: string;
   school: School;
   user: User;
   academy: Academy | null;

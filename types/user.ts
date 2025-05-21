@@ -4,8 +4,7 @@ export type Role = 'TEACHER' | 'DIRECTOR' | 'ADMIN' | 'SUPER_ADMIN' | 'STUDENT';
 
 export type User = GenericEntity & {
   email: string;
-  firstname: string;
-  lastname: string;
+  name: string;
   isActive: boolean;
   emailVerified: boolean;
   refreshToken?: string;
@@ -14,6 +13,5 @@ export type User = GenericEntity & {
 };
 
 export const defaultUser: User = {
-  firstname: 'N',
-  lastname: '/A',
+  name: 'N/A',
 } as User;

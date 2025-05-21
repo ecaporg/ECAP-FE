@@ -27,7 +27,7 @@ export function SamplesFilters({
         student={
           student ??
           ({
-            user: { firstname: defaultName, lastname: '' },
+            user: { name: defaultName },
           } as Student)
         }
       />

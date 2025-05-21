@@ -40,7 +40,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         <TableRow>
           <TableHead>
             Student Name
-            <SortableIcon<StudentLPEnrollment> name="student.user.firstname" />
+            <SortableIcon<StudentLPEnrollment> name="student.user.name" />
           </TableHead>
           <TableHead>
             Student ID
@@ -62,7 +62,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
           </TableHead>
           <TableHead>
             Grade
-            <SortableIcon<StudentLPEnrollment> name="student.grade" />
+            <SortableIcon<StudentLPEnrollment> name="student_grade" />
           </TableHead>
           <TableHead>
             Completion Status
@@ -83,7 +83,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
               <TableCell>{assignment.student.school?.name}</TableCell>
               <TableCell>{assignment.student.academy?.name}</TableCell>
               <TableCell>{assignment.student.track?.name}</TableCell>
-              <TableCell>{assignment.student.grade}</TableCell>
+              <TableCell>{assignment.student_grade}</TableCell>
               <TableCell>
                 <CompletionStatusForTable
                   variant={getCompletionStatus(assignment, currentLearningPeriod)}
