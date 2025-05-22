@@ -1,21 +1,21 @@
-import { Sample, SampleFlagCategory, SampleStatus } from '@/types/student';
 import { CompletionStatus } from '@/components/table/completion-status';
 import { getUser } from '@/lib/get-user';
-import { getUserName } from '@/utils';
 import { defaultUser } from '@/types';
+import { type Sample, SampleFlagCategory, SampleStatus } from '@/types/student';
+import { getUserName } from '@/utils';
 
 export async function SampleBagde({ sample }: { sample: Sample }) {
   const user = await getUser();
 
   if (sample.status === SampleStatus.COMPLETED) {
-    const isMyMessage = sample.flag_completed?.user_id == user?.id;
+    const isMyMessage = sample.flag_completed?.user_id === user?.id;
 
     return (
       <div className="pb-6 flex items-center gap-4">
         <CompletionStatus variant="Complete" className="h-14 w-60">
           {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
             ? 'Error Corrected'
-            : sample.flag_completed?.message || 'Completed'}
+            : sample.flag_completed?.message || 'Complete'}
         </CompletionStatus>
         {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE && (
           <p>
@@ -28,7 +28,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
   }
 
   const isMyComment =
-    (sample.flag_errors?.user_id || sample.flag_missing_work?.user_id) == user?.id;
+    (sample.flag_errors?.user_id || sample.flag_missing_work?.user_id) === user?.id;
 
   if (
     sample.status === SampleStatus.ERRORS_FOUND ||

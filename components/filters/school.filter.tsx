@@ -14,6 +14,7 @@ export function SchoolFilter({
   return (
     <BaseFilter
       label="School"
+      defaultPlaceholder="All Schools"
       slug={slug}
       options={availableSchools.map((school) => ({
         label: school.name,

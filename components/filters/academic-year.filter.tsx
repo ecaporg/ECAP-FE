@@ -22,6 +22,7 @@ export function AcademicYearFilter({
   return (
     <BaseFilter
       label="Academic Year"
+      defaultPlaceholder="All Academic Years"
       slug={slug}
       options={Array.from(map.entries()).map(([key, value]) => ({
         label: value,

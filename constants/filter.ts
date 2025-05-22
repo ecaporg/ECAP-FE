@@ -6,7 +6,7 @@ export const DEFAULT_FILTERS_KEYS = {
   TRACK_ID: 'track_id',
   ACADEMIC_YEAR: 'academic_year',
   SEMESTER: 'semesters.id',
-  SUBJECT: 'subject',
+  SUBJECT: 'subject_id',
   GRADE: 'student_grade',
   SEARCH: 'search',
   COMPLETED: 'completed',
@@ -30,6 +30,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
       ACADEMIC_YEAR: 'student_lp_enrollment.teacher_school_year_enrollment.academic_year_id',
       ACADEMY_ID: 'student_lp_enrollment.student.academy_id',
       SEMESTER_ID: 'track.semesters.id',
+      SUBJECT_ID: 'samples.subject.id',
     },
   },
   COMPLAIANCE_SAMPLES: {

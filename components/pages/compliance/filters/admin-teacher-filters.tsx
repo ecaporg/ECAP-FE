@@ -1,14 +1,14 @@
 import {
+  AcademicYearFilter,
+  type FilterProps,
   FlagCategoryFilter,
   LearningPeriodFilter,
   SampleStatusFilter,
-  AcademicYearFilter,
-  FilterProps,
 } from '@/components/filters';
+import { SAMPLE_STATUS } from '@/constants/sample';
+import { SampleStatus, type Tenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
-import { SampleStatus, Tenant } from '@/types';
-import { SAMPLE_STATUS } from '@/constants/sample';
 
 interface AdminTeacherFiltersProps {
   tenant: Tenant;

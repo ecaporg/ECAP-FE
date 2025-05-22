@@ -22,6 +22,7 @@ export async function AcademyFilter({
   return (
     <BaseFilter
       label="Academy"
+      defaultPlaceholder="All Academies"
       slug={slug}
       options={availableAcademies.map((academy) => ({
         label: academy.name,

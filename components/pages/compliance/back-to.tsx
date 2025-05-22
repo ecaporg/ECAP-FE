@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { defaultUser, type Student, type Teacher } from '@/types';
+import { type Student, type Teacher, defaultUser } from '@/types';
 import { getUserName } from '@/utils';
 import { ArrowLeftIcon, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -26,7 +26,13 @@ export const BackToCompliance = ({ student }: { student?: Student }) => {
   );
 };
 
-export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
+export const BackToTeacherTable = ({
+  teacher,
+  hasSignInButton = false,
+}: {
+  teacher?: Teacher;
+  hasSignInButton?: boolean;
+}) => {
   if (!teacher) {
     teacher = { user: defaultUser } as Teacher;
   }
@@ -42,12 +48,14 @@ export const BackToTeacherTable = ({ teacher }: { teacher?: Teacher }) => {
       </p>
       <span className="text-xl text-neutral-black">
         {getUserName(teacher.user)}
-        <Button size="lg" className="ml-4 ">
-          <UserIcon className="size-4" />
-          <span className="truncate max-w-32 lg:max-w-max">
-            Sign in as {getUserName(teacher.user)}
-          </span>
-        </Button>
+        {hasSignInButton && (
+          <Button size="lg" className="ml-4 ">
+            <UserIcon className="size-4" />
+            <span className="truncate max-w-32 lg:max-w-max">
+              Sign in as {getUserName(teacher.user)}
+            </span>
+          </Button>
+        )}
       </span>
     </div>
   );

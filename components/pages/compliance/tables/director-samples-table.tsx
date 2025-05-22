@@ -47,7 +47,7 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
         {samples.map((sample) => (
           <TableRow key={`${sample.id}`}>
             <TableCell>{sample.assignment_title}</TableCell>
-            <TableCell>{sample.subject.name}</TableCell>
+            <TableCell>{sample.subject?.name}</TableCell>
             <TableCell>{getUserName(sample.student_lp_enrollment.student.user)}</TableCell>
             <TableCell>{sample.student_lp_enrollment.student_id}</TableCell>
             <TableCell>{sample.student_lp_enrollment.student_grade}</TableCell>

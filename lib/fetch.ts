@@ -39,6 +39,7 @@ export async function apiFetch<T = any, D = undefined>(
   let authHeaders = {};
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  console.info(url)
 
   if (!init?.withoutAuth) {
     const token = await getAuthToken();

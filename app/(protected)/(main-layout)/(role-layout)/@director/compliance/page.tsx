@@ -1,15 +1,15 @@
 import { getComplianceAdminFilter } from '@/lib/api/compliance';
 
+import { rolePage } from '@/components/layouts/role-page';
+import { DirectorFilters } from '@/components/pages/compliance/filters';
+import { TeacherSection } from '@/components/pages/compliance/sections';
+import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
 import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
-import { TeacherSection } from '@/components/pages/compliance/sections';
-import { DirectorFilters } from '@/components/pages/compliance/filters';
-import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
-import { rolePage } from '@/components/layouts/role-page';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Compliance',
+  title: 'Director Compliance',
 };
 
 export async function CompliancePage({

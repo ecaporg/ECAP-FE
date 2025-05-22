@@ -1,5 +1,4 @@
-import { LearningPeriodFilter, SampleStatusFilter } from '@/components/filters';
-import { DoneByFilter } from '@/components/filters/done-by';
+import { DoneByFilter, LearningPeriodFilter, SampleStatusFilter } from '@/components/filters';
 import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
 import type { Sample, Student, Tenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';

@@ -62,7 +62,7 @@ const NavMenu = () => {
         {hasPermission(user, 'navigation', 'settings') && (
           <NavLink href={routes.settings.root} className="flex items-center justify-center gap-2">
             <Settings className="size-4" />
-            <span>Setting</span>
+            <span>Settings</span>
           </NavLink>
         )}
         {hasPermission(user, 'navigation', 'profile') && (

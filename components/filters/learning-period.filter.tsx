@@ -18,6 +18,7 @@ export const LearningPeriodFilter = ({
   return (
     <BaseFilter
       label="Learning Period"
+      defaultPlaceholder="All Learning Periods"
       slug={slug}
       options={mergedPeriods.map((period) => ({
         label: period.name,

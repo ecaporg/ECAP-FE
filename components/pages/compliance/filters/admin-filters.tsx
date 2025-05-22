@@ -1,20 +1,20 @@
 import {
+  AcademicYearFilter,
   AcademyFilter,
   CompletionFilter,
+  GradeSpanFilter,
   LearningPeriodFilter,
+  SampleStatusFilter,
   SchoolFilter,
-  TrackFilter,
   SearchTeacherFilter,
+  SemesterFilter,
+  SubjectFilter,
+  TrackFilter,
 } from '@/components/filters';
-import { AcademicYearFilter } from '@/components/filters/academic-year.filter';
-import { GradeSpanFilter } from '@/components/filters/grade-span.filter';
-import { SemesterFilter } from '@/components/filters/semesrter.filter';
-import { SubjectFilter } from '@/components/filters/subject.filter';
-import { SampleStatusFilter } from '@/components/filters';
 import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import type { Tenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
-import type { Tenant } from '@/types';
 
 interface AdminFiltersProps {
   tenant: Tenant;
@@ -54,6 +54,7 @@ export function AdminFilters({ tenant, academicYearIds, tracksIds }: AdminFilter
       />
       <GradeSpanFilter />
       <SubjectFilter
+        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.SUBJECT_ID}
         availableSubjects={tracks
           .filter((track) => (tracksIds?.length ? tracksIds.includes(track.id.toString()) : true))
           .flatMap((track) => track.subjects)}

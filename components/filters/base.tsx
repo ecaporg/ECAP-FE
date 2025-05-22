@@ -1,5 +1,6 @@
 'use client';
 import { useFilterParam } from '@/hooks/table/useFilterParam';
+import { X } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
 import {
@@ -13,7 +14,6 @@ import {
 import { Label } from '../ui/label';
 import { ScrollArea } from '../ui/scroll-area';
 import { SearchInput } from './search';
-import { X } from 'lucide-react';
 
 export interface FilterProps {
   multiple?: boolean;
@@ -23,6 +23,7 @@ export interface FilterProps {
   label: string;
   render?: (option: FilterProps['options'][number]) => React.ReactNode;
   disabled?: boolean;
+  defaultPlaceholder?: string;
 }
 
 interface ItemProps {
@@ -73,16 +74,17 @@ export const BaseFilter: React.FC<FilterProps> = ({
   slug,
   label,
   render,
+  defaultPlaceholder,
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
   const { selectedValues, handleSelect, reset } = useFilterParam(slug, multiple);
 
   const placeholder = multiple
-    ? label
+    ? (defaultPlaceholder ?? label)
     : selectedValues[0]
-      ? options.find((option) => option.value == selectedValues[0])?.label
-      : label;
+      ? options.find((option) => option.value === selectedValues[0])?.label
+      : (defaultPlaceholder ?? label);
 
   const showSearch = hasSearch || options.length > 15;
 

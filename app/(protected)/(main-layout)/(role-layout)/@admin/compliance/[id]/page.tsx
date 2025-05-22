@@ -1,19 +1,15 @@
 import { getComplianceAdminFilter } from '@/lib/api/compliance';
 
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import { rolePage } from '@/components/layouts/role-page';
+import { BackToTeacherTable } from '@/components/pages/compliance/back-to';
 import { AdminTeacherFilters } from '@/components/pages/compliance/filters';
 import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
-import { rolePage } from '@/components/layouts/role-page';
-import { redirect } from 'next/navigation';
-import { Metadata } from 'next';
 import { ComplianceTabs } from '@/components/pages/compliance/tabs';
-import { BackToTeacherTable } from '@/components/pages/compliance/back-to';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getTeacher } from '@/lib/api/teacher';
-
-export const metadata: Metadata = {
-  title: 'Teacher Compliance',
-};
+import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 async function addSearchParamsTeacherId({
   params,
@@ -21,7 +17,7 @@ async function addSearchParamsTeacherId({
 }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<any>;
-}): Promise<Metadata> {
+}) {
   const awaitParams = await params;
   const awaitSearchParams = await searchParams;
 
@@ -32,8 +28,6 @@ async function addSearchParamsTeacherId({
     newSearchParams.set(DEFAULT_FILTERS_KEYS.TEACHER_ID, awaitParams.id);
     redirect(`/compliance/${awaitParams.id}?${newSearchParams.toString()}`);
   }
-
-  return {};
 }
 
 export async function CompliancePageTeacher({
@@ -55,7 +49,7 @@ export async function CompliancePageTeacher({
 
   return (
     <>
-      <BackToTeacherTable teacher={await getTeacher((await params).id)} />
+      <BackToTeacherTable teacher={await getTeacher((await params).id)} hasSignInButton />
       <AdminTeacherFilters tenant={tenant} academicYearIds={academicYearIds} />
       <ComplianceTabs />
     </>

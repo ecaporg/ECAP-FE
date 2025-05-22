@@ -1,6 +1,6 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import type { Subject } from '@/types';
 import { BaseFilter } from './base';
-import { Subject } from '@/types';
 
 interface SubjectFilterProps {
   slug?: string;
@@ -11,19 +11,23 @@ export function SubjectFilter({
   slug = DEFAULT_FILTERS_KEYS.SUBJECT,
   availableSubjects = [],
 }: SubjectFilterProps) {
-  const map = new Map();
+  const mergedOptions = new Map<string, Set<string>>();
 
   availableSubjects.forEach((subject) => {
-    map.set(subject.id, subject.name);
+    if (mergedOptions.has(subject.name)) {
+      mergedOptions.get(subject.name)?.add(subject.id.toString());
+    } else {
+      mergedOptions.set(subject.name, new Set([subject.id.toString()]));
+    }
   });
 
   return (
     <BaseFilter
       label="Subject"
       slug={slug}
-      options={Array.from(map.entries()).map(([key, value]) => ({
-        label: value,
-        value: key.toString(),
+      options={Array.from(mergedOptions.entries()).map(([label, value]) => ({
+        label,
+        value: Array.from(value).join('-'),
       }))}
       multiple
       hasSearch={true}

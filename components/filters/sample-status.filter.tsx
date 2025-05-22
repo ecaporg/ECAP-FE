@@ -37,10 +37,10 @@ export function FlagCategoryFilter({
   return (
     <BaseFilter
       label="Flag Category"
+      defaultPlaceholder="All Flag Categories"
       slug={slug}
       options={flagCategories}
       multiple
-      hasSearch={true}
     />
   );
 }
