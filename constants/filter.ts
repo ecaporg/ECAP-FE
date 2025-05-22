@@ -19,7 +19,7 @@ export const DEFAULT_FILTERS_KEYS = {
 export const SPECIFIC_PAGE_FILTER_KEYS = {
   COMPLIANCE: {
     ACADEMY_ID: 'student.academy_id',
-    TRACK_ID: 'student.track_id',
+    TRACK_ID: 'track_id',
     GRADE: 'student_grade',
     SCHOOL_ID: 'teacher_school_year_enrollment.school_id',
     SAMPLE_STATUS: 'samples.status',
@@ -29,7 +29,7 @@ export const SPECIFIC_PAGE_FILTER_KEYS = {
       TEACHER_ID: 'student_lp_enrollment.teacher_school_year_enrollment.teacher_id',
       ACADEMIC_YEAR: 'student_lp_enrollment.teacher_school_year_enrollment.academic_year_id',
       ACADEMY_ID: 'student_lp_enrollment.student.academy_id',
-      SEMESTER_ID: 'student.track.semesters.id',
+      SEMESTER_ID: 'track.semesters.id',
     },
   },
   COMPLAIANCE_SAMPLES: {

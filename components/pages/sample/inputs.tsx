@@ -39,7 +39,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     },
     {
       label: 'Date',
-      defaultValue: new Date(sample?.createdAt).toLocaleDateString(),
+      defaultValue: new Date(sample?.date).toLocaleDateString(),
       name: 'date',
     },
   ].map((input) => ({

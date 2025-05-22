@@ -39,6 +39,6 @@ export type Track = GenericEntity & {
   calendar: TrackCalendar;
   subjects: Subject[];
   learningPeriods: TrackLearningPeriod[];
-  students: Student[];
+  studentLPEnrollments: StudentLPEnrollment[];
   semesters: Semester[];
 };

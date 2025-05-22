@@ -58,7 +58,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
           </TableHead>
           <TableHead>
             Track
-            <SortableIcon<StudentLPEnrollment> name="student.track.name" />
+            <SortableIcon<StudentLPEnrollment> name="track.name" />
           </TableHead>
           <TableHead>
             Grade
@@ -82,7 +82,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
               <TableCell>{assignment.student.id}</TableCell>
               <TableCell>{assignment.student.school?.name}</TableCell>
               <TableCell>{assignment.student.academy?.name}</TableCell>
-              <TableCell>{assignment.student.track?.name}</TableCell>
+              <TableCell>{assignment.track?.name}</TableCell>
               <TableCell>{assignment.student_grade}</TableCell>
               <TableCell>
                 <CompletionStatusForTable

@@ -58,13 +58,14 @@ export type StudentLPEnrollment = GenericEntity & {
   student: Student;
   student_grade: string;
   samples: Sample[];
+  track_id: number;
+  track: Track;
 };
 
 export type TeacherCompliance = {
   teacher_school_year_enrollment_id: number;
   teacher_id: number;
-  teacher_firstname: string;
-  teacher_lastname: string;
+  teacher_name: string;
   student_count: number;
   completed_count: number;
   flagged_count: number;

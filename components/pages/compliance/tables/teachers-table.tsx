@@ -41,7 +41,7 @@ export const TeachersTable = ({
         <TableRow>
           <TableHead>
             Teacher Name
-            <SortableIcon<TeacherCompliance> name="teacher_firstname" />
+            <SortableIcon<TeacherCompliance> name="teacher_name" />
           </TableHead>
           <TableHead>
             Academy
@@ -79,9 +79,7 @@ export const TeachersTable = ({
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
             <Link className="contents" href={getPath(assignment)}>
-              <TableCell>
-                {assignment.teacher_firstname} {assignment.teacher_lastname}
-              </TableCell>
+              <TableCell>{assignment.teacher_name}</TableCell>
               <TableCell>{assignment.academy_name}</TableCell>
               <TableCell>{assignment.student_count}</TableCell>
               <TableCell>{assignment.flagged_count}</TableCell>

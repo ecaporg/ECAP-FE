@@ -7,11 +7,9 @@ export type Student = DatedEntity & {
   id: number;
   school_id: number;
   academy_id: number | null;
-  track_id: number | null;
   school: School;
   user: User;
   academy: Academy | null;
-  track: Track | null;
   student_lp_enrollments: StudentLPEnrollment[];
 };
 
@@ -55,6 +53,8 @@ export type SampleFlagCompleted = GenericEntity & {
 };
 
 export type Sample = GenericEntity & {
+  preview_url: string;
+  date: Date;
   assignment_title: string;
   status: SampleStatus;
   flag_category: SampleFlagCategory;
