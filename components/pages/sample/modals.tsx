@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
+import type { Sample } from '@/types/student';
 import { Textarea } from '@/components/ui/textarea';
 import { ConfirmationModal } from '@/components/modals/confirmation';
 import { useState } from 'react';

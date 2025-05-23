@@ -22,10 +22,15 @@ interface SamplesTableProps {
 }
 
 const AvatarColumn = ({ sample }: { sample: Sample }) => {
+  const user =
+    sample.done_by ||
+    sample.flag_missing_work?.user ||
+    sample.flag_errors?.user ||
+    sample.flag_rejected?.user;
   return (
-    <Avatar title={sample?.done_by ? getUserName(sample.done_by) : ''}>
+    <Avatar title={user ? getUserName(user) : ''}>
       <AvatarFallback>
-        {sample?.done_by ? getInitials(getUserName(sample.done_by)) : '--'}
+        {user ? (user.canvas_additional_info.avatar_url ?? getInitials(getUserName(user))) : '--'}
       </AvatarFallback>
     </Avatar>
   );
@@ -59,25 +64,25 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
       <TableBody>
         {rows.map((row) => (
           <TableRow key={`${row.sample_1.id}`}>
-            <TableCell>{row.subject.name}</TableCell>
-            <TableCell>{row.sample_1.assignment_title}</TableCell>
-            <TableCell>
+            <TableCell className="max-w-48 truncate">{row.subject.name}</TableCell>
+            <TableCell className="max-w-48 truncate">{row.sample_1.assignment_title}</TableCell>
+            <TableCell className="max-w-48 truncate">
               <SapmleStatus status={row.sample_1.status || null} />
             </TableCell>
-            <TableCell>
+            <TableCell className="max-w-28">
               <ActionButton sample={row.sample_1} />
             </TableCell>
-            <TableCell>
+            <TableCell className="max-w-28">
               <AvatarColumn sample={row.sample_1} />
             </TableCell>
-            <TableCell>{row.sample_2?.assignment_title}</TableCell>
-            <TableCell>
+            <TableCell className="max-w-48 truncate">{row.sample_2?.assignment_title}</TableCell>
+            <TableCell className="max-w-48 truncate">
               <SapmleStatus status={row.sample_2?.status || null} />
             </TableCell>
-            <TableCell>
+            <TableCell className="max-w-28">
               <ActionButton sample={row.sample_2} />
             </TableCell>
-            <TableCell>
+            <TableCell className="max-w-28">
               <AvatarColumn sample={row.sample_2} />
             </TableCell>
           </TableRow>

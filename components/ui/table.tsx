@@ -81,6 +81,7 @@ const TableCell = React.forwardRef<
       className
     )}
     {...props}
+    title={props.title ?? (typeof props.children === 'string' ? props.children : undefined)}
   />
 ));
 TableCell.displayName = 'TableCell';

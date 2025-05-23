@@ -35,7 +35,14 @@ export function SamplesFilters({
       />
       <SampleStatusFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS} />
       <DoneByFilter
-        availableUsers={samples.map((sample) => sample.done_by).filter((user) => user != null)}
+        availableUsers={samples
+          .flatMap((sample) => [
+            sample.done_by,
+            sample.flag_errors?.user,
+            sample.flag_missing_work?.user,
+            sample.flag_rejected?.user,
+          ])
+          .filter((user) => user != null)}
         slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
       />
     </FilterWrapper>

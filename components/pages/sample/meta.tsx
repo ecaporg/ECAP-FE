@@ -1,12 +1,12 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { type Sample, SampleStatus } from '@/types/student';
 import { ArrowLeft, Flag, Upload } from 'lucide-react';
-import { Sample, SampleStatus } from '@/types/student';
 
-import { useRouter } from 'next/navigation';
-import { FlagErrorModal, UploadToStudentPathwaysModal } from './modals';
 import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
+import { useRouter } from 'next/navigation';
+import { FlagErrorModal, UploadToStudentPathwaysModal } from './modals';
 
 export function SampleActionButtons({ sample }: { sample: Sample }) {
   const { user } = useAuth();

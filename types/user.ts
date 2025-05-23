@@ -10,6 +10,7 @@ export type User = GenericEntity & {
   refreshToken?: string;
   role?: Role;
   password: string;
+  canvas_additional_info: Record<string, string>;
 };
 
 export const defaultUser: User = {
