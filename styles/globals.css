@@ -67,11 +67,9 @@
 
   .dropdown-content-width-full {
     width: var(--radix-dropdown-menu-trigger-width);
-    max-height: var(--radix-dropdown-menu-content-available-height);
   }
 
   .popover-content-width-full {
     width: var(--radix-popover-trigger-width);
-    max-height: var(--radix-popover-content-available-height);
   }
 }

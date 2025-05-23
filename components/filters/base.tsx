@@ -53,7 +53,7 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
         }}
         className={checked ? 'bg-cool-gray' : ''}
       >
-        {render ? render(option) : <p className="truncate w-full">{option.label}</p>}
+        {render ? render(option) : option.label}
       </DropdownMenuCheckboxItem>
     );
   }
@@ -63,7 +63,7 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
       onSelect={() => handleSelect(option.value)}
       className={checked ? 'bg-cool-gray' : ''}
     >
-      {render ? render(option) : <p className="truncate w-full">{option.label}</p>}
+      {render ? render(option) : option.label}
     </DropdownMenuItem>
   );
 };
