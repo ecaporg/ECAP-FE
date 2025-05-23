@@ -59,11 +59,10 @@ export type Sample = GenericEntity & {
   status: SampleStatus;
   flag_category: SampleFlagCategory;
   done_by_id: number | null;
-  student_lp_enrollment_id: number;
   subject_id: number;
   subject: Subject;
   grade: string;
-  student_lp_enrollment: StudentLPEnrollment;
+  student_lp_enrollments: StudentLPEnrollment[];
   done_by: User | null;
   flag_errors: SampleFlagError | null;
   flag_missing_work: SampleFlagMissingWork | null;

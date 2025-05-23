@@ -1,3 +1,4 @@
+import { SortableIcon } from '@/components/table/sortable-header';
 import {
   Table,
   TableBody,
@@ -6,23 +7,24 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { TeacherCompliance, TrackLearningPeriod, User } from '@/types';
-import { getCompletionStatus, getUserName } from '@/utils';
-import { CompletionStatusForTable } from '../statuses';
-import { SortableIcon } from '@/components/table/sortable-header';
-import { routes } from '@/constants/routes';
 import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
-import Link from 'next/link';
+import { routes } from '@/constants/routes';
 import { hasPermission } from '@/lib/permissions';
+import type { AcademicYear, TeacherCompliance, TrackLearningPeriod, User } from '@/types';
+import { getCompletionStatus, getUserName } from '@/utils';
+import Link from 'next/link';
+import { CompletionStatusForTable } from '../statuses';
 interface TeachersTableProps {
   assignments: TeacherCompliance[];
   currentLearningPeriod?: TrackLearningPeriod;
+  currentAcademicYear?: AcademicYear;
   user: User;
 }
 
 export const TeachersTable = ({
   assignments = [],
   currentLearningPeriod,
+  currentAcademicYear,
   user,
 }: TeachersTableProps) => {
   const getPath = (assignment: TeacherCompliance) =>
@@ -33,7 +35,9 @@ export const TeachersTable = ({
       currentLearningPeriod?.id
     }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}&${
       SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.ACADEMY_ID
-    }=${assignment.academy_id}`;
+    }=${assignment.academy_id}&${
+      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID
+    }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${currentAcademicYear?.id}`;
 
   return (
     <Table>

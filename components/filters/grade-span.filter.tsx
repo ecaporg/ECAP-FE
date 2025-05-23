@@ -19,6 +19,7 @@ export function GradeSpanFilter({ slug = DEFAULT_FILTERS_KEYS.GRADE }: GradeFilt
       slug={slug}
       options={GRADES}
       multiple
+      combined
     />
   );
 }

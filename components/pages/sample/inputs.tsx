@@ -19,7 +19,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   const inputs = [
     {
       label: 'Student Name',
-      defaultValue: getUserName(sample.student_lp_enrollment.student.user),
+      defaultValue: getUserName(sample.student_lp_enrollments[0].student.user),
       name: 'student_name',
     },
     {

@@ -18,19 +18,26 @@ export async function CompliancePage({
   searchParams: Promise<TeachersSectionProps['param']>;
 }) {
   const tenant = await getComplianceAdminFilter();
+  const awaitedParams = (await searchParams) as any;
   const academicYearIds = getDefaultAcademicYearIds(
     tenant,
-    (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
+    awaitedParams[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-  const tracksIds = ((await searchParams) as any)[
+  const tracksIds = awaitedParams[
     SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID
   ]?.split(',');
+  const currentLearningPeriodId = awaitedParams[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID];
 
   return (
     <>
-      <DirectorFilters tenant={tenant} academicYearIds={academicYearIds} tracksIds={tracksIds} />
+      <DirectorFilters
+        tenant={tenant}
+        academicYearIds={academicYearIds}
+        tracksIds={tracksIds}
+        currentLearningPeriodId={currentLearningPeriodId}
+      />
       <TeacherSection
-        param={await searchParams}
+        param={awaitedParams}
         tenant={tenant!}
         academicYearIds={academicYearIds}
       />

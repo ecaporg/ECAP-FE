@@ -1,12 +1,12 @@
-import {
+import type {
   Sample,
   SampleFlagCompleted,
   SampleFlagError,
   SampleFlagMissingWork,
   SampleFlagRejected,
 } from '@/types';
-import { apiFetch } from '../fetch';
 import { revalidateTag } from 'next/cache';
+import { apiFetch } from '../fetch';
 
 export const getSampleById = async (id: Sample['id']) => {
   return await apiFetch<Sample>(`/samples/${id}`, {

@@ -6,15 +6,15 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
     [
       {
         label: 'Student Name: ',
-        value: getUserName(sample.student_lp_enrollment.student.user),
+        value: getUserName(sample.student_lp_enrollments[0].student.user),
       },
       {
         label: 'Student ID',
-        value: sample.student_lp_enrollment.student.id,
+        value: sample.student_lp_enrollments[0].student.id,
       },
       {
         label: 'Grade',
-        value: sample.student_lp_enrollment.student_grade,
+        value: sample.student_lp_enrollments[0].student_grade,
       },
     ],
     [
@@ -25,7 +25,7 @@ export function SampleInfoForModal({ sample }: { sample: Sample }) {
       { label: 'Assignment:', value: 'empty' },
       {
         label: 'LP:',
-        value: getFormattedLP(sample.student_lp_enrollment.learning_period),
+        value: getFormattedLP(sample.student_lp_enrollments[0].learning_period),
       },
     ],
   ];

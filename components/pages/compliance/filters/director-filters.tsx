@@ -19,9 +19,15 @@ interface DirectorFiltersProps {
   tenant: Tenant;
   academicYearIds: string[];
   tracksIds: string[];
+  currentLearningPeriodId: string;
 }
 
-export function DirectorFilters({ tenant, academicYearIds, tracksIds }: DirectorFiltersProps) {
+export function DirectorFilters({
+  tenant,
+  academicYearIds,
+  tracksIds,
+  currentLearningPeriodId,
+}: DirectorFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds.includes(track.academic_year_id.toString())
   );
@@ -34,7 +40,7 @@ export function DirectorFilters({ tenant, academicYearIds, tracksIds }: Director
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds, tracksIds)}
       />
-      <SearchTeacherFilter />
+      <SearchTeacherFilter currentLearningPeriodId={currentLearningPeriodId} />
 
       <CompletionFilter />
 
@@ -54,7 +60,7 @@ export function DirectorFilters({ tenant, academicYearIds, tracksIds }: Director
           .filter((track) => (tracksIds?.length ? tracksIds.includes(track.id.toString()) : true))
           .flatMap((track) => track.subjects)}
       />
-      <SampleStatusFilter />
+      <SampleStatusFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS} />
     </FilterWrapper>
   );
 }

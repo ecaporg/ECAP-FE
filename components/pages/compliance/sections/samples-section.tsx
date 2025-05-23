@@ -94,7 +94,7 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       <SamplesFilters
         tenant={tenant}
         samples={samples || []}
-        student={assignmentPeriods.data?.[0]?.samples?.[0]?.student_lp_enrollment.student}
+        student={assignmentPeriods.data?.[0]?.samples?.[0]?.student_lp_enrollments?.[0]?.student}
         defaultName={param.name}
         academicYearIds={academicYearIds}
       />

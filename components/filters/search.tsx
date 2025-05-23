@@ -6,9 +6,9 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { Label } from '../ui/label';
 
-import { ScrollArea } from '../ui/scroll-area';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { SectionLoading } from '../layouts/loading';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { ScrollArea } from '../ui/scroll-area';
 import { Skeleton } from '../ui/skeleton';
 
 const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
@@ -132,13 +132,10 @@ const PopoverFilter: React.FC<
             )}
           </ScrollArea>
         )}
-        {isLoading && (
-          <>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <Skeleton key={index} className="h-12 w-full px-4 py-1.5" />
-            ))}
-          </>
-        )}
+        {isLoading &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <Skeleton key={`${index}-loading`} className="h-12 w-full px-4 py-1.5" />
+          ))}
       </PopoverContent>
     </Popover>
   );

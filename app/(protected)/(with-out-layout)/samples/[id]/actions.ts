@@ -23,12 +23,12 @@ import { RedirectType, redirect } from 'next/navigation';
 
 const revalidatePathAndTag = (sample: Sample) => {
   const path = `${routes.compliance.samples}?student_id=${
-    sample.student_lp_enrollment.student.user.id
+    sample.student_lp_enrollments[0].student.user.id
   }&name=${getUserName(
-    sample.student_lp_enrollment.student.user
-  )}&learning_period_id=${sample.student_lp_enrollment.learning_period.id}`;
+    sample.student_lp_enrollments[0].student.user
+  )}&learning_period_id=${sample.student_lp_enrollments[0].learning_period.id}`;
 
-  revalidateTag(`samples-${sample.student_lp_enrollment.student.user.id}`);
+  revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
   revalidatePath(path);
 
   return path;
@@ -82,7 +82,7 @@ export const updateSampleAction = async (sample: Sample, data: Partial<Sample>) 
     status: SampleStatus.PENDING,
   });
 
-  revalidateTag(`samples-${sample.student_lp_enrollment.student.user.id}`);
+  revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
 
   return result;
 };

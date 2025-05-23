@@ -27,9 +27,10 @@ export function SubjectFilter({
       slug={slug}
       options={Array.from(mergedOptions.entries()).map(([label, value]) => ({
         label,
-        value: Array.from(value).join('-'),
+        value: Array.from(value).join(','),
       }))}
       multiple
+      combined
       hasSearch={true}
     />
   );

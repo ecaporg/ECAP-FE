@@ -17,6 +17,7 @@ import { SearchInput } from './search';
 
 export interface FilterProps {
   multiple?: boolean;
+  combined?: boolean;
   hasSearch?: boolean;
   options: { label: string; value: string }[];
   slug: string;
@@ -52,7 +53,7 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
         }}
         className={checked ? 'bg-cool-gray' : ''}
       >
-        {render ? render(option) : option.label}
+        {render ? render(option) : <p className="truncate w-full">{option.label}</p>}
       </DropdownMenuCheckboxItem>
     );
   }
@@ -62,13 +63,14 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
       onSelect={() => handleSelect(option.value)}
       className={checked ? 'bg-cool-gray' : ''}
     >
-      {render ? render(option) : option.label}
+      {render ? render(option) : <p className="truncate w-full">{option.label}</p>}
     </DropdownMenuItem>
   );
 };
 
 export const BaseFilter: React.FC<FilterProps> = ({
   multiple = false,
+  combined = false,
   hasSearch = false,
   options,
   slug,
@@ -78,7 +80,7 @@ export const BaseFilter: React.FC<FilterProps> = ({
   disabled = false,
 }) => {
   const [search, setSearch] = useState('');
-  const { selectedValues, handleSelect, reset } = useFilterParam(slug, multiple);
+  const { selectedValues, handleSelect, reset } = useFilterParam(slug, multiple, combined);
 
   const placeholder = multiple
     ? (defaultPlaceholder ?? label)
@@ -103,7 +105,11 @@ export const BaseFilter: React.FC<FilterProps> = ({
                 reset();
               }}
             >
-              {selectedValues.length}
+              {combined
+                ? options.filter((option) =>
+                    option.value.split(',').every((value) => selectedValues.includes(value))
+                  ).length
+                : selectedValues.length}
               <X className="size-4 cursor-pointer" />
             </button>
           ) : null}
@@ -128,7 +134,11 @@ export const BaseFilter: React.FC<FilterProps> = ({
                 <DropdownMenuLocalItem
                   key={option.value}
                   option={option}
-                  checked={selectedValues.some((value) => value == option.value)}
+                  checked={
+                    multiple && combined
+                      ? option.value.split(',').every((value) => selectedValues.includes(value))
+                      : selectedValues.some((value) => value == option.value)
+                  }
                   handleSelect={handleSelect}
                   multiple={multiple}
                   render={render}
