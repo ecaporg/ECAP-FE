@@ -12,6 +12,7 @@ export type Tenant = GenericEntity & {
   tracks: Track[];
   key: {
     access_token: string;
+    session_token: string;
     url: string;
   } & GenericEntity;
 };
