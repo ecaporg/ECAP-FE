@@ -12,7 +12,6 @@ export const getComplianceTeacherFilter = async () => {
   return response.data!;
 };
 
-
 export const getComplianceStudents = async (queryParams: string) => {
   const response = await apiFetch<
     StudentLPEnrollment[],
