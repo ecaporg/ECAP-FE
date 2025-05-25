@@ -1,6 +1,6 @@
+import type { Track, TrackCalendar } from '@/types'; // Assuming Track type will be defined in @/types
 import { BaseApi } from '../base-api';
-import { apiFetch, ApiResponse } from '../fetch';
-import { Track, TrackCalendar } from '@/types'; // Assuming Track type will be defined in @/types
+import { type ApiResponse, apiFetch } from '../fetch';
 
 class TrackServerApi extends BaseApi<Track, undefined> {
   constructor() {

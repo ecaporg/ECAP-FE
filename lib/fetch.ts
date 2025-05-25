@@ -1,6 +1,7 @@
 import { routes } from '@/constants/routes';
 import { redirect } from 'next/navigation';
 
+import { headers } from 'next/headers';
 import { getAuthToken, refresh } from './auth';
 
 // Типи для відповіді
@@ -39,7 +40,7 @@ export async function apiFetch<T = any, D = undefined>(
   let authHeaders = {};
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
-  console.info(url)
+  console.info(url);
 
   if (!init?.withoutAuth) {
     const token = await getAuthToken();
@@ -71,8 +72,12 @@ export async function apiFetch<T = any, D = undefined>(
           return await executeFetch(attempt + 1);
         }
 
-        const callbackUrl = encodeURIComponent(window?.location?.href);
-        redirect(`${routes.auth.signIn}?callbackUrl=${callbackUrl}`);
+        // this is server side redirect
+        // window.location.href is not available on server side
+        redirect(routes.auth.signIn);
+        return {
+          error: 'Unauthorized',
+        };
       } else if (response.status === 403) {
       }
 

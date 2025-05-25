@@ -9,7 +9,9 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute =
     path.startsWith(routes.dashboard.root) ||
     path.startsWith(routes.compliance.root) ||
-    path.startsWith(routes.settings.root);
+    path.startsWith(routes.settings.root) ||
+    path.startsWith(routes.samples.root) ||
+    path.startsWith(routes.profile.root);
 
   const token = await getAuthToken();
 

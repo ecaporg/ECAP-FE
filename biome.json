@@ -17,6 +17,7 @@
       },
       "style": {
         "recommended": true,
+        "noNonNullAssertion": "off",
         "noUselessElse": "off"
       },
       "complexity": {

@@ -1,4 +1,4 @@
-import { DashboardStats } from '@/types';
+import type { DashboardStats } from '@/types';
 import { apiFetch } from '../fetch';
 
 export const getDashboardStats = async () => {

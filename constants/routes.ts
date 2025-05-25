@@ -15,6 +15,7 @@ export const routes = {
     // TODO: add other routes in feature
   },
   samples: {
+    root: '/samples',
     viewSample: '/samples/:id',
   },
   settings: {

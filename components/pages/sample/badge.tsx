@@ -30,10 +30,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
   const isMyComment =
     (sample.flag_errors?.user_id || sample.flag_missing_work?.user_id) === user?.id;
 
-  if (
-    sample.status === SampleStatus.ERRORS_FOUND ||
-    sample.status === SampleStatus.FLAGGED_TO_ADMIN
-  ) {
+  if (sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE) {
     return (
       <div className="pb-6 flex items-center gap-4">
         <CompletionStatus variant="Overdue" className="h-14 w-60">

@@ -1,4 +1,4 @@
-import { Teacher } from '@/types';
+import type { Teacher } from '@/types';
 import { apiFetch } from '../fetch';
 
 export const searchTeacher = async (value: string) => {

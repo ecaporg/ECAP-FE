@@ -1,9 +1,13 @@
-import { getSampleById } from '@/lib/api/sample';
+import { getSampleById, getSampleViewFromCanvas } from '@/lib/api/sample';
 
-import { SampleActionButtons } from '@/components/pages/sample/meta';
-import { Skeleton } from '@/components/ui/skeleton';
-import { SampleInputs } from '@/components/pages/sample/inputs';
 import { SampleBagde } from '@/components/pages/sample/badge';
+import { SampleInputs } from '@/components/pages/sample/inputs';
+import { SampleActionButtons } from '@/components/pages/sample/meta';
+import { SampleView } from '@/components/pages/sample/sample-view';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { Sample } from '@/types';
+import { Suspense } from 'react';
+
 export default async function SampleDetailPage({
   params,
 }: {
@@ -17,12 +21,19 @@ export default async function SampleDetailPage({
 
   return (
     <>
-      <div className="p-6 absolute inset-0">
+      <div className="absolute inset-0">
         <SampleBagde sample={sample} />
         <SampleInputs sample={sample} />
-        <Skeleton className="w-full h-[90vh]" />
+        <Suspense fallback={<Skeleton className="w-full h-[90vh]" />}>
+          <View sample={sample} />
+        </Suspense>
         <SampleActionButtons sample={sample} />
       </div>
     </>
   );
+}
+
+async function View({ sample }: { sample: Sample }) {
+  const html = await getSampleViewFromCanvas(sample);
+  return <SampleView html={html} />;
 }

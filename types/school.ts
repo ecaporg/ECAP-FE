@@ -10,6 +10,10 @@ export type Tenant = GenericEntity & {
   admins: Admin[];
   academies: Academy[];
   tracks: Track[];
+  key: {
+    access_token: string;
+    url: string;
+  } & GenericEntity;
 };
 
 export type Academy = GenericEntity & {

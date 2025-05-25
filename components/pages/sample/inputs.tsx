@@ -61,7 +61,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   return (
     <form
       ref={formRef}
-      className="grid grid-cols-1 md:grid-cols-[min-content_minmax(auto,400px)] border border-border p-4 text-nowrap sticky top-6 z-[1] bg-white gap-1"
+      className="grid grid-cols-1 md:grid-cols-[min-content_minmax(auto,400px)] border border-border p-4 text-nowrap md:sticky top-0 z-[1] bg-white gap-1 !m-0"
       onSubmit={form.handleSubmit(onSubmit)}
     >
       {inputs.map((input) => (
