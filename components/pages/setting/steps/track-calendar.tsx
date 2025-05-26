@@ -1,11 +1,11 @@
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Track, TrackCalendar, TrackCalendarDay } from '@/types/track';
-import { cn, formatTrackDateWithLongMonth } from '@/utils';
 import { Calendar } from '@/components/ui/calendar';
-import { ButtonHTMLAttributes, useState } from 'react';
-import { CalendarDay, DateRange, Modifiers, OnSelectHandler } from 'react-day-picker';
-import { cva } from 'class-variance-authority';
 import { dayTypeMap, dayTypes } from '@/constants/track';
+import type { Track, TrackCalendar, TrackCalendarDay } from '@/types/track';
+import { cn, formatTrackDateWithLongMonth } from '@/utils';
+import { cva } from 'class-variance-authority';
+import { type ButtonHTMLAttributes, useState } from 'react';
+import type { CalendarDay, DateRange, Modifiers, OnSelectHandler } from 'react-day-picker';
 
 export const TrackCalendarWrapper = ({
   track,
@@ -27,19 +27,22 @@ export const TrackCalendarWrapper = ({
   );
 };
 
-const dayButtonVariants = cva('w-full text-natural-black', {
-  variants: {
-    dayType: {
-      [dayTypeMap.Schooldays]: 'bg-[#90CBFF]',
-      [dayTypeMap['Non-School Day']]: 'bg-[#CFD8DC]',
-      [dayTypeMap.HOL]: 'bg-[#98ECA2]',
-      [dayTypeMap.EMC]: 'bg-[#FBA7A7]',
-      [dayTypeMap.OTH]: 'bg-[#DCBE6C]',
-      [dayTypeMap.ACA]: 'bg-[#3FD8E9]',
-      '': '',
+const dayButtonVariants = cva(
+  'w-full text-natural-black hover:opacity-80 active:opacity-70 transition-opacity',
+  {
+    variants: {
+      dayType: {
+        [dayTypeMap.Schooldays]: 'bg-[#90CBFF]',
+        [dayTypeMap['Non-School Day']]: 'bg-[#CFD8DC]',
+        [dayTypeMap.HOL]: 'bg-[#98ECA2]',
+        [dayTypeMap.EMC]: 'bg-[#FBA7A7]',
+        [dayTypeMap.OTH]: 'bg-[#DCBE6C]',
+        [dayTypeMap.ACA]: 'bg-[#3FD8E9]',
+        '': '',
+      },
     },
-  },
-});
+  }
+);
 
 const DayButton = ({
   day,
