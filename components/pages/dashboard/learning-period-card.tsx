@@ -87,7 +87,7 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
                 readOnly
                 id={field.label}
                 value={field.value}
-                className={`outline-none text-end ${field.className}`}
+                className={`outline-none text-end bg-white ${field.className}`}
               />
             )}
           </div>

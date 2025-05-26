@@ -23,9 +23,7 @@ export async function CompliancePage({
     tenant,
     awaitedParams[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-  const tracksIds = awaitedParams[
-    SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID
-  ]?.split(',');
+  const tracksIds = awaitedParams[SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID]?.split(',');
   const currentLearningPeriodId = awaitedParams[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID];
 
   return (
@@ -36,11 +34,7 @@ export async function CompliancePage({
         tracksIds={tracksIds}
         currentLearningPeriodId={currentLearningPeriodId}
       />
-      <TeacherSection
-        param={awaitedParams}
-        tenant={tenant!}
-        academicYearIds={academicYearIds}
-      />
+      <TeacherSection param={awaitedParams} tenant={tenant!} academicYearIds={academicYearIds} />
     </>
   );
 }

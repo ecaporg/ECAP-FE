@@ -87,7 +87,7 @@ export function SampleInfoForModal(props: SampleInfoForModalProps) {
                 {item.label}
               </label>
               <input
-                className="text-end outline-none truncate"
+                className="text-end outline-none truncate bg-white"
                 type="text"
                 id={item.label}
                 value={item.value}
