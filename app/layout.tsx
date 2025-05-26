@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type React from 'react';
 import '@/styles/globals.css';
-import { ThemeProvider } from '@/providers/theme';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/providers/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +27,9 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          value={{
+            theme: 'dark',
+          }}
         >
           {children}
           <Toaster position="top-right" richColors closeButton />
