@@ -1,7 +1,7 @@
 import { routes } from '@/constants/routes';
 import { Circle } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import type React from 'react';
 
 interface StepperProps {
   steps: string[];

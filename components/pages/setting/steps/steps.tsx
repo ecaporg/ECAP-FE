@@ -1,38 +1,38 @@
 'use client';
 
-import { Academy, School, Track, TrackCalendar } from '@/types';
-import { Actions, InputWithButton, NextButton, NextButtonProps } from './form';
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from './table';
-import { StepSchool, useStep1 } from '@/hooks/settings/steps/use-step1';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { StepAcademy, useStep2 } from '@/hooks/settings/steps/use-step2';
-import { StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
+import { ConfirmationModal } from '@/components/modals';
+import { type StepSchool, useStep1 } from '@/hooks/settings/steps/use-step1';
+import { type StepAcademy, useStep2 } from '@/hooks/settings/steps/use-step2';
+import { type StepTrack, useStep3 } from '@/hooks/settings/steps/use-step3';
+import { useStep4 } from '@/hooks/settings/steps/use-step4';
+import {
+  type StepTrackLP,
+  getLearningPeriodEndDate,
+  getLearningPeriodStartDate,
+  useStep5LearningPeriod,
+  useStep5Track,
+} from '@/hooks/settings/steps/use-step5';
+import {
+  type StepSemester,
+  getSemesterEndDate,
+  getSemesterStartDate,
+  useStep6Semesters,
+  useStep6Track,
+} from '@/hooks/settings/steps/use-step6';
+import type { Academy, School, Track, TrackCalendar } from '@/types';
 import { cn, formatTrackDateWithShortMonth } from '@/utils';
+import { ArrowLeftIcon } from 'lucide-react';
+import { type Dispatch, type SetStateAction, useState } from 'react';
 import { useWatch } from 'react-hook-form';
+import { Actions, InputWithButton, NextButton, type NextButtonProps } from './form';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
+import { CalendarButtons, CalendarForTrack, TrackCalendarWrapper } from './track-calendar';
 import {
   SetupCalendarButton,
   SetupLearningPeriodButton,
   SetupSemesterButton,
   TrackCard,
 } from './track-card';
-import { ArrowLeftIcon } from 'lucide-react';
-import { TrackCalendarWrapper, CalendarForTrack, CalendarButtons } from './track-calendar';
-import { useStep4 } from '@/hooks/settings/steps/use-step4';
-import { ConfirmationModal } from '@/components/modals';
-import {
-  StepTrackLP,
-  useStep5Track,
-  useStep5LearningPeriod,
-  getLearningPeriodStartDate,
-  getLearningPeriodEndDate,
-} from '@/hooks/settings/steps/use-step5';
-import {
-  getSemesterEndDate,
-  getSemesterStartDate,
-  StepSemester,
-  useStep6Semesters,
-  useStep6Track,
-} from '@/hooks/settings/steps/use-step6';
 
 const DefaultWrapper = ({
   children,
@@ -305,6 +305,7 @@ export const Step4 = ({
         currentStep={3}
         withBorder
         backButton={{
+          className: 'lg:absolute lg:left-7 lg:top-20',
           variant: 'outline',
           onClick: () => {
             if (isDirty) {

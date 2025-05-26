@@ -5,8 +5,8 @@ import { STEPS } from '@/components/pages/setting/steps';
 import { SETUP_STEPS } from '@/constants/setupSteps';
 import { Suspense } from 'react';
 
-function getStep(step: string = '0') {
-  const stepNumber = parseInt(step);
+function getStep(step = '0') {
+  const stepNumber = Number.parseInt(step);
   return Math.max(0, Math.min(stepNumber, SETUP_STEPS.length - 1));
 }
 
@@ -23,7 +23,7 @@ async function TabSetup({
     <section className="p-10 h-full flex flex-col">
       <Stepper steps={SETUP_STEPS} activeStep={activeStep} />
 
-      <div className="flex-1 flex flex-col justify-between items-center">
+      <div className="flex-1 flex flex-col justify-between items-center lg:relative">
         <Suspense fallback={<PageLoading />} key={activeStep}>
           <StepComponent />
         </Suspense>
