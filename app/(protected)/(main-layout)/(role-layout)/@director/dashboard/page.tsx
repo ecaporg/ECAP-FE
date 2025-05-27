@@ -23,7 +23,6 @@ const Dashboard = async () => {
       <CurrentLPSection stats={stats} />
       <LPCardsSection stats={stats}>
         <ProgressCard
-          className="md:w-[19.75rem]"
           title="Year to Date"
           percentage={stats?.yearToDateCompliance ?? 0}
         />

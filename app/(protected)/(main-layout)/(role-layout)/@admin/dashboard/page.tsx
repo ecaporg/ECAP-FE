@@ -23,7 +23,6 @@ async function Dashboard() {
     <PageWrapper user={user!} stats={stats}>
       <CurrentLPSection stats={stats}>
         <ProgressCard
-          className="md:w-[19.75rem]"
           title="Year to Date"
           percentage={stats.yearToDateCompliance ?? 0}
         />

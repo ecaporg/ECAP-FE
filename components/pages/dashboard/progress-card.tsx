@@ -1,7 +1,7 @@
-import type React from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/utils';
+import type React from 'react';
 
 interface ProgressCardProps {
   title: string;
@@ -17,8 +17,13 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
   progressClassName,
 }) => {
   return (
-    <Card className={cn('flex flex-col items-center justify-center p-6 gap-8', className)}>
-      <h2 className="font-bold">{title}</h2>
+    <Card
+      className={cn(
+        'flex flex-col items-center justify-between h-800:justify-start lg:px-6 px-5 h-800:py-6 py-5 h-800:gap-8 gap-2 h-[18rem] h-800:h-[22.25rem] lg:w-[19.75rem] w-64',
+        className
+      )}
+    >
+      <h2 className="font-bold truncate text-base text-left w-full">{title}</h2>
       <Progress value={percentage} className={cn('size-[12.5rem]', progressClassName)} />
     </Card>
   );

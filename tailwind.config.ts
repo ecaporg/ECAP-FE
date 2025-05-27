@@ -121,6 +121,11 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+
+      screens: {
+        //realy, I  don't know why but I added this, but designer said that it's should be implemented
+        'h-800': { raw: '(min-height: 1000px)' }, // height is greater than 1000px
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

@@ -1,15 +1,15 @@
-import type React from 'react';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { StatsItem } from '@/types';
+import type { StatsItem } from '@/types';
 import {
   formatLearningPeriodDate,
   getDueDate,
-  getLearningPeriodDateRange,
   getLPNameForDashboard,
+  getLearningPeriodDateRange,
   getStatusColorForDashboard,
   getStatusForDashboard,
 } from '@/utils';
+import type React from 'react';
 
 interface LearningPeriodCardProps {
   title: React.ReactNode;
@@ -69,9 +69,9 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
   fields = [],
 }) => {
   return (
-    <Card className="p-2 pb-8">
+    <Card className="p-2 pb-8 flex-1 h-800:h-[21.125rem] h-[17rem] flex flex-col justify-between">
       <h2 className="p-2 font-bold">{title}</h2>
-      <form className="p-2 space-y-4 mt-10">
+      <form className="p-2 space-y-4">
         {track}
 
         {fields.map((field) => (

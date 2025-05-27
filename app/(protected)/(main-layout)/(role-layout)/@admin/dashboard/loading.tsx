@@ -11,9 +11,9 @@ export default function TeacherDashboard() {
   return (
     <PageLoadingWrapper>
       <CurrentLPSectionSkeleton>
-        <ProgressCardSkeleton className="md:w-[19.75rem]" title="Year to Date" />
+        <ProgressCardSkeleton title="Year to Date" />
       </CurrentLPSectionSkeleton>
-      <LPCardSkeletonSection></LPCardSkeletonSection>
+      <LPCardSkeletonSection />
     </PageLoadingWrapper>
   );
 }

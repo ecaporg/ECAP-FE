@@ -8,7 +8,7 @@ export const CurrentLPSectionSkeleton = ({ children }: React.PropsWithChildren) 
   return (
     <SectionWrapper>
       <SectionWrapper>
-        <ProgressCardSkeleton className="md:w-[19.75rem]" title="Current LP Compliance" />
+        <ProgressCardSkeleton title="Current LP Compliance" />
         {children}
 
         <div className="flex-1 sm:w-[25rem]">
