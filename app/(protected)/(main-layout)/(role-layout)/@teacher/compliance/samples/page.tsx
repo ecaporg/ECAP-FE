@@ -1,8 +1,8 @@
 import { rolePage } from '@/components/layouts/role-page';
 import { SamplesSection } from '@/components/pages/compliance/sections';
-import { getComplianceTeacherFilter } from '@/lib/api/compliance';
 import type { SamplesSectionProps } from '@/components/pages/compliance/sections/samples-section';
-import { Metadata } from 'next';
+import { getComplianceTeacherFilter } from '@/lib/api/compliance';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Compliance Samples',
