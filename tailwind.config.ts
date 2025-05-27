@@ -125,6 +125,7 @@ const config: Config = {
       screens: {
         //realy, I  don't know why but I added this, but designer said that it's should be implemented
         'h-800': { raw: '(min-height: 1000px)' }, // height is greater than 1000px
+        '2xl': { raw: '(min-width: 1440px)' },
       },
     },
   },

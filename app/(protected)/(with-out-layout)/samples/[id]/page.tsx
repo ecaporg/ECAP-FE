@@ -20,16 +20,14 @@ export default async function SampleDetailPage({
   }
 
   return (
-    <>
-      <div className="absolute inset-0">
-        <SampleBagde sample={sample} />
-        <SampleInputs sample={sample} />
-        <Suspense fallback={<Skeleton className="w-full h-[90vh]" />}>
-          <View sample={sample} />
-        </Suspense>
-        <SampleActionButtons sample={sample} />
-      </div>
-    </>
+    <section className="lg:w-[64rem] lg:mx-auto mx-16 absolute inset-0">
+      <SampleBagde sample={sample} />
+      <SampleInputs sample={sample} />
+      <Suspense fallback={<Skeleton className="w-full h-[90vh]" />}>
+        <View sample={sample} />
+      </Suspense>
+      <SampleActionButtons sample={sample} />
+    </section>
   );
 }
 

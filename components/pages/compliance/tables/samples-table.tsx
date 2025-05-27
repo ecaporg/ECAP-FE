@@ -64,9 +64,9 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
       <TableBody>
         {rows.map((row) => (
           <TableRow key={`${row.sample_1.id}`}>
-            <TableCell className="max-w-48 truncate">{row.subject.name}</TableCell>
-            <TableCell className="max-w-48 truncate">{row.sample_1.assignment_title}</TableCell>
-            <TableCell className="max-w-48 truncate">
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.subject.name}</TableCell>
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.sample_1.assignment_title}</TableCell>
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">
               <SapmleStatus status={row.sample_1.status || null} />
             </TableCell>
             <TableCell className="max-w-28">
@@ -75,8 +75,8 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
             <TableCell className="max-w-28">
               <AvatarColumn sample={row.sample_1} />
             </TableCell>
-            <TableCell className="max-w-48 truncate">{row.sample_2?.assignment_title}</TableCell>
-            <TableCell className="max-w-48 truncate">
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.sample_2?.assignment_title}</TableCell>
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">
               <SapmleStatus status={row.sample_2?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">

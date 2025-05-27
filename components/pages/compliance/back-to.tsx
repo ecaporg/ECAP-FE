@@ -11,7 +11,7 @@ export const BackToCompliance = ({ student }: { student?: Student }) => {
   }
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between w-full py-5 font-semibold">
+    <div className="flex items-center justify-between w-full !basis-full py-5 font-semibold">
       <p
         className="text-primary cursor-pointer flex items-center gap-2 text-lg"
         onClick={() => router.back()}

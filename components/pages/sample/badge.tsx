@@ -11,7 +11,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
     const isMyMessage = sample.flag_completed?.user_id === user?.id;
 
     return (
-      <div className="pb-6 flex items-center gap-4">
+      <div className="p-6 flex items-center gap-4">
         <CompletionStatus variant="Complete" className="h-14 w-60">
           {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
             ? 'Error Corrected'

@@ -1,4 +1,5 @@
 'use client';
+import type { TrackLearningPeriod } from '@/types';
 import { cn, formatDueDateWithYear, getLearningPeriodDateRange } from '@/utils';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -6,7 +7,6 @@ import type React from 'react';
 import { NextButton, PageButton, Pagination, PrevButton } from 'react-headless-pagination';
 import { buttonVariants } from '../ui/button';
 import { CompletionStatus, type CompletionStatusProps } from './completion-status';
-import { TrackLearningPeriod } from '@/types';
 interface PaginationSectionProps {
   totalPages: number;
   learningPeriod?: TrackLearningPeriod;
@@ -38,7 +38,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   };
 
   return (
-    <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start pb-7">
+    <section className="flex lg:items-center lg:h-20 lg:flex-row flex-col gap-y-6 items-start mb-2">
       <h2 className="text-lg font-semibold text-neutral-black order-1">
         Showing Table for {learningPeriod?.name}{' '}
         <span className="font-normal">

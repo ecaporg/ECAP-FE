@@ -4,12 +4,14 @@ export const FilterWrapper = ({
   children,
   className,
   grid = true,
-}: React.PropsWithChildren<{ className?: string; grid?: boolean }>) => {
+  fill = true,
+}: React.PropsWithChildren<{ className?: string; grid?: boolean; fill?: boolean }>) => {
   return (
     <section
       className={cn(
-        'flex flex-wrap gap-4 pt-9 pb-8',
-        grid && 'lg:grid lg:grid-flow-col lg:[&_button]:w-full lg:[&_button:has(input)]:col-span-2',
+        'flex flex-wrap gap-x-2 gap-y-4 pt-3 pb-4',
+        grid && '2xl:grid 2xl:grid-flow-col 2xl:[&_button:has(input)]:col-span-2',
+        fill && '[&_button]:w-full [&>*]:flex-1 lg:[&>*]:grow-0 md:[&>button]:basis-2/3 [&>button]:basis-full',
         className
       )}
     >
