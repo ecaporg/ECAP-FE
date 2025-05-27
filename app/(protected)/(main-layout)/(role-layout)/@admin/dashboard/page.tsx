@@ -1,15 +1,15 @@
-import React from 'react';
+import { rolePage } from '@/components/layouts/role-page';
 import { ProgressCard } from '@/components/pages/dashboard/progress-card';
 import {
   CurrentLPSection,
   LPCardsSection,
   PageWrapper,
 } from '@/components/pages/dashboard/sections';
-import { getUser } from '@/lib/get-user';
-import { getDashboardStats } from '@/lib/api/statistic';
-import { rolePage } from '@/components/layouts/role-page';
 import { StatisticsList } from '@/components/pages/dashboard/statistics-list';
-import { Metadata } from 'next';
+import { getDashboardStats } from '@/lib/api/statistic';
+import { getUser } from '@/lib/get-user';
+import type { Metadata } from 'next';
+import type React from 'react';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard',
