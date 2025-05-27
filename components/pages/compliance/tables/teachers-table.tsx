@@ -43,37 +43,37 @@ export const TeachersTable = ({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Teacher Name
             <SortableIcon<TeacherCompliance> name="teacher_name" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
               <SortableIcon<TeacherCompliance> name="academy_name" />
             )}
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Students
             <SortableIcon<TeacherCompliance> name="student_count" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Flagged Samples
             <SortableIcon<TeacherCompliance> name="flagged_count" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Completed Samples
             <SortableIcon<TeacherCompliance> name="completed_count" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Incomplete Samples
             <SortableIcon<TeacherCompliance> name="incompleted_count" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Completion
             <SortableIcon<TeacherCompliance> name="is_complated" />
           </TableHead>
-          <TableHead>
+          <TableHead className="lg:max-w-44 max-w-28 truncate">
             Progress
             <SortableIcon<TeacherCompliance> name="completion_percentage" />
           </TableHead>
@@ -83,7 +83,9 @@ export const TeachersTable = ({
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
             <Link className="contents" href={getPath(assignment)}>
-              <TableCell>{assignment.teacher_name}</TableCell>
+              <TableCell className="lg:max-w-44 max-w-28 truncate">
+                {assignment.teacher_name}
+              </TableCell>
               <TableCell>{assignment.academy_name}</TableCell>
               <TableCell>{assignment.student_count}</TableCell>
               <TableCell>{assignment.flagged_count}</TableCell>

@@ -33,7 +33,7 @@ export function DirectorFilters({
   );
 
   return (
-    <FilterWrapper className="lg:[&_button:has(input)]:col-span-3 lg:grid-flow-row grid-cols-6">
+    <FilterWrapper className="2xl:[&_button:has(input)]:col-span-3 2xl:grid-flow-row grid-cols-6">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
       />

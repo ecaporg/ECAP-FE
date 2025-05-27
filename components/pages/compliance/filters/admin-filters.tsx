@@ -34,7 +34,7 @@ export function AdminFilters({
   );
 
   return (
-    <FilterWrapper className="lg:grid-flow-row grid-cols-6">
+    <FilterWrapper className="2xl:grid-flow-row grid-cols-6">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
       />
