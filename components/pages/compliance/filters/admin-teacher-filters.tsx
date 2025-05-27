@@ -17,7 +17,7 @@ interface AdminTeacherFiltersProps {
 
 export function AdminTeacherFilters({ tenant, academicYearIds }: AdminTeacherFiltersProps) {
   return (
-    <FilterWrapper className="pt-0 pb-6" grid={false}>
+    <FilterWrapper className="pt-0 pb-6 lg:[&>*]:grow-0" grid={false}>
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
       />
@@ -40,7 +40,7 @@ const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS)
 
 export const AdminSamplesFilters = () => {
   return (
-    <FilterWrapper className="pt-9 pb-4" grid={false}>
+    <FilterWrapper className="pt-9 pb-4 lg:[&>*]:grow-0" grid={false}>
       <FlagCategoryFilter />
       <SampleStatusFilter options={statuses} />
     </FilterWrapper>
