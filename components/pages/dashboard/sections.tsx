@@ -38,7 +38,7 @@ export const CurrentLPSection = ({
       <ProgressCard title="Current LP Compliance" percentage={stats.currentLP.compliance} />
       {children}
 
-      <div className="flex-1 md:min-w-96">
+      <div className="flex-1 lg:min-w-96">
         {hasLPs(stats.beforeThePreviousOne) && (
           <>
             <TrackRow item={stats.beforeThePreviousOne} />
@@ -90,7 +90,7 @@ export const PageWrapper = ({
   stats,
 }: React.PropsWithChildren<{ user: User; stats: DashboardStats }>) => {
   return (
-    <div className="dashboard py-6 px-12 flex justify-center">
+    <div className="dashboard py-6 flex justify-center">
       <div className="flex w-fit gap-10 flex-col items-center">
         <WelcomeBack user={user!} academicYear={stats.academicYear} />
         {children}

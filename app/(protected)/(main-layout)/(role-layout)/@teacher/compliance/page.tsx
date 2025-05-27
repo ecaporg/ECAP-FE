@@ -1,10 +1,10 @@
-import { getComplianceTeacherFilter } from '@/lib/api/compliance';
+import { rolePage } from '@/components/layouts/role-page';
 import { TeacherFilters } from '@/components/pages/compliance/filters';
 import { StudentsSection } from '@/components/pages/compliance/sections';
-import { rolePage } from '@/components/layouts/role-page';
-import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
-import { Metadata } from 'next';
+import { getComplianceTeacherFilter } from '@/lib/api/compliance';
+import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Compliance',

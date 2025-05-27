@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import type React from 'react';
 import '@/styles/globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import { SearchParamsProvider } from '@/providers/search-params';
 import { ThemeProvider } from '@/providers/theme';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <SearchParamsProvider />
         <ThemeProvider attribute="class" defaultTheme="light">
           {children}
           <Toaster position="top-right" richColors closeButton />
