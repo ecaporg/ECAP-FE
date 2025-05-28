@@ -6,6 +6,7 @@ import {
   PageLoadingWrapper,
 } from '@/components/pages/dashboard/loading';
 import { ProgressCardSkeleton } from '@/components/pages/dashboard/progress-card';
+import { StatisticsListSkeleton } from '@/components/pages/dashboard/statistics-list';
 
 export default function TeacherDashboard() {
   return (
@@ -13,7 +14,9 @@ export default function TeacherDashboard() {
       <CurrentLPSectionSkeleton>
         <ProgressCardSkeleton title="Year to Date" />
       </CurrentLPSectionSkeleton>
-      <LPCardSkeletonSection />
+      <LPCardSkeletonSection>
+        <StatisticsListSkeleton />
+      </LPCardSkeletonSection>
     </PageLoadingWrapper>
   );
 }

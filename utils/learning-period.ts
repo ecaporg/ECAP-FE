@@ -38,9 +38,7 @@ export const getLearningPeriodFromTenant = (
   tracksIds?: string[]
 ) => {
   return tenant?.tracks
-    .filter((track) =>
-      tracksIds && tracksIds.length ? tracksIds.includes(track.id.toString()) : true
-    )
+    .filter((track) => (tracksIds?.length ? tracksIds.includes(track.id.toString()) : true))
     .flatMap((track) =>
       track.learningPeriods
         .map((period) => ({
@@ -65,7 +63,7 @@ export const getFormattedLP = (lp: TrackLearningPeriod) => {
 };
 
 const compareDates = (date1: Date, date2: Date) => {
-  return date1.toISOString().split('T')[0] == date2.toISOString().split('T')[0];
+  return date1.toISOString().split('T')[0] === date2.toISOString().split('T')[0];
 };
 
 export const mergeLearningPeriods = (learningPeriods: TrackLearningPeriod[]) => {
@@ -101,10 +99,17 @@ export const assignDefaultLearningPeriod = (
 ) => {
   const mergedLP = mergeLearningPeriods(getLearningPeriodFromTenant(tenant, academicYearIds));
   if (!param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID]) {
-    const learningPeriod = mergedLP[0];
+    const learningPeriod = getCurrentLearningPeriod(mergedLP) || mergedLP[0];
     param[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID] = learningPeriod.id;
   }
   return mergedLP;
+};
+
+export const getCurrentLearningPeriod = (learningPeriods: TrackLearningPeriod[]) => {
+  return learningPeriods.find((lp) => {
+    const now = new Date();
+    return now >= new Date(lp.start_date) && now <= new Date(lp.end_date);
+  });
 };
 
 export const getDueDate = (learningPeriod?: TrackLearningPeriod) => {
@@ -123,7 +128,7 @@ export const getStatusForTable = (
   if (now > dueDate && completedCount < totalItems) {
     return 'Overdue';
   }
-  if (completedCount == totalItems) {
+  if (completedCount === totalItems) {
     return 'Complete';
   }
   return 'In Progress';

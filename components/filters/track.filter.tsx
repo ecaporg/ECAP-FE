@@ -19,7 +19,7 @@ export function TrackFilter({
         label: track.name,
         value: track.id.toString(),
       }))}
-      multiple
+      withBothOption
     />
   );
 }

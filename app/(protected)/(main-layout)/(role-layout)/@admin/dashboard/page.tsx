@@ -22,10 +22,7 @@ async function Dashboard() {
   return (
     <PageWrapper user={user!} stats={stats}>
       <CurrentLPSection stats={stats}>
-        <ProgressCard
-          title="Year to Date"
-          percentage={stats.yearToDateCompliance ?? 0}
-        />
+        <ProgressCard title="Year to Date" percentage={stats.yearToDateCompliance ?? 0} />
       </CurrentLPSection>
       <LPCardsSection stats={stats}>
         <StatisticsList items={stats.academies ?? []} />

@@ -20,7 +20,7 @@ export function SchoolFilter({
         label: school.name,
         value: school.id.toString(),
       }))}
-      multiple
+      withBothOption
     />
   );
 }

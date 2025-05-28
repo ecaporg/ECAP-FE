@@ -11,5 +11,5 @@ export function CompletionFilter({
 }: {
   slug?: string;
 }) {
-  return <BaseFilter label="Completion" slug={slug} options={COMPLETION_OPTIONS} multiple />;
+  return <BaseFilter label="Completion" slug={slug} options={COMPLETION_OPTIONS} withBothOption />;
 }

@@ -15,9 +15,7 @@ import { Label } from '../ui/label';
 import { ScrollArea } from '../ui/scroll-area';
 import { SearchInput } from './search';
 
-export interface FilterProps {
-  multiple?: boolean;
-  combined?: boolean;
+export type FilterProps = {
   hasSearch?: boolean;
   options: { label: string; value: string }[];
   slug: string;
@@ -25,7 +23,15 @@ export interface FilterProps {
   render?: (option: FilterProps['options'][number]) => React.ReactNode;
   disabled?: boolean;
   defaultPlaceholder?: string;
-}
+  defaultValue?: string | null;
+} & (
+  | {
+      multiple?: true;
+      combined?: boolean;
+      withBothOption?: false;
+    }
+  | { multiple?: false; combined?: false; withBothOption?: boolean }
+);
 
 interface ItemProps {
   option: FilterProps['options'][number];
@@ -68,25 +74,36 @@ export const DropdownMenuLocalItem: React.FC<ItemProps> = ({
   );
 };
 
-export const BaseFilter: React.FC<FilterProps> = ({
+export const BaseFilter = ({
   multiple = false,
   combined = false,
   hasSearch = false,
+  withBothOption = false,
   options,
   slug,
   label,
   render,
   defaultPlaceholder,
+  defaultValue,
   disabled = false,
-}) => {
+}: FilterProps) => {
   const [search, setSearch] = useState('');
   const { selectedValues, handleSelect, reset } = useFilterParam(slug, multiple, combined);
+  let placeholder: string | undefined;
 
-  const placeholder = multiple
-    ? (defaultPlaceholder ?? label)
-    : selectedValues[0]
-      ? options.find((option) => option.value === selectedValues[0])?.label
-      : (defaultPlaceholder ?? label);
+  if (defaultValue && !selectedValues[0]) {
+    selectedValues[0] = defaultValue;
+  }
+
+  if (multiple) {
+    placeholder = defaultPlaceholder ?? label;
+  } else if (selectedValues[0]) {
+    placeholder = options.find((option) => option.value === selectedValues[0])?.label;
+  } else if (withBothOption && options.length > 1) {
+    placeholder = options.length === 2 ? 'Both' : 'All';
+  } else {
+    placeholder = defaultPlaceholder ?? label;
+  }
 
   const showSearch = hasSearch || options.length > 15;
 
@@ -94,7 +111,10 @@ export const BaseFilter: React.FC<FilterProps> = ({
     <div>
       <Label className="block">{label}</Label>
       <DropdownMenu>
-        <DropdownMenuTrigger disabled={disabled} isPlaceholder={!selectedValues[0]}>
+        <DropdownMenuTrigger
+          disabled={disabled}
+          isPlaceholder={!(selectedValues[0] || (withBothOption && options.length > 1))}
+        >
           <span className="truncate">{placeholder}</span>
           {multiple && selectedValues.length > 0 ? (
             <button
@@ -126,6 +146,18 @@ export const BaseFilter: React.FC<FilterProps> = ({
           )}
           {showSearch && <DropdownMenuSeparator />}
           <ScrollArea className="max-h-[min(30rem,50vh)]">
+            {withBothOption && !multiple && options.length > 1 && (
+              <DropdownMenuLocalItem
+                key={`${slug}-all`}
+                option={{
+                  label: options.length === 2 ? 'Both' : 'All',
+                  value: 'both',
+                }}
+                checked={selectedValues.length === 0}
+                multiple={multiple}
+                handleSelect={reset}
+              />
+            )}
             {options
               .filter(
                 (option) => !search || option.label.toLowerCase().includes(search.toLowerCase())

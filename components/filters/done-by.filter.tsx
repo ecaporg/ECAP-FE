@@ -29,5 +29,7 @@ export async function DoneByFilter({
     label: value,
     value: key.toString(),
   }));
-  return <BaseFilter label="Done By" slug={slug} options={options} multiple disabled={disabled} />;
+  return (
+    <BaseFilter label="Done By" slug={slug} options={options} withBothOption disabled={disabled} />
+  );
 }
