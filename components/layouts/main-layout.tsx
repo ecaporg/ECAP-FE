@@ -141,7 +141,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       </section>
 
       {/* Main content */}
-      <main className="md:px-10 px-4 overflow-y-auto">{children}</main>
+      <main className="md:px-10 px-4 overflow-y-auto pb-10">{children}</main>
     </div>
   );
 }
