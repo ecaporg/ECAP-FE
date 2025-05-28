@@ -9,7 +9,7 @@ const SearchParamsContext = createContext<SearchParamsContextType | undefined>(u
 
 export function SearchParamsProvider({ children }: React.PropsWithChildren) {
   useConditionalSearchParam({
-    condition: window.innerHeight > 800,
+    condition: typeof window !== 'undefined' && window.innerHeight > 800,
     paramName: 'limit',
     paramValue: '15',
     removeWhenFalse: false,
