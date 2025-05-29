@@ -37,6 +37,7 @@ export function AdminFilters({
     <FilterWrapper className="2xl:grid-flow-row grid-cols-6">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
+        defaultValue={academicYearIds[0]}
       />
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds, tracksIds)}

@@ -26,7 +26,7 @@ export function SemesterFilter({
         label: value,
         value: key.toString(),
       }))}
-      multiple
+      withBothOption
     />
   );
 }

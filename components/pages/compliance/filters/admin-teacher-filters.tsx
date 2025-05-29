@@ -20,6 +20,7 @@ export function AdminTeacherFilters({ tenant, academicYearIds }: AdminTeacherFil
     <FilterWrapper className="pt-0 pb-6 lg:[&>*]:grow-0" grid={false}>
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
+        defaultValue={academicYearIds[0]}
       />
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}

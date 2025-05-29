@@ -1,15 +1,17 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import type { AcademicYear } from '@/types';
 import { BaseFilter } from './base';
-import { AcademicYear } from '@/types';
 
 interface AcademicYearFilterProps {
   slug?: string;
   availableAcademicYears: AcademicYear[];
+  defaultValue: string;
 }
 
 export function AcademicYearFilter({
   slug = DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR,
   availableAcademicYears = [],
+  defaultValue,
 }: AcademicYearFilterProps) {
   const map = new Map();
 
@@ -29,6 +31,7 @@ export function AcademicYearFilter({
         value: key.toString(),
       }))}
       disabled={disabled}
+      defaultValue={defaultValue}
     />
   );
 }
