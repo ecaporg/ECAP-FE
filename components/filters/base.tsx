@@ -98,7 +98,10 @@ export const BaseFilter = ({
   if (multiple) {
     placeholder = defaultPlaceholder ?? label;
   } else if (selectedValues[0]) {
-    placeholder = options.find((option) => option.value === selectedValues[0])?.label;
+    placeholder =
+      options.find((option) => option.value === selectedValues[0])?.label ||
+      defaultPlaceholder ||
+      label;
   } else if (withBothOption && options.length > 1) {
     placeholder = options.length === 2 ? 'Both' : 'All';
   } else {
