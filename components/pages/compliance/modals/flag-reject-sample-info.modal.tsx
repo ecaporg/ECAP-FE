@@ -1,13 +1,13 @@
 'use client';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { useAuth } from '@/providers/auth';
-import { ReasonForMissingSample, SampleInfoForModal } from './shared';
-import { Badge } from '@/components/ui/badge';
-import { CircleAlertIcon } from 'lucide-react';
+import type { Sample } from '@/types';
 import { isAdminOrDirector } from '@/utils';
+import { CircleAlertIcon } from 'lucide-react';
+import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 
 export function FlagRejectSampleInfoModal({
   children,
@@ -61,7 +61,7 @@ export function FlagRejectSampleInfoModal({
     >
       <form className="flex flex-col size-full">
         <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
-          <SampleInfoForModal sample={sample} />
+          <SampleInfoForModal sample={sample} type="view_rejected" />
         </section>
         <p className="py-6">{reason}</p>
         <DialogClose asChild>

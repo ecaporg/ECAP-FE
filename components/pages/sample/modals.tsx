@@ -1,15 +1,15 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import type { Sample } from '@/types/student';
-import { Textarea } from '@/components/ui/textarea';
-import { ConfirmationModal } from '@/components/modals/confirmation';
-import { useState } from 'react';
-import { useFlagError } from '@/hooks/samples/use-flag-error';
-import { FormError } from '@/components/ui/form-error';
-import { Loader2 } from 'lucide-react';
-import { useAuth } from '@/providers/auth';
 import { approveSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
+import { ConfirmationModal } from '@/components/modals/confirmation';
+import { Button } from '@/components/ui/button';
+import { FormError } from '@/components/ui/form-error';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { useFlagError } from '@/hooks/samples/use-flag-error';
+import { useAuth } from '@/providers/auth';
+import type { Sample } from '@/types/student';
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import { SampleInfoForModal } from '../compliance/modals/shared';
 export function UploadToStudentPathwaysModal({
   children,
@@ -45,7 +45,7 @@ export function FlagErrorModal({ children, sample }: React.PropsWithChildren<{ s
       >
         <form className="flex flex-col size-full" onSubmit={form.handleSubmit(onSubmit)}>
           <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
-            <SampleInfoForModal sample={sample} />
+            <SampleInfoForModal sample={sample} type="flag_errors" />
           </section>
           <div className="py-6">
             <Textarea

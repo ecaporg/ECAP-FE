@@ -1,13 +1,13 @@
 'use client';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
+import { ConfirmationModal } from '@/components/modals';
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
-import { ReasonForMissingSample, SampleInfoForModal } from './shared';
-import { ConfirmationModal } from '@/components/modals';
-import { useRejectMissingSample } from '@/hooks/samples/use-reject-missing-sample';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { useRejectMissingSample } from '@/hooks/samples/use-reject-missing-sample';
+import type { Sample } from '@/types';
+import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 
 export function RejectMissingSampleModal({
   children,
@@ -34,7 +34,7 @@ export function RejectMissingSampleModal({
       >
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col size-full">
           <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
-            <SampleInfoForModal sample={sample} />
+            <SampleInfoForModal sample={sample} type="flag_rejected" />
           </section>
           <p className="py-4">
             <ReasonForMissingSample sample={sample} isDirector={false} />

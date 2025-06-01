@@ -1,16 +1,16 @@
 'use client';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
+import { approveAdminSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
+import { ConfirmationModal } from '@/components/modals';
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { useAuth } from '@/providers/auth';
-import { ReasonForMissingSample, SampleInfoForModal } from './shared';
+import type { Sample } from '@/types';
 import { isAdminOrDirector, isAnyAdmin } from '@/utils';
-import { useState } from 'react';
-import { ConfirmationModal } from '@/components/modals';
-import { approveAdminSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { RejectMissingSampleModal } from './reject-missing-sample.modal';
+import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 
 export function FlagMissingWorkSampleInfoModal({
   children,
@@ -45,7 +45,7 @@ export function FlagMissingWorkSampleInfoModal({
       >
         <form className="flex flex-col size-full">
           <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
-            <SampleInfoForModal sample={sample} />
+            <SampleInfoForModal sample={sample} type="view_missing" />
           </section>
           <p className="py-4">
             <ReasonForMissingSample sample={sample} isDirector={isDirector} />

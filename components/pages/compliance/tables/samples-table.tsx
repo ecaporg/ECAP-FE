@@ -30,7 +30,7 @@ const AvatarColumn = ({ sample }: { sample: Sample }) => {
   return (
     <Avatar title={user ? getUserName(user) : ''}>
       <AvatarFallback>
-        {user ? (user.canvas_additional_info.avatar_url ?? getInitials(getUserName(user))) : '--'}
+        {user ? (user.canvas_additional_info?.avatar_url ?? getInitials(getUserName(user))) : '--'}
       </AvatarFallback>
     </Avatar>
   );

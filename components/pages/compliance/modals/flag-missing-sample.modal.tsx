@@ -1,19 +1,19 @@
 'use client';
-import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
-import { Sample } from '@/types';
 import { ConfirmationModal } from '@/components/modals/confirmation';
-import { useFlagMissingWorkSample } from '@/hooks/samples/use-flag-missing';
-import { Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { SampleInfoForModal } from './shared';
-import { Button } from '@/components/ui/button';
 import { FLAG_MISSING_WORK_SAMPLE_REASONS } from '@/constants/sample';
+import { useFlagMissingWorkSample } from '@/hooks/samples/use-flag-missing';
+import type { Sample } from '@/types';
+import { Loader2 } from 'lucide-react';
+import { SampleInfoForModal } from './shared';
 
 export function FlagMissingWorkSampleModal({
   children,
@@ -36,7 +36,7 @@ export function FlagMissingWorkSampleModal({
       >
         <form className="flex flex-col size-full" onSubmit={form.handleSubmit(onSubmit)}>
           <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
-            <SampleInfoForModal sample={sample} />
+            <SampleInfoForModal sample={sample} type="flag_missing" />
             <input {...form.register('reason')} className="hidden" />
           </section>
           <div className="py-6">
