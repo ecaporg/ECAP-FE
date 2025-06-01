@@ -1,8 +1,8 @@
-import { Sample, SampleFlagRejected } from '@/types';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import { rejectMissingWorkSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
+import type { Sample, SampleFlagRejected } from '@/types';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 type FormData = {
   reason: string;
@@ -28,6 +28,7 @@ export function useRejectMissingSample({ sample }: { sample: Sample }) {
       } as SampleFlagRejected,
       `${path}?${new URLSearchParams(searchParams).toString()}`
     );
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   const onSubmit = async () => {

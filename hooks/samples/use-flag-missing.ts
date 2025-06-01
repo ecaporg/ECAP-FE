@@ -1,5 +1,5 @@
 import { flagMissingWorkSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
-import { Sample, SampleFlagMissingWork } from '@/types';
+import type { Sample, SampleFlagMissingWork } from '@/types';
 import { validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -28,6 +28,7 @@ export function useFlagMissingWorkSample({ sample }: { sample: Sample }) {
     await flagMissingWorkSampleAction(sample, {
       reason,
     } as SampleFlagMissingWork);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   return {
