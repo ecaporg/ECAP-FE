@@ -64,7 +64,7 @@ export function RejectMissingSampleModal({
         <ConfirmationModal
           open={openSuccessfullyModal}
           onOpenChange={setOpenSuccessfullyModal}
-          title="Successfully sent to teacher!!"
+          title="Successfully sent to teacher!"
           action={submitSuccessfully}
         >
           {<></>}

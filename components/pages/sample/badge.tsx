@@ -32,7 +32,7 @@ export async function SampleBagde({ sample }: { sample: Sample }) {
 
   if (sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE) {
     return (
-      <div className="pb-6 flex items-center gap-4">
+      <div className="py-6 flex items-center gap-4">
         <CompletionStatus variant="Overdue" className="h-14 w-60">
           Error flagged
         </CompletionStatus>

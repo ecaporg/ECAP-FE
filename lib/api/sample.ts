@@ -93,8 +93,7 @@ interface CanvasSessionTokenResponse {
   session_url: string;
 }
 
-export const generateCanvasSessionUrl =
-  // cache(
+export const generateCanvasSessionUrl = cache(
   async (accessToken: string, url: string, returnTo: string) => {
     try {
       const endpoint = new URL(`${url}/login/session_token?return_to=${returnTo}`);
@@ -103,7 +102,7 @@ export const generateCanvasSessionUrl =
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      
+
       const data = (await response.json()) as CanvasSessionTokenResponse;
       const headers = {
         Authorization: `Bearer ${accessToken}`,
@@ -135,5 +134,5 @@ export const generateCanvasSessionUrl =
       console.error('Error generating Canvas session URL:', error);
       return { url: '', headers: {}, cookie: '' };
     }
-  };
-// )
+  }
+);
