@@ -10,8 +10,7 @@
     "format": "biome format --write .",
     "lint:biome": "biome check .",
     "lint:fix": "biome check --write .",
-    "lint:fix-all": "biome check --write --unsafe .",
-    "postinstall": "playwright install --with-deps chromium"
+    "lint:fix-all": "biome check --write --unsafe ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -50,7 +49,7 @@
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
     "next-themes": "^0.4.4",
-    "playwright": "^1.48.0",
+    "puppeteer": "^24.10.0",
     "react": "^19",
     "react-day-picker": "9.6.7",
     "react-dom": "^19",
@@ -66,8 +65,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@playwright/test": "^1.48.0",
     "@types/node": "^22",
+    "@types/puppeteer-core": "^7.0.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
