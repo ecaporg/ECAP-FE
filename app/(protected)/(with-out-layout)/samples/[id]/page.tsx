@@ -32,6 +32,6 @@ export default async function SampleDetailPage({
 }
 
 async function View({ sample }: { sample: Sample }) {
-  const html = await getSampleViewFromCanvas(sample);
+  const { html } = await getSampleViewFromCanvas(sample);
   return <SampleView html={html} />;
 }

@@ -14,6 +14,13 @@ class TenantKeysServerApi extends BaseApi<Tenant['key'], undefined> {
       tags: ['tenant-key'],
     }) as ApiResponse<Tenant['key'], undefined>;
   }
+
+  async refreshSessionToken(session_token: string) {
+    return this.fetch(`${this.url}/tenant-keys/refresh-session-token`, {
+      method: 'POST',
+      body: JSON.stringify({ session_token }),
+    });
+  }
 }
 
 export const tenantKeysServerApi = new TenantKeysServerApi();

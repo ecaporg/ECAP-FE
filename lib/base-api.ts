@@ -12,8 +12,8 @@ function ThrowErrorIfError<T, D>(result: ApiResponse<T, D>) {
 }
 
 export class BaseApi<T = any, D = any> {
-  private url: string;
-  private fetch: FetchType<T, D>;
+  protected url: string;
+  protected fetch: FetchType<T, D>;
   constructor(url: string, fetch: FetchType<T, D>) {
     this.url = url;
     this.fetch = fetch;

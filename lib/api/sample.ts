@@ -6,7 +6,6 @@ import type {
   SampleFlagRejected,
 } from '@/types';
 import { revalidateTag } from 'next/cache';
-import { cache } from 'react';
 import { apiFetch } from '../fetch';
 import { tenantKeysServerApi } from './tenant-keys';
 
@@ -67,72 +66,92 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
   });
 };
 
-export const getSampleViewFromCanvas = async (sample: Sample): Promise<string> => {
-  const res = await tenantKeysServerApi.getAccessToken();
-  const { url, headers, cookie } = await generateCanvasSessionUrl(
-    res.data?.access_token!,
-    res.data?.url!,
-    sample.preview_url
-  )!;
+async function refreshSessionToken(refreshURL: string) {
+  try {
+    console.log('Starting browser automation for session refresh');
 
-  console.log('url', url);
+    const puppeteer = await import('puppeteer');
 
-  const response = await fetch(url, {
+    const browser = await puppeteer.default.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+      ],
+      defaultViewport: { width: 1, height: 1 },
+      headless: true,
+    });
+
+    try {
+      const page = await browser.newPage();
+
+      await page.goto(refreshURL, {
+        waitUntil: 'networkidle2',
+        timeout: 30000,
+      });
+
+      const cookies = await page.cookies();
+      console.log('Retrieved cookies:', cookies.length);
+
+      const legacyNormandySessionCookie = cookies.find(
+        (cookie: { name: string; value: string }) => cookie.name === '_legacy_normandy_session'
+      );
+
+      if (legacyNormandySessionCookie?.value) {
+        console.log('Session cookie found');
+
+        await tenantKeysServerApi.refreshSessionToken(legacyNormandySessionCookie.value);
+        console.log('Session token updated successfully');
+
+        return legacyNormandySessionCookie.value;
+      } else {
+        console.warn('Legacy normandy session cookie not found');
+        return null;
+      }
+    } finally {
+      await browser.close();
+    }
+  } catch (error) {
+    console.error('Browser automation failed:', error);
+    throw error;
+  }
+}
+
+export const getSampleViewFromCanvas = async (sample: Sample) => {
+  const key = (await tenantKeysServerApi.getAccessToken()).data!;
+  let refreshURL: string | null = null;
+  if (new Date(key.updatedAt) < new Date(Date.now() - 1000 * 60 * 60 * 24)) {
+    const endpoint = new URL(`${key.url}/login/session_token`);
+    const headers = {
+      Authorization: `Bearer ${key.access_token}`,
+    };
+
+    const urlResponse = await fetch(endpoint.toString(), {
+      headers,
+    });
+
+    const { session_url } = await urlResponse.json();
+    refreshURL = session_url;
+  }
+  let cookie = `_legacy_normandy_session=${key.session_token}`;
+
+  if (refreshURL) {
+    try {
+      const sessionToken = await refreshSessionToken(refreshURL);
+      if (sessionToken) {
+        cookie = `_legacy_normandy_session=${sessionToken}`;
+      }
+    } catch (error) {
+      console.error('Failed to refresh session token:', error);
+    }
+  }
+
+  const response = await fetch(sample.preview_url!, {
     headers: {
-      accept:
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-      cookie: `_legacy_normandy_session=${res.data?.session_token}`,
-      ...headers,
+      cookie,
     },
   });
 
-  return await response.text();
+  return { html: await response.text() };
 };
-
-interface CanvasSessionTokenResponse {
-  session_url: string;
-}
-
-export const generateCanvasSessionUrl = cache(
-  async (accessToken: string, url: string, returnTo: string) => {
-    try {
-      const endpoint = new URL(`${url}/login/session_token?return_to=${returnTo}`);
-      const response = await fetch(endpoint.toString(), {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const data = (await response.json()) as CanvasSessionTokenResponse;
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'sec-ch-ua': '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'document',
-        'sec-fetch-mode': 'navigate',
-        'sec-fetch-site': 'none',
-        'sec-fetch-user': '?1',
-        'upgrade-insecure-requests': '1',
-        'user-agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
-      };
-
-      // const getSessionResponse = await fetch(data.session_url, { headers });
-      // console.log(getSessionResponse.redirected, 'is redirected');
-      // const cookie = Array.from(getSessionResponse.headers.values())
-      //   .filter((el) => el?.includes('_legacy_normandy_session'))
-      //   .map((cookie) => {
-      //     const parsed = cookie.split(';')[0].trim();
-      //     console.log('Parsing cookie: -> extracted:', cookie);
-      //     return parsed;
-      //   })
-      //   .join('; ');
-      // console.log('cookie', cookie, cookie.length);
-      return { url: data.session_url, headers, cookie: '' };
-    } catch (error) {
-      console.error('Error generating Canvas session URL:', error);
-      return { url: '', headers: {}, cookie: '' };
-    }
-  }
-);
