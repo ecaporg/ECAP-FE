@@ -67,31 +67,51 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
 };
 
 async function refreshSessionToken(refreshURL: string) {
+  // Check if we're in a serverless environment (Vercel)
+  const isServerless = process.env.VERCEL || process.env.NODE_ENV === 'production';
+  
+  if (isServerless) {
+    console.log('Serverless environment detected, skipping browser automation');
+    // In serverless environments, we can't use browser automation
+    // Return null to use the existing session token
+    return null;
+  }
+
   try {
     console.log('Starting browser automation for session refresh');
 
-    const puppeteer = await import('puppeteer');
+    let chromium;
+    try {
+      const playwright = await import('playwright');
+      chromium = playwright.chromium;
+    } catch (importError) {
+      console.error('Playwright not available:', importError);
+      console.log('Falling back to existing session token');
+      return null;
+    }
 
-    const browser = await puppeteer.default.launch({
+    const browser = await chromium.launch({
+      headless: true,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu',
       ],
-      defaultViewport: { width: 1, height: 1 },
-      headless: true,
     });
 
     try {
-      const page = await browser.newPage();
+      const context = await browser.newContext({
+        viewport: { width: 1, height: 1 },
+      });
+      const page = await context.newPage();
 
       await page.goto(refreshURL, {
-        waitUntil: 'networkidle2',
+        waitUntil: 'networkidle',
         timeout: 30000,
       });
 
-      const cookies = await page.cookies();
+      const cookies = await context.cookies();
       console.log('Retrieved cookies:', cookies.length);
 
       const legacyNormandySessionCookie = cookies.find(
@@ -114,26 +134,38 @@ async function refreshSessionToken(refreshURL: string) {
     }
   } catch (error) {
     console.error('Browser automation failed:', error);
-    throw error;
+    console.log('Falling back to existing session token');
+    return null;
   }
 }
 
 export const getSampleViewFromCanvas = async (sample: Sample) => {
   const key = (await tenantKeysServerApi.getAccessToken()).data!;
   let refreshURL: string | null = null;
+  
+  // Check if session token is older than 24 hours
   if (new Date(key.updatedAt) < new Date(Date.now() - 1000 * 60 * 60 * 24)) {
     const endpoint = new URL(`${key.url}/login/session_token`);
     const headers = {
       Authorization: `Bearer ${key.access_token}`,
     };
 
-    const urlResponse = await fetch(endpoint.toString(), {
-      headers,
-    });
+    try {
+      const urlResponse = await fetch(endpoint.toString(), {
+        headers,
+      });
 
-    const { session_url } = await urlResponse.json();
-    refreshURL = session_url;
+      if (urlResponse.ok) {
+        const { session_url } = await urlResponse.json();
+        refreshURL = session_url;
+      } else {
+        console.warn('Failed to get session URL:', urlResponse.status);
+      }
+    } catch (error) {
+      console.error('Error getting session URL:', error);
+    }
   }
+  
   let cookie = `_legacy_normandy_session=${key.session_token}`;
 
   if (refreshURL) {
@@ -141,17 +173,30 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
       const sessionToken = await refreshSessionToken(refreshURL);
       if (sessionToken) {
         cookie = `_legacy_normandy_session=${sessionToken}`;
+      } else {
+        console.log('Using existing session token due to refresh failure or serverless environment');
       }
     } catch (error) {
       console.error('Failed to refresh session token:', error);
+      console.log('Continuing with existing session token');
     }
   }
 
-  const response = await fetch(sample.preview_url!, {
-    headers: {
-      cookie,
-    },
-  });
+  try {
+    const response = await fetch(sample.preview_url!, {
+      headers: {
+        cookie,
+      },
+    });
 
-  return { html: await response.text() };
+    if (!response.ok) {
+      console.warn(`Preview URL returned ${response.status}: ${response.statusText}`);
+      return { html: '<p>Preview unavailable</p>' };
+    }
+
+    return { html: await response.text() };
+  } catch (error) {
+    console.error('Error fetching preview:', error);
+    return { html: '<p>Preview unavailable due to network error</p>' };
+  }
 };
