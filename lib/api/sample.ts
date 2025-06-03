@@ -70,15 +70,31 @@ async function refreshSessionToken(refreshURL: string) {
   try {
     console.log('Starting browser automation for session refresh');
 
-    const puppeteer = await import('puppeteer');
+    const puppeteer = await import('puppeteer-core');
+    
+    // For Vercel serverless environment, use @sparticuz/chromium
+    let executablePath: string | undefined;
+    let args: string[] = [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+    ];
+
+    if (process.env.VERCEL) {
+      // Running on Vercel - use @sparticuz/chromium
+      // @ts-ignore - @sparticuz/chromium may not have proper types
+      const chromium = await import('@sparticuz/chromium');
+      executablePath = await chromium.executablePath();
+      args = [...args, ...chromium.args];
+    } else {
+      // Local development - let puppeteer find Chrome
+      executablePath = undefined;
+    }
 
     const browser = await puppeteer.default.launch({
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-      ],
+      args,
+      executablePath,
       defaultViewport: { width: 1, height: 1 },
       headless: true,
     });
