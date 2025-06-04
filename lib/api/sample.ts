@@ -67,44 +67,21 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
 };
 
 async function refreshSessionToken(refreshURL: string): Promise<string | null> {
-  try {
-    console.log('Attempting browser-based session refresh...');
-    
-    const { data } = await apiFetch('/api/browser/refresh', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ refreshURL }),
-    });
-
-    if (data.success) {
-      console.log(`Session refreshed successfully in ${data.duration}ms`);
-      return data.sessionToken;
-    } else {
-      console.warn('Failed to refresh session token:', data.message);
-      return null;
-    }
-  } catch (error) {
-    console.error('Error calling refresh API:', error);
-    
-    // Fallback: If browser automation fails, try to extract session from URL directly
-    console.log('Attempting fallback session extraction...');
     try {
       const response = await fetch(refreshURL, {
         method: 'GET',
-        redirect: 'manual', // Don't follow redirects
+        redirect: 'manual',
         headers: {
           'User-Agent': 'Mozilla/5.0 (compatible; ECAPBot/1.0)',
         },
       });
       
-      // Check if there's a Set-Cookie header with the session
       const setCookieHeader = response.headers.get('set-cookie');
       if (setCookieHeader && setCookieHeader.includes('_legacy_normandy_session')) {
         const match = setCookieHeader.match(/_legacy_normandy_session=([^;]+)/);
         if (match && match[1]) {
-          console.log('Fallback session extraction successful');
+          console.log('Fallback session extraction successful', match[1]);
+          await tenantKeysServerApi.refreshSessionToken(match[1]);
           return match[1];
         }
       }
@@ -115,7 +92,7 @@ async function refreshSessionToken(refreshURL: string): Promise<string | null> {
       console.error('Fallback method also failed:', fallbackError);
       return null;
     }
-  }
+  
 }
 
 export const getSampleViewFromCanvas = async (sample: Sample) => {
@@ -137,14 +114,10 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
   let cookie = `_legacy_normandy_session=${key.session_token}`;
 
   if (refreshURL) {
-    try {
       const sessionToken = await refreshSessionToken(refreshURL);
       if (sessionToken) {
         cookie = `_legacy_normandy_session=${sessionToken}`;
       }
-    } catch (error) {
-      console.error('Failed to refresh session token:', error);
-    }
   }
 
   const response = await fetch(sample.preview_url!, {
