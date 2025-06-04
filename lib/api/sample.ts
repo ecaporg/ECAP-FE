@@ -68,7 +68,9 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
 
 async function refreshSessionToken(refreshURL: string): Promise<string | null> {
   try {
-    const {data} = await apiFetch('/api/browser/refresh', {
+    console.log('Attempting browser-based session refresh...');
+    
+    const { data } = await apiFetch('/api/browser/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -77,6 +79,7 @@ async function refreshSessionToken(refreshURL: string): Promise<string | null> {
     });
 
     if (data.success) {
+      console.log(`Session refreshed successfully in ${data.duration}ms`);
       return data.sessionToken;
     } else {
       console.warn('Failed to refresh session token:', data.message);
@@ -84,7 +87,34 @@ async function refreshSessionToken(refreshURL: string): Promise<string | null> {
     }
   } catch (error) {
     console.error('Error calling refresh API:', error);
-    return null;
+    
+    // Fallback: If browser automation fails, try to extract session from URL directly
+    console.log('Attempting fallback session extraction...');
+    try {
+      const response = await fetch(refreshURL, {
+        method: 'GET',
+        redirect: 'manual', // Don't follow redirects
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; ECAPBot/1.0)',
+        },
+      });
+      
+      // Check if there's a Set-Cookie header with the session
+      const setCookieHeader = response.headers.get('set-cookie');
+      if (setCookieHeader && setCookieHeader.includes('_legacy_normandy_session')) {
+        const match = setCookieHeader.match(/_legacy_normandy_session=([^;]+)/);
+        if (match && match[1]) {
+          console.log('Fallback session extraction successful');
+          return match[1];
+        }
+      }
+      
+      console.warn('Fallback session extraction failed');
+      return null;
+    } catch (fallbackError) {
+      console.error('Fallback method also failed:', fallbackError);
+      return null;
+    }
   }
 }
 
