@@ -66,71 +66,25 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
   });
 };
 
-async function refreshSessionToken(refreshURL: string) {
+async function refreshSessionToken(refreshURL: string): Promise<string | null> {
   try {
-    console.log('Starting browser automation for session refresh');
-
-    const puppeteer = await import('puppeteer-core');
-    
-    // For Vercel serverless environment, use @sparticuz/chromium
-    let executablePath: string | undefined;
-    let args: string[] = [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-    ];
-
-    if (process.env.VERCEL) {
-      // Running on Vercel - use @sparticuz/chromium
-      // @ts-ignore - @sparticuz/chromium may not have proper types
-      const chromium = await import('@sparticuz/chromium');
-      executablePath = await chromium.executablePath();
-      args = [...args, ...chromium.args];
-    } else {
-      // Local development - let puppeteer find Chrome
-      executablePath = undefined;
-    }
-
-    const browser = await puppeteer.default.launch({
-      args,
-      executablePath,
-      defaultViewport: { width: 1, height: 1 },
-      headless: true,
+    const {data} = await apiFetch('/api/browser/refresh', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ refreshURL }),
     });
 
-    try {
-      const page = await browser.newPage();
-
-      await page.goto(refreshURL, {
-        waitUntil: 'networkidle2',
-        timeout: 30000,
-      });
-
-      const cookies = await page.cookies();
-      console.log('Retrieved cookies:', cookies.length);
-
-      const legacyNormandySessionCookie = cookies.find(
-        (cookie: { name: string; value: string }) => cookie.name === '_legacy_normandy_session'
-      );
-
-      if (legacyNormandySessionCookie?.value) {
-        console.log('Session cookie found');
-
-        await tenantKeysServerApi.refreshSessionToken(legacyNormandySessionCookie.value);
-        console.log('Session token updated successfully');
-
-        return legacyNormandySessionCookie.value;
-      } else {
-        console.warn('Legacy normandy session cookie not found');
-        return null;
-      }
-    } finally {
-      await browser.close();
+    if (data.success) {
+      return data.sessionToken;
+    } else {
+      console.warn('Failed to refresh session token:', data.message);
+      return null;
     }
   } catch (error) {
-    console.error('Browser automation failed:', error);
-    throw error;
+    console.error('Error calling refresh API:', error);
+    return null;
   }
 }
 

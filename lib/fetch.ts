@@ -1,7 +1,6 @@
 import { routes } from '@/constants/routes';
 import { redirect } from 'next/navigation';
 
-import { headers } from 'next/headers';
 import { getAuthToken, refresh } from './auth';
 
 // Типи для відповіді

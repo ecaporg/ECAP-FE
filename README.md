@@ -9,9 +9,10 @@ Next.js frontend application for the ECAP compliance system with Puppeteer brows
 npm install
 ```
 
-2. For local development with browser automation (optional):
+2. Create `.env.local` file in the root with:
 ```bash
-npm run setup-dev
+NEXT_PUBLIC_APP_DOMAIN=http://localhost:3000/
+NEXT_PUBLIC_VERCEL_ENVIRONMENT=development
 ```
 
 3. Start the development server:
@@ -19,50 +20,31 @@ npm run setup-dev
 npm run dev
 ```
 
-## Browser Automation
+## Browser Automation Setup
 
-This application uses Puppeteer for browser automation features:
+This application uses Puppeteer following the best practices for Vercel deployment:
 
-- **Local Development**: Uses `puppeteer` with local Chrome installation
-- **Vercel Production**: Uses `puppeteer-core` with `@sparticuz/chromium` for serverless compatibility
+- **Dependencies**: 
+  - `puppeteer` - For local development
+  - `puppeteer-core` - Lightweight version for production
+  - `@sparticuz/chromium-min` - Vercel-compatible Chromium
 
-The application automatically detects the environment and uses the appropriate browser setup.
+- **Environment Detection**:
+  - **Local**: Uses system Chrome via `puppeteer`
+  - **Vercel**: Uses remote Chromium via `puppeteer-core` + `@sparticuz/chromium-min`
+
+## Testing Browser
+
+Test browser functionality:
+```
+GET /api/browser/test?url=https://example.com
+```
 
 ## Deployment on Vercel
 
-The application is fully configured for Vercel deployment:
+1. Set environment variables in Vercel dashboard:
+   - `NEXT_PUBLIC_VERCEL_ENVIRONMENT=production`
+   - Other required environment variables
 
-1. Push your code to GitHub
-2. Connect to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy!
+2. The application automatically detects Vercel environment and uses appropriate browser setup
 
-### Environment Variables
-
-Set these in your Vercel project settings:
-
-- `NEXT_PUBLIC_BACKEND_URL` - Backend API URL
-- `NEXTAUTH_SECRET` - Authentication secret
-- `NEXTAUTH_URL` - Frontend application URL
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production  
-- `npm run start` - Start production server
-- `npm run setup-dev` - Install Chrome for local development
-- `npm run lint` - Run linter
-
-## Technical Details
-
-### Puppeteer Configuration
-
-- **Local**: Uses system Chrome or downloads Chrome automatically
-- **Vercel**: Uses optimized Chromium build from `@sparticuz/chromium`
-- **Fallback**: Graceful error handling if browser automation fails
-
-### Vercel Optimizations
-
-- Serverless-compatible Chromium binary
-- Webpack externals configuration
-- Environment detection for proper browser selection 

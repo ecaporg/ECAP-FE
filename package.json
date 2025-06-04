@@ -10,8 +10,7 @@
     "format": "biome format --write .",
     "lint:biome": "biome check .",
     "lint:fix": "biome check --write .",
-    "lint:fix-all": "biome check --write --unsafe .",
-    "setup-dev": "node scripts/install-chrome.js"
+    "lint:fix-all": "biome check --write --unsafe ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -42,7 +41,7 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
-    "@sparticuz/chromium": "^131.0.0",
+    "@sparticuz/chromium-min": "^131.0.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -51,6 +50,7 @@
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
     "next-themes": "^0.4.4",
+    "puppeteer": "^24.10.0",
     "puppeteer-core": "^24.10.0",
     "react": "^19",
     "react-day-picker": "9.6.7",
@@ -68,11 +68,9 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^22",
-    "@types/puppeteer-core": "^7.0.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
-    "puppeteer": "^24.10.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
