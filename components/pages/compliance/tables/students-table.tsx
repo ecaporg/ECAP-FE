@@ -78,7 +78,9 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.student.id}-${currentLearningPeriod.id}`}>
             <Link className="contents" href={getPath(assignment.student.user)}>
-              <TableCell className="2xl:max-w-44 max-w-32 truncate">{getUserName(assignment.student.user)}</TableCell>
+              <TableCell className="2xl:max-w-44 max-w-32 truncate">
+                {getUserName(assignment.student.user)}
+              </TableCell>
               <TableCell>{assignment.student.id}</TableCell>
               <TableCell>{assignment.student.school?.name}</TableCell>
               <TableCell>{assignment.student.academy?.name}</TableCell>

@@ -67,32 +67,31 @@ export const flagCompletedSample = async (id: Sample['id'], data: SampleFlagComp
 };
 
 async function refreshSessionToken(refreshURL: string): Promise<string | null> {
-    try {
-      const response = await fetch(refreshURL, {
-        method: 'GET',
-        redirect: 'manual',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; ECAPBot/1.0)',
-        },
-      });
-      
-      const setCookieHeader = response.headers.get('set-cookie');
-      if (setCookieHeader && setCookieHeader.includes('_legacy_normandy_session')) {
-        const match = setCookieHeader.match(/_legacy_normandy_session=([^;]+)/);
-        if (match && match[1]) {
-          console.log('Fallback session extraction successful', match[1]);
-          await tenantKeysServerApi.refreshSessionToken(match[1]);
-          return match[1];
-        }
+  try {
+    const response = await fetch(refreshURL, {
+      method: 'GET',
+      redirect: 'manual',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; ECAPBot/1.0)',
+      },
+    });
+
+    const setCookieHeader = response.headers.get('set-cookie');
+    if (setCookieHeader && setCookieHeader.includes('_legacy_normandy_session')) {
+      const match = setCookieHeader.match(/_legacy_normandy_session=([^;]+)/);
+      if (match && match[1]) {
+        console.log('Fallback session extraction successful', match[1]);
+        await tenantKeysServerApi.refreshSessionToken(match[1]);
+        return match[1];
       }
-      
-      console.warn('Fallback session extraction failed');
-      return null;
-    } catch (fallbackError) {
-      console.error('Fallback method also failed:', fallbackError);
-      return null;
     }
-  
+
+    console.warn('Fallback session extraction failed');
+    return null;
+  } catch (fallbackError) {
+    console.error('Fallback method also failed:', fallbackError);
+    return null;
+  }
 }
 
 export const getSampleViewFromCanvas = async (sample: Sample) => {
@@ -114,17 +113,34 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
   let cookie = `_legacy_normandy_session=${key.session_token}`;
 
   if (refreshURL) {
-      const sessionToken = await refreshSessionToken(refreshURL);
-      if (sessionToken) {
-        cookie = `_legacy_normandy_session=${sessionToken}`;
-      }
+    const sessionToken = await refreshSessionToken(refreshURL);
+    if (sessionToken) {
+      cookie = `_legacy_normandy_session=${sessionToken}`;
+    }
   }
 
   console.log(sample.preview_url);
   const response = await fetch(sample.preview_url!, {
     headers: {
+      accept:
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+      'accept-language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
+      'cache-control': 'no-cache',
+      pragma: 'no-cache',
+      priority: 'u=0, i',
+      'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Windows"',
+      'sec-fetch-dest': 'document',
+      'sec-fetch-mode': 'navigate',
+      'sec-fetch-site': 'none',
+      'sec-fetch-user': '?1',
+      'upgrade-insecure-requests': '1',
       cookie,
     },
+    referrerPolicy: 'strict-origin-when-cross-origin',
+    body: null,
+    method: 'GET',
   });
 
   return { html: await response.text() };

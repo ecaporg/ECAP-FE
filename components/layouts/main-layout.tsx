@@ -60,13 +60,19 @@ const NavMenu = () => {
 
       <nav className="contents md:flex justify-end items-center flex-1 gap-6">
         {hasPermission(user, 'navigation', 'settings') && (
-          <NavLink href={routes.settings.root} className="w-[9.125rem] flex items-center justify-center gap-2">
+          <NavLink
+            href={routes.settings.root}
+            className="w-[9.125rem] flex items-center justify-center gap-2"
+          >
             <Settings className="size-4" />
             <span>Settings</span>
           </NavLink>
         )}
         {hasPermission(user, 'navigation', 'profile') && (
-          <NavLink href={routes.profile.root} className="w-[9.125rem] flex items-center justify-center gap-2">
+          <NavLink
+            href={routes.profile.root}
+            className="w-[9.125rem] flex items-center justify-center gap-2"
+          >
             <User className="size-4" />
             <span>My Profile</span>
           </NavLink>
@@ -125,7 +131,6 @@ const DesktopNav = () => {
     </div>
   );
 };
-
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (

@@ -58,8 +58,8 @@ export const StatisticsListSkeleton = ({ count = 3 }: { count?: number }) => {
             value={20 * index + 5}
             className="col-start-2 row-start-2 w-full h-6 animate-pulse"
           />
-          <Skeleton className="col-start-3 row-start-1 h-6" /> 
-          <Skeleton className="col-start-3 row-start-2 h-6" /> 
+          <Skeleton className="col-start-3 row-start-1 h-6" />
+          <Skeleton className="col-start-3 row-start-2 h-6" />
         </div>
       ))}
     </Card>

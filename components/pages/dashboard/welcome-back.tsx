@@ -18,7 +18,10 @@ export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
         )}
       </p>
       <span className="ml-auto text-lg font-semibold">
-        Academic Year: <span className="text-neutral-black font-normal">{academicYear.from} - {academicYear.to}</span>
+        Academic Year:{' '}
+        <span className="text-neutral-black font-normal">
+          {academicYear.from} - {academicYear.to}
+        </span>
       </span>
     </section>
   );
