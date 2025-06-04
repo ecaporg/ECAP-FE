@@ -120,27 +120,26 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
   }
 
   console.log(sample.preview_url);
+  const headers = {
+    accept:
+      'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'accept-language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
+    'cache-control': 'no-cache',
+    pragma: 'no-cache',
+    priority: 'u=0, i',
+    'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'document',
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-site': 'none',
+    'sec-fetch-user': '?1',
+    'upgrade-insecure-requests': '1',
+    cookie,
+  };
+
   const response = await fetch(sample.preview_url!, {
-    headers: {
-      accept:
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-      'accept-language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
-      'cache-control': 'no-cache',
-      pragma: 'no-cache',
-      priority: 'u=0, i',
-      'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-      'sec-ch-ua-mobile': '?0',
-      'sec-ch-ua-platform': '"Windows"',
-      'sec-fetch-dest': 'document',
-      'sec-fetch-mode': 'navigate',
-      'sec-fetch-site': 'none',
-      'sec-fetch-user': '?1',
-      'upgrade-insecure-requests': '1',
-      cookie,
-    },
-    referrerPolicy: 'strict-origin-when-cross-origin',
-    body: null,
-    method: 'GET',
+    headers,
   });
 
   return { html: await response.text() };

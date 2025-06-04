@@ -10,7 +10,7 @@ const nextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
-  }
+  },
 };
 
 export default nextConfig;
