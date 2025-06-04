@@ -120,6 +120,7 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
       }
   }
 
+  console.log(sample.preview_url);
   const response = await fetch(sample.preview_url!, {
     headers: {
       cookie,

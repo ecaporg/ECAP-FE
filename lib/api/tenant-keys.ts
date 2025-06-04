@@ -1,7 +1,7 @@
 import type { Tenant } from '@/types';
-import { BaseApi } from '../base-api';
 import type { ApiResponse } from '../fetch';
 import { apiFetch } from '../fetch';
+import { BaseApi } from '../base-api';
 
 class TenantKeysServerApi extends BaseApi<Tenant['key'], undefined> {
   constructor() {
@@ -16,7 +16,7 @@ class TenantKeysServerApi extends BaseApi<Tenant['key'], undefined> {
   }
 
   async refreshSessionToken(session_token: string) {
-    return this.fetch(`${this.url}/tenant-keys/refresh-session-token`, {
+    return this.fetch(`${this.url}/refresh-session-token`, {
       method: 'POST',
       body: JSON.stringify({ session_token }),
     });
