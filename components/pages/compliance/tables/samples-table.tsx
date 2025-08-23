@@ -21,12 +21,12 @@ interface SamplesTableProps {
   }[];
 }
 
-const AvatarColumn = ({ sample }: { sample: Sample }) => {
+const AvatarColumn = ({ sample }: { sample: Sample | undefined }) => {
   const user =
-    sample.done_by ||
-    sample.flag_missing_work?.user ||
-    sample.flag_errors?.user ||
-    sample.flag_rejected?.user;
+    sample?.done_by ||
+    sample?.flag_missing_work?.user ||
+    sample?.flag_errors?.user ||
+    sample?.flag_rejected?.user;
   return (
     <Avatar title={user ? getUserName(user) : ''}>
       <AvatarFallback>
