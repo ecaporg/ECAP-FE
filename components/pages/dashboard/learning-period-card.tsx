@@ -22,6 +22,24 @@ interface LearningPeriodCardProps {
   }[];
 }
 
+export const LearningPeriodEmptyCard = ({
+  title,
+  fields = [
+    { label: 'Date:' },
+    { label: 'Deadline:' },
+    { label: 'Status:' },
+    { label: 'Compliance:' },
+  ] as any,
+}: Pick<LearningPeriodCardProps, 'title' | 'fields'>) => {
+  return (
+    <LearningPeriodCardView
+      title={title}
+      track={"There are no learning periods to display"}
+      fields={fields.map((field) => ({ ...field, value: '--' }))}
+    />
+  );
+};
+
 export const LearningPeriodCard = ({
   title,
   stats,

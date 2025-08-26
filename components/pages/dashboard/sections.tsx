@@ -1,6 +1,6 @@
 import type { DashboardStats, TrackLearningPeriod, User } from '@/types';
 import { cn } from '@/utils';
-import { LearningPeriodCard } from './learning-period-card';
+import { LearningPeriodCard, LearningPeriodEmptyCard } from './learning-period-card';
 import { ProgressCard } from './progress-card';
 import { TrackArrow, TrackRow } from './track-row';
 import { WelcomeBack } from './welcome-back';
@@ -33,6 +33,13 @@ export const CurrentLPSection = ({
   children,
   stats,
 }: React.PropsWithChildren<{ stats: DashboardStats }>) => {
+  const showEmptyPeriods = [
+    stats.beforeThePreviousOne,
+    stats.previousLP,
+    stats.currentLP,
+    stats.upcomingLP,
+  ].every((item) => !hasLPs(item));
+
   return (
     <SectionWrapper>
       <ProgressCard title="Current LP Compliance" percentage={stats.currentLP.compliance} />
@@ -54,9 +61,15 @@ export const CurrentLPSection = ({
         {hasLPs(stats.currentLP) && <TrackRow item={stats.currentLP} />}
         {hasLPs(stats.upcomingLP) && (
           <>
-            <TrackArrow />
+            {hasLPs(stats.currentLP) && <TrackArrow />}
             <TrackRow item={stats.upcomingLP} />
           </>
+        )}
+
+        {showEmptyPeriods && (
+          <div className="text-center text-muted-foreground">
+            Ops! No Learning Periods to display
+          </div>
         )}
       </div>
     </SectionWrapper>
@@ -70,15 +83,19 @@ export const LPCardsSection = ({
   return (
     <SectionWrapper className="items-center">
       {children}
-      {hasLPs(stats.currentLP) && (
+      {hasLPs(stats.currentLP) ? (
         <LearningPeriodCard
           title="Current Learning Period"
           stats={stats.currentLP}
           isCurrentLP={true}
         />
+      ) : (
+        <LearningPeriodEmptyCard title="Current Learning Period" />
       )}
-      {hasLPs(stats.upcomingLP) && (
+      {hasLPs(stats.upcomingLP) ? (
         <LearningPeriodCard title="Upcoming Learning Period" stats={stats.upcomingLP} />
+      ) : (
+        <LearningPeriodEmptyCard title="Upcoming Learning Period" />
       )}
     </SectionWrapper>
   );
