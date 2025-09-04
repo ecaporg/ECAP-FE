@@ -1,12 +1,19 @@
-import type { AcademicYear, Semester, StudentLPEnrollment, Tenant } from './school';
-import type { GenericEntity } from './shared';
-import type { Sample, Student } from './student';
+import type {
+  AcademicYear,
+  Semester,
+  StudentLPEnrollment,
+  Tenant,
+} from "./school";
+import type { GenericEntity } from "./shared";
+import type { Sample, Student } from "./student";
+import type { Course } from "./course";
 
 export type Subject = GenericEntity & {
   track_id: number;
   name: string;
   track: Track;
   samples: Sample[];
+  course?: Course;
 };
 
 export type TrackCalendarDay = {

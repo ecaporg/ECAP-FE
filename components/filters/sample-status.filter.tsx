@@ -13,7 +13,7 @@ const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS).map(([key
 }));
 
 export function SampleStatusFilter({
-  slug = DEFAULT_FILTERS_KEYS.SAMPLE_STATUS,
+  slug = DEFAULT_FILTERS_KEYS.STATUS,
   options = statuses,
 }: SampleStatusFilterProps) {
   return <BaseFilter label="Sample Status" slug={slug} options={options} multiple />;

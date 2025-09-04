@@ -7,7 +7,7 @@ import {
   TrackFilter,
 } from '@/components/filters';
 import { SearchStudentFilter } from '@/components/filters/search.filter';
-import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import type { Tenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
@@ -31,14 +31,14 @@ export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFi
       <SearchStudentFilter />
       <SchoolFilter
         availableSchools={tenant.schools}
-        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SCHOOL_ID}
+        slug={DEFAULT_FILTERS_KEYS.SCHOOL_ID}
       />
       <AcademyFilter
-        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID}
+        slug={DEFAULT_FILTERS_KEYS.ACADEMY_ID}
         availableAcademies={tenant.academies}
       />
-      <TrackFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.TRACK_ID} availableTracks={tracks} />
-      <GradeFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.GRADE} />
+      <TrackFilter slug={DEFAULT_FILTERS_KEYS.TRACK_ID} availableTracks={tracks} />
+      <GradeFilter slug={DEFAULT_FILTERS_KEYS.GRADE} />
       <CompletionFilter />
     </FilterWrapper>
   );

@@ -1,8 +1,9 @@
-import type { TeacherSchoolYearEnrollment } from './enrollment';
-import type { GenericEntity } from './shared';
-import type { Admin, Director, Teacher } from './staff';
-import type { Sample, Student } from './student';
-import type { Track, TrackLearningPeriod } from './track';
+import type { TeacherSchoolYearEnrollment } from "./enrollment";
+import type { GenericEntity } from "./shared";
+import type { Admin, Director, Teacher } from "./staff";
+import type { Sample, Student } from "./student";
+import type { Track, TrackLearningPeriod } from "./track";
+import type { StudentLPEnrollmentAssignment } from "./course";
 
 export type Tenant = GenericEntity & {
   name: string;
@@ -53,18 +54,15 @@ export type AcademicYear = GenericEntity & {
 };
 
 export type StudentLPEnrollment = GenericEntity & {
-  teacher_school_year_enrollment_id: number;
   student_id: number;
   learning_period_id: number;
   completed: boolean;
   percentage: number;
-  learning_period: TrackLearningPeriod;
-  teacher_school_year_enrollment: TeacherSchoolYearEnrollment;
-  student: Student;
   student_grade: string;
-  samples: Sample[];
-  track_id: number;
-  track: Track;
+  learning_period: TrackLearningPeriod;
+  teacher_school_year_enrollments: TeacherSchoolYearEnrollment[];
+  student: Student;
+  assignments: StudentLPEnrollmentAssignment[];
 };
 
 export type TeacherCompliance = {

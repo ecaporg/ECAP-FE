@@ -1,7 +1,7 @@
-import type { TeacherSchoolYearEnrollment } from './enrollment';
-import type { Academy, School, Tenant } from './school';
-import type { DatedEntity } from './shared';
-import type { User } from './user';
+import type { TeacherSchoolYearEnrollment } from "./enrollment";
+import type { Academy, School, Tenant } from "./school";
+import type { DatedEntity } from "./shared";
+import type { User } from "./user";
 
 export type Staff = DatedEntity & {
   id: number;
@@ -12,10 +12,8 @@ export type Teacher = Staff & {
   teacher_school_year_enrollments: TeacherSchoolYearEnrollment[];
 };
 
-export type Director = Staff & {
-  school_id: number;
+export type Director = Admin & {
   academy_id: number;
-  school: School;
   academy: Academy;
 };
 

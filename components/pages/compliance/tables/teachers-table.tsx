@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
 import { hasPermission } from '@/lib/permissions';
 import type { AcademicYear, TeacherCompliance, TrackLearningPeriod, User } from '@/types';
@@ -34,9 +34,9 @@ export const TeachersTable = ({
     )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
       currentLearningPeriod?.id
     }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}&${
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.ACADEMY_ID
+      DEFAULT_FILTERS_KEYS.ACADEMY_ID
     }=${assignment.academy_id}&${
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ACADEMY_ID
+      DEFAULT_FILTERS_KEYS.ACADEMY_ID
     }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${currentAcademicYear?.id}`;
 
   return (

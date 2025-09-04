@@ -1,5 +1,5 @@
 import { DoneByFilter, LearningPeriodFilter, SampleStatusFilter } from '@/components/filters';
-import { SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import type { Sample, Student, Tenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { BackToCompliance } from '../back-to';
@@ -33,7 +33,7 @@ export function SamplesFilters({
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
-      <SampleStatusFilter slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.SAMPLE_STATUS} />
+      <SampleStatusFilter slug={DEFAULT_FILTERS_KEYS.STATUS} />
       <DoneByFilter
         availableUsers={samples
           .flatMap((sample) => [
@@ -43,7 +43,7 @@ export function SamplesFilters({
             sample.flag_rejected?.user,
           ])
           .filter((user) => user != null)}
-        slug={SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.DONE_BY}
+        slug={DEFAULT_FILTERS_KEYS.DONE_BY}
       />
     </FilterWrapper>
   );

@@ -1,6 +1,6 @@
 import { LoadingTableSection } from '@/components/table/loading';
 import { PaginationSection } from '@/components/table/pagination-section';
-import { DEFAULT_FILTERS_KEYS, SPECIFIC_PAGE_FILTER_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import type { Tenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
@@ -23,12 +23,12 @@ const prepareParam = (param: AdminSamplesSectionProps['param']) => {
     .toString()
     .replace(
       DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID,
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.LEARNING_PERIOD_ID
+      DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
     )
-    .replace(DEFAULT_FILTERS_KEYS.TEACHER_ID, SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.TEACHER_ID)
+    .replace(DEFAULT_FILTERS_KEYS.TEACHER_ID, DEFAULT_FILTERS_KEYS.TEACHER_ID)
     .replace(
       DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR,
-      SPECIFIC_PAGE_FILTER_KEYS.COMPLIANCE.ADMIN.ACADEMIC_YEAR
+      DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR
     );
 };
 
