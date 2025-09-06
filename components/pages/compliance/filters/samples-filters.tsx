@@ -33,7 +33,7 @@ export function SamplesFilters({
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds)}
       />
-      <SampleStatusFilter slug={DEFAULT_FILTERS_KEYS.STATUS} />
+      <SampleStatusFilter  />
       <DoneByFilter
         availableUsers={samples
           .flatMap((sample) => [
@@ -43,7 +43,7 @@ export function SamplesFilters({
             sample.flag_rejected?.user,
           ])
           .filter((user) => user != null)}
-        slug={DEFAULT_FILTERS_KEYS.DONE_BY}
+        
       />
     </FilterWrapper>
   );

@@ -16,7 +16,7 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
       {items.map((item) => (
         <div
           key={item.academy_id}
-          className="grid grid-rows-2 grid-cols-[120px_minmax(150px,2fr)_200px] gap-y-4 w-full"
+          className="grid grid-rows-2 grid-cols-[120px_minmax(150px,2fr)_200px] gap-4 w-full"
         >
           <h3 className="font-bold col-start-1 row-start-1">{item.academy_name}</h3>
 
@@ -24,21 +24,17 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
             value={Math.round(item.yearToDateCompliance)}
             className="col-start-2 row-start-1 w-full h-6"
           />
-          {item.compliance && (
             <LinearProgress
               value={Math.round(item.compliance)}
               className="col-start-2 row-start-2 w-full h-6"
             />
-          )}
 
           <p className="col-start-3 row-start-1 truncate">
             <b>{item.yearToDateCompliance?.toFixed(2)}%</b> (To Date)
           </p>
-          {item.compliance && (
             <p className="col-start-3 row-start-2 truncate">
               <b>{item.compliance.toFixed(2)}%</b> (Current LP)
             </p>
-          )}
         </div>
       ))}
     </Card>
@@ -51,7 +47,7 @@ export const StatisticsListSkeleton = ({ count = 3 }: { count?: number }) => {
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={`academy-skeleton-${index}`}
-          className="grid grid-rows-2 grid-cols-[120px_minmax(150px,2fr)_200px] gap-y-4 w-full"
+          className="grid grid-rows-2 grid-cols-[120px_minmax(150px,2fr)_200px] gap-4 w-full"
         >
           <h3 className="font-bold col-start-1 row-start-1">
             <Skeleton className="w-full h-6" />

@@ -21,6 +21,6 @@ export type StudentLPEnrollmentAssignment = {
   assignment_id: number;
   sample_id?: number;
   assignment: Assignment;
-  sample: Sample | null;
+  sample?: Sample;
   student_lp_enrollment: StudentLPEnrollment;
 };

@@ -35,8 +35,6 @@ export const TeachersTable = ({
       currentLearningPeriod?.id
     }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}&${
       DEFAULT_FILTERS_KEYS.ACADEMY_ID
-    }=${assignment.academy_id}&${
-      DEFAULT_FILTERS_KEYS.ACADEMY_ID
     }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${currentAcademicYear?.id}`;
 
   return (

@@ -15,7 +15,7 @@ import { hasPermission } from '@/lib/permissions';
 import { isAdminOrDirector, isAnyAdmin } from '@/utils';
 
 interface ActionButtonProps {
-  sample: Sample;
+  sample?: Sample;
 }
 
 const getText = (sample: Sample, user: User) => {
@@ -60,7 +60,7 @@ const getOnClick = (sample: Sample, options: onClickOptionProps) => {
   }
 };
 
-const getWrapper = (sample: Sample | undefined, user: User) => {
+const getWrapper = (sample?: Sample) => {
   if (!sample) {
     return (props: any) => <Fragment children={props.children} />;
   }
@@ -88,7 +88,7 @@ const getIsDisabled = (sample: Sample, user: User) => {
   return sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user);
 };
 
-const useActionButton = (sample: Sample) => {
+const useActionButton = (sample?: Sample) => {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -96,7 +96,7 @@ const useActionButton = (sample: Sample) => {
     return {
       text: '',
       onClick: () => {},
-      Wrapper: getWrapper(sample, user),
+      Wrapper: getWrapper(sample),
       isDisabled: true,
     };
   const redirectUrl = routes.compliance.viewSample.replace(':id', sample.id.toString());
@@ -107,7 +107,7 @@ const useActionButton = (sample: Sample) => {
       router,
       redirectUrl,
     }),
-    Wrapper: getWrapper(sample, user),
+    Wrapper: getWrapper(sample),
     isDisabled: getIsDisabled(sample, user),
   };
 };
@@ -116,7 +116,7 @@ export function ActionButton({ sample }: ActionButtonProps) {
   const { text, onClick, Wrapper, isDisabled } = useActionButton(sample);
 
   return (
-    <Wrapper sample={sample}>
+    <Wrapper sample={sample!}>
       <Button
         variant="secondary"
         size="sm"

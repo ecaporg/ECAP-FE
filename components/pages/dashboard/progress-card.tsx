@@ -24,7 +24,7 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
       )}
     >
       <h2 className="font-bold truncate text-base text-left w-full">{title}</h2>
-      <Progress value={percentage} className={cn('size-[12.5rem]', progressClassName)} />
+      <Progress value={Number(percentage.toFixed(0))} className={cn('size-[12.5rem]', progressClassName)} />
     </Card>
   );
 };

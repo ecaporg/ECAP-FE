@@ -19,17 +19,17 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   const inputs = [
     {
       label: 'Student Name',
-      defaultValue: getUserName(sample.student_lp_enrollments[0].student.user),
+      defaultValue: getUserName(sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user),
       name: 'student_name',
     },
     {
       label: 'Course Title',
-      defaultValue: sample.subject.name,
+      defaultValue: sample.student_lp_enrollment_assignment.assignment.course.name,
       name: 'course_title',
     },
     {
       label: 'Assignment Title',
-      defaultValue: sample.assignment_title,
+      defaultValue: sample.student_lp_enrollment_assignment.assignment.name,
       name: 'assignment_title',
     },
     {
@@ -39,7 +39,7 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     },
     {
       label: 'Date',
-      defaultValue: new Date(sample?.date).toLocaleDateString(),
+      defaultValue: sample?.date ? new Date(sample.date).toLocaleDateString() : '',
       name: 'date',
     },
   ].map((input) => ({

@@ -1,6 +1,5 @@
 import type { Academy, School, StudentLPEnrollment } from "./school";
 import type { DatedEntity, GenericEntity } from "./shared";
-import type { Subject, Track } from "./track";
 import type { User } from "./user";
 import type { StudentLPEnrollmentAssignment } from "./course";
 
@@ -54,19 +53,20 @@ export type SampleFlagCompleted = GenericEntity & {
 };
 
 export type Sample = GenericEntity & {
-  preview_url: string;
-  date: Date;
-  assignment_title: string;
+  canvas_id?: string;
+  date?: Date;
   status: SampleStatus;
+  grade?: string;
+  preview_url?: string;
+
+  done_by?: User;
+  done_by_id: number;
+
   flag_category: SampleFlagCategory;
-  done_by_id: number | null;
-  subject_id: number;
-  subject: Subject;
-  grade: string;
-  done_by: User | null;
-  flag_errors: SampleFlagError | null;
-  flag_missing_work: SampleFlagMissingWork | null;
-  flag_rejected: SampleFlagRejected | null;
-  flag_completed: SampleFlagCompleted | null;
-  enrollment_assignment?: StudentLPEnrollmentAssignment;
+  flag_completed: SampleFlagCompleted;
+  flag_errors: SampleFlagError;
+  flag_missing_work: SampleFlagMissingWork;
+  flag_rejected: SampleFlagRejected;
+
+  student_lp_enrollment_assignment: StudentLPEnrollmentAssignment;
 };

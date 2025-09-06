@@ -31,14 +31,14 @@ export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFi
       <SearchStudentFilter />
       <SchoolFilter
         availableSchools={tenant.schools}
-        slug={DEFAULT_FILTERS_KEYS.SCHOOL_ID}
+        
       />
       <AcademyFilter
-        slug={DEFAULT_FILTERS_KEYS.ACADEMY_ID}
+        
         availableAcademies={tenant.academies}
       />
-      <TrackFilter slug={DEFAULT_FILTERS_KEYS.TRACK_ID} availableTracks={tracks} />
-      <GradeFilter slug={DEFAULT_FILTERS_KEYS.GRADE} />
+      <TrackFilter  availableTracks={tracks} />
+      <GradeFilter  />
       <CompletionFilter />
     </FilterWrapper>
   );

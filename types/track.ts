@@ -8,13 +8,7 @@ import type { GenericEntity } from "./shared";
 import type { Sample, Student } from "./student";
 import type { Course } from "./course";
 
-export type Subject = GenericEntity & {
-  track_id: number;
-  name: string;
-  track: Track;
-  samples: Sample[];
-  course?: Course;
-};
+export type Subject = Course;
 
 export type TrackCalendarDay = {
   day: Date | string;
@@ -44,7 +38,6 @@ export type Track = GenericEntity & {
   academicYear: AcademicYear;
   tenant: Tenant;
   calendar: TrackCalendar;
-  subjects: Subject[];
   learningPeriods: TrackLearningPeriod[];
   studentLPEnrollments: StudentLPEnrollment[];
   semesters: Semester[];

@@ -8,20 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { Sample, StudentLPEnrollment, Subject } from '@/types';
+import type {  Sample, StudentLPEnrollment, StudentLPEnrollmentAssignment, Subject } from '@/types';
 import { getUserName } from '@/utils';
 import { ActionButton } from '../action-button';
 import { SapmleStatus } from '../statuses';
 
 interface SamplesTableProps {
   rows: {
-    sample_1: Sample;
-    sample_2: Sample;
+    sample_1?: StudentLPEnrollmentAssignment;
+    sample_2?: StudentLPEnrollmentAssignment;
     subject: Subject;
   }[];
 }
 
-const AvatarColumn = ({ sample }: { sample: Sample | undefined }) => {
+const AvatarColumn = ({ sample }: { sample?: Sample }) => {
   const user =
     sample?.done_by ||
     sample?.flag_missing_work?.user ||
@@ -43,19 +43,19 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
         <TableRow>
           <TableHead>
             Subject
-            <SortableIcon<StudentLPEnrollment> name="samples.subject.name" />
+            <SortableIcon<StudentLPEnrollment> name="assignments.assignment.course.name" />
           </TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
             Sample Status
-            <SortableIcon<StudentLPEnrollment> name="samples.status" />
+            <SortableIcon<StudentLPEnrollment> name="assignments.sample.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
             Sample Status
-            <SortableIcon<StudentLPEnrollment> name="samples.status" />
+            <SortableIcon<StudentLPEnrollment> name="assignments.sample.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
@@ -63,31 +63,31 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
       </TableHeader>
       <TableBody>
         {rows.map((row) => (
-          <TableRow key={`${row.sample_1.id}`}>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.subject.name}</TableCell>
+          <TableRow key={`${row.sample_1?.student_lp_enrollment_id}-${row.sample_1?.assignment_id}`}>
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.subject?.name}</TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              {row.sample_1.assignment_title}
-            </TableCell>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              <SapmleStatus status={row.sample_1.status || null} />
-            </TableCell>
-            <TableCell className="max-w-28">
-              <ActionButton sample={row.sample_1} />
-            </TableCell>
-            <TableCell className="max-w-28">
-              <AvatarColumn sample={row.sample_1} />
+              {row.sample_1?.assignment?.name}
             </TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              {row.sample_2?.assignment_title}
+              <SapmleStatus status={row.sample_1?.sample?.status || null} />
+            </TableCell>
+            <TableCell className="max-w-28">
+              <ActionButton sample={row.sample_1?.sample} />
+            </TableCell>
+            <TableCell className="max-w-28">
+              <AvatarColumn sample={row.sample_1?.sample} />
             </TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              <SapmleStatus status={row.sample_2?.status || null} />
+              {row.sample_2?.assignment?.name}
+            </TableCell>
+            <TableCell className="2xl:max-w-48 max-w-28 truncate">
+              <SapmleStatus status={row.sample_2?.sample?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">
-              <ActionButton sample={row.sample_2} />
+              <ActionButton sample={row.sample_2?.sample} />
             </TableCell>
             <TableCell className="max-w-28">
-              <AvatarColumn sample={row.sample_2} />
+              <AvatarColumn sample={row.sample_2?.sample} />
             </TableCell>
           </TableRow>
         ))}

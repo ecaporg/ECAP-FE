@@ -3,7 +3,7 @@ import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
 import { getComplianceStudentSamples } from '@/lib/api/compliance';
-import type { Sample, Tenant } from '@/types';
+import type { Sample, StudentLPEnrollmentAssignment, Tenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import { redirect } from 'next/navigation';
@@ -59,30 +59,39 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap((assignment) => assignment.samples);
-
+  const samples = assignmentPeriods.data?.flatMap(({assignments}) => assignments).map(a => a.sample).filter(Boolean) as Sample[] || [];
+  const subjects = new Map(assignmentPeriods.data?.flatMap(({assignments}) => assignments).map(a => [a.assignment.course_id, a.assignment.course]));
+  
   const rows = Object.entries(
     (assignmentPeriods.data || [])
-      ?.flatMap(({ samples }) => samples)
+      ?.flatMap(({ assignments }) => assignments)
       .reduce(
-        (acc, sample) => {
-          if (acc[sample.subject_id]) {
-            acc[sample.subject_id].push(sample);
-          } else {
-            acc[sample.subject_id] = [sample];
+        (acc, assignment) => {
+          if (assignment.sample) {
+            if (acc[assignment.assignment.course_id]) {
+              acc[assignment.assignment.course_id].push(assignment);
+            } else {
+              acc[assignment.assignment.course_id] = [assignment];
+            }
           }
           return acc;
         },
-        {} as Record<number, Sample[]>
+        {} as Record<number, StudentLPEnrollmentAssignment[]>
       )
-  ).map(([_, samples = []]) => ({
-    sample_1: samples[0],
-    sample_2: samples[1],
-    subject: samples[0].subject,
-  }));
+  ).map(([courseId, enrollment = []]) => {
+    const mappedEnrollment = enrollment.map((e) => ({
+      ...e,
+      sample: { ...e.sample, student_lp_enrollment_assignment: e } as Sample,
+    }));
+    return {
+      sample_1: mappedEnrollment[0],
+      sample_2: mappedEnrollment[1],
+      subject: subjects.get(Number(courseId))!,
+    };
+  });
 
   const completeCount = rows.filter(
-    (row) => row?.sample_2?.done_by && row?.sample_1?.done_by
+    (row) => row?.sample_2?.sample?.done_by && row?.sample_1?.sample?.done_by
   ).length;
 
   const totalItems = rows.length;
@@ -94,7 +103,7 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       <SamplesFilters
         tenant={tenant}
         samples={samples || []}
-        student={assignmentPeriods.data?.[0]?.samples?.[0]?.student_lp_enrollments?.[0]?.student}
+        student={assignmentPeriods?.data?.[0]?.student}
         defaultName={param.name}
         academicYearIds={academicYearIds}
       />

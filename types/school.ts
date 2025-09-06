@@ -3,7 +3,7 @@ import type { GenericEntity } from "./shared";
 import type { Admin, Director, Teacher } from "./staff";
 import type { Sample, Student } from "./student";
 import type { Track, TrackLearningPeriod } from "./track";
-import type { StudentLPEnrollmentAssignment } from "./course";
+import type { Course, StudentLPEnrollmentAssignment } from "./course";
 
 export type Tenant = GenericEntity & {
   name: string;
@@ -11,6 +11,7 @@ export type Tenant = GenericEntity & {
   admins: Admin[];
   academies: Academy[];
   tracks: Track[];
+  subjects: Course[];
   key: {
     access_token: string;
     session_token: string;

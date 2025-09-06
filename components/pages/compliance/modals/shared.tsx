@@ -15,32 +15,32 @@ type SampleInfoForModalProps = {
 const getMetadata = ({ sample, type }: SampleInfoForModalProps) => {
   const studentName = {
     label: 'Student Name: ',
-    value: getUserName(sample.student_lp_enrollments[0].student.user),
+    value: getUserName(sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user),
   };
 
   const studentId = {
     label: 'Student ID',
-    value: sample.student_lp_enrollments[0].student.id,
+    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student.id,
   };
 
   const studentGrade = {
     label: 'Grade',
-    value: sample.student_lp_enrollments[0].student_grade,
+    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade,
   };
 
   const subject = {
     label: 'Subject:',
-    value: sample.subject.name,
+    value: sample.student_lp_enrollment_assignment.assignment.course.name,
   };
 
   const assignment = {
     label: 'Assignment:',
-    value: sample.assignment_title,
+    value: sample.student_lp_enrollment_assignment.assignment.name,
   };
 
   const lp = {
     label: 'LP:',
-    value: getFormattedLP(sample.student_lp_enrollments[0].learning_period),
+    value: getFormattedLP(sample.student_lp_enrollment_assignment.student_lp_enrollment.learning_period),
   };
 
   const teacher = {

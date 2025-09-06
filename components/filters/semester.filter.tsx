@@ -8,7 +8,7 @@ interface SemesterFilterProps {
 }
 
 export function SemesterFilter({
-  slug = DEFAULT_FILTERS_KEYS.SEMESTER,
+  slug = DEFAULT_FILTERS_KEYS.SEMESTER_ID,
   availableSemesters = [],
 }: SemesterFilterProps) {
   const map = new Map();

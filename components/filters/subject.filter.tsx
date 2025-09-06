@@ -8,7 +8,7 @@ interface SubjectFilterProps {
 }
 
 export function SubjectFilter({
-  slug = DEFAULT_FILTERS_KEYS.SUBJECT,
+  slug = DEFAULT_FILTERS_KEYS.SUBJECT_ID,
   availableSubjects = [],
 }: SubjectFilterProps) {
   const mergedOptions = new Map<string, Set<string>>();
