@@ -50,7 +50,7 @@ export function AdminFilters({
       <TrackFilter availableTracks={tracks} />
       <SemesterFilter availableSemesters={tracks.flatMap((track) => track.semesters)} />
       <GradeSpanFilter />
-      <SubjectFilter availableSubjects={tenant.subjects} />
+      <SubjectFilter availableSubjects={tenant.courses} />
       <SampleStatusFilter />
     </FilterWrapper>
   );

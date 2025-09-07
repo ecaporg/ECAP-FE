@@ -1,4 +1,5 @@
 'use client';
+import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { useFilterParam } from '@/hooks/table/useFilterParam';
 import { X } from 'lucide-react';
 import type React from 'react';
@@ -130,7 +131,7 @@ export const BaseFilter = ({
             >
               {combined
                 ? options.filter((option) =>
-                    option.value.split(',').every((value) => selectedValues.includes(value))
+                    option.value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).every((value) => selectedValues.includes(value))
                   ).length
                 : selectedValues.length}
               <X className="size-4 cursor-pointer" />
@@ -171,7 +172,7 @@ export const BaseFilter = ({
                   option={option}
                   checked={
                     multiple && combined
-                      ? option.value.split(',').every((value) => selectedValues.includes(value))
+                      ? option.value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).every((value) => selectedValues.includes(value))
                       : selectedValues.some((value) => value == option.value)
                   }
                   handleSelect={handleSelect}

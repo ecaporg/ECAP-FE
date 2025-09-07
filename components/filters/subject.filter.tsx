@@ -1,4 +1,4 @@
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import type { Subject } from '@/types';
 import { BaseFilter } from './base';
 
@@ -13,6 +13,7 @@ export function SubjectFilter({
 }: SubjectFilterProps) {
   const mergedOptions = new Map<string, Set<string>>();
 
+  console.log(availableSubjects, 'availableSubjects')
   availableSubjects.forEach((subject) => {
     if (mergedOptions.has(subject.name)) {
       mergedOptions.get(subject.name)?.add(subject.id.toString());
@@ -27,7 +28,7 @@ export function SubjectFilter({
       slug={slug}
       options={Array.from(mergedOptions.entries()).map(([label, value]) => ({
         label,
-        value: Array.from(value).join(','),
+        value: Array.from(value).join(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES),
       }))}
       multiple
       combined

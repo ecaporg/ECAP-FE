@@ -1,8 +1,9 @@
+import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { Tenant, AcademicYear } from '@/types/school';
 
 const getDefaultAcademicYearIds = (tenant: Tenant, academicYearIds?: string) => {
   if (academicYearIds) {
-    return academicYearIds.split(',').filter(Boolean);
+    return academicYearIds.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
   }
   const day = new Date();
   let currentAcademicYear: AcademicYear | undefined;

@@ -4,7 +4,7 @@ import { rolePage } from '@/components/layouts/role-page';
 import { DirectorFilters } from '@/components/pages/compliance/filters';
 import { TeacherSection } from '@/components/pages/compliance/sections';
 import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import type { Metadata } from 'next';
 
@@ -23,7 +23,7 @@ export async function CompliancePage({
     tenant,
     awaitedParams[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-  const tracksIds = awaitedParams[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(',');
+  const tracksIds = awaitedParams[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES);
   const currentLearningPeriodId = awaitedParams[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID];
 
   return (

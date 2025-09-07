@@ -1,4 +1,5 @@
 'use client';
+import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export enum SortDirectionEnum {
@@ -15,8 +16,8 @@ export function useSortableParam(key: string) {
   const pathname = usePathname();
   const sortBy = searchParams.get(SORT_BY_KEY) || '';
   const sortDirection = searchParams.get(SORT_DIRECTION_KEY) || '';
-  const sortByArray = sortBy.split(',').filter(Boolean);
-  const sortDirectionArray = sortDirection.split(',').filter(Boolean);
+  const sortByArray = sortBy.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
+  const sortDirectionArray = sortDirection.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
 
   const index = sortByArray.findIndex((item) => item === key);
 
@@ -42,8 +43,8 @@ export function useSortableParam(key: string) {
       params.delete(SORT_BY_KEY);
       params.delete(SORT_DIRECTION_KEY);
     } else {
-      params.set(SORT_BY_KEY, sortByArray.join(','));
-      params.set(SORT_DIRECTION_KEY, sortDirectionArray.join(','));
+      params.set(SORT_BY_KEY, sortByArray.join(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES));
+      params.set(SORT_DIRECTION_KEY, sortDirectionArray.join(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES));
     }
 
     router.replace(`${pathname}?${params.toString()}`);

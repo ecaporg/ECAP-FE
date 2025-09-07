@@ -11,7 +11,7 @@ export type Tenant = GenericEntity & {
   admins: Admin[];
   academies: Academy[];
   tracks: Track[];
-  subjects: Course[];
+  courses: Course[];
   key: {
     access_token: string;
     session_token: string;
