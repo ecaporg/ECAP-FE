@@ -134,7 +134,7 @@ const DesktopNav = () => {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="inline-grid grid-rows-[auto_1fr] h-screen w-screen overflow-x-hidden bg-white">
+    <div className="inline-grid grid-rows-[auto_1fr] h-screen w-screen overflow-hidden bg-white">
       <section className="lg:sticky top-0 z-10">
         <header
           className="bg-primary px-6 text-primary-foreground text-center content-center max-w-[100vw]"

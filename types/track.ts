@@ -1,12 +1,7 @@
-import type {
-  AcademicYear,
-  Semester,
-  StudentLPEnrollment,
-  Tenant,
-} from "./school";
-import type { GenericEntity } from "./shared";
-import type { Sample, Student } from "./student";
-import type { Course } from "./course";
+import type { AcademicYear, Semester, StudentLPEnrollment, Tenant } from './school';
+import type { GenericEntity } from './shared';
+import type { Sample, Student } from './student';
+import type { Course } from './course';
 
 export type Subject = Course;
 

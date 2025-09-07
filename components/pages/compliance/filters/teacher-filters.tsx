@@ -29,16 +29,10 @@ export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFi
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds, tracksIds)}
       />
       <SearchStudentFilter />
-      <SchoolFilter
-        availableSchools={tenant.schools}
-        
-      />
-      <AcademyFilter
-        
-        availableAcademies={tenant.academies}
-      />
-      <TrackFilter  availableTracks={tracks} />
-      <GradeFilter  />
+      <SchoolFilter availableSchools={tenant.schools} />
+      <AcademyFilter availableAcademies={tenant.academies} />
+      <TrackFilter availableTracks={tracks} />
+      <GradeFilter />
       <CompletionFilter />
     </FilterWrapper>
   );

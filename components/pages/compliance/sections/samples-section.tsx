@@ -59,9 +59,17 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
 
   const dueDate = getDueDate(learningPeriod);
 
-  const samples = assignmentPeriods.data?.flatMap(({assignments}) => assignments).map(a => a.sample).filter(Boolean) as Sample[] || [];
-  const subjects = new Map(assignmentPeriods.data?.flatMap(({assignments}) => assignments).map(a => [a.assignment.course_id, a.assignment.course]));
-  
+  const samples =
+    (assignmentPeriods.data
+      ?.flatMap(({ assignments }) => assignments)
+      .map((a) => a.sample)
+      .filter(Boolean) as Sample[]) || [];
+  const subjects = new Map(
+    assignmentPeriods.data
+      ?.flatMap(({ assignments }) => assignments)
+      .map((a) => [a.assignment.course_id, a.assignment.course])
+  );
+
   const rows = Object.entries(
     (assignmentPeriods.data || [])
       ?.flatMap(({ assignments }) => assignments)

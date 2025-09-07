@@ -40,7 +40,9 @@ const getMetadata = ({ sample, type }: SampleInfoForModalProps) => {
 
   const lp = {
     label: 'LP:',
-    value: getFormattedLP(sample.student_lp_enrollment_assignment.student_lp_enrollment.learning_period),
+    value: getFormattedLP(
+      sample.student_lp_enrollment_assignment.student_lp_enrollment.learning_period
+    ),
   };
 
   const teacher = {

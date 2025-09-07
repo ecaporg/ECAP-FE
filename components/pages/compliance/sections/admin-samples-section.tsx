@@ -21,15 +21,9 @@ export interface AdminSamplesSectionProps {
 const prepareParam = (param: AdminSamplesSectionProps['param']) => {
   return new URLSearchParams(param)
     .toString()
-    .replace(
-      DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID,
-      DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
-    )
+    .replace(DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID, DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID)
     .replace(DEFAULT_FILTERS_KEYS.TEACHER_ID, DEFAULT_FILTERS_KEYS.TEACHER_ID)
-    .replace(
-      DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR,
-      DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR
-    );
+    .replace(DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR, DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR);
 };
 
 export const AdminSamplesSection = (props: AdminSamplesSectionProps) => {

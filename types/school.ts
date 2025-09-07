@@ -1,9 +1,9 @@
-import type { TeacherSchoolYearEnrollment } from "./enrollment";
-import type { GenericEntity } from "./shared";
-import type { Admin, Director, Teacher } from "./staff";
-import type { Sample, Student } from "./student";
-import type { Track, TrackLearningPeriod } from "./track";
-import type { Course, StudentLPEnrollmentAssignment } from "./course";
+import type { TeacherSchoolYearEnrollment } from './enrollment';
+import type { GenericEntity } from './shared';
+import type { Admin, Director, Teacher } from './staff';
+import type { Sample, Student } from './student';
+import type { Track, TrackLearningPeriod } from './track';
+import type { Course, StudentLPEnrollmentAssignment } from './course';
 
 export type Tenant = GenericEntity & {
   name: string;

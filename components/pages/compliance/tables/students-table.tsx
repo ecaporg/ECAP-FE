@@ -35,32 +35,32 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
     }&name=${getUserName(user)}`;
 
   return (
-    <Table>
+    <Table className="lg:overflow-x-clip overflow-x-auto lg:max-h-max" autoHeight>
       <TableHeader>
         <TableRow>
           <TableHead className="2xl:max-w-44 max-w-32">
             Student Name
             <SortableIcon<StudentLPEnrollment> name="student.user.name" />
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead>
             Student ID
             <SortableIcon<StudentLPEnrollment> name="student_id" />
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead className="2xl:max-w-44 max-w-32">
             School
             <SortableIcon<StudentLPEnrollment> name="student.school.name" />
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead>
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
               <SortableIcon<StudentLPEnrollment> name="student.academy.name" />
             )}
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead>
             Track
-            <SortableIcon<StudentLPEnrollment> name="track.name" />
+            <SortableIcon<StudentLPEnrollment> name="learning_period.track.name" />
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead>
             Grade
             <SortableIcon<StudentLPEnrollment> name="student_grade" />
           </TableHead>
@@ -68,7 +68,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
             Completion Status
             <SortableIcon<StudentLPEnrollment> name="completed" />
           </TableHead>
-          <TableHead className="max-w-[12.5%]">
+          <TableHead>
             Progress (%)
             <SortableIcon<StudentLPEnrollment> name="percentage" />
           </TableHead>
@@ -78,20 +78,24 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.student.id}-${currentLearningPeriod.id}`}>
             <Link className="contents" href={getPath(assignment.student.user)}>
-              <TableCell className="2xl:max-w-44 max-w-32 truncate">
+              <TableCell className="2xl:max-w-44 max-w-32">
                 {getUserName(assignment.student.user)}
               </TableCell>
               <TableCell>{assignment.student.id}</TableCell>
-              <TableCell>{assignment.student.school?.name}</TableCell>
+              <TableCell className="2xl:max-w-44 lg:max-w-24">
+                {assignment.student.school?.name}
+              </TableCell>
               <TableCell>{assignment.student.academy?.name}</TableCell>
-              <TableCell>{assignment.track?.name}</TableCell>
+              <TableCell>{assignment.learning_period.track?.name}</TableCell>
               <TableCell>{assignment.student_grade}</TableCell>
               <TableCell>
                 <CompletionStatusForTable
                   variant={getCompletionStatus(assignment, currentLearningPeriod)}
                 />
               </TableCell>
-              <TableCell className="text-center">{assignment.percentage}%</TableCell>
+              <TableCell className="text-center">
+                {Number(assignment.percentage).toFixed(0)}%
+              </TableCell>
             </Link>
           </TableRow>
         ))}

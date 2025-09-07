@@ -86,7 +86,7 @@ export const mergeLearningPeriods = (learningPeriods: TrackLearningPeriod[]) => 
       }
       return acc;
     }, [] as TrackLearningPeriod[]);
-  res.sort((a, b) => b.start_date.getTime() - a.start_date.getTime());
+  res.sort((a, b) => a.start_date.getTime() - b.start_date.getTime());
   return res;
 };
 

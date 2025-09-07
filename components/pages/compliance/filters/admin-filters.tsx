@@ -43,27 +43,15 @@ export function AdminFilters({
       />
       <SearchTeacherFilter currentLearningPeriodId={currentLearningPeriodId} />
 
-      <AcademyFilter
-        
-        availableAcademies={tenant.academies}
-      />
+      <AcademyFilter availableAcademies={tenant.academies} />
       <CompletionFilter />
 
-      <SchoolFilter
-        availableSchools={tenant.schools}
-        
-      />
-      <TrackFilter  availableTracks={tracks} />
-      <SemesterFilter
-        
-        availableSemesters={tracks.flatMap((track) => track.semesters)}
-      />
+      <SchoolFilter availableSchools={tenant.schools} />
+      <TrackFilter availableTracks={tracks} />
+      <SemesterFilter availableSemesters={tracks.flatMap((track) => track.semesters)} />
       <GradeSpanFilter />
-      <SubjectFilter
-        
-        availableSubjects={tenant.subjects}
-      />
-      <SampleStatusFilter  />
+      <SubjectFilter availableSubjects={tenant.subjects} />
+      <SampleStatusFilter />
     </FilterWrapper>
   );
 }

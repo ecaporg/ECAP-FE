@@ -24,9 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Suspense>
+        {/* <Suspense>
+          // this feature very slow down the server, so i have comment it out now
           <SearchParamsProvider />
-        </Suspense>
+        </Suspense> */}
         <ThemeProvider attribute="class" defaultTheme="light">
           {children}
           <Toaster position="top-right" richColors closeButton />

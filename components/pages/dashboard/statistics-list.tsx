@@ -24,17 +24,17 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
             value={Math.round(item.yearToDateCompliance)}
             className="col-start-2 row-start-1 w-full h-6"
           />
-            <LinearProgress
-              value={Math.round(item.compliance)}
-              className="col-start-2 row-start-2 w-full h-6"
-            />
+          <LinearProgress
+            value={Math.round(item.compliance)}
+            className="col-start-2 row-start-2 w-full h-6"
+          />
 
           <p className="col-start-3 row-start-1 truncate">
             <b>{item.yearToDateCompliance?.toFixed(2)}%</b> (To Date)
           </p>
-            <p className="col-start-3 row-start-2 truncate">
-              <b>{item.compliance.toFixed(2)}%</b> (Current LP)
-            </p>
+          <p className="col-start-3 row-start-2 truncate">
+            <b>{item.compliance.toFixed(2)}%</b> (Current LP)
+          </p>
         </div>
       ))}
     </Card>

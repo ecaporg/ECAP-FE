@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';
 import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
 
-export interface SapmleStatusProps extends BadgeProps {
+export interface SampleStatusProps extends BadgeProps {
   status: SampleStatus | null;
 }
 
@@ -32,7 +32,7 @@ const getIconSampleStatus = (status: SampleStatus) => {
   }
 };
 
-function SapmleStatus({ status, className, ...props }: SapmleStatusProps) {
+function SampleStatus({ status, className, ...props }: SampleStatusProps) {
   if (!status) {
     return null;
   }
@@ -45,7 +45,7 @@ function SapmleStatus({ status, className, ...props }: SapmleStatusProps) {
   );
 }
 
-type DirectorSampleStatusProps = Omit<SapmleStatusProps, 'status'> & {
+type DirectorSampleStatusProps = Omit<SampleStatusProps, 'status'> & {
   sample: Sample;
 };
 
@@ -68,7 +68,7 @@ function DirectorSampleStatus({ sample, className, ...props }: DirectorSampleSta
     status = SampleStatus.ERRORS_FOUND;
   }
 
-  return <SapmleStatus status={status} className={className} {...props} />;
+  return <SampleStatus status={status} className={className} {...props} />;
 }
 
 const getIconCompletionStatus = (variant: CompletionStatusProps['variant']) => {
@@ -115,4 +115,4 @@ function CompletionStatusForTable({ variant, className, ...props }: CompletionSt
   );
 }
 
-export { SapmleStatus, CompletionStatusForTable, DirectorSampleStatus };
+export { SampleStatus, CompletionStatusForTable, DirectorSampleStatus };

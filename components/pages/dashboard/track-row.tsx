@@ -1,8 +1,11 @@
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
 import { StatsItem, Track } from '@/types';
 import {
   formatLearningPeriodDate,
+  getCardColorForDashboard,
   getDueDate,
   getFormattedLP,
   getLearningPeriodDateRange,
@@ -12,6 +15,7 @@ import {
   mergeLearningPeriods,
 } from '@/utils';
 import { ArrowDown } from 'lucide-react';
+import Link from 'next/link';
 import type React from 'react';
 
 interface TrackRowProps {
@@ -19,6 +23,8 @@ interface TrackRowProps {
   dateRange: React.ReactNode;
   status: React.ReactNode;
   statusColor: string;
+  cardColor?: string;
+  href?: string;
 }
 
 export const TrackRow: React.FC<{
@@ -27,6 +33,8 @@ export const TrackRow: React.FC<{
   const lp = mergeLearningPeriods(item.learningPeriods)[0];
   const status = getStatusForDashboard(item);
   const statusColor = getStatusColorForDashboard(status);
+  const cardColor = getCardColorForDashboard(status);
+
   return (
     <TrackRowView
       track={
@@ -39,6 +47,8 @@ export const TrackRow: React.FC<{
       dateRange={getLearningPeriodDateRange(lp)}
       status={status}
       statusColor={statusColor}
+      cardColor={cardColor}
+      href={routes.compliance.root + `?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${lp?.id}`}
     />
   );
 };
@@ -48,14 +58,20 @@ export const TrackRowView: React.FC<TrackRowProps> = ({
   dateRange,
   status,
   statusColor,
+  cardColor = '',
+  href = '#',
 }) => {
   return (
-    <Card className="h-800:p-2 p-1.5 h-800:text-lg lg:text-lg text-sm h-800:h-[4.625rem]">
-      {track}
-      <p className="flex justify-between h-800:mt-2 mt-1">
-        {dateRange} <b className={statusColor}>{status}</b>
-      </p>
-    </Card>
+    <Link href={href}>
+      <Card
+        className={`h-800:p-2 p-1.5 h-800:text-lg lg:text-lg text-sm h-800:h-[4.625rem] ${cardColor}`}
+      >
+        {track}
+        <p className="flex justify-between h-800:mt-2 mt-1">
+          {dateRange} <b className={statusColor}>{status}</b>
+        </p>
+      </Card>
+    </Link>
   );
 };
 

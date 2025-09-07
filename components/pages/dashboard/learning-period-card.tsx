@@ -34,7 +34,7 @@ export const LearningPeriodEmptyCard = ({
   return (
     <LearningPeriodCardView
       title={title}
-      track={"There are no learning periods to display"}
+      track={'There are no learning periods to display'}
       fields={fields.map((field) => ({ ...field, value: '--' }))}
     />
   );

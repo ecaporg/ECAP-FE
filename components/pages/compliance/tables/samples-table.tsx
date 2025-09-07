@@ -8,10 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type {  Sample, StudentLPEnrollment, StudentLPEnrollmentAssignment, Subject } from '@/types';
+import type { Sample, StudentLPEnrollment, StudentLPEnrollmentAssignment, Subject } from '@/types';
 import { getUserName } from '@/utils';
 import { ActionButton } from '../action-button';
-import { SapmleStatus } from '../statuses';
+import { SampleStatus } from '../statuses';
 
 interface SamplesTableProps {
   rows: {
@@ -63,13 +63,15 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
       </TableHeader>
       <TableBody>
         {rows.map((row) => (
-          <TableRow key={`${row.sample_1?.student_lp_enrollment_id}-${row.sample_1?.assignment_id}`}>
+          <TableRow
+            key={`${row.sample_1?.student_lp_enrollment_id}-${row.sample_1?.assignment_id}`}
+          >
             <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.subject?.name}</TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
               {row.sample_1?.assignment?.name}
             </TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              <SapmleStatus status={row.sample_1?.sample?.status || null} />
+              <SampleStatus status={row.sample_1?.sample?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">
               <ActionButton sample={row.sample_1?.sample} />
@@ -81,7 +83,7 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
               {row.sample_2?.assignment?.name}
             </TableCell>
             <TableCell className="2xl:max-w-48 max-w-28 truncate">
-              <SapmleStatus status={row.sample_2?.sample?.status || null} />
+              <SampleStatus status={row.sample_2?.sample?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">
               <ActionButton sample={row.sample_2?.sample} />

@@ -12,7 +12,7 @@ export const getStatusForDashboard = (item: StatsItem): LPStatusForDashboard => 
   if (item.completed) {
     return 'Complete';
   }
-  if (now < item.learningPeriods[0].start_date) {
+  if (now < new Date(item.learningPeriods[0].start_date)) {
     return 'Upcoming';
   }
   return 'In Progress';
@@ -29,6 +29,13 @@ export const getStatusColorForDashboard = (status: LPStatusForDashboard) => {
     return 'text-darker-gray';
   }
   return 'text-primary';
+};
+
+export const getCardColorForDashboard = (status: LPStatusForDashboard) => {
+  if (status === 'In Progress') {
+    return 'border-primary border';
+  }
+  return '';
 };
 
 export const getLPNameForDashboard = (learningPeriods: TrackLearningPeriod[]) => {

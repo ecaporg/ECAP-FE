@@ -1,7 +1,7 @@
-import type { CanvasGenericEntity } from "./shared";
-import type { Subject } from "./track";
-import type { Sample } from "./student";
-import type { StudentLPEnrollment } from "./school";
+import type { CanvasGenericEntity } from './shared';
+import type { Subject } from './track';
+import type { Sample } from './student';
+import type { StudentLPEnrollment } from './school';
 
 export type Course = CanvasGenericEntity & {
   name: string;
