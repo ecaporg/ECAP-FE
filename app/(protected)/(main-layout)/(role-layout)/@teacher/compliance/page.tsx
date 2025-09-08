@@ -20,7 +20,9 @@ export async function CompliancePage({
     tenant,
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-  const tracksIds = (await searchParams)[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES);
+  const tracksIds = (await searchParams)[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(
+    FILTER_SEPARATOR_FOR_MULTIPLE_VALUES
+  );
 
   return (
     <>

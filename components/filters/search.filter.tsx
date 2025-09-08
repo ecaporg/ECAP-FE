@@ -32,7 +32,7 @@ export const SearchTeacherFilter = ({
   currentLearningPeriodId,
 }: { currentLearningPeriodId: string }) => {
   const getTeacherOptions = async (value: string) => {
-    const response = await apiClientFetch<Teacher[]>(`/teachers-table/teachers/${value}`, {
+    const response = await apiClientFetch<Teacher[]>(`/teachers?search=${value}`, {
       cache: 'force-cache',
       tags: [`teachers-${value}`],
     });

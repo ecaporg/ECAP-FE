@@ -8,15 +8,23 @@ export function useFilterParam(slug: string, multiple = true, combined = false) 
   const searchParams = useSearchParams();
 
   const raw = searchParams.get(slug) || '';
-  const selectedValues = raw ? (multiple ? raw.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES) : [raw]) : [];
+  const selectedValues = raw
+    ? multiple
+      ? raw.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES)
+      : [raw]
+    : [];
 
   const handleSelect = (value: string) => {
     let newValues: string[];
 
     if (multiple) {
       if (combined) {
-        newValues = selectedValues.some((v) => value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).some((val) => val === v))
-          ? selectedValues.filter((v) => !value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).some((val) => val === v))
+        newValues = selectedValues.some((v) =>
+          value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).some((val) => val === v)
+        )
+          ? selectedValues.filter(
+              (v) => !value.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).some((val) => val === v)
+            )
           : [...selectedValues, value];
       } else {
         newValues = selectedValues.some((v) => v == value)

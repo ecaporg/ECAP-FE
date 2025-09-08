@@ -36,7 +36,9 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
           size="lg"
           disabled={isDisabled}
           onClick={() => {
-            toast.warning('This feature is currently disabled through a problem with SIS integration');
+            toast.warning(
+              'This feature is currently disabled through a problem with SIS integration'
+            );
           }}
         >
           <Upload className="w-4 h-4 mr-2" />

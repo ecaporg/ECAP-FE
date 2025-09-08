@@ -17,7 +17,9 @@ export function useSortableParam(key: string) {
   const sortBy = searchParams.get(SORT_BY_KEY) || '';
   const sortDirection = searchParams.get(SORT_DIRECTION_KEY) || '';
   const sortByArray = sortBy.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
-  const sortDirectionArray = sortDirection.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
+  const sortDirectionArray = sortDirection
+    .split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES)
+    .filter(Boolean);
 
   const index = sortByArray.findIndex((item) => item === key);
 

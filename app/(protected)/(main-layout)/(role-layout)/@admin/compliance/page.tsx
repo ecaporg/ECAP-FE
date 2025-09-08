@@ -23,7 +23,9 @@ export async function CompliancePage({
     tenant,
     awaitedParams[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-  const tracksIds = awaitedParams[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES);
+  const tracksIds = awaitedParams[DEFAULT_FILTERS_KEYS.TRACK_ID]?.split(
+    FILTER_SEPARATOR_FOR_MULTIPLE_VALUES
+  );
   const currentLearningPeriodId = awaitedParams[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID];
 
   return (

@@ -84,12 +84,10 @@ const PopoverFilter: React.FC<
     const fetchOptions = async () => {
       setIsLoading(true);
       try {
-        if (debouncedValue) {
-          const options = await getOptions(debouncedValue);
-          setOptions(options);
-          if (!open) {
-            setOpen(true);
-          }
+        const options = await getOptions(debouncedValue);
+        setOptions(options);
+        if (!open) {
+          setOpen(true);
         }
       } catch (error) {
         console.error(error);
