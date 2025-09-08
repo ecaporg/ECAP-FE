@@ -1,8 +1,9 @@
 import type { GenericEntity } from './shared';
 import type { Student } from './student';
 import type { Teacher, Director, Admin } from './staff';
+import { ROLES } from '@/constants/roles';
 
-export type Role = 'TEACHER' | 'DIRECTOR' | 'ADMIN' | 'SUPER_ADMIN' | 'STUDENT';
+export type Role = (typeof ROLES)[number];
 
 export type User = GenericEntity & {
   email: string;
