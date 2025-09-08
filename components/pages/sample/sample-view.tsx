@@ -61,5 +61,5 @@ export const SampleView = ({ html }: { html: string }) => {
     }
   }, [html]);
 
-  return <aside ref={asideRef} />;
+  return <aside className="pointer-events-none" ref={asideRef} />;
 };

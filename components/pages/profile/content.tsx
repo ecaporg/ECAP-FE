@@ -73,11 +73,11 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
                 <Label className="text-base">Account Status</Label>
                 <p className="text-muted-foreground text-sm">Your account is currently active</p>
               </div>
-              <Badge variant={user.isActive ? "success" : "red"}>
+              <Badge variant={user.isActive ? 'success' : 'red'}>
                 {user.isActive ? 'Active' : 'Inactive'}
               </Badge>
             </div>
-            
+
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -149,9 +149,7 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="red" >
-                    Disabled
-                  </Badge>
+                  <Badge variant="red">Disabled</Badge>
                   <Button variant="outline" size="sm">
                     Configure
                   </Button>
@@ -211,7 +209,7 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
                 </div>
                 <Switch />
               </div>
-             
+
               <Separator />
               <div className="flex items-center justify-between">
                 <div className="space-y-1">

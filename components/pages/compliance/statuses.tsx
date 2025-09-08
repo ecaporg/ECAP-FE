@@ -1,31 +1,31 @@
 import { CompletionStatus, type CompletionStatusProps } from '@/components/table/completion-status';
 import { Badge, BadgeProps } from '@/components/ui/badge';
-import { Sample, SampleFlagCategory, SampleStatus } from '@/types';
+import { Sample, SampleFlagCategory, SampleStatus  as SampleStatusEnum } from '@/types';
 import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';
 import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
 
 export interface SampleStatusProps extends BadgeProps {
-  status: SampleStatus | null;
+  status: SampleStatusEnum | null;
 }
 
-const getVariantSampleStatus = (status: SampleStatus): BadgeProps['variant'] => {
+const getVariantSampleStatus = (status: SampleStatusEnum): BadgeProps['variant'] => {
   switch (status) {
-    case SampleStatus.COMPLETED:
+    case SampleStatusEnum.COMPLETED:
       return 'success';
-    case SampleStatus.PENDING:
-    case SampleStatus.FLAGGED_TO_ADMIN:
+    case SampleStatusEnum.PENDING:
+    case SampleStatusEnum.FLAGGED_TO_ADMIN:
       return 'amber';
-    case SampleStatus.ERRORS_FOUND:
-    case SampleStatus.MISSING_SAMPLE:
-    case SampleStatus.REASON_REJECTED:
+    case SampleStatusEnum.ERRORS_FOUND:
+    case SampleStatusEnum.MISSING_SAMPLE:
+    case SampleStatusEnum.REASON_REJECTED:
       return 'red';
   }
 };
 
-const getIconSampleStatus = (status: SampleStatus) => {
+const getIconSampleStatus = (status: SampleStatusEnum) => {
   switch (status) {
-    case SampleStatus.COMPLETED:
+    case SampleStatusEnum.COMPLETED:
       return <CheckCircleIcon className="size-4" />;
     default:
       return <CircleAlertIcon className="size-4" />;
@@ -56,16 +56,16 @@ function DirectorSampleStatus({ sample, className, ...props }: DirectorSampleSta
   let status = sample.status;
 
   if (
-    status === SampleStatus.FLAGGED_TO_ADMIN &&
+    status === SampleStatusEnum.FLAGGED_TO_ADMIN &&
     sample.flag_category === SampleFlagCategory.MISSING_SAMPLE
   ) {
-    status = SampleStatus.MISSING_SAMPLE;
+    status = SampleStatusEnum.MISSING_SAMPLE;
   }
   if (
-    status === SampleStatus.FLAGGED_TO_ADMIN &&
+    status === SampleStatusEnum.FLAGGED_TO_ADMIN &&
     sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
   ) {
-    status = SampleStatus.ERRORS_FOUND;
+    status = SampleStatusEnum.ERRORS_FOUND;
   }
 
   return <SampleStatus status={status} className={className} {...props} />;
