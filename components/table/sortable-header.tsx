@@ -10,7 +10,7 @@ export function SortableIcon<T extends object>({
 }) {
   const { sortDirection, handleSort } = useSortableParam(name as string);
   const props = {
-    className: 'w-4 h-4 cursor-pointer inline-block ml-2',
+    className: 'size-4 cursor-pointer inline-block',
     role: 'sort-icon',
   };
 

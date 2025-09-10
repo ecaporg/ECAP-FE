@@ -1,5 +1,6 @@
 import { SortableIcon } from '@/components/table/sortable-header';
 import {
+  Span,
   Table,
   TableBody,
   TableCell,
@@ -42,7 +43,7 @@ export const TeachersTable = ({
       <TableHeader>
         <TableRow>
           <TableHead className="lg:max-w-44 max-w-28 " title="Teacher Name">
-            Teacher Name
+            <Span>Teacher Name</Span>
             <SortableIcon<TeacherCompliance> name="teacher_name" />
           </TableHead>
           <TableHead className="lg:max-w-44 max-w-28 " title="Academy">
@@ -56,19 +57,19 @@ export const TeachersTable = ({
             <SortableIcon<TeacherCompliance> name="student_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Flagged Samples">
-            Flagged Samples
+            <Span>Flagged Samples</Span>
             <SortableIcon<TeacherCompliance> name="flagged_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Completed Samples">
-            Completed Samples
+            <Span>Completed Samples</Span>
             <SortableIcon<TeacherCompliance> name="completed_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Incomplete Samples">
-            Incomplete Samples
+            <Span>Incomplete Samples</Span>
             <SortableIcon<TeacherCompliance> name="incompleted_count" />
           </TableHead>
           <TableHead className="lg:max-w-44 max-w-28 " title="Completion">
-            Completion
+            <Span>Completion</Span>
             <SortableIcon<TeacherCompliance> name="is_complated" />
           </TableHead>
           <TableHead className="lg:max-w-44 " title="Progress">
