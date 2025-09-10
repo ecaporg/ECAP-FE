@@ -23,13 +23,13 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
         <TableRow>
           <TableHead>
             Sample Name
-            <SortableIcon<Sample> name="assignment_title" />
+            <SortableIcon<Sample> name="student_lp_enrollment_assignment.assignment.name" />
           </TableHead>
           <TableHead>Subject</TableHead>
           <TableHead>Student Name</TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<Sample> name="student_lp_enrollments.student_id" />
+            <SortableIcon<Sample> name="student_lp_enrollment_assignment.student_lp_enrollment.student_id" />
           </TableHead>
           <TableHead>Grade</TableHead>
           <TableHead>
@@ -46,11 +46,11 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
       <TableBody>
         {samples.map((sample) => (
           <TableRow key={`${sample.id}`}>
-            <TableCell>{sample.assignment_title}</TableCell>
-            <TableCell>{sample.subject?.name}</TableCell>
-            <TableCell>{getUserName(sample.student_lp_enrollments[0].student.user)}</TableCell>
-            <TableCell>{sample.student_lp_enrollments[0].student_id}</TableCell>
-            <TableCell>{sample.student_lp_enrollments[0].student_grade}</TableCell>
+            <TableCell>{sample.student_lp_enrollment_assignment.assignment.name}</TableCell>
+            <TableCell>{sample.student_lp_enrollment_assignment.assignment.course.name}</TableCell>
+            <TableCell>{getUserName(sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user)}</TableCell>
+            <TableCell>{sample.student_lp_enrollment_assignment.student_lp_enrollment.student_id}</TableCell>
+            <TableCell>{sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade}</TableCell>
             <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>
             <TableCell>
               <DirectorSampleStatus sample={sample} />
