@@ -18,7 +18,7 @@ interface SamplesTableProps {
 
 export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
   return (
-    <Table>
+    <Table className='overflow-auto'>
       <TableHeader>
         <TableRow>
           <TableHead>

@@ -38,7 +38,7 @@ const AvatarColumn = ({ sample }: { sample?: Sample }) => {
 
 export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
   return (
-    <Table>
+    <Table className='overflow-auto'>
       <TableHeader>
         <TableRow>
           <TableHead>
