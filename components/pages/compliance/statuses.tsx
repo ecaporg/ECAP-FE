@@ -1,6 +1,6 @@
 import { CompletionStatus, type CompletionStatusProps } from '@/components/table/completion-status';
 import { Badge, BadgeProps } from '@/components/ui/badge';
-import { Sample, SampleFlagCategory, SampleStatus  as SampleStatusEnum } from '@/types';
+import { Sample, SampleFlagCategory, SampleStatus as SampleStatusEnum } from '@/types';
 import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';
 import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';

@@ -7,20 +7,32 @@ import { getUserName } from '@/utils';
 import Link from 'next/link';
 import { SearchFilter } from './search';
 import { getSessionCache, setSessionCache } from '@/utils/session-cache';
+import { usePathname } from 'next/navigation';
 
-export const SearchStudentFilter = () => {
+export const SearchStudentFilter = ({
+  currentLearningPeriodId,
+}: { currentLearningPeriodId: string }) => {
+  const pathname = usePathname();
   const getStudentOptions = async (value: string) => {
     const key = `/students-table/students/${value}`;
     let data = getSessionCache<Student[]>(key);
     if (!data) {
       const response = await apiClientFetch<Student[]>(key);
-      data = response.data || []
+      data = response.data || [];
       setSessionCache(key, data);
     }
 
     return (
       data.map((student) => ({
-        label: getUserName(student.user),
+        label: (
+          <Link
+            href={`${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${student.id}&${
+              DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
+            }=${currentLearningPeriodId}&name=${getUserName(student.user)}`}
+          >
+            {getUserName(student.user)}
+          </Link>
+        ) as unknown as string,
         value: student.id.toString(),
       })) ?? []
     );
@@ -37,7 +49,7 @@ export const SearchTeacherFilter = ({
     let data = getSessionCache<Teacher[]>(key);
     if (!data) {
       const response = await apiClientFetch<Teacher[]>(key);
-      data = response.data || []
+      data = response.data || [];
       setSessionCache(key, data);
     }
 

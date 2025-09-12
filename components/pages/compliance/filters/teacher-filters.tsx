@@ -16,9 +16,15 @@ interface TeacherFiltersProps {
   tenant: Tenant;
   academicYearIds?: string[];
   tracksIds?: string[];
+  currentLearningPeriodId: string;
 }
 
-export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFiltersProps) {
+export function TeacherFilters({
+  tenant,
+  academicYearIds,
+  tracksIds,
+  currentLearningPeriodId,
+}: TeacherFiltersProps) {
   const tracks = tenant.tracks.filter((track) =>
     academicYearIds?.includes(track.academic_year_id.toString())
   );
@@ -28,7 +34,7 @@ export function TeacherFilters({ tenant, academicYearIds, tracksIds }: TeacherFi
       <LearningPeriodFilter
         availablePeriods={getLearningPeriodFromTenant(tenant, academicYearIds, tracksIds)}
       />
-      <SearchStudentFilter />
+      <SearchStudentFilter currentLearningPeriodId={currentLearningPeriodId} />
       <SchoolFilter availableSchools={tenant.schools} />
       <AcademyFilter availableAcademies={tenant.academies} />
       <TrackFilter availableTracks={tracks} />

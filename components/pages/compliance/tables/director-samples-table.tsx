@@ -18,7 +18,7 @@ interface SamplesTableProps {
 
 export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
   return (
-    <Table className='overflow-auto'>
+    <Table className="overflow-auto">
       <TableHeader>
         <TableRow>
           <TableHead>
@@ -48,9 +48,17 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
           <TableRow key={`${sample.id}`}>
             <TableCell>{sample.student_lp_enrollment_assignment.assignment.name}</TableCell>
             <TableCell>{sample.student_lp_enrollment_assignment.assignment.course.name}</TableCell>
-            <TableCell>{getUserName(sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user)}</TableCell>
-            <TableCell>{sample.student_lp_enrollment_assignment.student_lp_enrollment.student_id}</TableCell>
-            <TableCell>{sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade}</TableCell>
+            <TableCell>
+              {getUserName(
+                sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+              )}
+            </TableCell>
+            <TableCell>
+              {sample.student_lp_enrollment_assignment.student_lp_enrollment.student_id}
+            </TableCell>
+            <TableCell>
+              {sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade}
+            </TableCell>
             <TableCell>{sampleCategoryToText(sample.flag_category)}</TableCell>
             <TableCell>
               <DirectorSampleStatus sample={sample} />

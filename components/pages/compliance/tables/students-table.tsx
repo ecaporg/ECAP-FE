@@ -16,6 +16,7 @@ import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { CompletionStatusForTable } from '../statuses';
+import { routes } from '@/constants/routes';
 
 interface StudentsTableProps {
   assignments?: StudentLPEnrollment[];
@@ -28,7 +29,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
   const { user } = useAuth();
 
   const getPath = (user: User) =>
-    `${pathname}/samples?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${
+    `${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${
       DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
     }=${currentLearningPeriod.id}&${
       teacher_id ? `${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${teacher_id}` : ''
