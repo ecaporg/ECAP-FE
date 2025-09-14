@@ -77,8 +77,8 @@ async function refreshSessionToken(refreshURL: string): Promise<string | null> {
     });
 
     const setCookieHeader = response.headers.get('set-cookie');
-    if (setCookieHeader && setCookieHeader.includes('_legacy_normandy_session')) {
-      const match = setCookieHeader.match(/_legacy_normandy_session=([^;]+)/);
+    if (setCookieHeader && setCookieHeader.includes('canvas_session')) {
+      const match = setCookieHeader.match(/canvas_session=([^;]+)/);
       if (match && match[1]) {
         console.log('Fallback session extraction successful', match[1]);
         await tenantKeysServerApi.refreshSessionToken(match[1]);
@@ -110,12 +110,12 @@ export const getSampleViewFromCanvas = async (sample: Sample) => {
     const { session_url } = await urlResponse.json();
     refreshURL = session_url;
   }
-  let cookie = `_legacy_normandy_session=${key.session_token}`;
+  let cookie = `canvas_session=${key.session_token}`;
 
   if (refreshURL) {
     const sessionToken = await refreshSessionToken(refreshURL);
     if (sessionToken) {
-      cookie = `_legacy_normandy_session=${sessionToken}`;
+      cookie = `canvas_session=${sessionToken}`;
     }
   }
 
