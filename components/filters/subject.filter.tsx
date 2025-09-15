@@ -1,3 +1,4 @@
+'use client';
 import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import type { Subject } from '@/types';
 import { BaseFilter } from './base';
@@ -33,6 +34,7 @@ export function SubjectFilter({
       multiple
       combined
       hasSearch={true}
+      render={(option) => <p className='w-[calc(100%_-_theme(space.6))] text-pretty'>{option.label}</p>}
     />
   );
 }

@@ -28,7 +28,7 @@ export const SearchStudentFilter = ({
           <Link
             href={`${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${student.id}&${
               DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
-            }=${currentLearningPeriodId}&name=${getUserName(student.user)}`}
+            }=${currentLearningPeriodId || ''}&name=${getUserName(student.user)}`}
           >
             {getUserName(student.user)}
           </Link>
