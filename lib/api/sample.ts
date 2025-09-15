@@ -5,6 +5,7 @@ import type {
   SampleFlagMissingWork,
   SampleFlagRejected,
 } from '@/types';
+import { CANVAS_COOKIE_TTL } from '@/constants/ttl';
 import { revalidateTag } from 'next/cache';
 import { apiFetch } from '../fetch';
 import { tenantKeysServerApi } from './tenant-keys';
@@ -97,7 +98,7 @@ async function refreshSessionToken(refreshURL: string): Promise<string | null> {
 export const getSampleViewFromCanvas = async (sample: Sample) => {
   const key = (await tenantKeysServerApi.getAccessToken()).data!;
   let refreshURL: string | null = null;
-  if (new Date(key.updatedAt) < new Date(Date.now() - 1000 * 60 * 60 * 24)) {
+  if (new Date(key.updatedAt) < new Date(Date.now() - CANVAS_COOKIE_TTL)) {
     const endpoint = new URL(`${key.url}/login/session_token`);
     const headers = {
       Authorization: `Bearer ${key.access_token}`,
