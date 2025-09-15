@@ -12,7 +12,7 @@ import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
 import type { StudentLPEnrollment, TrackLearningPeriod, User } from '@/types';
-import { getCompletionStatus, getProgressValue, getUserName } from '@/utils';
+import { getCompletionStatus, getUserName } from '@/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { CompletionStatusForTable } from '../statuses';
