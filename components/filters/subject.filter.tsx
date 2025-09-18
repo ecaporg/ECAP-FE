@@ -1,10 +1,7 @@
-"use client";
-import {
-  DEFAULT_FILTERS_KEYS,
-  FILTER_SEPARATOR_FOR_MULTIPLE_VALUES,
-} from "@/constants/filter";
-import type { ICourse } from "@/types";
-import { BaseFilter } from "./base";
+'use client';
+import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
+import type { ICourse } from '@/types';
+import { BaseFilter } from './base';
 
 interface SubjectFilterProps {
   slug?: string;
@@ -17,7 +14,7 @@ export function SubjectFilter({
 }: SubjectFilterProps) {
   const mergedOptions = new Map<string, Set<string>>();
 
-  console.log(availableSubjects, "availableSubjects");
+  console.log(availableSubjects, 'availableSubjects');
   availableSubjects.forEach((subject) => {
     if (mergedOptions.has(subject.name)) {
       mergedOptions.get(subject.name)?.add(subject.id.toString());
@@ -38,9 +35,7 @@ export function SubjectFilter({
       combined
       hasSearch={true}
       render={(option) => (
-        <p className="w-[calc(100%_-_theme(space.6))] text-pretty">
-          {option.label}
-        </p>
+        <p className="w-[calc(100%_-_theme(space.6))] text-pretty">{option.label}</p>
       )}
     />
   );

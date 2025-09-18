@@ -1,7 +1,7 @@
 import { LoadingTableSection } from '@/components/table/loading';
 import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { Tenant } from '@/types';
+import type { ITenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { DirectorSamplesTable } from '../tables';
@@ -14,7 +14,7 @@ export interface AdminSamplesSectionProps {
     [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string;
     name?: string;
   };
-  tenant: Tenant;
+  tenant: ITenant;
   academicYearIds: string[];
 }
 

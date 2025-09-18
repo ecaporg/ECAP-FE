@@ -11,7 +11,7 @@ import {
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
-import type { StudentLPEnrollment, TrackLearningPeriod, User } from '@/types';
+import type { IStudentLPEnrollment, ITrackLearningPeriod, IUser } from '@/types';
 import { getCompletionStatus, getUserName } from '@/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -19,8 +19,8 @@ import { CompletionStatusForTable } from '../statuses';
 import { routes } from '@/constants/routes';
 
 interface StudentsTableProps {
-  assignments?: StudentLPEnrollment[];
-  currentLearningPeriod: TrackLearningPeriod;
+  assignments?: IStudentLPEnrollment[];
+  currentLearningPeriod: ITrackLearningPeriod;
 }
 
 export const StudentsTable = ({ assignments = [], currentLearningPeriod }: StudentsTableProps) => {
@@ -28,10 +28,10 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
   const teacher_id = useSearchParams().get(DEFAULT_FILTERS_KEYS.TEACHER_ID);
   const { user } = useAuth();
 
-  const getPath = (user: User) =>
-    `${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${user.id}&${
-      DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
-    }=${currentLearningPeriod.id}&${
+  const getPath = (user: IUser) =>
+    `${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${
+      user.id
+    }&${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriod.id}&${
       teacher_id ? `${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${teacher_id}` : ''
     }&name=${getUserName(user)}`;
 
@@ -41,37 +41,37 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         <TableRow>
           <TableHead className="2xl:max-w-44 max-w-32">
             Student Name
-            <SortableIcon<StudentLPEnrollment> name="student.user.name" />
+            <SortableIcon<IStudentLPEnrollment> name="student.user.name" />
           </TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<StudentLPEnrollment> name="student_id" />
+            <SortableIcon<IStudentLPEnrollment> name="student_id" />
           </TableHead>
           <TableHead className="2xl:max-w-44 max-w-32">
             School
-            <SortableIcon<StudentLPEnrollment> name="student.school.name" />
+            <SortableIcon<IStudentLPEnrollment> name="student.school.name" />
           </TableHead>
           <TableHead>
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
-              <SortableIcon<StudentLPEnrollment> name="student.academy.name" />
+              <SortableIcon<IStudentLPEnrollment> name="student.academy.name" />
             )}
           </TableHead>
           <TableHead>
             Track
-            <SortableIcon<StudentLPEnrollment> name="learning_period.track.name" />
+            <SortableIcon<IStudentLPEnrollment> name="learning_period.track.name" />
           </TableHead>
           <TableHead>
             Grade
-            <SortableIcon<StudentLPEnrollment> name="student_grade" />
+            <SortableIcon<IStudentLPEnrollment> name="student_grade" />
           </TableHead>
           <TableHead className="2xl:max-w-[12.5rem] max-w-[9.375rem]">
             Completion Status
-            <SortableIcon<StudentLPEnrollment> name="completed" />
+            <SortableIcon<IStudentLPEnrollment> name="completed" />
           </TableHead>
           <TableHead>
             Progress (%)
-            <SortableIcon<StudentLPEnrollment> name="percentage" />
+            <SortableIcon<IStudentLPEnrollment> name="percentage" />
           </TableHead>
         </TableRow>
       </TableHeader>

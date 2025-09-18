@@ -7,13 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { getUserName, sampleCategoryToText } from '@/utils';
 import { ActionButton } from '../action-button';
 import { DirectorSampleStatus } from '../statuses';
 
 interface SamplesTableProps {
-  samples: Sample[];
+  samples: ISample[];
 }
 
 export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
@@ -23,22 +23,22 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
         <TableRow>
           <TableHead>
             Sample Name
-            <SortableIcon<Sample> name="student_lp_enrollment_assignment.assignment.name" />
+            <SortableIcon<ISample> name="student_lp_enrollment_assignment.assignment.name" />
           </TableHead>
           <TableHead>Subject</TableHead>
           <TableHead>Student Name</TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<Sample> name="student_lp_enrollment_assignment.student_lp_enrollment.student_id" />
+            <SortableIcon<ISample> name="student_lp_enrollment_assignment.student_lp_enrollment.student_id" />
           </TableHead>
           <TableHead>Grade</TableHead>
           <TableHead>
             Flag Category
-            <SortableIcon<Sample> name="status" />
+            <SortableIcon<ISample> name="status" />
           </TableHead>
           <TableHead>
             Sample Status
-            <SortableIcon<Sample> name="status" />
+            <SortableIcon<ISample> name="status" />
           </TableHead>
           <TableHead>Action</TableHead>
         </TableRow>

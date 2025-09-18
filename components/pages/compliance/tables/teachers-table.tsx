@@ -11,15 +11,15 @@ import {
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
 import { hasPermission } from '@/lib/permissions';
-import type { AcademicYear, TeacherCompliance, TrackLearningPeriod, User } from '@/types';
+import type { IAcademicYear, ITeacherCompliance, ITrackLearningPeriod, IUser } from '@/types';
 import { getCompletionStatus, getUserName } from '@/utils';
 import Link from 'next/link';
 import { CompletionStatusForTable } from '../statuses';
 interface TeachersTableProps {
-  assignments: TeacherCompliance[];
-  currentLearningPeriod?: TrackLearningPeriod;
-  currentAcademicYear?: AcademicYear;
-  user: User;
+  assignments: ITeacherCompliance[];
+  currentLearningPeriod?: ITrackLearningPeriod;
+  currentAcademicYear?: IAcademicYear;
+  user: IUser;
 }
 
 export const TeachersTable = ({
@@ -28,7 +28,7 @@ export const TeachersTable = ({
   currentAcademicYear,
   user,
 }: TeachersTableProps) => {
-  const getPath = (assignment: TeacherCompliance) =>
+  const getPath = (assignment: ITeacherCompliance) =>
     `${routes.compliance.teacher.replace(
       ':id',
       assignment.teacher_id.toString()
@@ -44,37 +44,37 @@ export const TeachersTable = ({
         <TableRow>
           <TableHead className="lg:max-w-44 max-w-28 " title="Teacher Name">
             <Span>Teacher Name</Span>
-            <SortableIcon<TeacherCompliance> name="teacher_name" />
+            <SortableIcon<ITeacherCompliance> name="teacher_name" />
           </TableHead>
           <TableHead className="lg:max-w-44 max-w-28 " title="Academy">
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
-              <SortableIcon<TeacherCompliance> name="academy_name" />
+              <SortableIcon<ITeacherCompliance> name="academy_name" />
             )}
           </TableHead>
           <TableHead className="lg:max-w-44 max-w-28 " title="Students">
             Students
-            <SortableIcon<TeacherCompliance> name="student_count" />
+            <SortableIcon<ITeacherCompliance> name="student_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Flagged Samples">
             <Span>Flagged Samples</Span>
-            <SortableIcon<TeacherCompliance> name="flagged_count" />
+            <SortableIcon<ITeacherCompliance> name="flagged_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Completed Samples">
             <Span>Completed Samples</Span>
-            <SortableIcon<TeacherCompliance> name="completed_count" />
+            <SortableIcon<ITeacherCompliance> name="completed_count" />
           </TableHead>
           <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Incomplete Samples">
             <Span>Incomplete Samples</Span>
-            <SortableIcon<TeacherCompliance> name="incompleted_count" />
+            <SortableIcon<ITeacherCompliance> name="incompleted_count" />
           </TableHead>
           <TableHead className="lg:max-w-44 max-w-28 " title="Completion">
             <Span>Completion</Span>
-            <SortableIcon<TeacherCompliance> name="is_complated" />
+            <SortableIcon<ITeacherCompliance> name="is_complated" />
           </TableHead>
           <TableHead className="lg:max-w-44 " title="Progress">
             Progress
-            <SortableIcon<TeacherCompliance> name="completion_percentage" />
+            <SortableIcon<ITeacherCompliance> name="completion_percentage" />
           </TableHead>
         </TableRow>
       </TableHeader>

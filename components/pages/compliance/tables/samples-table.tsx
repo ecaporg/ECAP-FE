@@ -8,20 +8,25 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { Sample, StudentLPEnrollment, StudentLPEnrollmentAssignment, Subject } from '@/types';
+import type {
+  ISample,
+  IStudentLPEnrollment,
+  IStudentLPEnrollmentAssignment,
+  ICourse as Subject,
+} from '@/types';
 import { getUserName } from '@/utils';
 import { ActionButton } from '../action-button';
 import { SampleStatus } from '../statuses';
 
 interface SamplesTableProps {
   rows: {
-    sample_1?: StudentLPEnrollmentAssignment;
-    sample_2?: StudentLPEnrollmentAssignment;
+    sample_1?: IStudentLPEnrollmentAssignment;
+    sample_2?: IStudentLPEnrollmentAssignment;
     subject: Subject;
   }[];
 }
 
-const AvatarColumn = ({ sample }: { sample?: Sample }) => {
+const AvatarColumn = ({ sample }: { sample?: ISample }) => {
   const user =
     sample?.done_by ||
     sample?.flag_missing_work?.user ||
@@ -43,19 +48,19 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
         <TableRow>
           <TableHead>
             Subject
-            <SortableIcon<StudentLPEnrollment> name="assignments.assignment.course.name" />
+            <SortableIcon<IStudentLPEnrollment> name="assignments.assignment.course.name" />
           </TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
-            Sample Status
-            <SortableIcon<StudentLPEnrollment> name="assignments.sample.status" />
+            ISample Status
+            <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
-            Sample Status
-            <SortableIcon<StudentLPEnrollment> name="assignments.sample.status" />
+            ISample Status
+            <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" />
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>

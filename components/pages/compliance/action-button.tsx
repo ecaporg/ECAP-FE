@@ -1,19 +1,19 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/constants/routes";
-import type { IUser, ISample } from "@/types";
-import { useRouter } from "next/navigation";
-import { Fragment } from "react";
+'use client';
+import { Button } from '@/components/ui/button';
+import { routes } from '@/constants/routes';
+import type { IUser, ISample } from '@/types';
+import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
 import {
   FlagCompleteSampleInfoModal,
   FlagMissingWorkSampleInfoModal,
   FlagMissingWorkSampleModal,
   FlagRejectSampleInfoModal,
-} from "./modals";
-import { useAuth } from "@/providers/auth";
-import { hasPermission } from "@/lib/permissions";
-import { isAdminOrDirector, isAnyAdmin } from "@/utils";
-import { SampleFlagCategory, SampleStatus } from "ecap-lib/dist/constants";
+} from './modals';
+import { useAuth } from '@/providers/auth';
+import { hasPermission } from '@/lib/permissions';
+import { isAdminOrDirector, isAnyAdmin } from '@/utils';
+import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
 interface ActionButtonProps {
   sample?: ISample;
@@ -21,18 +21,18 @@ interface ActionButtonProps {
 
 const getText = (sample: ISample, user: IUser) => {
   const text = (isAllowed: boolean, action?: string) =>
-    isAllowed ? action : user.role === "DIRECTOR" ? "View" : "Review";
+    isAllowed ? action : user.role === 'DIRECTOR' ? 'View' : 'Review';
 
   switch (sample.status) {
     case SampleStatus.PENDING:
-      return text(hasPermission(user, "samples", "approve"), "Approve");
+      return text(hasPermission(user, 'samples', 'approve'), 'Approve');
     case SampleStatus.ERRORS_FOUND:
-      return text(hasPermission(user, "samples", "correct"), "Correct");
+      return text(hasPermission(user, 'samples', 'correct'), 'Correct');
     case SampleStatus.MISSING_SAMPLE:
-      return text(hasPermission(user, "samples", "flag"), "Flag");
+      return text(hasPermission(user, 'samples', 'flag'), 'Flag');
     case SampleStatus.FLAGGED_TO_ADMIN:
       if (isAnyAdmin(user)) {
-        return "Approve";
+        return 'Approve';
       }
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:
@@ -66,10 +66,7 @@ const getWrapper = (sample?: ISample) => {
     return (props: any) => <Fragment children={props.children} />;
   }
 
-  if (
-    sample.status === SampleStatus.FLAGGED_TO_ADMIN &&
-    sample.flag_missing_work
-  ) {
+  if (sample.status === SampleStatus.FLAGGED_TO_ADMIN && sample.flag_missing_work) {
     return FlagMissingWorkSampleInfoModal;
   }
 
@@ -89,9 +86,7 @@ const getWrapper = (sample?: ISample) => {
 };
 
 const getIsDisabled = (sample: ISample, user: IUser) => {
-  return (
-    sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user)
-  );
+  return sample.status === SampleStatus.MISSING_SAMPLE && isAdminOrDirector(user);
 };
 
 const useActionButton = (sample?: ISample) => {
@@ -100,15 +95,12 @@ const useActionButton = (sample?: ISample) => {
 
   if (!sample)
     return {
-      text: "",
+      text: '',
       onClick: () => {},
       Wrapper: getWrapper(sample),
       isDisabled: true,
     };
-  const redirectUrl = routes.compliance.viewSample.replace(
-    ":id",
-    sample.id.toString()
-  );
+  const redirectUrl = routes.compliance.viewSample.replace(':id', sample.id.toString());
 
   return {
     text: getText(sample, user),

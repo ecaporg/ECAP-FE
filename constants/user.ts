@@ -1,5 +1,5 @@
-import { IUser } from "@/types";
+import { IUser } from '@/types';
 
 export const defaultUser: IUser = {
-  name: "N/A",
+  name: 'N/A',
 } as IUser;

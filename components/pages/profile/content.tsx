@@ -1,22 +1,16 @@
-"use client";
-import { Shield, Key, Trash2 } from "lucide-react";
+'use client';
+import { Shield, Key, Trash2 } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { IUser } from "@/types";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { IUser } from '@/types';
 
 type ProfileHeaderProps = {
   user: IUser;
@@ -37,9 +31,7 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
         <Card>
           <CardHeader>
             <CardTitle>Personal Information</CardTitle>
-            <CardDescription>
-              Update your personal details and profile information.
-            </CardDescription>
+            <CardDescription>Update your personal details and profile information.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -53,21 +45,16 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" defaultValue={"--"} />
+                <Input id="phone" defaultValue={'--'} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                <Input id="location" defaultValue={"--"} />
+                <Input id="location" defaultValue={'--'} />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="bio">Bio</Label>
-              <Textarea
-                id="bio"
-                placeholder="Tell us about yourself..."
-                rows={4}
-                disabled
-              />
+              <Textarea id="bio" placeholder="Tell us about yourself..." rows={4} disabled />
             </div>
           </CardContent>
         </Card>
@@ -78,20 +65,16 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
         <Card>
           <CardHeader>
             <CardTitle>Account Settings</CardTitle>
-            <CardDescription>
-              Manage your account preferences and subscription.
-            </CardDescription>
+            <CardDescription>Manage your account preferences and subscription.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="text-base">Account Status</Label>
-                <p className="text-muted-foreground text-sm">
-                  Your account is currently active
-                </p>
+                <p className="text-muted-foreground text-sm">Your account is currently active</p>
               </div>
-              <Badge variant={user.isActive ? "success" : "red"}>
-                {user.isActive ? "Active" : "Inactive"}
+              <Badge variant={user.isActive ? 'success' : 'red'}>
+                {user.isActive ? 'Active' : 'Inactive'}
               </Badge>
             </div>
 
@@ -109,9 +92,7 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label className="text-base">Data Export</Label>
-                <p className="text-muted-foreground text-sm">
-                  Download a copy of your data
-                </p>
+                <p className="text-muted-foreground text-sm">Download a copy of your data</p>
               </div>
               <Button variant="outline">Export Data</Button>
             </div>
@@ -121,9 +102,7 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
         <Card className="border-destructive/50">
           <CardHeader>
             <CardTitle className="text-destructive">Danger Zone</CardTitle>
-            <CardDescription>
-              Irreversible and destructive actions
-            </CardDescription>
+            <CardDescription>Irreversible and destructive actions</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
@@ -147,18 +126,14 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
         <Card>
           <CardHeader>
             <CardTitle>Security Settings</CardTitle>
-            <CardDescription>
-              Manage your account security and authentication.
-            </CardDescription>
+            <CardDescription>Manage your account security and authentication.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-base">Password</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Last changed 3 months ago
-                  </p>
+                  <p className="text-muted-foreground text-sm">Last changed 3 months ago</p>
                 </div>
                 <Button variant="outline">
                   <Key className="mr-2 h-4 w-4" />
@@ -213,18 +188,14 @@ export function ProfileContent({ user }: ProfileHeaderProps) {
         <Card>
           <CardHeader>
             <CardTitle>Notification Preferences</CardTitle>
-            <CardDescription>
-              Choose what notifications you want to receive.
-            </CardDescription>
+            <CardDescription>Choose what notifications you want to receive.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-base">Email Notifications</Label>
-                  <p className="text-muted-foreground text-sm">
-                    Receive notifications via email
-                  </p>
+                  <p className="text-muted-foreground text-sm">Receive notifications via email</p>
                 </div>
                 <Switch defaultChecked />
               </div>

@@ -1,4 +1,4 @@
-import type { IUser } from "ecap-lib/dist/domain";
+import type { IUser } from 'ecap-lib/dist/domain';
 
 export type AuthResponse = {
   accessToken: string;

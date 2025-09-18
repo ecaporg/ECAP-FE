@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { useAuth } from '@/providers/auth';
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { isAdminOrDirector } from '@/utils';
 import { CircleAlertIcon } from 'lucide-react';
 import { ReasonForMissingSample, SampleInfoForModal } from './shared';
@@ -12,7 +12,7 @@ import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 export function FlagRejectSampleInfoModal({
   children,
   sample,
-}: React.PropsWithChildren<{ sample: Sample }>) {
+}: React.PropsWithChildren<{ sample: ISample }>) {
   const { user } = useAuth();
   const isDirector = isAdminOrDirector(user);
   const title = (

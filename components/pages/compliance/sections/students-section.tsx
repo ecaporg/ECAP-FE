@@ -2,7 +2,7 @@ import { LoadingTableSection } from '@/components/table/loading';
 import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getComplianceStudents } from '@/lib/api/compliance';
-import type { Tenant, TrackLearningPeriod } from '@/types';
+import type { ITenant, ITrackLearningPeriod } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { StudentsTable } from '../tables';
@@ -13,7 +13,7 @@ export interface SectionWithTableProps {
     [DEFAULT_FILTERS_KEYS.STUDENT_ID]: string;
     name?: string;
   };
-  tenant: Tenant;
+  tenant: ITenant;
 }
 
 export const StudentsSection = (props: SectionWithTableProps) => {
@@ -52,7 +52,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
       />
       <StudentsTable
         assignments={assignment?.data}
-        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
+        currentLearningPeriod={learningPeriod as ITrackLearningPeriod}
       />
     </>
   );

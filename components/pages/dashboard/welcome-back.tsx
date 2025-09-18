@@ -1,5 +1,5 @@
-import { type IAcademicYear, type IUser } from "@/types";
-import { getUserName } from "@/utils";
+import { type IAcademicYear, type IUser } from '@/types';
+import { getUserName } from '@/utils';
 
 interface WelcomeBackProps {
   user: IUser;
@@ -11,14 +11,14 @@ export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
     <section className="text-xl font-bold flex w-full py-4 px-6 text-primary justify-between">
       <p>
         Welcome back, {getUserName(user)}
-        {user.role === "DIRECTOR" && (
+        {user.role === 'DIRECTOR' && (
           <span className="block text-xl font-semibold text-neutral-black">
-            {user.director?.academy?.name} {" Academy"}
+            {user.director?.academy?.name} {' Academy'}
           </span>
         )}
       </p>
       <span className="ml-auto text-lg font-semibold">
-        Academic Year:{" "}
+        Academic Year:{' '}
         <span className="text-neutral-black font-normal">
           {academicYear.from} - {academicYear.to}
         </span>

@@ -1,14 +1,9 @@
-import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from "@/constants/filter";
-import type { ITenant, IAcademicYear } from "@/types";
+import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
+import type { ITenant, IAcademicYear } from '@/types';
 
-const getDefaultAcademicYearIds = (
-  tenant: ITenant,
-  academicYearIds?: string
-) => {
+const getDefaultAcademicYearIds = (tenant: ITenant, academicYearIds?: string) => {
   if (academicYearIds) {
-    return academicYearIds
-      .split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES)
-      .filter(Boolean);
+    return academicYearIds.split(FILTER_SEPARATOR_FOR_MULTIPLE_VALUES).filter(Boolean);
   }
   const day = new Date();
   let currentAcademicYear: IAcademicYear | undefined;
@@ -16,9 +11,7 @@ const getDefaultAcademicYearIds = (
   for (const track of tenant.tracks) {
     if (track.semesters && track.academicYear) {
       const hasActiveSemester = track.semesters.some(
-        (semester) =>
-          new Date(semester.start_date) <= day &&
-          new Date(semester.end_date) >= day
+        (semester) => new Date(semester.start_date) <= day && new Date(semester.end_date) >= day
       );
       if (hasActiveSemester) {
         currentAcademicYear = track.academicYear;
@@ -28,11 +21,7 @@ const getDefaultAcademicYearIds = (
   }
 
   if (!currentAcademicYear) {
-    if (
-      tenant.tracks &&
-      tenant.tracks.length > 0 &&
-      tenant.tracks[0].academicYear
-    ) {
+    if (tenant.tracks && tenant.tracks.length > 0 && tenant.tracks[0].academicYear) {
       currentAcademicYear = tenant.tracks[0].academicYear;
     } else {
       return [];

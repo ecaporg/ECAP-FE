@@ -1,8 +1,8 @@
-import type { CompletionStatusProps } from "@/components/table/completion-status";
-import { SAMPLE_STATUS } from "@/constants/sample";
-import type { IStudentLPEnrollment, ITrackLearningPeriod } from "@/types";
-import { getDueDate } from "./learning-period";
-import { SampleFlagCategory, SampleStatus } from "ecap-lib/dist/constants";
+import type { CompletionStatusProps } from '@/components/table/completion-status';
+import { SAMPLE_STATUS } from '@/constants/sample';
+import type { IStudentLPEnrollment, ITrackLearningPeriod } from '@/types';
+import { getDueDate } from './learning-period';
+import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
 export const getSampleStatus = (status: SampleStatus) => {
   return SAMPLE_STATUS[status] ?? status;
@@ -22,36 +22,36 @@ export const getProgressValue = (assignment: IStudentLPEnrollment) => {
 export const getCompletionStatus = (
   assignment: IStudentLPEnrollment | boolean,
   currentLearningPeriod?: ITrackLearningPeriod
-): CompletionStatusProps["variant"] => {
+): CompletionStatusProps['variant'] => {
   if (!currentLearningPeriod) {
-    return "Overdue";
+    return 'Overdue';
   }
 
   const isCompleted =
-    assignment && typeof assignment === "object" && "completed" in assignment
+    assignment && typeof assignment === 'object' && 'completed' in assignment
       ? assignment.completed
       : assignment;
 
   if (isCompleted) {
-    return "Complete";
+    return 'Complete';
   }
 
   if (!isCompleted && getDueDate(currentLearningPeriod) < new Date()) {
-    return "Overdue";
+    return 'Overdue';
   }
 
-  return "In Progress";
+  return 'In Progress';
 };
 
 export const sampleCategoryToText = (category: SampleFlagCategory) => {
   switch (category) {
     case SampleFlagCategory.MISSING_SAMPLE:
-      return "Missing Sample";
+      return 'Missing Sample';
     case SampleFlagCategory.ERROR_IN_SAMPLE:
-      return "Errors Found";
+      return 'Errors Found';
     case SampleFlagCategory.REASON_REJECTED:
-      return "Reason Rejected";
+      return 'Reason Rejected';
     default:
-      return "";
+      return '';
   }
 };

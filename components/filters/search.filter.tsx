@@ -1,13 +1,13 @@
-"use client";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { routes } from "@/constants/routes";
-import { apiClientFetch } from "@/lib/client-fetch";
-import type { IStudent, ITeacher } from "@/types";
-import { getUserName } from "@/utils";
-import Link from "next/link";
-import { SearchFilter } from "./search";
-import { getSessionCache, setSessionCache } from "@/utils/session-cache";
-import { usePathname } from "next/navigation";
+'use client';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
+import { apiClientFetch } from '@/lib/client-fetch';
+import type { IStudent, ITeacher } from '@/types';
+import { getUserName } from '@/utils';
+import Link from 'next/link';
+import { SearchFilter } from './search';
+import { getSessionCache, setSessionCache } from '@/utils/session-cache';
+import { usePathname } from 'next/navigation';
 
 export const SearchStudentFilter = ({
   currentLearningPeriodId,
@@ -31,7 +31,7 @@ export const SearchStudentFilter = ({
             href={`${pathname}${routes.samples.root}?${
               DEFAULT_FILTERS_KEYS.STUDENT_ID
             }=${student.id}&${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
-              currentLearningPeriodId || ""
+              currentLearningPeriodId || ''
             }&name=${getUserName(student.user)}`}
           >
             {getUserName(student.user)}
@@ -42,12 +42,7 @@ export const SearchStudentFilter = ({
     );
   };
 
-  return (
-    <SearchFilter
-      label="Search for a student by name/ID"
-      getOptions={getStudentOptions}
-    />
-  );
+  return <SearchFilter label="Search for a student by name/ID" getOptions={getStudentOptions} />;
 };
 
 export const SearchTeacherFilter = ({
@@ -68,13 +63,10 @@ export const SearchTeacherFilter = ({
       data.map((teacher) => ({
         label: (
           <Link
-            href={`${routes.compliance.teacher.replace(
-              ":id",
-              teacher.id.toString()
-            )}?${
+            href={`${routes.compliance.teacher.replace(':id', teacher.id.toString())}?${
               currentLearningPeriodId
                 ? `${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriodId}`
-                : ""
+                : ''
             }`}
           >
             {getUserName(teacher.user)}
@@ -85,10 +77,5 @@ export const SearchTeacherFilter = ({
     );
   };
 
-  return (
-    <SearchFilter
-      label="Search for a teacher by name/ID"
-      getOptions={getTeacherOptions}
-    />
-  );
+  return <SearchFilter label="Search for a teacher by name/ID" getOptions={getTeacherOptions} />;
 };

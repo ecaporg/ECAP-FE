@@ -1,25 +1,16 @@
-"use client";
-import { BaseApi } from "@/lib/base-api";
-import { apiClientFetch } from "@/lib/client-fetch";
-import type {
-  ITrack as Track,
-  ITrackLearningPeriod as TrackLearningPeriod,
-} from "@/types";
-import { validationMessages, formatTrackDateWithShortMonth } from "@/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useOptimistic,
-  useState,
-  useTransition,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+'use client';
+import { BaseApi } from '@/lib/base-api';
+import { apiClientFetch } from '@/lib/client-fetch';
+import type { ITrack as Track, ITrackLearningPeriod as TrackLearningPeriod } from '@/types';
+import { validationMessages, formatTrackDateWithShortMonth } from '@/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useOptimistic, useState, useTransition, Dispatch, SetStateAction } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 export const trackClientApi = new BaseApi<TrackLearningPeriod, undefined>(
-  "/track-learning-periods",
+  '/track-learning-periods',
   apiClientFetch
 );
 
@@ -28,20 +19,18 @@ export type StepTrackLP = TrackLearningPeriod & {
 };
 
 type UpdateTrackLPType = {
-  action: "add" | "edit" | "delete";
+  action: 'add' | 'edit' | 'delete';
   lp: StepTrackLP;
 };
 
 const trackLPFormSchema = z
   .object({
-    name: z
-      .string()
-      .min(1, validationMessages.required("Learning Period Name")),
+    name: z.string().min(1, validationMessages.required('Learning Period Name')),
     start_date: z.date({
-      message: validationMessages.required("Start Date"),
+      message: validationMessages.required('Start Date'),
     }),
     end_date: z.date({
-      message: validationMessages.required("End Date"),
+      message: validationMessages.required('End Date'),
     }),
   })
   .refine(
@@ -50,22 +39,19 @@ const trackLPFormSchema = z
       return end_date >= start_date;
     },
     {
-      message: "End date must be after start date",
-      path: ["end_date"],
+      message: 'End date must be after start date',
+      path: ['end_date'],
     }
   );
 type TrackLPForm = z.infer<typeof trackLPFormSchema>;
 
-const trackLPReducer = (
-  prev: TrackLearningPeriod[],
-  updated: UpdateTrackLPType
-) => {
+const trackLPReducer = (prev: TrackLearningPeriod[], updated: UpdateTrackLPType) => {
   updated.lp.disabled = true;
   switch (updated.action) {
-    case "add":
+    case 'add':
       return [updated.lp, ...prev];
-    case "edit":
-    case "delete":
+    case 'edit':
+    case 'delete':
       return prev.map((s) => (s.id === updated.lp.id ? updated.lp : s));
   }
 };
@@ -100,9 +86,7 @@ export const getLearningPeriodStartDate = (track: Track) => {
   if (track.learningPeriods.length === 0) {
     return new Date(track.start_date);
   }
-  const endDate = new Date(
-    track.learningPeriods[track.learningPeriods.length - 1].end_date
-  );
+  const endDate = new Date(track.learningPeriods[track.learningPeriods.length - 1].end_date);
   return new Date(endDate.setDate(endDate.getDate() + 1));
 };
 
@@ -119,15 +103,15 @@ const getDefaultValues = (track: Track) => {
   };
 };
 
-export const useStep5LearningPeriod = (
-  track: Track,
-  setTrack: Dispatch<SetStateAction<Track>>
-) => {
+export const useStep5LearningPeriod = (track: Track, setTrack: Dispatch<SetStateAction<Track>>) => {
   const [_, startTransition] = useTransition();
-  const [optimisticLearningPeriods, setOptimisticLearningPeriods] =
-    useOptimistic(track.learningPeriods, trackLPReducer);
-  const [learningPeriodToEdit, setLearningPeriodToEdit] =
-    useState<TrackLearningPeriod | null>(null);
+  const [optimisticLearningPeriods, setOptimisticLearningPeriods] = useOptimistic(
+    track.learningPeriods,
+    trackLPReducer
+  );
+  const [learningPeriodToEdit, setLearningPeriodToEdit] = useState<TrackLearningPeriod | null>(
+    null
+  );
   const form = useForm<TrackLPForm>({
     resolver: zodResolver(trackLPFormSchema),
     defaultValues: getDefaultValues(track),
@@ -135,7 +119,7 @@ export const useStep5LearningPeriod = (
 
   const addTrack = async (lp: TrackLearningPeriod) => {
     try {
-      setOptimisticLearningPeriods({ action: "add", lp });
+      setOptimisticLearningPeriods({ action: 'add', lp });
 
       const res = await trackClientApi.post({
         ...lp,
@@ -154,17 +138,17 @@ export const useStep5LearningPeriod = (
         return newTrack;
       });
 
-      toast.success("Learning period added successfully");
+      toast.success('Learning period added successfully');
     } catch (error) {
       console.error(error);
-      toast.error("Failed to add learning period");
+      toast.error('Failed to add learning period');
       throw error;
     }
   };
 
   const editLearningPeriod = async (lp: TrackLearningPeriod) => {
     try {
-      setOptimisticLearningPeriods({ action: "edit", lp });
+      setOptimisticLearningPeriods({ action: 'edit', lp });
 
       const res = await trackClientApi.put(lp.id.toString(), lp);
       setTrack((prev) => {
@@ -181,24 +165,22 @@ export const useStep5LearningPeriod = (
         return newTrack;
       });
 
-      toast.success("Learning period updated successfully");
+      toast.success('Learning period updated successfully');
     } catch (error) {
       console.error(error);
-      toast.error("Failed to edit learning period");
+      toast.error('Failed to edit learning period');
       throw error;
     }
   };
 
   const deleteLearningPeriod = async (lp: TrackLearningPeriod) => {
     try {
-      toast.info("Deleting track...");
-      setOptimisticLearningPeriods({ action: "delete", lp });
+      toast.info('Deleting track...');
+      setOptimisticLearningPeriods({ action: 'delete', lp });
 
       await trackClientApi.delete(lp.id.toString());
       setTrack((prev) => {
-        const newLearningPeriods = prev.learningPeriods.filter(
-          (s) => s.id !== lp.id
-        );
+        const newLearningPeriods = prev.learningPeriods.filter((s) => s.id !== lp.id);
 
         const newTrack = {
           ...prev,
@@ -208,10 +190,10 @@ export const useStep5LearningPeriod = (
         form.reset(getDefaultValues(newTrack));
         return newTrack;
       });
-      toast.success("Learning period deleted successfully");
+      toast.success('Learning period deleted successfully');
     } catch (error) {
       console.error(error);
-      toast.error("Failed to delete learning period");
+      toast.error('Failed to delete learning period');
     }
   };
 
@@ -220,22 +202,22 @@ export const useStep5LearningPeriod = (
     startTransition(async () => {
       try {
         if (learningPeriodToEdit) {
-          toast.info("Updating learning period...");
+          toast.info('Updating learning period...');
           await editLearningPeriod({
             ...learningPeriodToEdit,
             ...values,
           });
           setLearningPeriodToEdit(null);
         } else {
-          toast.info("Adding learning period...");
+          toast.info('Adding learning period...');
           await addTrack({
             ...values,
           } as TrackLearningPeriod);
         }
       } catch (error) {
-        form.setValue("name", values.name);
-        form.setValue("start_date", values.start_date);
-        form.setValue("end_date", values.end_date);
+        form.setValue('name', values.name);
+        form.setValue('start_date', values.start_date);
+        form.setValue('end_date', values.end_date);
       }
     });
   };
@@ -246,9 +228,9 @@ export const useStep5LearningPeriod = (
       form.reset(getDefaultValues(track));
     } else {
       setLearningPeriodToEdit(lp);
-      form.setValue("name", lp.name);
-      form.setValue("start_date", new Date(lp.start_date));
-      form.setValue("end_date", new Date(lp.end_date));
+      form.setValue('name', lp.name);
+      form.setValue('start_date', new Date(lp.start_date));
+      form.setValue('end_date', new Date(lp.end_date));
     }
   };
 

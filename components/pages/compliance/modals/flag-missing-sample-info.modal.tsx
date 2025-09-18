@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { useAuth } from '@/providers/auth';
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { isAdminOrDirector, isAnyAdmin } from '@/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 export function FlagMissingWorkSampleInfoModal({
   children,
   sample,
-}: React.PropsWithChildren<{ sample: Sample }>) {
+}: React.PropsWithChildren<{ sample: ISample }>) {
   const [openSuccessfullyModal, setOpenSuccessfullyModal] = useState(false);
   const path = usePathname();
   const searchParams = useSearchParams();

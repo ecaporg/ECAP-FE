@@ -1,24 +1,20 @@
-"use client";
-import { BaseApi } from "@/lib/base-api";
-import { apiClientFetch } from "@/lib/client-fetch";
-import type {
-  ITrackCalendar as TrackCalendar,
-  ICalendarDay as TrackCalendarDay,
-} from "@/types";
-import { getTrackCalendarDays, getDaysInRange } from "@/utils";
-import { useState } from "react";
-import { DateRange, OnSelectHandler } from "react-day-picker";
-import { toast } from "sonner";
+'use client';
+import { BaseApi } from '@/lib/base-api';
+import { apiClientFetch } from '@/lib/client-fetch';
+import type { ITrackCalendar as TrackCalendar, ICalendarDay as TrackCalendarDay } from '@/types';
+import { getTrackCalendarDays, getDaysInRange } from '@/utils';
+import { useState } from 'react';
+import { DateRange, OnSelectHandler } from 'react-day-picker';
+import { toast } from 'sonner';
 
 export const trackCalendarClientApi = new BaseApi<TrackCalendar, undefined>(
-  "/track-calendars",
+  '/track-calendars',
   apiClientFetch
 );
 
 export const useStep4 = (defaultCalendars: TrackCalendar[]) => {
   const [calendars, setCalendars] = useState<TrackCalendar[]>(defaultCalendars);
-  const [selectedCalendar, setSelectedCalendar] =
-    useState<TrackCalendar | null>(null);
+  const [selectedCalendar, setSelectedCalendar] = useState<TrackCalendar | null>(null);
   const [dayMap, setDayMap] = useState<Record<string, TrackCalendarDay>>();
   const [selectedDateRange, setSelectedDateRange] = useState<DateRange>();
   const [isDirty, setIsDirty] = useState(false);
@@ -45,17 +41,20 @@ export const useStep4 = (defaultCalendars: TrackCalendar[]) => {
       selectedDateRange?.from && selectedDateRange?.to
         ? getDaysInRange(selectedDateRange.from, selectedDateRange.to)
         : selectedDateRange?.from
-        ? [selectedDateRange.from]
-        : [];
+          ? [selectedDateRange.from]
+          : [];
 
-    const daysWithType = days.reduce((acc, day) => {
-      const dayString = day.toISOString().split("T")[0];
-      acc[dayString] = {
-        day: dayString,
-        type,
-      };
-      return acc;
-    }, {} as Record<string, TrackCalendarDay>);
+    const daysWithType = days.reduce(
+      (acc, day) => {
+        const dayString = day.toISOString().split('T')[0];
+        acc[dayString] = {
+          day: dayString,
+          type,
+        };
+        return acc;
+      },
+      {} as Record<string, TrackCalendarDay>
+    );
 
     setDayMap((prev) => ({
       ...prev,
@@ -66,7 +65,7 @@ export const useStep4 = (defaultCalendars: TrackCalendar[]) => {
 
   const onSave = async () => {
     if (!selectedCalendar) return;
-    toast.info("Saving...");
+    toast.info('Saving...');
 
     try {
       await trackCalendarClientApi.put(selectedCalendar.id.toString(), {
@@ -83,10 +82,10 @@ export const useStep4 = (defaultCalendars: TrackCalendar[]) => {
         )
       );
       setIsDirty(false);
-      toast.success("Calendar saved successfully");
+      toast.success('Calendar saved successfully');
     } catch (error) {
       console.error(error);
-      toast.error("Failed to save calendar");
+      toast.error('Failed to save calendar');
     }
   };
 

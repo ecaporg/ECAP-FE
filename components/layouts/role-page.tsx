@@ -1,6 +1,6 @@
-import { getUser } from "@/lib/get-user";
-import { RolesEnum } from "ecap-lib/dist/constants";
-import type { ComponentType } from "react";
+import { getUser } from '@/lib/get-user';
+import { RolesEnum } from 'ecap-lib/dist/constants';
+import type { ComponentType } from 'react';
 
 /**
  * A higher-order component that checks user role and renders the page

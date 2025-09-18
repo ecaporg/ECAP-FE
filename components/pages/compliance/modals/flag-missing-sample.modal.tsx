@@ -11,14 +11,14 @@ import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FLAG_MISSING_WORK_SAMPLE_REASONS } from '@/constants/sample';
 import { useFlagMissingWorkSample } from '@/hooks/samples/use-flag-missing';
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { Loader2 } from 'lucide-react';
 import { SampleInfoForModal } from './shared';
 
 export function FlagMissingWorkSampleModal({
   children,
   sample,
-}: React.PropsWithChildren<{ sample: Sample }>) {
+}: React.PropsWithChildren<{ sample: ISample }>) {
   const { form, onSubmit, openSuccessfullyModal, setOpenSuccessfullyModal, submitSuccessfully } =
     useFlagMissingWorkSample({
       sample,

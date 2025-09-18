@@ -1,4 +1,4 @@
-import type { IAcademicYear, ITrackLearningPeriod } from "ecap-lib/dist/domain";
+import type { IAcademicYear, ITrackLearningPeriod } from 'ecap-lib/dist/domain';
 
 export type StatsItem = {
   learningPeriods: ITrackLearningPeriod[];

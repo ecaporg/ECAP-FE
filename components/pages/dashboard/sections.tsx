@@ -1,12 +1,9 @@
-import type { DashboardStats, ITrackLearningPeriod, IUser } from "@/types";
-import { cn } from "@/utils";
-import {
-  LearningPeriodCard,
-  LearningPeriodEmptyCard,
-} from "./learning-period-card";
-import { ProgressCard } from "./progress-card";
-import { TrackArrow, TrackRow } from "./track-row";
-import { WelcomeBack } from "./welcome-back";
+import type { DashboardStats, ITrackLearningPeriod, IUser } from '@/types';
+import { cn } from '@/utils';
+import { LearningPeriodCard, LearningPeriodEmptyCard } from './learning-period-card';
+import { ProgressCard } from './progress-card';
+import { TrackArrow, TrackRow } from './track-row';
+import { WelcomeBack } from './welcome-back';
 
 export const SectionWrapper = ({
   children,
@@ -15,7 +12,7 @@ export const SectionWrapper = ({
   return (
     <section
       className={cn(
-        "flex lg:gap-10 gap-9 flex-wrap justify-center lg:min-w-[47.75rem] md:min-w-[43rem] w-full",
+        'flex lg:gap-10 gap-9 flex-wrap justify-center lg:min-w-[47.75rem] md:min-w-[43rem] w-full',
         className
       )}
     >
@@ -45,10 +42,7 @@ export const CurrentLPSection = ({
 
   return (
     <SectionWrapper>
-      <ProgressCard
-        title="Current LP Compliance"
-        percentage={stats.currentLP.compliance}
-      />
+      <ProgressCard title="Current LP Compliance" percentage={stats.currentLP.compliance} />
       {children}
 
       <div className="flex-1 lg:min-w-96">
@@ -99,10 +93,7 @@ export const LPCardsSection = ({
         <LearningPeriodEmptyCard title="Current Learning Period" />
       )}
       {hasLPs(stats.upcomingLP) ? (
-        <LearningPeriodCard
-          title="Upcoming Learning Period"
-          stats={stats.upcomingLP}
-        />
+        <LearningPeriodCard title="Upcoming Learning Period" stats={stats.upcomingLP} />
       ) : (
         <LearningPeriodEmptyCard title="Upcoming Learning Period" />
       )}

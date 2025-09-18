@@ -1,14 +1,10 @@
-import type {
-  IStudentLPEnrollment,
-  ITeacherCompliance,
-  ITenant,
-} from "@/types";
-import { apiFetch } from "../fetch";
+import type { IStudentLPEnrollment, ITeacherCompliance, ITenant } from '@/types';
+import { apiFetch } from '../fetch';
 
 export const getComplianceTeacherFilter = async () => {
   const response = await apiFetch<ITenant>(`/students-table/filters`, {
     tags: [`teacher-filter`],
-    cache: "force-cache",
+    cache: 'force-cache',
   });
   if (response.error) {
     throw new Error(response.error);
@@ -26,10 +22,7 @@ export const getComplianceStudents = async (queryParams: string) => {
   return response;
 };
 
-export const getComplianceStudentSamples = async (
-  queryParams: string,
-  tag_id: string
-) => {
+export const getComplianceStudentSamples = async (queryParams: string, tag_id: string) => {
   const response = await apiFetch<IStudentLPEnrollment[]>(
     `/students-table/subjects?${queryParams}`,
     {
@@ -42,7 +35,7 @@ export const getComplianceStudentSamples = async (
 export const getComplianceAdminFilter = async () => {
   const response = await apiFetch<ITenant>(`/teachers-table/filters`, {
     tags: [`admin-filter`],
-    cache: "force-cache",
+    cache: 'force-cache',
   });
   if (response.error) {
     throw new Error(response.error);

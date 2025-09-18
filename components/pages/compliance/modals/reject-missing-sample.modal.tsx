@@ -6,13 +6,13 @@ import { Label } from '@/components/ui/label';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useRejectMissingSample } from '@/hooks/samples/use-reject-missing-sample';
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { ReasonForMissingSample, SampleInfoForModal } from './shared';
 
 export function RejectMissingSampleModal({
   children,
   sample,
-}: React.PropsWithChildren<{ sample: Sample }>) {
+}: React.PropsWithChildren<{ sample: ISample }>) {
   const { form, onSubmit, openSuccessfullyModal, setOpenSuccessfullyModal, submitSuccessfully } =
     useRejectMissingSample({
       sample,

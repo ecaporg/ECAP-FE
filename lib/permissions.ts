@@ -1,10 +1,5 @@
-import {
-  type Permissions,
-  type RolesWithPermissions,
-  type ISample,
-  type IUser,
-} from "@/types";
-import { SampleStatus } from "ecap-lib/dist/constants";
+import { type Permissions, type RolesWithPermissions, type ISample, type IUser } from '@/types';
+import { SampleStatus } from 'ecap-lib/dist/constants';
 
 export const ROLES = {
   DIRECTOR: {
@@ -20,7 +15,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      "sort:academy": false,
+      'sort:academy': false,
     },
   },
   TEACHER: {
@@ -40,7 +35,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      "sort:academy": true,
+      'sort:academy': true,
     },
   },
   ADMIN: {
@@ -60,7 +55,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      "sort:academy": true,
+      'sort:academy': true,
     },
   },
   SUPER_ADMIN: {
@@ -80,7 +75,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      "sort:academy": true,
+      'sort:academy': true,
     },
   },
   STUDENT: {
@@ -96,7 +91,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      "sort:academy": false,
+      'sort:academy': false,
     },
   },
 } as const satisfies RolesWithPermissions;
@@ -104,15 +99,13 @@ export const ROLES = {
 export function hasPermission<Resource extends keyof Permissions>(
   user: IUser,
   resource: Resource,
-  action: Permissions[Resource]["action"],
-  data?: Permissions[Resource]["dataType"]
+  action: Permissions[Resource]['action'],
+  data?: Permissions[Resource]['dataType']
 ) {
   if (!user || !user.role) return false;
-  const permission = (ROLES as RolesWithPermissions)[user.role]?.[resource]?.[
-    action
-  ];
+  const permission = (ROLES as RolesWithPermissions)[user.role]?.[resource]?.[action];
   if (permission == null) return false;
 
-  if (typeof permission === "boolean") return permission;
+  if (typeof permission === 'boolean') return permission;
   return data != null && permission(user, data);
 }

@@ -3,7 +3,7 @@ import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
 import { getComplianceStudentSamples } from '@/lib/api/compliance';
-import type { Sample, StudentLPEnrollmentAssignment, Tenant } from '@/types';
+import type { ISample, IStudentLPEnrollmentAssignment, ITenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import { redirect } from 'next/navigation';
@@ -18,7 +18,7 @@ export interface SamplesSectionProps {
     [DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]: string;
     name?: string;
   };
-  tenant: Tenant;
+  tenant: ITenant;
 }
 
 export const SamplesSection = (props: SamplesSectionProps) => {
@@ -63,7 +63,7 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
     (assignmentPeriods.data
       ?.flatMap(({ assignments }) => assignments)
       .map((a) => a.sample)
-      .filter(Boolean) as Sample[]) || [];
+      .filter(Boolean) as ISample[]) || [];
   const subjects = new Map(
     assignmentPeriods.data
       ?.flatMap(({ assignments }) => assignments)
@@ -84,12 +84,12 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
           }
           return acc;
         },
-        {} as Record<number, StudentLPEnrollmentAssignment[]>
+        {} as Record<number, IStudentLPEnrollmentAssignment[]>
       )
   ).map(([courseId, enrollment = []]) => {
     const mappedEnrollment = enrollment.map((e) => ({
       ...e,
-      sample: { ...e.sample, student_lp_enrollment_assignment: e } as Sample,
+      sample: { ...e.sample, student_lp_enrollment_assignment: e } as ISample,
     }));
     return {
       sample_1: mappedEnrollment[0],

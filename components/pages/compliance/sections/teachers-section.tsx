@@ -3,7 +3,7 @@ import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getComplianceTeachers } from '@/lib/api/compliance';
 import { getUser } from '@/lib/get-user';
-import type { AcademicYear, Tenant, TrackLearningPeriod } from '@/types';
+import type { IAcademicYear, ITenant, ITrackLearningPeriod } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { TeachersTable } from '../tables';
@@ -14,7 +14,7 @@ export interface SectionWithTableProps {
     [DEFAULT_FILTERS_KEYS.STUDENT_ID]: string;
     name?: string;
   };
-  tenant: Tenant;
+  tenant: ITenant;
 }
 
 export type TeachersSectionProps = SectionWithTableProps & {
@@ -59,8 +59,8 @@ const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps
       />
       <TeachersTable
         assignments={assignment?.data ?? []}
-        currentLearningPeriod={learningPeriod as TrackLearningPeriod}
-        currentAcademicYear={{ id: academicYearIds[0] } as AcademicYear}
+        currentLearningPeriod={learningPeriod as ITrackLearningPeriod}
+        currentAcademicYear={{ id: academicYearIds[0] } as IAcademicYear}
         user={user!}
       />
     </>

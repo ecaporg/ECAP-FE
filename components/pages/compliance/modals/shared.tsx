@@ -1,4 +1,4 @@
-import type { Sample } from '@/types';
+import type { ISample } from '@/types';
 import { getFormattedLP, getUserName } from '@/utils';
 
 type MetadataType =
@@ -8,7 +8,7 @@ type MetadataType =
   | 'view_rejected'
   | 'flag_errors';
 type SampleInfoForModalProps = {
-  sample: Sample;
+  sample: ISample;
   type: MetadataType;
 };
 
@@ -108,7 +108,7 @@ export const ReasonForMissingSample = ({
   sample,
   isDirector,
 }: {
-  sample: Sample;
+  sample: ISample;
   isDirector: boolean;
 }) => {
   return isDirector ? (
