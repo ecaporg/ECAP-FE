@@ -12,7 +12,6 @@ export const getProgressValue = (assignment: StudentLPEnrollment) => {
   // if (assignment.samples.length === 0) {
   //   return 0;
   // }
-
   // return (
   //   (assignment.samples.filter((sample) => sample.status.toLowerCase() === 'completed').length /
   //     assignment.samples.length) *
@@ -29,7 +28,9 @@ export const getCompletionStatus = (
   }
 
   const isCompleted =
-    assignment && typeof assignment === 'object' && 'completed' in assignment ? assignment.completed : assignment;
+    assignment && typeof assignment === 'object' && 'completed' in assignment
+      ? assignment.completed
+      : assignment;
 
   if (isCompleted) {
     return 'Complete';

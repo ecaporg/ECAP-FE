@@ -25,7 +25,6 @@ export async function CompliancePage({
     FILTER_SEPARATOR_FOR_MULTIPLE_VALUES
   );
   const currentLearningPeriodId = awaitedParams[DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID];
- 
 
   return (
     <>

@@ -34,7 +34,9 @@ export function SubjectFilter({
       multiple
       combined
       hasSearch={true}
-      render={(option) => <p className='w-[calc(100%_-_theme(space.6))] text-pretty'>{option.label}</p>}
+      render={(option) => (
+        <p className="w-[calc(100%_-_theme(space.6))] text-pretty">{option.label}</p>
+      )}
     />
   );
 }
