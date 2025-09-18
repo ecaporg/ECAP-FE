@@ -7,6 +7,7 @@ import type { TeachersSectionProps } from '@/components/pages/compliance/section
 import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
 import type { Metadata } from 'next';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 
 export const metadata: Metadata = {
   title: 'Director Compliance',
@@ -41,4 +42,4 @@ export async function CompliancePage({
   );
 }
 
-export default rolePage(CompliancePage, ['DIRECTOR']);
+export default rolePage(CompliancePage, [RolesEnum.DIRECTOR]);

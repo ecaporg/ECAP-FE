@@ -9,6 +9,7 @@ import { getUser } from '@/lib/get-user';
 import { getDashboardStats } from '@/lib/api/statistic';
 import { rolePage } from '@/components/layouts/role-page';
 import { Metadata } from 'next';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 
 export const metadata: Metadata = {
   title: 'Director Dashboard',
@@ -28,4 +29,4 @@ const Dashboard = async () => {
   );
 };
 
-export default rolePage(Dashboard, ['DIRECTOR']);
+export default rolePage(Dashboard, [RolesEnum.DIRECTOR]);

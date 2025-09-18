@@ -6,6 +6,7 @@ import {
 } from '@/components/pages/dashboard/sections';
 import { getDashboardStats } from '@/lib/api/statistic';
 import { getUser } from '@/lib/get-user';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -25,4 +26,4 @@ async function Dashboard() {
   );
 }
 
-export default rolePage(Dashboard, ['TEACHER']);
+export default rolePage(Dashboard, [RolesEnum.TEACHER]);

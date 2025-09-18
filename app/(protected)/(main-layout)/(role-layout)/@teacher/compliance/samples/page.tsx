@@ -2,6 +2,7 @@ import { rolePage } from '@/components/layouts/role-page';
 import { SamplesSection } from '@/components/pages/compliance/sections';
 import type { SamplesSectionProps } from '@/components/pages/compliance/sections/samples-section';
 import { getComplianceTeacherFilter } from '@/lib/api/compliance';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -22,4 +23,4 @@ export async function ComplianceSamplesPage({
   );
 }
 
-export default rolePage(ComplianceSamplesPage, ['TEACHER']);
+export default rolePage(ComplianceSamplesPage, [RolesEnum.TEACHER]);
