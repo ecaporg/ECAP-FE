@@ -10,12 +10,12 @@ import {
   SubjectFilter,
   TrackFilter,
 } from '@/components/filters';
-import type { Tenant } from '@/types';
+import type { ITenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
 
 interface DirectorFiltersProps {
-  tenant: Tenant;
+  tenant: ITenant;
   academicYearIds: string[];
   tracksIds: string[];
   currentLearningPeriodId: string;

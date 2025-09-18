@@ -7,13 +7,12 @@ import {
   TrackFilter,
 } from '@/components/filters';
 import { SearchStudentFilter } from '@/components/filters/search.filter';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { Tenant } from '@/types';
+import type { ITenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
 
 interface TeacherFiltersProps {
-  tenant: Tenant;
+  tenant: ITenant;
   academicYearIds?: string[];
   tracksIds?: string[];
   currentLearningPeriodId: string;

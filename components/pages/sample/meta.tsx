@@ -1,15 +1,16 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { type Sample, SampleStatus } from '@/types/student';
-import { ArrowLeft, Flag, Upload } from 'lucide-react';
+"use client";
+import { Button } from "@/components/ui/button";
+import { type ISample } from "@/types";
+import { ArrowLeft, Flag, Upload } from "lucide-react";
 
-import { hasPermission } from '@/lib/permissions';
-import { useAuth } from '@/providers/auth';
-import { useRouter } from 'next/navigation';
-import { FlagErrorModal, UploadToStudentPathwaysModal } from './modals';
-import { toast } from 'sonner';
+import { hasPermission } from "@/lib/permissions";
+import { useAuth } from "@/providers/auth";
+import { useRouter } from "next/navigation";
+import { FlagErrorModal, UploadToStudentPathwaysModal } from "./modals";
+import { toast } from "sonner";
+import { SampleStatus } from "ecap-lib/dist/constants";
 
-export function SampleActionButtons({ sample }: { sample: Sample }) {
+export function SampleActionButtons({ sample }: { sample: ISample }) {
   const { user } = useAuth();
   const router = useRouter();
   const isDisabled = [
@@ -20,16 +21,21 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
 
   return (
     <>
-      {hasPermission(user, 'samples', 'flag', sample) && user.role === 'TEACHER' && (
-        <FlagErrorModal sample={sample}>
-          <Button className="fixed top-12 right-12 z-[2]" size="lg" disabled={isDisabled}>
-            <Flag className="w-4 h-4 mr-2" />
-            Flag Error in Requirements
-          </Button>
-        </FlagErrorModal>
-      )}
+      {hasPermission(user, "samples", "flag", sample) &&
+        user.role === "TEACHER" && (
+          <FlagErrorModal sample={sample}>
+            <Button
+              className="fixed top-12 right-12 z-[2]"
+              size="lg"
+              disabled={isDisabled}
+            >
+              <Flag className="w-4 h-4 mr-2" />
+              Flag Error in Requirements
+            </Button>
+          </FlagErrorModal>
+        )}
 
-      {hasPermission(user, 'samples', 'upload', sample) && (
+      {hasPermission(user, "samples", "upload", sample) && (
         // <UploadToStudentPathwaysModal sample={sample}>
         <Button
           className="fixed bottom-12 right-12 z-[2]"
@@ -37,7 +43,7 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
           disabled={isDisabled}
           onClick={() => {
             toast.warning(
-              'This feature is currently disabled through a problem with SIS integration'
+              "This feature is currently disabled through a problem with SIS integration"
             );
           }}
         >
@@ -47,7 +53,11 @@ export function SampleActionButtons({ sample }: { sample: Sample }) {
         // </UploadToStudentPathwaysModal>
       )}
 
-      <Button className="fixed bottom-12 left-12 z-[2]" size="lg" onClick={() => router.back()}>
+      <Button
+        className="fixed bottom-12 left-12 z-[2]"
+        size="lg"
+        onClick={() => router.back()}
+      >
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Subject Table
       </Button>

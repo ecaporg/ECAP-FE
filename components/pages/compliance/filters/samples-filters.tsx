@@ -1,14 +1,13 @@
 import { DoneByFilter, LearningPeriodFilter, SampleStatusFilter } from '@/components/filters';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { Sample, Student, Tenant } from '@/types';
+import type { ISample, IStudent, ITenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { BackToCompliance } from '../back-to';
 import { FilterWrapper } from './filter-wrapper';
 
 interface SamplesFiltersProps {
-  tenant: Tenant;
-  samples: Sample[];
-  student?: Student;
+  tenant: ITenant;
+  samples: ISample[];
+  student?: IStudent;
   defaultName?: string;
   academicYearIds?: string[];
 }
@@ -27,7 +26,7 @@ export function SamplesFilters({
           student ??
           ({
             user: { name: defaultName },
-          } as Student)
+          } as IStudent)
         }
       />
       <LearningPeriodFilter

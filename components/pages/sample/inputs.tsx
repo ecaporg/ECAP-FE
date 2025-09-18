@@ -1,53 +1,61 @@
-'use client';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { type Sample, SampleStatus } from '@/types/student';
-import type { z } from 'zod';
+"use client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { type ISample } from "@/types";
+import type { z } from "zod";
 
-import { type sampleHeaderSchema, useSampleHeader } from '@/hooks/samples/use-sample-header';
-import { hasPermission } from '@/lib/permissions';
-import { useAuth } from '@/providers/auth';
-import { cn, getUserName, isAnyAdmin } from '@/utils';
+import {
+  type sampleHeaderSchema,
+  useSampleHeader,
+} from "@/hooks/samples/use-sample-header";
+import { hasPermission } from "@/lib/permissions";
+import { useAuth } from "@/providers/auth";
+import { cn, getUserName, isAnyAdmin } from "@/utils";
+import { SampleStatus } from "ecap-lib/dist/constants";
 
 type SampleMetaProps = {
   isReadOnly?: boolean;
-  sample: Sample;
+  sample: ISample;
 };
 
 export function SampleInputs({ sample }: SampleMetaProps) {
   const { user } = useAuth();
   const inputs = [
     {
-      label: 'Student Name',
+      label: "Student Name",
       defaultValue: getUserName(
-        sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+        sample.student_lp_enrollment_assignment.student_lp_enrollment.student
+          .user
       ),
-      name: 'student_name',
+      name: "student_name",
     },
     {
-      label: 'Course Title',
-      defaultValue: sample.student_lp_enrollment_assignment.assignment.course.name,
-      name: 'course_title',
+      label: "Course Title",
+      defaultValue:
+        sample.student_lp_enrollment_assignment.assignment.course.name,
+      name: "course_title",
     },
     {
-      label: 'Assignment Title',
+      label: "Assignment Title",
       defaultValue: sample.student_lp_enrollment_assignment.assignment.name,
-      name: 'assignment_title',
+      name: "assignment_title",
     },
     {
-      label: 'Grade',
+      label: "Grade",
       defaultValue: sample.grade,
-      name: 'grade',
+      name: "grade",
     },
     {
-      label: 'Date',
-      defaultValue: sample?.date ? new Date(sample.date).toLocaleDateString() : '',
-      name: 'date',
+      label: "Date",
+      defaultValue: sample?.date
+        ? new Date(sample.date).toLocaleDateString()
+        : "",
+      name: "date",
     },
   ].map((input) => ({
     ...input,
     ...{
-      isReadOnly: hasPermission(user, 'samples', 'correct')
+      isReadOnly: hasPermission(user, "samples", "correct")
         ? !(
             isAnyAdmin(user) ||
             (sample.status === SampleStatus.ERRORS_FOUND && !input.defaultValue)
@@ -68,17 +76,27 @@ export function SampleInputs({ sample }: SampleMetaProps) {
     >
       {inputs.map((input) => (
         <>
-          <Label className="pe-4 h-9 content-center md:text-right" key={`${input.name}-label`}>
+          <Label
+            className="pe-4 h-9 content-center md:text-right"
+            key={`${input.name}-label`}
+          >
             {input.label}:
           </Label>
           <Input
             key={`${input.name}-input`}
-            className={cn('h-9 p-2', input.isReadOnly ? 'border-none !ring-transparent' : '')}
+            className={cn(
+              "h-9 p-2",
+              input.isReadOnly ? "border-none !ring-transparent" : ""
+            )}
             readOnly={input.isReadOnly}
             defaultValue={input?.defaultValue}
-            {...form.register(input.name as keyof z.infer<typeof sampleHeaderSchema>)}
+            {...form.register(
+              input.name as keyof z.infer<typeof sampleHeaderSchema>
+            )}
             aria-invalid={
-              !!form.formState.errors[input.name as keyof z.infer<typeof sampleHeaderSchema>]
+              !!form.formState.errors[
+                input.name as keyof z.infer<typeof sampleHeaderSchema>
+              ]
             }
             onBlur={(e) => {
               onBlur(e, input.label);

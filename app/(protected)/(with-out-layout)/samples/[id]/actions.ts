@@ -1,27 +1,27 @@
-'use server';
-import { routes } from '@/constants/routes';
+"use server";
+import { routes } from "@/constants/routes";
 import {
   flagCompletedSample,
   flagMissingWorkSample,
   flagRejectedSample,
   flagSample,
   updateSample,
-} from '@/lib/api/sample';
-import type { ApiResponse } from '@/lib/fetch';
+} from "@/lib/api/sample";
+import type { ApiResponse } from "@/lib/fetch";
 import {
-  type Sample,
-  type SampleFlagCompleted,
-  type SampleFlagError,
-  type SampleFlagMissingWork,
-  type SampleFlagRejected,
-  SampleStatus,
-  type User,
-} from '@/types';
-import { getUserName, isAnyAdmin } from '@/utils';
-import { revalidatePath, revalidateTag } from 'next/cache';
-import { RedirectType, redirect } from 'next/navigation';
+  type ISample,
+  type ISampleFlagCompleted,
+  type ISampleFlagError,
+  type ISampleFlagMissingWork,
+  type ISampleFlagRejected,
+  type IUser,
+} from "@/types";
+import { getUserName, isAnyAdmin } from "@/utils";
+import { SampleStatus } from "ecap-lib/dist/constants";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { RedirectType, redirect } from "next/navigation";
 
-const revalidatePathAndTag = (sample: Sample) => {
+const revalidatePathAndTag = (sample: ISample) => {
   const path = `${routes.compliance.samples}?student_id=${
     sample.student_lp_enrollments[0].student.user.id
   }&name=${getUserName(
@@ -35,8 +35,11 @@ const revalidatePathAndTag = (sample: Sample) => {
 };
 
 const executeAction = async (
-  func: (id: Sample['id'], data: any) => Promise<ApiResponse<Sample, undefined>>,
-  sample: Sample,
+  func: (
+    id: ISample["id"],
+    data: any
+  ) => Promise<ApiResponse<ISample, undefined>>,
+  sample: ISample,
   data: any
 ) => {
   const res = await func(sample.id, data);
@@ -48,13 +51,13 @@ const executeAction = async (
   return res;
 };
 
-export const approveSampleAction = async (sample: Sample, done_by: User) => {
+export const approveSampleAction = async (sample: ISample, done_by: IUser) => {
   await executeAction(updateSample, sample, {
     status: SampleStatus.COMPLETED,
     done_by_id: done_by.id as number,
   });
 
-  revalidateTag('samples');
+  revalidateTag("samples");
   const path = revalidatePathAndTag(sample);
 
   if (!isAnyAdmin(done_by)) {
@@ -62,7 +65,10 @@ export const approveSampleAction = async (sample: Sample, done_by: User) => {
   }
 };
 
-export const flagSampleAction = async (sample: Sample, data: SampleFlagError) => {
+export const flagSampleAction = async (
+  sample: ISample,
+  data: ISampleFlagError
+) => {
   await executeAction(flagSample, sample, data);
 
   const path = revalidatePathAndTag(sample);
@@ -70,13 +76,19 @@ export const flagSampleAction = async (sample: Sample, data: SampleFlagError) =>
   redirect(path, RedirectType.replace);
 };
 
-export const flagMissingWorkSampleAction = async (sample: Sample, data: SampleFlagMissingWork) => {
+export const flagMissingWorkSampleAction = async (
+  sample: ISample,
+  data: ISampleFlagMissingWork
+) => {
   await executeAction(flagMissingWorkSample, sample, data);
 
   revalidatePathAndTag(sample);
 };
 
-export const updateSampleAction = async (sample: Sample, data: Partial<Sample>) => {
+export const updateSampleAction = async (
+  sample: ISample,
+  data: Partial<ISample>
+) => {
   const result = await updateSample(sample.id, {
     ...data,
     status: SampleStatus.PENDING,
@@ -87,7 +99,11 @@ export const updateSampleAction = async (sample: Sample, data: Partial<Sample>) 
   return result;
 };
 
-export const approveAdminSampleAction = async (sample: Sample, done_by: User, path: string) => {
+export const approveAdminSampleAction = async (
+  sample: ISample,
+  done_by: IUser,
+  path: string
+) => {
   await executeAction(updateSample, sample, {
     status: SampleStatus.COMPLETED,
     done_by_id: done_by.id as number,
@@ -99,8 +115,8 @@ export const approveAdminSampleAction = async (sample: Sample, done_by: User, pa
 };
 
 export async function rejectMissingWorkSampleAction(
-  sample: Sample,
-  data: SampleFlagRejected,
+  sample: ISample,
+  data: ISampleFlagRejected,
   path: string
 ) {
   await executeAction(flagRejectedSample, sample, data);
@@ -110,6 +126,9 @@ export async function rejectMissingWorkSampleAction(
   redirect(path, RedirectType.replace);
 }
 
-export const flagCompletedSampleAction = async (sample: Sample, data: SampleFlagCompleted) => {
+export const flagCompletedSampleAction = async (
+  sample: ISample,
+  data: ISampleFlagCompleted
+) => {
   await executeAction(flagCompletedSample, sample, data);
 };

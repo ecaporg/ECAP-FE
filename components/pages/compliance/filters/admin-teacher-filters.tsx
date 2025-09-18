@@ -6,12 +6,13 @@ import {
   SampleStatusFilter,
 } from '@/components/filters';
 import { SAMPLE_STATUS } from '@/constants/sample';
-import { SampleStatus, type Tenant } from '@/types';
+import { type ITenant } from '@/types';
 import { getLearningPeriodFromTenant } from '@/utils';
 import { FilterWrapper } from './filter-wrapper';
+import { SampleStatus } from 'ecap-lib/dist/constants';
 
 interface AdminTeacherFiltersProps {
-  tenant: Tenant;
+  tenant: ITenant;
   academicYearIds: string[];
 }
 
