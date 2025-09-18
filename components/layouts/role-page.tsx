@@ -1,6 +1,6 @@
-import { getUser } from '@/lib/get-user';
-import { Role } from '@/types';
-import type { ComponentType } from 'react';
+import { getUser } from "@/lib/get-user";
+import { RolesEnum } from "ecap-lib/dist/constants";
+import type { ComponentType } from "react";
 
 /**
  * A higher-order component that checks user role and renders the page
@@ -10,13 +10,16 @@ import type { ComponentType } from 'react';
  * @param allowedRoles Array of roles that are allowed to access the page
  * @returns A new component that conditionally renders the page
  */
-export function rolePage<P extends object>(PageComponent: ComponentType<P>, allowedRoles: Role[]) {
+export function rolePage<P extends object>(
+  PageComponent: ComponentType<P>,
+  allowedRoles: RolesEnum[]
+) {
   // Return a new component
   return async function RoleProtectedPage(props: P) {
     const user = await getUser();
 
     // If user doesn't have an allowed role, return null
-    if (!user?.role || !allowedRoles.includes(user.role as Role)) {
+    if (!user?.role || !allowedRoles.includes(user.role)) {
       return null;
     }
 

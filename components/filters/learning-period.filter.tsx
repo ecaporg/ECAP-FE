@@ -1,11 +1,11 @@
 'use client';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { TrackLearningPeriod } from '@/types';
+import type { ITrackLearningPeriod } from '@/types';
 import { formatLearningPeriodDate, getCurrentLearningPeriod, mergeLearningPeriods } from '@/utils';
 import { BaseFilter } from './base';
 
 interface LearningPeriodFilterProps {
-  availablePeriods: TrackLearningPeriod[];
+  availablePeriods: ITrackLearningPeriod[];
   slug?: string;
 }
 

@@ -1,10 +1,14 @@
-import type { StudentLPEnrollment, TeacherCompliance, Tenant } from '@/types';
-import { apiFetch } from '../fetch';
+import type {
+  IStudentLPEnrollment,
+  ITeacherCompliance,
+  ITenant,
+} from "@/types";
+import { apiFetch } from "../fetch";
 
 export const getComplianceTeacherFilter = async () => {
-  const response = await apiFetch<Tenant>(`/students-table/filters`, {
+  const response = await apiFetch<ITenant>(`/students-table/filters`, {
     tags: [`teacher-filter`],
-    cache: 'force-cache',
+    cache: "force-cache",
   });
   if (response.error) {
     throw new Error(response.error);
@@ -14,7 +18,7 @@ export const getComplianceTeacherFilter = async () => {
 
 export const getComplianceStudents = async (queryParams: string) => {
   const response = await apiFetch<
-    StudentLPEnrollment[],
+    IStudentLPEnrollment[],
     {
       completedCount: number;
     }
@@ -22,8 +26,11 @@ export const getComplianceStudents = async (queryParams: string) => {
   return response;
 };
 
-export const getComplianceStudentSamples = async (queryParams: string, tag_id: string) => {
-  const response = await apiFetch<StudentLPEnrollment[]>(
+export const getComplianceStudentSamples = async (
+  queryParams: string,
+  tag_id: string
+) => {
+  const response = await apiFetch<IStudentLPEnrollment[]>(
     `/students-table/subjects?${queryParams}`,
     {
       tags: [`samples-${tag_id}`, `samples`],
@@ -33,9 +40,9 @@ export const getComplianceStudentSamples = async (queryParams: string, tag_id: s
 };
 
 export const getComplianceAdminFilter = async () => {
-  const response = await apiFetch<Tenant>(`/teachers-table/filters`, {
+  const response = await apiFetch<ITenant>(`/teachers-table/filters`, {
     tags: [`admin-filter`],
-    cache: 'force-cache',
+    cache: "force-cache",
   });
   if (response.error) {
     throw new Error(response.error);
@@ -45,7 +52,7 @@ export const getComplianceAdminFilter = async () => {
 
 export const getComplianceTeachers = async (queryParams: string) => {
   const response = await apiFetch<
-    TeacherCompliance[],
+    ITeacherCompliance[],
     {
       completedCount: number;
     }

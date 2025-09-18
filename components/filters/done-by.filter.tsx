@@ -1,10 +1,10 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getUser } from '@/lib/get-user';
-import type { User } from '@/types';
+import type { IUser } from '@/types';
 import { getUserName } from '@/utils';
 import { BaseFilter } from './base';
 interface DoneByFilterProps {
-  availableUsers: User[];
+  availableUsers: IUser[];
   slug?: string;
 }
 

@@ -1,31 +1,31 @@
-import { rejectMissingWorkSampleAction } from '@/app/(protected)/(with-out-layout)/samples/[id]/actions';
-import type { Sample, SampleFlagRejected } from '@/types';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { rejectMissingWorkSampleAction } from "@/app/(protected)/(with-out-layout)/samples/[id]/actions";
+import type { ISample, ISampleFlagRejected } from "@/types";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 type FormData = {
   reason: string;
 };
 
-export function useRejectMissingSample({ sample }: { sample: Sample }) {
+export function useRejectMissingSample({ sample }: { sample: ISample }) {
   const [openSuccessfullyModal, setOpenSuccessfullyModal] = useState(false);
   const path = usePathname();
   const searchParams = useSearchParams();
 
   const form = useForm<FormData>({
     defaultValues: {
-      reason: '',
+      reason: "",
     },
   });
 
   const submitSuccessfully = async () => {
-    const reason = form.getValues('reason');
+    const reason = form.getValues("reason");
     await rejectMissingWorkSampleAction(
       sample,
       {
         reason,
-      } as SampleFlagRejected,
+      } as ISampleFlagRejected,
       `${path}?${new URLSearchParams(searchParams).toString()}`
     );
     await new Promise((resolve) => setTimeout(resolve, 1000));

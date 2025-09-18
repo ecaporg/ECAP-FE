@@ -1,10 +1,10 @@
 import {
   type Permissions,
   type RolesWithPermissions,
-  type Sample,
-  SampleStatus,
-  type User,
-} from '@/types';
+  type ISample,
+  type IUser,
+} from "@/types";
+import { SampleStatus } from "ecap-lib/dist/constants";
 
 export const ROLES = {
   DIRECTOR: {
@@ -20,18 +20,18 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      'sort:academy': false,
+      "sort:academy": false,
     },
   },
   TEACHER: {
     samples: {
-      flag: (user: User, data: Sample) => {
+      flag: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
       approve: true,
       correct: true,
       review: true,
-      upload: (user: User, data: Sample) => {
+      upload: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
     },
@@ -40,18 +40,18 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      'sort:academy': true,
+      "sort:academy": true,
     },
   },
   ADMIN: {
     samples: {
-      flag: (user: User, data: Sample) => {
+      flag: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
       approve: true,
       correct: true,
       review: true,
-      upload: (user: User, data: Sample) => {
+      upload: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
     },
@@ -60,18 +60,18 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      'sort:academy': true,
+      "sort:academy": true,
     },
   },
   SUPER_ADMIN: {
     samples: {
-      flag: (user: User, data: Sample) => {
+      flag: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
       approve: true,
       correct: true,
       review: true,
-      upload: (user: User, data: Sample) => {
+      upload: (user: IUser, data: ISample) => {
         return data.status !== SampleStatus.COMPLETED;
       },
     },
@@ -80,7 +80,7 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      'sort:academy': true,
+      "sort:academy": true,
     },
   },
   STUDENT: {
@@ -96,21 +96,23 @@ export const ROLES = {
       profile: true,
     },
     sorting: {
-      'sort:academy': false,
+      "sort:academy": false,
     },
   },
 } as const satisfies RolesWithPermissions;
 
 export function hasPermission<Resource extends keyof Permissions>(
-  user: User,
+  user: IUser,
   resource: Resource,
-  action: Permissions[Resource]['action'],
-  data?: Permissions[Resource]['dataType']
+  action: Permissions[Resource]["action"],
+  data?: Permissions[Resource]["dataType"]
 ) {
   if (!user || !user.role) return false;
-  const permission = (ROLES as RolesWithPermissions)[user.role]?.[resource]?.[action];
+  const permission = (ROLES as RolesWithPermissions)[user.role]?.[resource]?.[
+    action
+  ];
   if (permission == null) return false;
 
-  if (typeof permission === 'boolean') return permission;
+  if (typeof permission === "boolean") return permission;
   return data != null && permission(user, data);
 }

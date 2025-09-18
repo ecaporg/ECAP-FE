@@ -1,10 +1,10 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { AcademicYear } from '@/types';
+import type { IAcademicYear } from '@/types';
 import { BaseFilter } from './base';
 
 interface AcademicYearFilterProps {
   slug?: string;
-  availableAcademicYears: AcademicYear[];
+  availableAcademicYears: IAcademicYear[];
   defaultValue: string;
 }
 

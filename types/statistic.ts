@@ -1,8 +1,7 @@
-import type { AcademicYear } from './school';
-import type { TrackLearningPeriod } from './track';
+import type { IAcademicYear, ITrackLearningPeriod } from "ecap-lib/dist/domain";
 
 export type StatsItem = {
-  learningPeriods: TrackLearningPeriod[];
+  learningPeriods: ITrackLearningPeriod[];
   compliance: number;
   completed: boolean;
 };
@@ -19,7 +18,7 @@ export type DashboardStats = {
   previousLP: StatsItem;
   currentLP: StatsItem;
   upcomingLP: StatsItem;
-  academicYear: AcademicYear;
+  academicYear: IAcademicYear;
   yearToDateCompliance?: number;
   academies?: AcademyStatItem[];
 };

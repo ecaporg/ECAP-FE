@@ -1,9 +1,9 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { School } from '@/types';
+import type { ISchool } from '@/types';
 import { BaseFilter } from './base';
 
 interface SchoolFilterProps {
-  availableSchools: School[];
+  availableSchools: ISchool[];
   slug?: string;
 }
 

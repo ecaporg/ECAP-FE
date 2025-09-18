@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage, getInitials } from '@/components/ui/avatar';
-import { Camera, Calendar, Mail, MapPin } from 'lucide-react';
-import { User } from '@/types';
-import { getUserName } from '@/utils';
-import { MAP_TO_STRING } from '@/constants/roles';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+import { Camera, Calendar, Mail, MapPin } from "lucide-react";
+import { IUser } from "@/types";
+import { getUserName } from "@/utils";
+import { MAP_TO_STRING } from "@/constants/roles";
 
 type ProfileHeaderProps = {
-  user: User;
+  user: IUser;
 };
 
 export function ProfileHeader({ user }: ProfileHeaderProps) {
@@ -16,11 +16,12 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
       <CardContent className="p-6">
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
           <div className="relative">
-            <Avatar title={user ? getUserName(user) : ''} className="size-24">
+            <Avatar title={user ? getUserName(user) : ""} className="size-24">
               <AvatarFallback>
                 {user
-                  ? (user.canvas_additional_info?.avatar_url ?? getInitials(getUserName(user)))
-                  : '--'}
+                  ? user.canvas_additional_info?.avatar_url ??
+                    getInitials(getUserName(user))
+                  : "--"}
               </AvatarFallback>
             </Avatar>
             <Button
@@ -43,7 +44,7 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
               </div>
               <div className="flex items-center gap-1">
                 <MapPin className="size-4" />
-                {'{ {school name} }'}
+                {"{ {school name} }"}
               </div>
               <div className="flex items-center gap-1">
                 <Calendar className="size-4" />

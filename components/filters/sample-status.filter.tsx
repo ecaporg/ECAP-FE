@@ -1,7 +1,7 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { SAMPLE_STATUS } from '@/constants/sample';
-import { SampleStatus } from '@/types';
 import { BaseFilter, type FilterProps } from './base';
+import { SampleStatus } from 'ecap-lib/dist/constants';
 interface SampleStatusFilterProps {
   slug?: string;
   options?: FilterProps['options'];

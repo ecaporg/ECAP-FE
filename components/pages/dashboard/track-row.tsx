@@ -1,8 +1,8 @@
-import { Card } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { routes } from '@/constants/routes';
-import { StatsItem, Track } from '@/types';
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { routes } from "@/constants/routes";
+import { StatsItem } from "@/types";
 import {
   formatLearningPeriodDate,
   getCardColorForDashboard,
@@ -13,10 +13,10 @@ import {
   getStatusColorForDashboard,
   getStatusForDashboard,
   mergeLearningPeriods,
-} from '@/utils';
-import { ArrowDown } from 'lucide-react';
-import Link from 'next/link';
-import type React from 'react';
+} from "@/utils";
+import { ArrowDown } from "lucide-react";
+import Link from "next/link";
+import type React from "react";
 
 interface TrackRowProps {
   track: React.ReactNode;
@@ -48,7 +48,10 @@ export const TrackRow: React.FC<{
       status={status}
       statusColor={statusColor}
       cardColor={cardColor}
-      href={routes.compliance.root + `?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${lp?.id}`}
+      href={
+        routes.compliance.root +
+        `?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${lp?.id}`
+      }
     />
   );
 };
@@ -58,8 +61,8 @@ export const TrackRowView: React.FC<TrackRowProps> = ({
   dateRange,
   status,
   statusColor,
-  cardColor = '',
-  href = '#',
+  cardColor = "",
+  href = "#",
 }) => {
   return (
     <Link href={href}>
@@ -81,11 +84,13 @@ export const TrackRowSkeleton = () => {
       track={<Skeleton className="w-32" />}
       dateRange={<Skeleton className="w-40" />}
       status={<Skeleton className="w-20" />}
-      statusColor={'statusColor'}
+      statusColor={"statusColor"}
     />
   );
 };
 
 export const TrackArrow = () => {
-  return <ArrowDown className="h-800:size-5 size-4 text-center justify-self-center" />;
+  return (
+    <ArrowDown className="h-800:size-5 size-4 text-center justify-self-center" />
+  );
 };

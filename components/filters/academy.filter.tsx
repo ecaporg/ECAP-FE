@@ -1,11 +1,11 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { Academy } from '@/types';
+import type { IAcademy } from '@/types';
 import { BaseFilter } from './base';
 import { getUser } from '@/lib/get-user';
 import { hasPermission } from '@/lib/permissions';
 
 interface AcademyFilterProps {
-  availableAcademies: Academy[];
+  availableAcademies: IAcademy[];
   slug?: string;
 }
 

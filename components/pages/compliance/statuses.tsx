@@ -1,25 +1,34 @@
-import { CompletionStatus, type CompletionStatusProps } from '@/components/table/completion-status';
-import { Badge, BadgeProps } from '@/components/ui/badge';
-import { Sample, SampleFlagCategory, SampleStatus as SampleStatusEnum } from '@/types';
-import { cn } from '@/utils';
-import { getSampleStatus } from '@/utils/sample';
-import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
+import {
+  CompletionStatus,
+  type CompletionStatusProps,
+} from "@/components/table/completion-status";
+import { Badge, BadgeProps } from "@/components/ui/badge";
+import { ISample } from "@/types";
+import {
+  SampleFlagCategory,
+  SampleStatus as SampleStatusEnum,
+} from "ecap-lib/dist/constants";
+import { cn } from "@/utils";
+import { getSampleStatus } from "@/utils/sample";
+import { CheckCircleIcon, CircleAlertIcon } from "lucide-react";
 
 export interface SampleStatusProps extends BadgeProps {
   status: SampleStatusEnum | null;
 }
 
-const getVariantSampleStatus = (status: SampleStatusEnum): BadgeProps['variant'] => {
+const getVariantSampleStatus = (
+  status: SampleStatusEnum
+): BadgeProps["variant"] => {
   switch (status) {
     case SampleStatusEnum.COMPLETED:
-      return 'success';
+      return "success";
     case SampleStatusEnum.PENDING:
     case SampleStatusEnum.FLAGGED_TO_ADMIN:
-      return 'amber';
+      return "amber";
     case SampleStatusEnum.ERRORS_FOUND:
     case SampleStatusEnum.MISSING_SAMPLE:
     case SampleStatusEnum.REASON_REJECTED:
-      return 'red';
+      return "red";
   }
 };
 
@@ -45,11 +54,15 @@ function SampleStatus({ status, className, ...props }: SampleStatusProps) {
   );
 }
 
-type DirectorSampleStatusProps = Omit<SampleStatusProps, 'status'> & {
-  sample: Sample;
+type DirectorSampleStatusProps = Omit<SampleStatusProps, "status"> & {
+  sample: ISample;
 };
 
-function DirectorSampleStatus({ sample, className, ...props }: DirectorSampleStatusProps) {
+function DirectorSampleStatus({
+  sample,
+  className,
+  ...props
+}: DirectorSampleStatusProps) {
   if (!sample) {
     return null;
   }
@@ -71,42 +84,53 @@ function DirectorSampleStatus({ sample, className, ...props }: DirectorSampleSta
   return <SampleStatus status={status} className={className} {...props} />;
 }
 
-const getIconCompletionStatus = (variant: CompletionStatusProps['variant']) => {
+const getIconCompletionStatus = (variant: CompletionStatusProps["variant"]) => {
   switch (variant) {
-    case 'Complete':
+    case "Complete":
       return <CheckCircleIcon className="size-4" />;
     default:
       return <CircleAlertIcon className="size-4" />;
   }
 };
 
-const getVariantCompletionStatus = (variant: CompletionStatusProps['variant']) => {
+const getVariantCompletionStatus = (
+  variant: CompletionStatusProps["variant"]
+) => {
   switch (variant) {
-    case 'Complete':
-      return 'Complete';
-    case 'Overdue':
-      return 'Overdue';
+    case "Complete":
+      return "Complete";
+    case "Overdue":
+      return "Overdue";
     default:
-      return 'Pending';
+      return "Pending";
   }
 };
 
-const getLabelCompletionStatus = (variant: CompletionStatusProps['variant']) => {
+const getLabelCompletionStatus = (
+  variant: CompletionStatusProps["variant"]
+) => {
   switch (variant) {
-    case 'Complete':
-      return 'Complete';
-    case 'Overdue':
-      return 'Overdue';
+    case "Complete":
+      return "Complete";
+    case "Overdue":
+      return "Overdue";
     default:
-      return 'Incomplete';
+      return "Incomplete";
   }
 };
 
-function CompletionStatusForTable({ variant, className, ...props }: CompletionStatusProps) {
+function CompletionStatusForTable({
+  variant,
+  className,
+  ...props
+}: CompletionStatusProps) {
   return (
     <CompletionStatus
       variant={getVariantCompletionStatus(variant)}
-      className={cn('flex items-center gap-2 w-full px-4 py-2 h-auto text-xs', className)}
+      className={cn(
+        "flex items-center gap-2 w-full px-4 py-2 h-auto text-xs",
+        className
+      )}
       {...props}
     >
       {getIconCompletionStatus(variant)}

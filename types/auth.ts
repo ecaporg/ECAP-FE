@@ -1,9 +1,9 @@
-import type { User } from './user';
+import type { IUser } from "ecap-lib/dist/domain";
 
 export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
-  user: User;
+  user: IUser;
 };
 
 export type SignInDTO = {

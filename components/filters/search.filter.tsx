@@ -1,23 +1,25 @@
-'use client';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { routes } from '@/constants/routes';
-import { apiClientFetch } from '@/lib/client-fetch';
-import type { Student, Teacher } from '@/types';
-import { getUserName } from '@/utils';
-import Link from 'next/link';
-import { SearchFilter } from './search';
-import { getSessionCache, setSessionCache } from '@/utils/session-cache';
-import { usePathname } from 'next/navigation';
+"use client";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { routes } from "@/constants/routes";
+import { apiClientFetch } from "@/lib/client-fetch";
+import type { IStudent, ITeacher } from "@/types";
+import { getUserName } from "@/utils";
+import Link from "next/link";
+import { SearchFilter } from "./search";
+import { getSessionCache, setSessionCache } from "@/utils/session-cache";
+import { usePathname } from "next/navigation";
 
 export const SearchStudentFilter = ({
   currentLearningPeriodId,
-}: { currentLearningPeriodId: string }) => {
+}: {
+  currentLearningPeriodId: string;
+}) => {
   const pathname = usePathname();
   const getStudentOptions = async (value: string) => {
     const key = `/students-table/students/${value}`;
-    let data = getSessionCache<Student[]>(key);
+    let data = getSessionCache<IStudent[]>(key);
     if (!data) {
-      const response = await apiClientFetch<Student[]>(key);
+      const response = await apiClientFetch<IStudent[]>(key);
       data = response.data || [];
       setSessionCache(key, data);
     }
@@ -26,9 +28,11 @@ export const SearchStudentFilter = ({
       data.map((student) => ({
         label: (
           <Link
-            href={`${pathname}${routes.samples.root}?${DEFAULT_FILTERS_KEYS.STUDENT_ID}=${student.id}&${
-              DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID
-            }=${currentLearningPeriodId || ''}&name=${getUserName(student.user)}`}
+            href={`${pathname}${routes.samples.root}?${
+              DEFAULT_FILTERS_KEYS.STUDENT_ID
+            }=${student.id}&${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
+              currentLearningPeriodId || ""
+            }&name=${getUserName(student.user)}`}
           >
             {getUserName(student.user)}
           </Link>
@@ -38,17 +42,24 @@ export const SearchStudentFilter = ({
     );
   };
 
-  return <SearchFilter label="Search for a student by name/ID" getOptions={getStudentOptions} />;
+  return (
+    <SearchFilter
+      label="Search for a student by name/ID"
+      getOptions={getStudentOptions}
+    />
+  );
 };
 
 export const SearchTeacherFilter = ({
   currentLearningPeriodId,
-}: { currentLearningPeriodId: string }) => {
+}: {
+  currentLearningPeriodId: string;
+}) => {
   const getTeacherOptions = async (value: string) => {
     const key = `/teachers-table/teachers/${value}`;
-    let data = getSessionCache<Teacher[]>(key);
+    let data = getSessionCache<ITeacher[]>(key);
     if (!data) {
-      const response = await apiClientFetch<Teacher[]>(key);
+      const response = await apiClientFetch<ITeacher[]>(key);
       data = response.data || [];
       setSessionCache(key, data);
     }
@@ -57,7 +68,14 @@ export const SearchTeacherFilter = ({
       data.map((teacher) => ({
         label: (
           <Link
-            href={`${routes.compliance.teacher.replace(':id', teacher.id.toString())}?${currentLearningPeriodId ? `${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriodId}` : ''}`}
+            href={`${routes.compliance.teacher.replace(
+              ":id",
+              teacher.id.toString()
+            )}?${
+              currentLearningPeriodId
+                ? `${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${currentLearningPeriodId}`
+                : ""
+            }`}
           >
             {getUserName(teacher.user)}
           </Link>
@@ -67,5 +85,10 @@ export const SearchTeacherFilter = ({
     );
   };
 
-  return <SearchFilter label="Search for a teacher by name/ID" getOptions={getTeacherOptions} />;
+  return (
+    <SearchFilter
+      label="Search for a teacher by name/ID"
+      getOptions={getTeacherOptions}
+    />
+  );
 };
