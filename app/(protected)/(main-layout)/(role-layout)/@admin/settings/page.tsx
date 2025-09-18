@@ -2,7 +2,7 @@ import { rolePage } from '@/components/layouts/role-page';
 
 import { SettingsTabs } from '@/components/pages/setting/tabs';
 import { RolesEnum } from 'ecap-lib/dist/constants';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Settings',

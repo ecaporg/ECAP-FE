@@ -1,6 +1,6 @@
-import { ComplianceSamplesPage as Samples } from '@/roles/@teacher/compliance/samples/page';
 import { rolePage } from '@/components/layouts/role-page';
 import { LoadingTableSectionWithFilters } from '@/components/table/loading';
+import { ComplianceSamplesPage as Samples } from '@/roles/@teacher/compliance/samples/page';
 import { Suspense } from 'react';
 
 export async function TabStudentsSamples({

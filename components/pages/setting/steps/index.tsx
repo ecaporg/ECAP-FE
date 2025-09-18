@@ -1,7 +1,7 @@
-import { Step1, Step2, Step3, Step4, Step5, Step6 } from './steps';
-import { schoolServerApi } from '@/lib/api/school';
 import { academyServerApi } from '@/lib/api/academy';
-import { trackServerApi, calendarServerApi } from '@/lib/api/track';
+import { schoolServerApi } from '@/lib/api/school';
+import { calendarServerApi, trackServerApi } from '@/lib/api/track';
+import { Step1, Step2, Step3, Step4, Step5, Step6 } from './steps';
 
 const Step1ServerWrapper = async () => {
   const schools = await schoolServerApi.findAll();

@@ -8,13 +8,13 @@ import {
   updateSample,
 } from "@/lib/api/sample";
 import type { ApiResponse } from "@/lib/fetch";
-import {
-  type ISample,
-  type ISampleFlagCompleted,
-  type ISampleFlagError,
-  type ISampleFlagMissingWork,
-  type ISampleFlagRejected,
-  type IUser,
+import type {
+  ISample,
+  ISampleFlagCompleted,
+  ISampleFlagError,
+  ISampleFlagMissingWork,
+  ISampleFlagRejected,
+  IUser,
 } from "@/types";
 import { getUserName, isAnyAdmin } from "@/utils";
 import { SampleStatus } from "ecap-lib/dist/constants";
@@ -22,16 +22,17 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { RedirectType, redirect } from "next/navigation";
 
 const revalidatePathAndTag = (sample: ISample) => {
-  const path = `${routes.compliance.samples}?student_id=${
-    sample.student_lp_enrollments[0].student.user.id
-  }&name=${getUserName(
-    sample.student_lp_enrollments[0].student.user
-  )}&learning_period_id=${sample.student_lp_enrollments[0].learning_period.id}`;
+  // const path = `${routes.compliance.samples}?student_id=${
+  //   sample.student_lp_enrollments[0].student.user.id
+  // }&name=${getUserName(
+  //   sample.student_lp_enrollments[0].student.user
+  // )}&learning_period_id=${sample.student_lp_enrollments[0].learning_period.id}`;
 
-  revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
-  revalidatePath(path);
+  // revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
+  // revalidatePath(path);
 
-  return path;
+  // return path;
+  return "";
 };
 
 const executeAction = async (

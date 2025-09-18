@@ -1,7 +1,7 @@
 import type { ITenant } from '@/types';
+import { BaseApi } from '../base-api';
 import type { ApiResponse } from '../fetch';
 import { apiFetch } from '../fetch';
-import { BaseApi } from '../base-api';
 
 class TenantKeysServerApi extends BaseApi<ITenant['key'], undefined> {
   constructor() {

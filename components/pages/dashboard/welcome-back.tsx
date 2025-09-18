@@ -1,4 +1,4 @@
-import { type IAcademicYear, type IUser } from '@/types';
+import type { IAcademicYear, IUser } from '@/types';
 import { getUserName } from '@/utils';
 
 interface WelcomeBackProps {

@@ -1,8 +1,8 @@
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CheckCircleIcon, Loader2 } from 'lucide-react';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
+import { CheckCircleIcon, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
 export function ConfirmationModal({

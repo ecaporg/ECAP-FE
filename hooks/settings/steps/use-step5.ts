@@ -2,9 +2,9 @@
 import { BaseApi } from '@/lib/base-api';
 import { apiClientFetch } from '@/lib/client-fetch';
 import type { ITrack as Track, ITrackLearningPeriod as TrackLearningPeriod } from '@/types';
-import { validationMessages, formatTrackDateWithShortMonth } from '@/utils';
+import { formatTrackDateWithShortMonth, validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useOptimistic, useState, useTransition, Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction, useOptimistic, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';

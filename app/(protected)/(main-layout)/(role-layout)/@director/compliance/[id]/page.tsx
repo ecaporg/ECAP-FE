@@ -8,8 +8,8 @@ import { ComplianceTabs } from '@/components/pages/compliance/tabs';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getTeacher } from '@/lib/api/teacher';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
-import { redirect } from 'next/navigation';
 import { RolesEnum } from 'ecap-lib/dist/constants';
+import { redirect } from 'next/navigation';
 
 async function addSearchParamsTeacherId({
   params,

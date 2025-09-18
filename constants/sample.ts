@@ -1,4 +1,4 @@
-import { SampleStatus } from 'ecap-lib/dist/constants';
+import type { SampleStatus } from 'ecap-lib/dist/constants';
 
 export const SAMPLE_STATUS: Record<SampleStatus, string> = {
   CREATED: 'Created',

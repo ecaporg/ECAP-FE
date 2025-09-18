@@ -1,8 +1,8 @@
 import type { CompletionStatusProps } from '@/components/table/completion-status';
 import { SAMPLE_STATUS } from '@/constants/sample';
 import type { IStudentLPEnrollment, ITrackLearningPeriod } from '@/types';
+import { SampleFlagCategory, type SampleStatus } from 'ecap-lib/dist/constants';
 import { getDueDate } from './learning-period';
-import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
 export const getSampleStatus = (status: SampleStatus) => {
   return SAMPLE_STATUS[status] ?? status;

@@ -8,9 +8,9 @@ import { ComplianceTabs } from '@/components/pages/compliance/tabs';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getTeacher } from '@/lib/api/teacher';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { RolesEnum } from 'ecap-lib/dist/constants';
 
 async function addSearchParamsTeacherId({
   params,

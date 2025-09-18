@@ -1,7 +1,7 @@
 'use client';
-import { useSortableParam, SortDirectionEnum } from '@/hooks/table/useSortableParam';
-import { NestedKeyOf } from '@/utils';
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { SortDirectionEnum, useSortableParam } from '@/hooks/table/useSortableParam';
+import type { NestedKeyOf } from '@/utils';
+import { ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react';
 
 export function SortableIcon<T extends object>({
   name,

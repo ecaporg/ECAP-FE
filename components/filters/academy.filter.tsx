@@ -1,8 +1,8 @@
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { IAcademy } from '@/types';
-import { BaseFilter } from './base';
 import { getUser } from '@/lib/get-user';
 import { hasPermission } from '@/lib/permissions';
+import type { IAcademy } from '@/types';
+import { BaseFilter } from './base';
 
 interface AcademyFilterProps {
   availableAcademies: IAcademy[];

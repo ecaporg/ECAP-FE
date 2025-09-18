@@ -2,14 +2,14 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
-import { StatsItem } from '@/types';
+import type { StatsItem } from '@/types';
 import {
   formatLearningPeriodDate,
   getCardColorForDashboard,
   getDueDate,
   getFormattedLP,
-  getLearningPeriodDateRange,
   getLPNameForDashboard,
+  getLearningPeriodDateRange,
   getStatusColorForDashboard,
   getStatusForDashboard,
   mergeLearningPeriods,

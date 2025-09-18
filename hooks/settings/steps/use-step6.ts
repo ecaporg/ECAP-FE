@@ -1,11 +1,11 @@
 'use client';
 import { BaseApi } from '@/lib/base-api';
 import { apiClientFetch } from '@/lib/client-fetch';
-import { ISemester as Semester } from '@/types';
-import { Track } from '@/types/track';
+import type { ISemester as Semester } from '@/types';
+import type { Track } from '@/types/track';
 import { validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useOptimistic, useState, useTransition, Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction, useOptimistic, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';

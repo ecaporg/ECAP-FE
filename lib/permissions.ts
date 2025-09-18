@@ -1,4 +1,4 @@
-import { type Permissions, type RolesWithPermissions, type ISample, type IUser } from '@/types';
+import type { ISample, IUser, Permissions, RolesWithPermissions } from '@/types';
 import { SampleStatus } from 'ecap-lib/dist/constants';
 
 export const ROLES = {

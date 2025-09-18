@@ -1,8 +1,8 @@
 'use client';
 
-import { Tabs, TabsTrigger, TabsList } from '@/components/ui/tabs';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const TABS = {
   setup: 'setup',

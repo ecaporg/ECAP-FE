@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { defaultUser } from '@/constants/user';
-import { type IStudent, type ITeacher } from '@/types';
+import type { IStudent, ITeacher } from '@/types';
 import { getUserName } from '@/utils';
 import { ArrowLeftIcon, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';

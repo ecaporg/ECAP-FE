@@ -1,7 +1,7 @@
-import { CompliancePage as Students } from '@/roles/@teacher/compliance/page';
-import { LoadingTableSectionWithFilters } from '@/components/table/loading';
-import { Suspense } from 'react';
 import { rolePage } from '@/components/layouts/role-page';
+import { LoadingTableSectionWithFilters } from '@/components/table/loading';
+import { CompliancePage as Students } from '@/roles/@teacher/compliance/page';
+import { Suspense } from 'react';
 export async function TabStudents({
   searchParams,
 }: {

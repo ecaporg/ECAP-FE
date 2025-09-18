@@ -1,11 +1,11 @@
 import { LoadingTableSection } from '@/components/table/loading';
 import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { getComplianceAdminSamples } from '@/lib/api/sample';
 import type { ITenant } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
 import { DirectorSamplesTable } from '../tables';
-import { getComplianceAdminSamples } from '@/lib/api/sample';
 
 export interface AdminSamplesSectionProps {
   param: {

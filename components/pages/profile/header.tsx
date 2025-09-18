@@ -1,10 +1,10 @@
+import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
-import { Camera, Calendar, Mail, MapPin } from 'lucide-react';
-import { IUser } from '@/types';
-import { getUserName } from '@/utils';
 import { MAP_TO_STRING } from '@/constants/roles';
+import type { IUser } from '@/types';
+import { getUserName } from '@/utils';
+import { Calendar, Camera, Mail, MapPin } from 'lucide-react';
 
 type ProfileHeaderProps = {
   user: IUser;

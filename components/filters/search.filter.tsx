@@ -4,10 +4,10 @@ import { routes } from '@/constants/routes';
 import { apiClientFetch } from '@/lib/client-fetch';
 import type { IStudent, ITeacher } from '@/types';
 import { getUserName } from '@/utils';
-import Link from 'next/link';
-import { SearchFilter } from './search';
 import { getSessionCache, setSessionCache } from '@/utils/session-cache';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SearchFilter } from './search';
 
 export const SearchStudentFilter = ({
   currentLearningPeriodId,

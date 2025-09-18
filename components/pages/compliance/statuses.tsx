@@ -1,9 +1,9 @@
 import { CompletionStatus, type CompletionStatusProps } from '@/components/table/completion-status';
-import { Badge, BadgeProps } from '@/components/ui/badge';
-import { ISample } from '@/types';
-import { SampleFlagCategory, SampleStatus as SampleStatusEnum } from 'ecap-lib/dist/constants';
+import { Badge, type BadgeProps } from '@/components/ui/badge';
+import type { ISample } from '@/types';
 import { cn } from '@/utils';
 import { getSampleStatus } from '@/utils/sample';
+import { SampleFlagCategory, SampleStatus as SampleStatusEnum } from 'ecap-lib/dist/constants';
 import { CheckCircleIcon, CircleAlertIcon } from 'lucide-react';
 
 export interface SampleStatusProps extends BadgeProps {

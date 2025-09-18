@@ -1,7 +1,11 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { routes } from '@/constants/routes';
-import type { IUser, ISample } from '@/types';
+import { hasPermission } from '@/lib/permissions';
+import { useAuth } from '@/providers/auth';
+import type { ISample, IUser } from '@/types';
+import { isAdminOrDirector, isAnyAdmin } from '@/utils';
+import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 import {
@@ -10,10 +14,6 @@ import {
   FlagMissingWorkSampleModal,
   FlagRejectSampleInfoModal,
 } from './modals';
-import { useAuth } from '@/providers/auth';
-import { hasPermission } from '@/lib/permissions';
-import { isAdminOrDirector, isAnyAdmin } from '@/utils';
-import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
 interface ActionButtonProps {
   sample?: ISample;

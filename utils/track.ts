@@ -34,7 +34,7 @@ export const getTrackCalendarDays = (calendar: ITrackCalendar) => {
 
 const getTrackCalendarDaysWithWeekends = (calendar: ITrackCalendar) => {
   const acc: Record<string, ITrackCalendarDay> = {};
-  let currentDate = new Date(calendar.track.start_date);
+  const currentDate = new Date(calendar.track.start_date);
   const endDate = new Date(calendar.track.end_date);
   currentDate.setUTCHours(0, 0, 0, 0);
   const loopEndDate = new Date(endDate);

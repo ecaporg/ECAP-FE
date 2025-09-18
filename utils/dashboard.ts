@@ -1,4 +1,4 @@
-import type { StatsItem, ITrackLearningPeriod } from '@/types';
+import type { ITrackLearningPeriod, StatsItem } from '@/types';
 import { getDueDate, getShortLearningPeriodName } from './learning-period';
 export type LPStatusForDashboard = 'Overdue' | 'Complete' | 'Upcoming' | 'In Progress';
 

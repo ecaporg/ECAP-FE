@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { FormError } from '@/components/ui/form-error';
 import { Input } from '@/components/ui/input';
 import { useSignIn } from '@/hooks/auth/useSignInForm';
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export default function SignIn() {
   const { register, handleSubmit, errors, isLoading, formError, onSubmit } = useSignIn();

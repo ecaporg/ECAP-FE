@@ -1,5 +1,5 @@
 import { getUser } from '@/lib/get-user';
-import { RolesEnum } from 'ecap-lib/dist/constants';
+import type { RolesEnum } from 'ecap-lib/dist/constants';
 import type { ComponentType } from 'react';
 
 /**

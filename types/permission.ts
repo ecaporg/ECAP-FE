@@ -1,5 +1,5 @@
-import { RolesEnum } from 'ecap-lib/dist/constants';
-import type { IUser, ISample } from 'ecap-lib/dist/domain';
+import type { RolesEnum } from 'ecap-lib/dist/constants';
+import type { ISample, IUser } from 'ecap-lib/dist/domain';
 
 export type PermissionCheck<Key extends keyof Permissions> =
   | boolean

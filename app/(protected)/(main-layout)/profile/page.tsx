@@ -1,7 +1,7 @@
 import { ProfileContent } from '@/components/pages/profile/content';
 import { ProfileHeader } from '@/components/pages/profile/header';
 import { getUser } from '@/lib/get-user';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Profile',

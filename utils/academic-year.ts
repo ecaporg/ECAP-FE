@@ -1,5 +1,5 @@
 import { FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
-import type { ITenant, IAcademicYear } from '@/types';
+import type { IAcademicYear, ITenant } from '@/types';
 
 const getDefaultAcademicYearIds = (tenant: ITenant, academicYearIds?: string) => {
   if (academicYearIds) {

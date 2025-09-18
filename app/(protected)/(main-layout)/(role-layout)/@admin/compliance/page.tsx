@@ -6,8 +6,8 @@ import { TeacherSection } from '@/components/pages/compliance/sections';
 import type { TeachersSectionProps } from '@/components/pages/compliance/sections/teachers-section';
 import { DEFAULT_FILTERS_KEYS, FILTER_SEPARATOR_FOR_MULTIPLE_VALUES } from '@/constants/filter';
 import { getDefaultAcademicYearIds } from '@/utils/academic-year';
-import type { Metadata } from 'next';
 import { RolesEnum } from 'ecap-lib/dist/constants';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Admin Compliance',

@@ -2,9 +2,9 @@
 import { BaseApi } from '@/lib/base-api';
 import { apiClientFetch } from '@/lib/client-fetch';
 import type { ITrackCalendar as TrackCalendar, ICalendarDay as TrackCalendarDay } from '@/types';
-import { getTrackCalendarDays, getDaysInRange } from '@/utils';
+import { getDaysInRange, getTrackCalendarDays } from '@/utils';
 import { useState } from 'react';
-import { DateRange, OnSelectHandler } from 'react-day-picker';
+import type { DateRange, OnSelectHandler } from 'react-day-picker';
 import { toast } from 'sonner';
 
 export const trackCalendarClientApi = new BaseApi<TrackCalendar, undefined>(

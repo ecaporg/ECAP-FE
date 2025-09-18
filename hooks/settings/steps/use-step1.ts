@@ -4,7 +4,7 @@ import { apiClientFetch } from '@/lib/client-fetch';
 import type { ISchool as School } from '@/types';
 import { validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useOptimistic, useState, useTransition, Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction, useOptimistic, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';

@@ -1,15 +1,15 @@
-import React from 'react';
+import { rolePage } from '@/components/layouts/role-page';
 import { ProgressCard } from '@/components/pages/dashboard/progress-card';
 import {
   CurrentLPSection,
   LPCardsSection,
   PageWrapper,
 } from '@/components/pages/dashboard/sections';
-import { getUser } from '@/lib/get-user';
 import { getDashboardStats } from '@/lib/api/statistic';
-import { rolePage } from '@/components/layouts/role-page';
-import { Metadata } from 'next';
+import { getUser } from '@/lib/get-user';
 import { RolesEnum } from 'ecap-lib/dist/constants';
+import type { Metadata } from 'next';
+import React from 'react';
 
 export const metadata: Metadata = {
   title: 'Director Dashboard',

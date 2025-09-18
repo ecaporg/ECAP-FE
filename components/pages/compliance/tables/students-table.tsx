@@ -9,6 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { routes } from '@/constants/routes';
 import { hasPermission } from '@/lib/permissions';
 import { useAuth } from '@/providers/auth';
 import type { IStudentLPEnrollment, ITrackLearningPeriod, IUser } from '@/types';
@@ -16,7 +17,6 @@ import { getCompletionStatus, getUserName } from '@/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { CompletionStatusForTable } from '../statuses';
-import { routes } from '@/constants/routes';
 
 interface StudentsTableProps {
   assignments?: IStudentLPEnrollment[];
