@@ -1,50 +1,63 @@
-# ECAP Frontend
+ECAP Frontend
 
-Next.js frontend application for the ECAP compliance system with Puppeteer browser automation.
+This project is part of an educational process automation system integrated with Canvas LMS and SIS (Student Information System). It enables management of courses, assignments, students, learning periods, and synchronizes data between Canvas and SIS for administrators, teachers, and students.
 
-## Development Setup
+## Key Features
 
-1. Install dependencies:
-```bash
-npm install
-```
+- Integration with Canvas LMS and SIS
 
-2. Create `.env.local` file in the root with:
-```bash
-NEXT_PUBLIC_APP_DOMAIN=http://localhost:3000/
-NEXT_PUBLIC_VERCEL_ENVIRONMENT=development
-```
 
-3. Start the development server:
-```bash
-npm run dev
-```
+- Management of courses, assignments, students, and learning periods
+- Modern UI built with Next.js, TailwindCSS, Radix UI
+- Form validation using React Hook Form and Zod
+- Automatic code formatting and linting with Biome
 
-## Browser Automation Setup
+---
 
-This application uses Puppeteer following the best practices for Vercel deployment:
+## Getting Started
 
-- **Dependencies**: 
-  - `puppeteer` - For local development
-  - `puppeteer-core` - Lightweight version for production
-  - `@sparticuz/chromium-min` - Vercel-compatible Chromium
+1. **Install Node.js (recommended v18+) and npm.**
 
-- **Environment Detection**:
-  - **Local**: Uses system Chrome via `puppeteer`
-  - **Vercel**: Uses remote Chromium via `puppeteer-core` + `@sparticuz/chromium-min`
+2. **Clone the repository:**
+	```powershell
+	git clone https://github.com/ecaporg/ECAP-FE.git
+	cd ECAP-FE/nextjs
+	```
 
-## Testing Browser
+3. **Install dependencies:**
+	```powershell
+	npm install
+	```
 
-Test browser functionality:
-```
-GET /api/browser/test?url=https://example.com
-```
+4. **Start the development server:**
+	```powershell
+	npm run dev
+	```
+	The app will be available at http://localhost:3000
 
-## Deployment on Vercel
+5. **Lint and format code:**
+	- Check code style:
+	  ```powershell
+	  npm run lint
+	  ```
+	- Format code:
+	  ```powershell
+	  npm run format
+	  ```
 
-1. Set environment variables in Vercel dashboard:
-   - `NEXT_PUBLIC_VERCEL_ENVIRONMENT=production`
-   - Other required environment variables
+6. **Build for production:**
+	```powershell
+	npm run build
+	npm run start
+	```
 
-2. The application automatically detects Vercel environment and uses appropriate browser setup
+---
 
+## Additional Notes
+
+- Canvas/SIS integration requires appropriate API keys and backend configuration.
+- Type and API documentation can be found in the `types/` and `lib/` folders.
+
+---
+
+For more detailed instructions or integration examples, feel free to ask!
