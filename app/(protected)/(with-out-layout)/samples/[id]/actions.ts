@@ -22,17 +22,22 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { RedirectType, redirect } from "next/navigation";
 
 const revalidatePathAndTag = (sample: ISample) => {
-  // const path = `${routes.compliance.samples}?student_id=${
-  //   sample.student_lp_enrollments[0].student.user.id
-  // }&name=${getUserName(
-  //   sample.student_lp_enrollments[0].student.user
-  // )}&learning_period_id=${sample.student_lp_enrollments[0].learning_period.id}`;
+  const path = `${routes.compliance.samples}?student_id=${
+    sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+      .id
+  }&name=${getUserName(
+    sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+  )}&learning_period_id=${
+    sample.student_lp_enrollment_assignment.student_lp_enrollment
+      .learning_period_id
+  }`;
 
-  // revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
-  // revalidatePath(path);
+  revalidateTag(
+    `samples-${sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user.id}`
+  );
+  revalidatePath(path);
 
-  // return path;
-  return "";
+  return path;
 };
 
 const executeAction = async (
@@ -95,7 +100,9 @@ export const updateSampleAction = async (
     status: SampleStatus.PENDING,
   });
 
-  revalidateTag(`samples-${sample.student_lp_enrollments[0].student.user.id}`);
+  revalidateTag(
+    `samples-${sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user.id}`
+  );
 
   return result;
 };
