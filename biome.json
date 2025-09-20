@@ -21,7 +21,8 @@
         "noUselessElse": "off"
       },
       "complexity": {
-        "noForEach": "off"
+        "noForEach": "off",
+        "noUselessFragments": "off"
       },
       "a11y": {
         "noRedundantRoles": "off"

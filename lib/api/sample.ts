@@ -10,7 +10,7 @@ import { revalidateTag } from 'next/cache';
 import { apiFetch } from '../fetch';
 import { tenantKeysServerApi } from './tenant-keys';
 
-export const getSampleById = async (id: ISample['id']) => {
+export const getSampleById = async (id: ISample['id'] | string) => {
   return await apiFetch<ISample>(`/samples/${id}`, {
     tags: [`sample-${id}`],
   });

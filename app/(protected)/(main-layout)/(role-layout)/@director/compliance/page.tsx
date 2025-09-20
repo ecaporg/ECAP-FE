@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Director Compliance',
 };
 
-export async function CompliancePage({
+async function CompliancePage({
   searchParams,
 }: {
   searchParams: Promise<TeachersSectionProps['param']>;

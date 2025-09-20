@@ -20,7 +20,8 @@ const getMetadata = ({ sample, type }: SampleInfoForModalProps) => {
 
   const studentId = {
     label: 'Student ID',
-    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student.id,
+    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student?.user
+      ?.canvas_additional_info?.canvas_id as string,
   };
 
   const studentGrade = {

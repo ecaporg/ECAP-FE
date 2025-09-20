@@ -42,6 +42,7 @@ const DirectorSamples = async ({ param, tenant, academicYearIds }: AdminSamplesS
   const samples = await getComplianceAdminSamples(prepareParam(param));
   const totalPages = samples?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
+    //@ts-expect-error
     (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 

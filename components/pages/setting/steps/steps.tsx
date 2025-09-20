@@ -19,7 +19,7 @@ import {
   useStep6Semesters,
   useStep6Track,
 } from '@/hooks/settings/steps/use-step6';
-import type { Academy, School, Track, TrackCalendar } from '@/types';
+import type { IAcademy, ISchool, ITrack, ITrackCalendar } from '@/types';
 import { cn, formatTrackDateWithShortMonth } from '@/utils';
 import { ArrowLeftIcon } from 'lucide-react';
 import { type Dispatch, type SetStateAction, useState } from 'react';
@@ -76,9 +76,9 @@ const DefaultWrapper = ({
 export const Step1 = ({
   schools: schoolsFromProps = [],
 }: {
-  schools: School[];
+  schools: ISchool[];
 }) => {
-  const [_schools, setSchools] = useState<School[]>(schoolsFromProps);
+  const [_schools, setSchools] = useState<ISchool[]>(schoolsFromProps);
   const { onAddClick, onEditClick, onDeleteClick, form, editingSchoolId, schools } = useStep1(
     _schools,
     setSchools
@@ -134,9 +134,9 @@ export const Step1 = ({
 export const Step2 = ({
   academies: academiesFromProps = [],
 }: {
-  academies: Academy[];
+  academies: IAcademy[];
 }) => {
-  const [_academies, setAcademies] = useState<Academy[]>(academiesFromProps);
+  const [_academies, setAcademies] = useState<IAcademy[]>(academiesFromProps);
   const { onAddClick, onEditClick, onDeleteClick, form, editingAcademyId, academies } = useStep2(
     _academies,
     setAcademies
@@ -192,9 +192,9 @@ export const Step2 = ({
 export const Step3 = ({
   tracks: tracksFromProps = [],
 }: {
-  tracks: Track[];
+  tracks: ITrack[];
 }) => {
-  const [_tracks, setTracks] = useState<Track[]>(tracksFromProps);
+  const [_tracks, setTracks] = useState<ITrack[]>(tracksFromProps);
   const { onAddClick, onEditClick, onDeleteClick, form, editingTrackId, tracks } = useStep3(
     _tracks,
     setTracks
@@ -281,7 +281,7 @@ export const Step3 = ({
 export const Step4 = ({
   calendars: defaultCalendars = [],
 }: {
-  calendars: TrackCalendar[];
+  calendars: ITrackCalendar[];
 }) => {
   const {
     selectedCalendar,
@@ -362,7 +362,7 @@ export const Step4 = ({
   );
 };
 
-export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
+export const Step5 = ({ tracks: defaultTracks = [] }: { tracks: ITrack[] }) => {
   const {
     tracks,
     handleSelectTrack,
@@ -423,8 +423,8 @@ const Step5LearningPeriod = ({
   track,
   setTrack,
 }: {
-  track: Track;
-  setTrack: Dispatch<SetStateAction<Track>>;
+  track: ITrack;
+  setTrack: Dispatch<SetStateAction<ITrack>>;
 }) => {
   const { onAddClick, onEditClick, onDeleteClick, form, learningPeriods, editingLearningPeriodId } =
     useStep5LearningPeriod(track, setTrack);
@@ -517,7 +517,7 @@ const Step5LearningPeriod = ({
   );
 };
 
-export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: Track[] }) => {
+export const Step6 = ({ tracks: defaultTracks = [] }: { tracks: ITrack[] }) => {
   const {
     tracks,
     handleSelectTrack,
@@ -575,8 +575,8 @@ const Step6Semesters = ({
   track,
   setTrack,
 }: {
-  track: Track;
-  setTrack: Dispatch<SetStateAction<Track>>;
+  track: ITrack;
+  setTrack: Dispatch<SetStateAction<ITrack>>;
 }) => {
   const { onAddClick, onEditClick, onDeleteClick, form, semesters, editingSemesterId } =
     useStep6Semesters(track, setTrack);

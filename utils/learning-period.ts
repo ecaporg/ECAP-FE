@@ -80,7 +80,7 @@ export const mergeLearningPeriods = (learningPeriods: ITrackLearningPeriod[]) =>
       );
       if (existingPeriod) {
         existingPeriod.name = `${existingPeriod.name}, ${period.name}`;
-        existingPeriod.id = `${existingPeriod.id},${period.id}`;
+        existingPeriod.id = `${existingPeriod.id},${period.id}` as any;
       } else {
         acc.push(Object.assign({}, period));
       }

@@ -39,6 +39,7 @@ const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps
   const assignment = await getComplianceTeachers(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
+    //@ts-expect-error
     (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 
@@ -60,7 +61,7 @@ const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps
       <TeachersTable
         assignments={assignment?.data ?? []}
         currentLearningPeriod={learningPeriod as ITrackLearningPeriod}
-        currentAcademicYear={{ id: academicYearIds[0] } as IAcademicYear}
+        currentAcademicYear={{ id: academicYearIds[0] } as unknown as IAcademicYear}
         user={user!}
       />
     </>

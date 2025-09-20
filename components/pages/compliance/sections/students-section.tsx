@@ -32,6 +32,7 @@ const Students = async ({ param, tenant }: SectionWithTableProps) => {
   const assignment = await getComplianceStudents(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
+    //@ts-expect-error
     (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 

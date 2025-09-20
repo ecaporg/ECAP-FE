@@ -1,5 +1,5 @@
 'use client';
-import type { TrackLearningPeriod } from '@/types';
+import type { ITrackLearningPeriod } from '@/types';
 import { cn, formatDueDateWithYear, getLearningPeriodDateRange } from '@/utils';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -9,7 +9,7 @@ import { buttonVariants } from '../ui/button';
 import { CompletionStatus, type CompletionStatusProps } from './completion-status';
 interface PaginationSectionProps {
   totalPages: number;
-  learningPeriod?: TrackLearningPeriod;
+  learningPeriod?: ITrackLearningPeriod;
   dueDate: Date | string;
   completedString: string;
   status: CompletionStatusProps['variant'];

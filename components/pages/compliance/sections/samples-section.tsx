@@ -54,6 +54,7 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
   );
 
   const learningPeriod = mergedLP.find(
+    //@ts-expect-error
     (learningPeriod) => learningPeriod.id == param.learning_period_id
   );
 

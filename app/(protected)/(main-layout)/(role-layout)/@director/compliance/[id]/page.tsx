@@ -30,7 +30,7 @@ async function addSearchParamsTeacherId({
   }
 }
 
-export async function CompliancePageTeacher({
+async function CompliancePageTeacher({
   searchParams,
   params,
 }: {

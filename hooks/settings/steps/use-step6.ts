@@ -1,8 +1,7 @@
 'use client';
 import { BaseApi } from '@/lib/base-api';
 import { apiClientFetch } from '@/lib/client-fetch';
-import type { ISemester as Semester } from '@/types';
-import type { Track } from '@/types/track';
+import type { ITrack, ISemester as Semester } from '@/types';
 import { validationMessages } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type Dispatch, type SetStateAction, useOptimistic, useState, useTransition } from 'react';
@@ -57,11 +56,11 @@ const semesterReducer = (prev: Semester[], updated: UpdateSemesterType) => {
   }
 };
 
-export const useStep6Track = (defaultTracks: Track[]) => {
-  const [tracks, setTracks] = useState<Track[]>(defaultTracks);
-  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+export const useStep6Track = (defaultTracks: ITrack[]) => {
+  const [tracks, setTracks] = useState<ITrack[]>(defaultTracks);
+  const [selectedTrack, setSelectedTrack] = useState<ITrack | null>(null);
 
-  const handleSelectTrack = (track: Track) => () => {
+  const handleSelectTrack = (track: ITrack) => () => {
     setSelectedTrack(track);
   };
 
@@ -79,11 +78,11 @@ export const useStep6Track = (defaultTracks: Track[]) => {
   };
 };
 
-const getSemesterName = (track: Track) => {
+const getSemesterName = (track: ITrack) => {
   return `Semester ${track.semesters.length + 1}`;
 };
 
-export const getSemesterStartDate = (track: Track) => {
+export const getSemesterStartDate = (track: ITrack) => {
   if (track.semesters.length === 0) {
     return new Date(track.start_date);
   }
@@ -91,12 +90,12 @@ export const getSemesterStartDate = (track: Track) => {
   return new Date(endDate.setDate(endDate.getDate() + 1));
 };
 
-export const getSemesterEndDate = (track: Track) => {
+export const getSemesterEndDate = (track: ITrack) => {
   const endDate = new Date(track.end_date);
   return new Date(endDate.setDate(endDate.getDate() + 1));
 };
 
-const getDefaultValues = (track: Track) => {
+const getDefaultValues = (track: ITrack) => {
   return {
     name: getSemesterName(track),
     start_date: getSemesterStartDate(track),
@@ -104,7 +103,7 @@ const getDefaultValues = (track: Track) => {
   };
 };
 
-export const useStep6Semesters = (track: Track, setTrack: Dispatch<SetStateAction<Track>>) => {
+export const useStep6Semesters = (track: ITrack, setTrack: Dispatch<SetStateAction<ITrack>>) => {
   const [_, startTransition] = useTransition();
   const [optimisticSemesters, setOptimisticSemesters] = useOptimistic(
     track.semesters,

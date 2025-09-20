@@ -3,6 +3,7 @@ import { rolePage } from '@/components/layouts/role-page';
 import { Stepper } from '@/components/pages/setting/stepper';
 import { STEPS } from '@/components/pages/setting/steps';
 import { SETUP_STEPS } from '@/constants/setupSteps';
+import { RolesEnum } from 'ecap-lib/dist/constants';
 import { Suspense } from 'react';
 
 function getStep(step = '0') {
@@ -32,4 +33,4 @@ async function TabSetup({
   );
 }
 
-export default rolePage(TabSetup, ['SUPER_ADMIN']);
+export default rolePage(TabSetup, [RolesEnum.SUPER_ADMIN]);

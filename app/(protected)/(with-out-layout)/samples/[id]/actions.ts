@@ -1,13 +1,13 @@
-"use server";
-import { routes } from "@/constants/routes";
+'use server';
+import { routes } from '@/constants/routes';
 import {
   flagCompletedSample,
   flagMissingWorkSample,
   flagRejectedSample,
   flagSample,
   updateSample,
-} from "@/lib/api/sample";
-import type { ApiResponse } from "@/lib/fetch";
+} from '@/lib/api/sample';
+import type { ApiResponse } from '@/lib/fetch';
 import type {
   ISample,
   ISampleFlagCompleted,
@@ -15,21 +15,19 @@ import type {
   ISampleFlagMissingWork,
   ISampleFlagRejected,
   IUser,
-} from "@/types";
-import { getUserName, isAnyAdmin } from "@/utils";
-import { SampleStatus } from "ecap-lib/dist/constants";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { RedirectType, redirect } from "next/navigation";
+} from '@/types';
+import { getUserName, isAnyAdmin } from '@/utils';
+import { SampleStatus } from 'ecap-lib/dist/constants';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { RedirectType, redirect } from 'next/navigation';
 
 const revalidatePathAndTag = (sample: ISample) => {
   const path = `${routes.compliance.samples}?student_id=${
-    sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
-      .id
+    sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user.id
   }&name=${getUserName(
     sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
   )}&learning_period_id=${
-    sample.student_lp_enrollment_assignment.student_lp_enrollment
-      .learning_period_id
+    sample.student_lp_enrollment_assignment.student_lp_enrollment.learning_period_id
   }`;
 
   revalidateTag(
@@ -41,10 +39,7 @@ const revalidatePathAndTag = (sample: ISample) => {
 };
 
 const executeAction = async (
-  func: (
-    id: ISample["id"],
-    data: any
-  ) => Promise<ApiResponse<ISample, undefined>>,
+  func: (id: ISample['id'], data: any) => Promise<ApiResponse<ISample, undefined>>,
   sample: ISample,
   data: any
 ) => {
@@ -63,7 +58,7 @@ export const approveSampleAction = async (sample: ISample, done_by: IUser) => {
     done_by_id: done_by.id as number,
   });
 
-  revalidateTag("samples");
+  revalidateTag('samples');
   const path = revalidatePathAndTag(sample);
 
   if (!isAnyAdmin(done_by)) {
@@ -71,10 +66,7 @@ export const approveSampleAction = async (sample: ISample, done_by: IUser) => {
   }
 };
 
-export const flagSampleAction = async (
-  sample: ISample,
-  data: ISampleFlagError
-) => {
+export const flagSampleAction = async (sample: ISample, data: ISampleFlagError) => {
   await executeAction(flagSample, sample, data);
 
   const path = revalidatePathAndTag(sample);
@@ -91,10 +83,7 @@ export const flagMissingWorkSampleAction = async (
   revalidatePathAndTag(sample);
 };
 
-export const updateSampleAction = async (
-  sample: ISample,
-  data: Partial<ISample>
-) => {
+export const updateSampleAction = async (sample: ISample, data: Partial<ISample>) => {
   const result = await updateSample(sample.id, {
     ...data,
     status: SampleStatus.PENDING,
@@ -107,11 +96,7 @@ export const updateSampleAction = async (
   return result;
 };
 
-export const approveAdminSampleAction = async (
-  sample: ISample,
-  done_by: IUser,
-  path: string
-) => {
+export const approveAdminSampleAction = async (sample: ISample, done_by: IUser, path: string) => {
   await executeAction(updateSample, sample, {
     status: SampleStatus.COMPLETED,
     done_by_id: done_by.id as number,
@@ -134,9 +119,6 @@ export async function rejectMissingWorkSampleAction(
   redirect(path, RedirectType.replace);
 }
 
-export const flagCompletedSampleAction = async (
-  sample: ISample,
-  data: ISampleFlagCompleted
-) => {
+export const flagCompletedSampleAction = async (sample: ISample, data: ISampleFlagCompleted) => {
   await executeAction(flagCompletedSample, sample, data);
 };

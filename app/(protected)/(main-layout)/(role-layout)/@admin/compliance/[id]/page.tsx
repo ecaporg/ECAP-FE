@@ -31,7 +31,7 @@ async function addSearchParamsTeacherId({
   }
 }
 
-export async function CompliancePageTeacher({
+async function CompliancePageTeacher({
   searchParams,
   params,
 }: {
@@ -45,8 +45,6 @@ export async function CompliancePageTeacher({
     tenant,
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
-
-  console.log(academicYearIds);
 
   return (
     <>
