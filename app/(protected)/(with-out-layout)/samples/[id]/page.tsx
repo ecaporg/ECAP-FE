@@ -1,19 +1,23 @@
-import { getSampleById, getSampleViewFromCanvas } from '@/lib/api/sample';
+import { getSampleById, getSampleViewFromCanvas } from "@/lib/api/sample";
 
-import { SampleBagde } from '@/components/pages/sample/badge';
-import { SampleInputs } from '@/components/pages/sample/inputs';
-import { SampleActionButtons } from '@/components/pages/sample/meta';
-import { SampleView } from '@/components/pages/sample/sample-view';
-import { Skeleton } from '@/components/ui/skeleton';
-import type { ISample } from '@/types';
-import { Suspense } from 'react';
+import { SampleBagde } from "@/components/pages/sample/badge";
+import { SampleInputs } from "@/components/pages/sample/inputs";
+import { SampleActionButtons } from "@/components/pages/sample/meta";
+import { SampleView } from "@/components/pages/sample/sample-view";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { ISample } from "@/types";
+import { Suspense } from "react";
 
 export default async function SampleDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { data: sample, message, error } = await getSampleById((await params).id);
+  const {
+    data: sample,
+    message,
+    error,
+  } = await getSampleById((await params).id);
 
   if (error || !sample) {
     throw new Error(message || error);
@@ -33,5 +37,5 @@ export default async function SampleDetailPage({
 
 async function View({ sample }: { sample: ISample }) {
   const { html } = await getSampleViewFromCanvas(sample);
-  return <SampleView html={html} />;
+  return <SampleView html={html} url={sample.preview_url} />;
 }
