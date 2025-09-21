@@ -1306,6 +1306,13 @@ ecap-lib@^0.0.0:
   resolved "https://registry.yarnpkg.com/ecap-lib/-/ecap-lib-0.0.0.tgz#6c3cf49dbede621bcc9c006706a8eea618ce30a7"
   integrity sha512-aYGSvUltqqwds/eSDoSVPfcWMVTByNJP8IK2CqVL6OjwATHQzb87v0yfGWrSVBflgSswWr7DEMjiy1njbzkNHQ==
 
+ecap-lib@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/ecap-lib/-/ecap-lib-0.0.2.tgz#7c7571d695a2a0e596e622a084a32b676f0b0c50"
+  integrity sha512-WddI+xEI2I7YKnznelvhNFSPNqDpNo7t61V3q81cfrvCBCI9zjSjujAZ/7GlgqD9TvdP2iisXbcyxMuK3BmUmA==
+  dependencies:
+    ecap-lib "^0.0.0"
+
 electron-to-chromium@^1.5.73:
   version "1.5.130"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.130.tgz#19f5dd2cf166a8dd1350b08230a33faba0d8f4ec"

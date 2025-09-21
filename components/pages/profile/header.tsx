@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback, getInitials } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { MAP_TO_STRING } from '@/constants/roles';
-import type { IUser } from '@/types';
-import { getUserName } from '@/utils';
-import { Calendar, Camera, Mail, MapPin } from 'lucide-react';
+import { Avatar, AvatarFallback, getInitials } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { MAP_TO_STRING } from "@/constants/roles";
+import type { IUser } from "@/types";
+import { getUserName } from "@/utils";
+import { Calendar, Camera, Mail, MapPin } from "lucide-react";
 
 type ProfileHeaderProps = {
   user: IUser;
@@ -16,11 +16,12 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
       <CardContent className="p-6">
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
           <div className="relative">
-            <Avatar title={user ? getUserName(user) : ''} className="size-24">
+            <Avatar title={user ? getUserName(user) : ""} className="size-24">
               <AvatarFallback>
                 {user
-                  ? (user.canvas_additional_info?.avatar_url ?? getInitials(getUserName(user)))
-                  : '--'}
+                  ? user.canvas_additional_info?.avatar_url ??
+                    getInitials(getUserName(user))
+                  : "--"}
               </AvatarFallback>
             </Avatar>
             <Button
@@ -43,11 +44,11 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
               </div>
               <div className="flex items-center gap-1">
                 <MapPin className="size-4" />
-                {'{ {school name} }'}
+                {"{ {school name} }"}
               </div>
               <div className="flex items-center gap-1">
                 <Calendar className="size-4" />
-                Last login: {new Date(user.updatedAt).toLocaleDateString()}
+                Last login: {new Date().toLocaleDateString()}
               </div>
             </div>
           </div>
