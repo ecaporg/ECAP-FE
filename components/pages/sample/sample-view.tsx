@@ -61,16 +61,17 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
 
     const wrapperElement = doc.getElementById("content-wrapper");
     const content = doc.getElementById("content");
-    
+
     if (
       content &&
+      content.textContent &&
       content.textContent.includes("This submission is a media recording.")
     ) {
       setBlocked(false);
       const a = content.querySelector("a");
       if (a) {
         a.setAttribute("target", "_blank");
-        a.setAttribute("href", url!);
+        a.setAttribute("href", url || "#");
       }
     }
 
