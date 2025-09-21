@@ -18,7 +18,6 @@ async function TabSetup({
 }) {
   const awaiedParams = await searchParams;
   const activeStep = getStep(awaiedParams.step);
-  console.log('TabSetup', activeStep);
   const StepComponent = STEPS[activeStep];
   return (
     <section className="p-10 h-full flex flex-col">

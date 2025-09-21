@@ -14,7 +14,6 @@ export function SubjectFilter({
 }: SubjectFilterProps) {
   const mergedOptions = new Map<string, Set<string>>();
 
-  console.log(availableSubjects, 'availableSubjects');
   availableSubjects.forEach((subject) => {
     if (mergedOptions.has(subject.name)) {
       mergedOptions.get(subject.name)?.add(subject.id.toString());

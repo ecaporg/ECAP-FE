@@ -22,7 +22,6 @@ async function addSearchParamsTeacherId({
   const awaitSearchParams = await searchParams;
 
   if (!awaitSearchParams[DEFAULT_FILTERS_KEYS.TEACHER_ID]) {
-    console.log('Adding teacher_id to URL');
     const newSearchParams = new URLSearchParams(awaitSearchParams as any);
 
     newSearchParams.set(DEFAULT_FILTERS_KEYS.TEACHER_ID, awaitParams.id);
@@ -45,7 +44,6 @@ async function CompliancePageTeacher({
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
 
-  console.log(academicYearIds);
 
   return (
     <>

@@ -21,7 +21,6 @@ export function useConditionalSearchParam({
   const pathname = usePathname();
 
   useLayoutEffect(() => {
-    console.log('condition run effect', condition);
     const params = new URLSearchParams(searchParams.toString());
     const currentValue = params.get(paramName);
 

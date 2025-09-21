@@ -56,7 +56,6 @@ const DayButton = ({
 } & ButtonHTMLAttributes<HTMLButtonElement> & {
     dayType: string;
   }) => {
-  console.log(dayButtonVariants({ dayType }), dayType);
   return (
     <Button
       variant="outline"
