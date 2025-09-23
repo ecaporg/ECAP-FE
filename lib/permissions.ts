@@ -51,7 +51,7 @@ export const ROLES = {
       },
     },
     navigation: {
-      settings: true,
+      settings: false,
       profile: true,
     },
     sorting: {
