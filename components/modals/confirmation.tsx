@@ -33,11 +33,11 @@ export function ConfirmationModal({
     <ResponsiveDialog
       open={open}
       onOpenChange={onOpenChange}
-      className="h-[24rem] md:w-1/2 rounded-sm"
+      className="h-[24rem] rounded-sm md:w-1/2"
       trigger={children}
     >
-      <div className="flex flex-col items-center justify-center h-full">
-        <div className="flex flex-col gap-4 w-fit">
+      <div className="flex h-full flex-col items-center justify-center">
+        <div className="flex w-fit flex-col gap-4">
           <Badge>
             <CheckCircleIcon className="size-4" />
             {title}

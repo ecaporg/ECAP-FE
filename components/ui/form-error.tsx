@@ -2,7 +2,7 @@ import { cn } from '@/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import React from 'react';
 
-const formErrorVariants = cva('text-sm font-medium text-destructive', {
+const formErrorVariants = cva('font-medium text-destructive text-sm', {
   variants: {
     size: {
       default: 'text-sm',

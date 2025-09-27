@@ -64,10 +64,10 @@ export const TrackRowView: React.FC<TrackRowProps> = ({
   return (
     <Link href={href}>
       <Card
-        className={`h-800:p-2 p-1.5 h-800:text-lg lg:text-lg text-sm h-800:h-[4.625rem] ${cardColor}`}
+        className={`h-800:h-[4.625rem] h-800:p-2 p-1.5 h-800:text-lg text-sm lg:text-lg ${cardColor}`}
       >
         {track}
-        <p className="flex justify-between h-800:mt-2 mt-1">
+        <p className="h-800:mt-2 mt-1 flex justify-between">
           {dateRange} <b className={statusColor}>{status}</b>
         </p>
       </Card>
@@ -87,5 +87,5 @@ export const TrackRowSkeleton = () => {
 };
 
 export const TrackArrow = () => {
-  return <ArrowDown className="h-800:size-5 size-4 text-center justify-self-center" />;
+  return <ArrowDown className="h-800:size-5 size-4 justify-self-center text-center" />;
 };

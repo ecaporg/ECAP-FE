@@ -107,7 +107,7 @@ function CompletionStatusForTable({ variant, className, ...props }: CompletionSt
   return (
     <CompletionStatus
       variant={getVariantCompletionStatus(variant)}
-      className={cn('flex items-center gap-2 w-full px-4 py-2 h-auto text-xs', className)}
+      className={cn('flex h-auto w-full items-center gap-2 px-4 py-2 text-xs', className)}
       {...props}
     >
       {getIconCompletionStatus(variant)}

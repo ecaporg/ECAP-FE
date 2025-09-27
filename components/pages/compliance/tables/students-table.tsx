@@ -36,10 +36,10 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
     }&name=${getUserName(user)}`;
 
   return (
-    <Table className="lg:overflow-x-clip overflow-x-auto lg:max-h-max" autoHeight>
+    <Table className="overflow-x-auto lg:max-h-max lg:overflow-x-clip" autoHeight>
       <TableHeader>
         <TableRow>
-          <TableHead className="2xl:max-w-44 max-w-32">
+          <TableHead className="max-w-32 2xl:max-w-44">
             Student Name
             <SortableIcon<IStudentLPEnrollment> name="student.user.name" />
           </TableHead>
@@ -47,7 +47,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
             Student ID
             <SortableIcon<IStudentLPEnrollment> name="student_id" />
           </TableHead>
-          <TableHead className="2xl:max-w-44 max-w-32">
+          <TableHead className="max-w-32 2xl:max-w-44">
             School
             <SortableIcon<IStudentLPEnrollment> name="student.school.name" />
           </TableHead>
@@ -65,7 +65,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
             Grade
             <SortableIcon<IStudentLPEnrollment> name="student_grade" />
           </TableHead>
-          <TableHead className="2xl:max-w-[12.5rem] max-w-[9.375rem]">
+          <TableHead className="max-w-[9.375rem] 2xl:max-w-[12.5rem]">
             Completion Status
             <SortableIcon<IStudentLPEnrollment> name="completed" />
           </TableHead>
@@ -79,11 +79,11 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.student.id}-${currentLearningPeriod.id}`}>
             <Link className="contents" href={getPath(assignment.student.user)}>
-              <TableCell className="2xl:max-w-44 max-w-32">
+              <TableCell className="max-w-32 2xl:max-w-44">
                 {getUserName(assignment.student.user)}
               </TableCell>
               <TableCell>{assignment.student.id}</TableCell>
-              <TableCell className="2xl:max-w-44 lg:max-w-24">
+              <TableCell className="lg:max-w-24 2xl:max-w-44">
                 {assignment.student.school?.name}
               </TableCell>
               <TableCell>{assignment.student.academy?.name}</TableCell>

@@ -11,10 +11,10 @@ import { AlertTriangleIcon } from 'lucide-react';
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <AlertTriangleIcon className="w-10 h-10" />
-      <h1 className="text-2xl font-bold">Oops! Something went wrong</h1>
-      <Accordion type="single" className="text-sm text-gray-500">
+    <div className="flex h-screen flex-col items-center justify-center">
+      <AlertTriangleIcon className="h-10 w-10" />
+      <h1 className="font-bold text-2xl">Oops! Something went wrong</h1>
+      <Accordion type="single" className="text-gray-500 text-sm">
         <AccordionItem value="1">
           <AccordionTrigger>Details</AccordionTrigger>
           <AccordionContent>{error.message}</AccordionContent>

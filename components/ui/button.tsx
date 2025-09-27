@@ -5,15 +5,15 @@ import * as React from 'react';
 import { cn } from '@/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap text-base font-medium ring-offset-white transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-base outline-none ring-offset-white transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-[hsla(212, 80%, 42%, 1)] active:bg-[hsla(216, 85%, 34%, 1)]',
+          '80%, 42%, 1)] 85%, 34%, 1)] bg-primary text-primary-foreground hover:bg-[hsla(212, active:bg-[hsla(216,',
         warning: 'bg-destructive text-destructive-foreground',
         outline:
-          'bg-transparent hover:text-[hsla(212, 80%, 42%, 1)] active:text-[hsla(216, 85%, 34%, 1)]',
+          '80%, 42%, 1)] 85%, 34%, 1)] bg-transparent hover:text-[hsla(212, active:text-[hsla(216,',
         secondary: 'bg-secondary text-primary',
       },
       size: {

@@ -8,18 +8,18 @@ interface WelcomeBackProps {
 
 export const WelcomeBack = ({ user, academicYear }: WelcomeBackProps) => {
   return (
-    <section className="text-xl font-bold flex w-full py-4 px-6 text-primary justify-between">
+    <section className="flex w-full justify-between px-6 py-4 font-bold text-primary text-xl">
       <p>
         Welcome back, {getUserName(user)}
         {user.role === 'DIRECTOR' && (
-          <span className="block text-xl font-semibold text-neutral-black">
+          <span className="block font-semibold text-neutral-black text-xl">
             {user.director?.academy?.name} {' Academy'}
           </span>
         )}
       </p>
-      <span className="ml-auto text-lg font-semibold">
+      <span className="ml-auto font-semibold text-lg">
         Academic Year:{' '}
-        <span className="text-neutral-black font-normal">
+        <span className="font-normal text-neutral-black">
           {academicYear.from} - {academicYear.to}
         </span>
       </span>

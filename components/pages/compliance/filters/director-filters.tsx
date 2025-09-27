@@ -32,7 +32,7 @@ export function DirectorFilters({
   );
 
   return (
-    <FilterWrapper className="2xl:[&_button:has(input)]:col-span-3 2xl:grid-flow-row grid-cols-6 md:[&>button]:basis-1/3">
+    <FilterWrapper className="grid-cols-6 2xl:grid-flow-row md:[&>button]:basis-1/3 2xl:[&_button:has(input)]:col-span-3">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
         defaultValue={academicYearIds[0]}

@@ -10,7 +10,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
   ({ className, autoHeight, ...props }, ref) => (
     <div
       className={cn(
-        'w-full h-fit rounded-lg border overflow-x-clip',
+        'h-fit w-full overflow-x-clip rounded-lg border',
         autoHeight && 'max-h-[calc(100vh-var(--header-height)-2.5rem)]',
         className
       )}
@@ -71,7 +71,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     <tr
       ref={ref}
       className={cn(
-        'transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted border-border',
+        'border-border transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
         className
       )}
       {...props}
@@ -87,7 +87,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      'lg:p-4 p-3 text-left font-normal align-middle text-black [&:has([role=checkbox])]:pr-0',
+      'p-3 text-left align-middle font-normal text-black lg:p-4 [&:has([role=checkbox])]:pr-0',
       'sticky top-0 text-nowrap',
       'bg-light-gray hover:bg-light-gray',
       'truncate',
@@ -105,7 +105,7 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      'lg:p-4 p-3 align-middle text-neutral-black [&:has([role=checkbox])]:pr-0 truncate',
+      'truncate p-3 align-middle text-neutral-black lg:p-4 [&:has([role=checkbox])]:pr-0',
       className
     )}
     {...props}
@@ -118,7 +118,7 @@ const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
 >(({ className, ...props }, ref) => (
-  <caption ref={ref} className={cn('mt-4 text-sm text-muted-foreground', className)} {...props} />
+  <caption ref={ref} className={cn('mt-4 text-muted-foreground text-sm', className)} {...props} />
 ));
 TableCaption.displayName = 'TableCaption';
 
@@ -127,7 +127,7 @@ const Span = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElem
     <span
       ref={ref}
       className={cn(
-        'truncate inline-block w-[calc(100%-1rem)] font-normal align-middle',
+        'inline-block w-[calc(100%-1rem)] truncate align-middle font-normal',
         className
       )}
       {...props}

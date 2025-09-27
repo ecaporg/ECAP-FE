@@ -8,9 +8,9 @@ export default function ForbiddenPage() {
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="flex items-center gap-2">
           <ShieldAlert className="size-8 text-red-500" />
-          <h1 className="text-2xl font-semibold">403</h1>
+          <h1 className="font-semibold text-2xl">403</h1>
         </div>
-        <h2 className="text-xl font-medium">Access Forbidden</h2>
+        <h2 className="font-medium text-xl">Access Forbidden</h2>
         <p className="max-w-md text-darker-gray">
           You don't have permission to access this page. Please contact your administrator if you
           believe this is a mistake.

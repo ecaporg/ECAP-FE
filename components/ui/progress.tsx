@@ -31,7 +31,7 @@ const Circle = ({ colour, pct }: { colour: string; pct: number }) => {
 const Text = ({ percentage }: { percentage: number }) => {
   return (
     <text
-      className="fill-primary text-4xl font-black min-w-80"
+      className="min-w-80 fill-primary font-black text-4xl"
       x="50%"
       y="50%"
       dominantBaseline="central"
@@ -95,7 +95,7 @@ const LinearProgress = ({
   return (
     <ProgressPrimitive.Root className={cn('w-full bg-transparent', className)} value={value}>
       <ProgressPrimitive.Indicator
-        className="bg-primary rounded-sm h-full"
+        className="h-full rounded-sm bg-primary"
         style={{ width: `${value}%` }}
       />
     </ProgressPrimitive.Root>

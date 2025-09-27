@@ -122,7 +122,7 @@ export const BaseFilter = ({
           <span className="truncate">{placeholder}</span>
           {multiple && selectedValues.length > 0 ? (
             <button
-              className="text-white text-sm bg-primary rounded-lg px-1.5 py-1 inline-flex items-center gap-1 !w-fit ml-auto [&+svg]:ml-0"
+              className="!w-fit ml-auto inline-flex items-center gap-1 rounded-lg bg-primary px-1.5 py-1 text-sm text-white [&+svg]:ml-0"
               onPointerDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -146,7 +146,7 @@ export const BaseFilter = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Start typing..."
-              className="border-0 !ring-0 !ring-offset-0"
+              className="!ring-0 !ring-offset-0 border-0"
               id={slug}
             />
           )}

@@ -37,11 +37,11 @@ export const LPCardSkeletonSection = ({ children }: React.PropsWithChildren) => 
 
 export const PageLoadingWrapper = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className="dashboard py-14 px-12 flex gap-10 flex-col items-center ">
-      <section className="text-2xl font-bold flex w-full py-4 px-6">
+    <div className="dashboard flex flex-col items-center gap-10 px-12 py-14 ">
+      <section className="flex w-full px-6 py-4 font-bold text-2xl">
         <p>Welcome back</p>
         <span className="ml-auto ">
-          Academic Year: <Skeleton className="w-20 inline-block" />
+          Academic Year: <Skeleton className="inline-block w-20" />
         </span>
       </section>
       <div className="grid grid-cols-1 gap-10">{children}</div>

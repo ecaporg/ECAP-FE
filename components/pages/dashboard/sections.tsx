@@ -12,7 +12,7 @@ export const SectionWrapper = ({
   return (
     <section
       className={cn(
-        'flex lg:gap-10 gap-9 flex-wrap justify-center lg:min-w-[47.75rem] md:min-w-[43rem] w-full',
+        'flex w-full flex-wrap justify-center gap-9 md:min-w-[43rem] lg:min-w-[47.75rem] lg:gap-10',
         className
       )}
     >
@@ -107,8 +107,8 @@ export const PageWrapper = ({
   stats,
 }: React.PropsWithChildren<{ user: IUser; stats: DashboardStats }>) => {
   return (
-    <div className="dashboard py-6 flex justify-center">
-      <div className="flex w-fit gap-10 flex-col items-center">
+    <div className="dashboard flex justify-center py-6">
+      <div className="flex w-fit flex-col items-center gap-10">
         <WelcomeBack user={user!} academicYear={stats.academicYear} />
         {children}
       </div>

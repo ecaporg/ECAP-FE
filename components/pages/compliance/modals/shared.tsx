@@ -83,14 +83,14 @@ export function SampleInfoForModal(props: SampleInfoForModalProps) {
   return (
     <>
       {metadata.map((row, idx) => (
-        <div key={`metadata-row-${idx}`} className="space-y-1 text-neutral-black text-base flex-1">
+        <div key={`metadata-row-${idx}`} className="flex-1 space-y-1 text-base text-neutral-black">
           {row.map((item) => (
             <div key={item.label} className="grid grid-cols-2 gap-4">
-              <label className="text-primary text-start" htmlFor={item.label}>
+              <label className="text-start text-primary" htmlFor={item.label}>
                 {item.label}
               </label>
               <input
-                className="text-end outline-none truncate bg-white"
+                className="truncate bg-white text-end outline-none"
                 type="text"
                 id={item.label}
                 value={item.value}

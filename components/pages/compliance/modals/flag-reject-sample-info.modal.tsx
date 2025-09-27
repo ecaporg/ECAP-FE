@@ -29,7 +29,7 @@ export function FlagRejectSampleInfoModal({
     <>
       <ReasonForMissingSample sample={sample} isDirector={isDirector} />
       <br />
-      <b className="text-primary pt-4">Reason for rejecting missing sample:</b>{' '}
+      <b className="pt-4 text-primary">Reason for rejecting missing sample:</b>{' '}
       {sample.flag_rejected?.reason}
     </>
   ) : (
@@ -59,8 +59,8 @@ export function FlagRejectSampleInfoModal({
       description={description}
       hasCloseButton
     >
-      <form className="flex flex-col size-full">
-        <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
+      <form className="flex size-full flex-col">
+        <section className="flex flex-wrap justify-between gap-x-4 gap-y-1 md:flex-nowrap md:pt-6">
           <SampleInfoForModal sample={sample} type="view_rejected" />
         </section>
         <p className="py-6">{reason}</p>

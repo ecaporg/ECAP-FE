@@ -17,19 +17,19 @@ export const TrackCard = ({
   return (
     <div
       className={cn(
-        'p-4 w-80 space-y-5 rounded-sm border-2 border-border',
+        'w-80 space-y-5 rounded-sm border-2 border-border p-4',
         isCompleted && 'border-success-foreground',
         className
       )}
     >
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-bold">{track.name}</h3>
+        <h3 className="font-bold text-2xl">{track.name}</h3>
         <Badge variant={isCompleted ? 'success' : 'red'} className="gap-1">
           {isCompleted ? <CheckCircle className="size-4" /> : <TriangleAlert className="size-4" />}
           {isCompleted ? 'Completed' : 'Incomplete'}
         </Badge>
       </div>
-      <p className="text-base font-semibold">
+      <p className="font-semibold text-base">
         {formatTrackDateWithLongMonth(track.start_date)} -{' '}
         {formatTrackDateWithLongMonth(track.end_date)}
       </p>
@@ -47,7 +47,7 @@ export const SetupCalendarButton = ({
 }) => {
   return (
     <Button className="w-full" onClick={onClick}>
-      <Calendar1 className="size-4 mr-2" />
+      <Calendar1 className="mr-2 size-4" />
       {isCompleted ? 'Edit Day Types' : 'Set Up Day Types'}
     </Button>
   );
@@ -62,7 +62,7 @@ export const SetupLearningPeriodButton = ({
 }) => {
   return (
     <Button className="w-full" onClick={onClick}>
-      <Calendar1 className="size-4 mr-2" />
+      <Calendar1 className="mr-2 size-4" />
       {isCompleted ? 'Edit Learning Periods' : 'Set Up Learning Periods'}
     </Button>
   );
@@ -77,7 +77,7 @@ export const SetupSemesterButton = ({
 }) => {
   return (
     <Button className="w-full" onClick={onClick}>
-      <Calendar1 className="size-4 mr-2" />
+      <Calendar1 className="mr-2 size-4" />
       {isCompleted ? 'Edit Semesters' : 'Set Up Semesters'}
     </Button>
   );

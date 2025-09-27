@@ -24,7 +24,7 @@ const SearchInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
         <input
           type="text"
           className={cn(
-            'flex bg-white w-full h-12 p-4 pl-10 rounded-md border border-input placeholder:text-darker-gray text-neutral-black outline-none text-base disabled:cursor-not-allowed disabled:opacity-50',
+            'flex h-12 w-full rounded-md border border-input bg-white p-4 pl-10 text-base text-neutral-black outline-none placeholder:text-darker-gray disabled:cursor-not-allowed disabled:opacity-50',
             className
           )}
           ref={ref}
@@ -120,14 +120,14 @@ const PopoverFilter: React.FC<
                 key={option.value}
                 className={cn(
                   'relative flex cursor-pointer items-center gap-2 rounded-sm px-4 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
-                  'hover:bg-hover-gray min-h-12'
+                  'min-h-12 hover:bg-hover-gray'
                 )}
               >
                 {option.label}
               </p>
             ))}
             {options.length === 0 && (
-              <p className="text-sm text-center text-darker-gray">No results found</p>
+              <p className="text-center text-darker-gray text-sm">No results found</p>
             )}
           </ScrollArea>
         )}

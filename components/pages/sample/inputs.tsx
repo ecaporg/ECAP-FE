@@ -64,17 +64,17 @@ export function SampleInputs({ sample }: SampleMetaProps) {
   return (
     <form
       ref={formRef}
-      className="grid grid-cols-1 md:grid-cols-[min-content_minmax(auto,400px)] border border-border py-4 px-10 text-nowrap md:sticky top-0 z-[1] bg-white gap-2 !m-0"
+      className="!m-0 top-0 z-[1] grid grid-cols-1 gap-2 text-nowrap border border-border bg-white px-10 py-4 md:sticky md:grid-cols-[min-content_minmax(auto,400px)]"
       onSubmit={form.handleSubmit(onSubmit)}
     >
       {inputs.map((input) => (
         <>
-          <Label className="pe-4 h-9 content-center md:text-right" key={`${input.name}-label`}>
+          <Label className="h-9 content-center pe-4 md:text-right" key={`${input.name}-label`}>
             {input.label}:
           </Label>
           <Input
             key={`${input.name}-input`}
-            className={cn('h-9 p-2', input.isReadOnly ? 'border-none !ring-transparent' : '')}
+            className={cn('h-9 p-2', input.isReadOnly ? '!ring-transparent border-none' : '')}
             readOnly={input.isReadOnly}
             defaultValue={input?.defaultValue}
             {...form.register(input.name as keyof z.infer<typeof sampleHeaderSchema>)}

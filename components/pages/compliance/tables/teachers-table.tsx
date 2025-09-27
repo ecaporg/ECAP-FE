@@ -39,36 +39,36 @@ export const TeachersTable = ({
     }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${currentAcademicYear?.id}`;
 
   return (
-    <Table className="lg:overflow-x-clip overflow-x-auto lg:max-h-max" autoHeight>
+    <Table className="overflow-x-auto lg:max-h-max lg:overflow-x-clip" autoHeight>
       <TableHeader>
         <TableRow>
-          <TableHead className="lg:max-w-44 max-w-28 " title="Teacher Name">
+          <TableHead className="max-w-28 lg:max-w-44 " title="Teacher Name">
             <Span>Teacher Name</Span>
             <SortableIcon<ITeacherCompliance> name="teacher_name" />
           </TableHead>
-          <TableHead className="lg:max-w-44 max-w-28 " title="Academy">
+          <TableHead className="max-w-28 lg:max-w-44 " title="Academy">
             Academy
             {hasPermission(user, 'sorting', 'sort:academy') && (
               <SortableIcon<ITeacherCompliance> name="academy_name" />
             )}
           </TableHead>
-          <TableHead className="lg:max-w-44 max-w-28 " title="Students">
+          <TableHead className="max-w-28 lg:max-w-44 " title="Students">
             Students
             <SortableIcon<ITeacherCompliance> name="student_count" />
           </TableHead>
-          <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Flagged Samples">
+          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Flagged Samples">
             <Span>Flagged Samples</Span>
             <SortableIcon<ITeacherCompliance> name="flagged_count" />
           </TableHead>
-          <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Completed Samples">
+          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Completed Samples">
             <Span>Completed Samples</Span>
             <SortableIcon<ITeacherCompliance> name="completed_count" />
           </TableHead>
-          <TableHead className="lg:max-w-28 2xl:max-w-28 max-w-28" title="Incomplete Samples">
+          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Incomplete Samples">
             <Span>Incomplete Samples</Span>
             <SortableIcon<ITeacherCompliance> name="incompleted_count" />
           </TableHead>
-          <TableHead className="lg:max-w-44 max-w-28 " title="Completion">
+          <TableHead className="max-w-28 lg:max-w-44 " title="Completion">
             <Span>Completion</Span>
             <SortableIcon<ITeacherCompliance> name="is_complated" />
           </TableHead>
@@ -82,7 +82,7 @@ export const TeachersTable = ({
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
             <Link className="contents" href={getPath(assignment)}>
-              <TableCell className="lg:max-w-44 max-w-28 ">{assignment.teacher_name}</TableCell>
+              <TableCell className="max-w-28 lg:max-w-44 ">{assignment.teacher_name}</TableCell>
               <TableCell>{assignment.academy_name}</TableCell>
               <TableCell>{assignment.student_count}</TableCell>
               <TableCell>{assignment.flagged_count}</TableCell>

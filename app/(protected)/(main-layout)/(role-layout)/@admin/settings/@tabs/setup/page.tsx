@@ -20,10 +20,10 @@ async function TabSetup({
   const activeStep = getStep(awaiedParams.step);
   const StepComponent = STEPS[activeStep];
   return (
-    <section className="p-10 h-full flex flex-col">
+    <section className="flex h-full flex-col p-10">
       <Stepper steps={SETUP_STEPS} activeStep={activeStep} />
 
-      <div className="flex-1 flex flex-col justify-between items-center lg:relative">
+      <div className="flex flex-1 flex-col items-center justify-between lg:relative">
         <Suspense fallback={<PageLoading />} key={activeStep}>
           <StepComponent />
         </Suspense>

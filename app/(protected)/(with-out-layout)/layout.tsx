@@ -17,7 +17,7 @@ export default async function ProtectedLayout({
 
   return (
     <AuthProvider user={user}>
-      <main className="overflow-x-hidden bg-white overflow-y-auto">{children}</main>
+      <main className="overflow-y-auto overflow-x-hidden bg-white">{children}</main>
     </AuthProvider>
   );
 }

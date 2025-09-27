@@ -33,7 +33,7 @@ export function AdminFilters({
   );
 
   return (
-    <FilterWrapper className="2xl:grid-flow-row grid-cols-6">
+    <FilterWrapper className="grid-cols-6 2xl:grid-flow-row">
       <AcademicYearFilter
         availableAcademicYears={tenant.tracks.map((track) => track.academicYear)}
         defaultValue={academicYearIds[0]}

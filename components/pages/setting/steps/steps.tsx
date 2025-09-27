@@ -52,12 +52,12 @@ const DefaultWrapper = ({
     <>
       <div
         className={cn(
-          'flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 flex-1 size-full py-10',
+          'flex size-full flex-1 flex-wrap items-center justify-center gap-x-[7.5rem] gap-y-4 py-10',
           className
         )}
       >
         {withBorder && (
-          <div className="flex justify-center items-center gap-x-[7.5rem] flex-wrap gap-y-4 border border-border py-5 flex-1 h-full relative">
+          <div className="relative flex h-full flex-1 flex-wrap items-center justify-center gap-x-[7.5rem] gap-y-4 border border-border py-5">
             {children}
           </div>
         )}
@@ -114,9 +114,9 @@ export const Step1 = ({
           {schools.map((school) => (
             <TableRow
               key={school.id || 'new-school'}
-              className={(school as StepSchool).disabled ? 'opacity-50 pointer-events-none' : ''}
+              className={(school as StepSchool).disabled ? 'pointer-events-none opacity-50' : ''}
             >
-              <TableCell className="text-truncate max-w-80">{school.name}</TableCell>
+              <TableCell className="max-w-80 text-truncate">{school.name}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(school) }}
@@ -172,9 +172,9 @@ export const Step2 = ({
           {academies.map((academy) => (
             <TableRow
               key={academy.id || 'new-academy'}
-              className={(academy as StepAcademy).disabled ? 'opacity-50 pointer-events-none' : ''}
+              className={(academy as StepAcademy).disabled ? 'pointer-events-none opacity-50' : ''}
             >
-              <TableCell className="text-truncate max-w-80">{academy.name}</TableCell>
+              <TableCell className="max-w-80 text-truncate">{academy.name}</TableCell>
               <TableCell>
                 <Actions
                   edit={{ onClick: () => onEditClick(academy) }}
@@ -259,9 +259,9 @@ export const Step3 = ({
           {tracks.map((track) => (
             <TableRow
               key={track.id || 'new-track'}
-              className={(track as StepTrack).disabled ? 'opacity-50 pointer-events-none' : ''}
+              className={(track as StepTrack).disabled ? 'pointer-events-none opacity-50' : ''}
             >
-              <TableCell className="text-truncate max-w-80">{track.name}</TableCell>
+              <TableCell className="max-w-80 text-truncate">{track.name}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(track.start_date)}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(track.end_date)}</TableCell>
               <TableCell>
@@ -497,10 +497,10 @@ const Step5LearningPeriod = ({
             <TableRow
               key={learningPeriod.id || 'new-learning-period'}
               className={
-                (learningPeriod as StepTrackLP).disabled ? 'opacity-50 pointer-events-none' : ''
+                (learningPeriod as StepTrackLP).disabled ? 'pointer-events-none opacity-50' : ''
               }
             >
-              <TableCell className="text-truncate max-w-80">{learningPeriod.name}</TableCell>
+              <TableCell className="max-w-80 text-truncate">{learningPeriod.name}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(learningPeriod.start_date)}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(learningPeriod.end_date)}</TableCell>
               <TableCell>
@@ -649,10 +649,10 @@ const Step6Semesters = ({
             <TableRow
               key={semester.id || 'new-semester'}
               className={
-                (semester as StepSemester).disabled ? 'opacity-50 pointer-events-none' : ''
+                (semester as StepSemester).disabled ? 'pointer-events-none opacity-50' : ''
               }
             >
-              <TableCell className="text-truncate max-w-80">{semester.name}</TableCell>
+              <TableCell className="max-w-80 text-truncate">{semester.name}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(semester.start_date)}</TableCell>
               <TableCell>{formatTrackDateWithShortMonth(semester.end_date)}</TableCell>
               <TableCell>

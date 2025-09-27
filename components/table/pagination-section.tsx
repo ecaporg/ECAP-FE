@@ -38,8 +38,8 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
   };
 
   return (
-    <section className="flex lg:items-center lg:h-20 lg:flex-row flex-col gap-y-6 items-start mb-2">
-      <h2 className="text-lg font-semibold text-neutral-black order-1">
+    <section className="mb-2 flex flex-col items-start gap-y-6 lg:h-20 lg:flex-row lg:items-center">
+      <h2 className="order-1 font-semibold text-lg text-neutral-black">
         Showing Table for {learningPeriod?.name}{' '}
         <span className="font-normal">
           ({learningPeriod && getLearningPeriodDateRange(learningPeriod)})
@@ -47,7 +47,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
       </h2>
 
       <Pagination
-        className="flex-grow flex items-center justify-center gap-4 list-none lg:order-2 order-last self-center"
+        className="order-last flex flex-grow list-none items-center justify-center gap-4 self-center lg:order-2"
         currentPage={currentPage - 1}
         edgePageCount={2}
         middlePagesSiblingCount={1}
@@ -58,7 +58,7 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
       >
         {totalPages > 1 && (
           <>
-            <PrevButton className="size-10 flex items-center justify-center">
+            <PrevButton className="flex size-10 items-center justify-center">
               <ChevronLeftIcon className="size-6" />
             </PrevButton>
             <PageButton
@@ -69,14 +69,14 @@ export const PaginationSection: React.FC<PaginationSectionProps> = ({
                 'text-neutral-black border border-border'
               )}
             />
-            <NextButton className="size-10 flex items-center justify-center">
+            <NextButton className="flex size-10 items-center justify-center">
               <ChevronRightIcon className="size-6" />
             </NextButton>
           </>
         )}
       </Pagination>
 
-      <div className="flex items-center gap-4 order-3">
+      <div className="order-3 flex items-center gap-4">
         <CompletionStatus variant={status} />
         <div className="text-base text-neutral-black">
           <b>{completedString}</b>

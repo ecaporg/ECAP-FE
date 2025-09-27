@@ -7,6 +7,15 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "attributes": ["className", "class"],
+            "functions": ["clsx", "cva", "tw", "cn"]
+          }
+        }
+      },
       "correctness": {
         "recommended": true,
         "useExhaustiveDependencies": "off"
@@ -61,5 +70,13 @@
   },
   "files": {
     "ignore": ["node_modules", ".next", "build", "dist", "out", "public", "*.lock", "*.log"]
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 100
+    }
   }
 }

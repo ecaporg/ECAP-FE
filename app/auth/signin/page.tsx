@@ -46,7 +46,7 @@ export default function SignIn() {
 
       <FormError id="form-error" message={formError} />
 
-      <Link href="#" className="text-base text-neutral-black hover:underline !mt-6 block">
+      <Link href="#" className="!mt-6 block text-base text-neutral-black hover:underline">
         Forgot password?
       </Link>
     </form>

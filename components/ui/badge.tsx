@@ -3,7 +3,7 @@ import type * as React from 'react';
 
 import { cn } from '@/utils';
 
-const badgeVariants = cva('rounded-[3.125rem] flex items-center gap-2 px-4 py-2 h-auto text-xs', {
+const badgeVariants = cva('flex h-auto items-center gap-2 rounded-[3.125rem] px-4 py-2 text-xs', {
   variants: {
     variant: {
       success: 'bg-success text-success-foreground',

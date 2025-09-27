@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 type SampleViewProps = {
   html: string;
@@ -20,22 +20,22 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
     let shadowRootInstance = shadowHost.shadowRoot;
 
     if (!shadowRootInstance) {
-      shadowRootInstance = shadowHost.attachShadow({ mode: "open" });
+      shadowRootInstance = shadowHost.attachShadow({ mode: 'open' });
     } else {
-      shadowRootInstance.innerHTML = "";
+      shadowRootInstance.innerHTML = '';
     }
 
     if (!shadowRootInstance) {
-      console.error("Failed to create or access shadow DOM.");
+      console.error('Failed to create or access shadow DOM.');
       return;
     }
     const currentShadowRoot = shadowRootInstance;
 
-    const doc = new DOMParser().parseFromString(html, "text/html");
+    const doc = new DOMParser().parseFromString(html, 'text/html');
 
-    const inlineStyleElements = Array.from(doc.querySelectorAll("style"));
+    const inlineStyleElements = Array.from(doc.querySelectorAll('style'));
     inlineStyleElements.forEach((styleEl) => {
-      const newStyleTag = document.createElement("style");
+      const newStyleTag = document.createElement('style');
       newStyleTag.innerHTML = styleEl.innerHTML;
       currentShadowRoot.appendChild(newStyleTag);
     });
@@ -44,8 +44,8 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
       doc.querySelectorAll('link[rel="stylesheet"]')
     ) as HTMLLinkElement[];
     linkElements.forEach((linkEl) => {
-      const newLinkTag = document.createElement("link");
-      newLinkTag.rel = "stylesheet";
+      const newLinkTag = document.createElement('link');
+      newLinkTag.rel = 'stylesheet';
       newLinkTag.href = linkEl.href;
       if (linkEl.media) {
         newLinkTag.media = linkEl.media;
@@ -59,30 +59,28 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
       currentShadowRoot.appendChild(newLinkTag);
     });
 
-    const wrapperElement = doc.getElementById("content-wrapper");
-    const content = doc.getElementById("content");
+    const wrapperElement = doc.getElementById('content-wrapper');
+    const content = doc.getElementById('content');
 
     if (
       content &&
       content.textContent &&
-      content.textContent.includes("This submission is a media recording.")
+      content.textContent.includes('This submission is a media recording.')
     ) {
       setBlocked(false);
-      const a = content.querySelector("a");
+      const a = content.querySelector('a');
       if (a) {
-        a.setAttribute("target", "_blank");
-        a.setAttribute("href", url || "#");
+        a.setAttribute('target', '_blank');
+        a.setAttribute('href', url || '#');
       }
     }
 
     if (wrapperElement) {
-      const contentContainer = document.createElement("div");
+      const contentContainer = document.createElement('div');
       contentContainer.innerHTML = wrapperElement.innerHTML;
       currentShadowRoot.appendChild(contentContainer);
     }
   }, [html]);
 
-  return (
-    <aside className={blocked ? "pointer-events-none" : ""} ref={asideRef} />
-  );
+  return <aside className={blocked ? 'pointer-events-none' : ''} ref={asideRef} />;
 };

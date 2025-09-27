@@ -87,9 +87,9 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
   fields = [],
 }) => {
   return (
-    <Card className="p-2 pb-8 flex-1 h-800:h-[21.125rem] h-[17rem] flex flex-col justify-between">
+    <Card className="flex h-auto min-h-fit flex-1 flex-col justify-between p-2 pb-8">
       <h2 className="p-2 font-bold">{title}</h2>
-      <form className="p-2 space-y-4">
+      <form className="space-y-4 p-2">
         {track}
 
         {fields.map((field) => (
@@ -105,7 +105,7 @@ export const LearningPeriodCardView: React.FC<LearningPeriodCardProps> = ({
                 readOnly
                 id={field.label}
                 value={field.value}
-                className={`outline-none text-end bg-white ${field.className}`}
+                className={`bg-white text-end outline-none ${field.className}`}
               />
             )}
           </div>

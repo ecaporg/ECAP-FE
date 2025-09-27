@@ -44,7 +44,6 @@ async function CompliancePageTeacher({
     (await searchParams)[DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR]
   );
 
-
   return (
     <>
       <BackToTeacherTable teacher={await getTeacher((await params).id)} />

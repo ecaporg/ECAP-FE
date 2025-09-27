@@ -37,7 +37,7 @@ const NavLink = ({
     <Link
       href={href}
       className={cn(
-        'h-[calc(4rem-1px)] w-[12.625rem] md:hover:border-b-2 content-center py-5',
+        'h-[calc(4rem-1px)] w-[12.625rem] content-center py-5 md:hover:border-b-2',
         isActive && 'md:border-b-2 md:bg-[#4C99DCC7]',
         className
       )}
@@ -53,16 +53,16 @@ const NavMenu = () => {
 
   return (
     <>
-      <nav className="contents md:flex justify-center items-center flex-1 ">
+      <nav className="contents flex-1 items-center justify-center md:flex ">
         <NavLink href={routes.dashboard.root}>Dashboard</NavLink>
         <NavLink href={routes.compliance.root}>Compliance Tasks</NavLink>
       </nav>
 
-      <nav className="contents md:flex justify-end items-center flex-1 gap-6">
+      <nav className="contents flex-1 items-center justify-end gap-6 md:flex">
         {hasPermission(user, 'navigation', 'settings') && (
           <NavLink
             href={routes.settings.root}
-            className="w-[9.125rem] flex items-center justify-center gap-2"
+            className="flex w-[9.125rem] items-center justify-center gap-2"
           >
             <Settings className="size-4" />
             <span>Settings</span>
@@ -71,7 +71,7 @@ const NavMenu = () => {
         {hasPermission(user, 'navigation', 'profile') && (
           <NavLink
             href={routes.profile.root}
-            className="w-[9.125rem] flex items-center justify-center gap-2"
+            className="flex w-[9.125rem] items-center justify-center gap-2"
           >
             <User className="size-4" />
             <span>My Profile</span>
@@ -88,9 +88,9 @@ const NavMenu = () => {
           disabled={isLoggingOut}
         >
           {isLoggingOut ? (
-            <Loader2 className="size-4 mr-2 animate-spin" />
+            <Loader2 className="mr-2 size-4 animate-spin" />
           ) : (
-            <LogOut className="size-4 mr-2" />
+            <LogOut className="mr-2 size-4" />
           )}
           Sign Out
         </Button>
@@ -101,15 +101,15 @@ const NavMenu = () => {
 
 const MobileNavMenu = () => {
   return (
-    <div className="md:hidden flex items-center justify-between">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+    <div className="flex items-center justify-between md:hidden">
+      <Link href={routes.dashboard.root} className="content-center font-extrabold text-xl">
         ECAP
       </Link>
 
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="px-2 [&>svg]:ml-0 size-10" />
+            <NavigationMenuTrigger className="size-10 px-2 [&>svg]:ml-0" />
             <NavigationMenuContent className="flex flex-col">
               <NavMenu />
             </NavigationMenuContent>
@@ -122,8 +122,8 @@ const MobileNavMenu = () => {
 
 const DesktopNav = () => {
   return (
-    <div className="md:flex justify-between items-center hidden">
-      <Link href={routes.dashboard.root} className="font-extrabold text-xl content-center">
+    <div className="hidden items-center justify-between md:flex">
+      <Link href={routes.dashboard.root} className="content-center font-extrabold text-xl">
         ECAP
       </Link>
 
@@ -134,10 +134,10 @@ const DesktopNav = () => {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="inline-grid grid-rows-[auto_1fr] h-screen w-screen overflow-hidden bg-white">
-      <section className="lg:sticky top-0 z-10">
+    <div className="inline-grid h-screen w-screen grid-rows-[auto_1fr] overflow-hidden bg-white">
+      <section className="top-0 z-10 lg:sticky">
         <header
-          className="bg-primary px-6 text-primary-foreground text-center content-center max-w-[100vw]"
+          className="max-w-[100vw] content-center bg-primary px-6 text-center text-primary-foreground"
           style={{ height: 'var(--header-height)' }}
         >
           <DesktopNav />
@@ -146,7 +146,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       </section>
 
       {/* Main content */}
-      <main className="md:px-10 px-4 overflow-y-auto pb-10">{children}</main>
+      <main className="overflow-y-auto px-4 pb-10 md:px-10">{children}</main>
     </div>
   );
 }

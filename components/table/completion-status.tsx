@@ -4,7 +4,7 @@ import type * as React from 'react';
 import { cn } from '@/utils';
 
 const statusVariants = cva(
-  'text-center content-center w-[7.5rem] h-12 text-lg rounded-[3.125rem]',
+  'h-12 w-[7.5rem] content-center rounded-[3.125rem] text-center text-lg',
   {
     variants: {
       variant: {

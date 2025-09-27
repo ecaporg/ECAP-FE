@@ -12,7 +12,7 @@ export async function SampleBagde({ sample }: { sample: ISample }) {
     const isMyMessage = sample.flag_completed?.user_id === user?.id;
 
     return (
-      <div className="p-6 flex items-center gap-4">
+      <div className="flex items-center gap-4 p-6">
         <CompletionStatus variant="Complete" className="h-14 w-60">
           {sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE
             ? 'Error Corrected'
@@ -33,7 +33,7 @@ export async function SampleBagde({ sample }: { sample: ISample }) {
 
   if (sample.flag_category === SampleFlagCategory.ERROR_IN_SAMPLE) {
     return (
-      <div className="py-6 flex items-center gap-4">
+      <div className="flex items-center gap-4 py-6">
         <CompletionStatus variant="Overdue" className="h-14 w-60">
           Error flagged
         </CompletionStatus>

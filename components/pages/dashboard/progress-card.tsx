@@ -19,11 +19,11 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({
   return (
     <Card
       className={cn(
-        'flex flex-col items-center justify-between h-800:justify-start lg:px-6 px-5 h-800:py-6 py-5 h-800:gap-8 gap-2 h-[18rem] h-800:h-[22.25rem] lg:w-[19.75rem] w-64',
+        'flex h-auto min-h-fit w-64 flex-col items-center h-800:justify-start gap-4 h-800:gap-8 px-5 h-800:py-6 py-5 lg:w-[19.75rem] lg:px-6',
         className
       )}
     >
-      <h2 className="font-bold truncate text-base text-left w-full">{title}</h2>
+      <h2 className="w-full truncate text-left font-bold text-base">{title}</h2>
       <Progress
         value={Number(percentage.toFixed(0))}
         className={cn('size-[12.5rem]', progressClassName)}

@@ -16,9 +16,9 @@ export const TrackCalendarWrapper = ({
   className?: string;
 }>) => {
   return (
-    <div className={cn('text-start space-y-4 content-center', className)}>
-      <h3 className="text-2xl font-bold">{track.name}</h3>
-      <p className="text-base font-semibold">
+    <div className={cn('content-center space-y-4 text-start', className)}>
+      <h3 className="font-bold text-2xl">{track.name}</h3>
+      <p className="font-semibold text-base">
         {formatTrackDateWithLongMonth(track.start_date)} -{' '}
         {formatTrackDateWithLongMonth(track.end_date)}
       </p>
@@ -28,7 +28,7 @@ export const TrackCalendarWrapper = ({
 };
 
 const dayButtonVariants = cva(
-  'w-full text-natural-black hover:opacity-80 active:opacity-70 transition-opacity',
+  'w-full text-natural-black transition-opacity hover:opacity-80 active:opacity-70',
   {
     variants: {
       dayType: {
@@ -60,7 +60,7 @@ const DayButton = ({
     <Button
       variant="outline"
       size="sm"
-      className={cn(className, dayButtonVariants({ dayType: dayType }), 'rounded-none h-8 w-10')}
+      className={cn(className, dayButtonVariants({ dayType: dayType }), 'h-8 w-10 rounded-none')}
       {...props}
     />
   );
@@ -133,7 +133,7 @@ export const CalendarButtons = ({
           </Button>
         ))}
       </div>
-      <div className="flex justify-center flex-1">
+      <div className="flex flex-1 justify-center">
         <Button onClick={onSave}>Save</Button>
       </div>
     </>

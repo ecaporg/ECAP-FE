@@ -24,7 +24,7 @@ export function SampleActionButtons({ sample }: { sample: ISample }) {
       {hasPermission(user, 'samples', 'flag', sample) && user.role === 'TEACHER' && (
         <FlagErrorModal sample={sample}>
           <Button className="fixed top-12 right-12 z-[2]" size="lg" disabled={isDisabled}>
-            <Flag className="w-4 h-4 mr-2" />
+            <Flag className="mr-2 h-4 w-4" />
             Flag Error in Requirements
           </Button>
         </FlagErrorModal>
@@ -33,7 +33,7 @@ export function SampleActionButtons({ sample }: { sample: ISample }) {
       {hasPermission(user, 'samples', 'upload', sample) && (
         // <UploadToStudentPathwaysModal sample={sample}>
         <Button
-          className="fixed bottom-12 right-12 z-[2]"
+          className="fixed right-12 bottom-12 z-[2]"
           size="lg"
           disabled={isDisabled}
           onClick={() => {
@@ -42,14 +42,14 @@ export function SampleActionButtons({ sample }: { sample: ISample }) {
             );
           }}
         >
-          <Upload className="w-4 h-4 mr-2" />
+          <Upload className="mr-2 h-4 w-4" />
           Upload to Student Pathways
         </Button>
         // </UploadToStudentPathwaysModal>
       )}
 
       <Button className="fixed bottom-12 left-12 z-[2]" size="lg" onClick={() => router.back()}>
-        <ArrowLeft className="w-4 h-4 mr-2" />
+        <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Subject Table
       </Button>
     </>

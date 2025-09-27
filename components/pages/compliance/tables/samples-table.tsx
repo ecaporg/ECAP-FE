@@ -71,11 +71,11 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
           <TableRow
             key={`${row.sample_1?.student_lp_enrollment_id}-${row.sample_1?.assignment_id}`}
           >
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">{row.subject?.name}</TableCell>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">
+            <TableCell className="max-w-28 truncate 2xl:max-w-48">{row.subject?.name}</TableCell>
+            <TableCell className="max-w-28 truncate 2xl:max-w-48">
               {row.sample_1?.assignment?.name}
             </TableCell>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">
+            <TableCell className="max-w-28 truncate 2xl:max-w-48">
               <SampleStatus status={row.sample_1?.sample?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">
@@ -84,10 +84,10 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
             <TableCell className="max-w-28">
               <AvatarColumn sample={row.sample_1?.sample} />
             </TableCell>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">
+            <TableCell className="max-w-28 truncate 2xl:max-w-48">
               {row.sample_2?.assignment?.name}
             </TableCell>
-            <TableCell className="2xl:max-w-48 max-w-28 truncate">
+            <TableCell className="max-w-28 truncate 2xl:max-w-48">
               <SampleStatus status={row.sample_2?.sample?.status || null} />
             </TableCell>
             <TableCell className="max-w-28">

@@ -31,7 +31,7 @@ export const LearningPeriodFilter = ({
       render={(option) => {
         return (
           <div>
-            <b className="block truncate max-w-60" title={option.label}>
+            <b className="block max-w-60 truncate" title={option.label}>
               {option.label}
             </b>
             <p>

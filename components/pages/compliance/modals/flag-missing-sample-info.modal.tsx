@@ -43,8 +43,8 @@ export function FlagMissingWorkSampleInfoModal({
         description={description}
         hasCloseButton
       >
-        <form className="flex flex-col size-full">
-          <section className="flex justify-between flex-wrap md:flex-nowrap gap-y-1 md:pt-6 gap-x-4">
+        <form className="flex size-full flex-col">
+          <section className="flex flex-wrap justify-between gap-x-4 gap-y-1 md:flex-nowrap md:pt-6">
             <SampleInfoForModal sample={sample} type="view_missing" />
           </section>
           <p className="py-4">
@@ -59,7 +59,7 @@ export function FlagMissingWorkSampleInfoModal({
           )}
 
           {isAdmin && (
-            <div className="flex gap-2 w-full justify-end ">
+            <div className="flex w-full justify-end gap-2 ">
               <RejectMissingSampleModal sample={sample}>
                 <Button className="basis-40" size="lg" variant="warning" type="button">
                   Reject

@@ -27,7 +27,7 @@ export const LoadingTable = ({
         <TableRow>
           {Array.from({ length: columns }).map((_, index) => (
             <TableHead key={`skeleton-header-${index}`}>
-              <Skeleton className="w-full h-5" />
+              <Skeleton className="h-5 w-full" />
             </TableHead>
           ))}
         </TableRow>
@@ -37,7 +37,7 @@ export const LoadingTable = ({
           <TableRow key={`skeleton-row-${index}`}>
             {Array.from({ length: columns }).map((_, index) => (
               <TableCell key={`skeleton-cell-${index}-${index}`}>
-                <Skeleton className="w-full h-5" />
+                <Skeleton className="h-5 w-full" />
               </TableCell>
             ))}
           </TableRow>
@@ -49,12 +49,12 @@ export const LoadingTable = ({
 
 export const LoadingPagination = () => {
   return (
-    <section className="flex lg:items-center lg:h-24 lg:flex-row flex-col gap-y-6 items-start pb-7">
-      <h2 className="text-lg font-semibold text-neutral-black order-1">
-        <Skeleton className="w-24 h-full" />
+    <section className="flex flex-col items-start gap-y-6 pb-7 lg:h-24 lg:flex-row lg:items-center">
+      <h2 className="order-1 font-semibold text-lg text-neutral-black">
+        <Skeleton className="h-full w-24" />
       </h2>
 
-      <ul className="flex-grow flex items-center justify-center gap-4 list-none lg:order-2 order-last self-center">
+      <ul className="order-last flex flex-grow list-none items-center justify-center gap-4 self-center lg:order-2">
         <Skeleton className="size-10" />
         <Skeleton className="size-10" />
         <Skeleton className="size-10" />
@@ -62,8 +62,8 @@ export const LoadingPagination = () => {
         <Skeleton className="size-10" />
       </ul>
 
-      <div className="flex items-center gap-4 order-3">
-        <Skeleton className="w-24 h-full" />
+      <div className="order-3 flex items-center gap-4">
+        <Skeleton className="h-full w-24" />
       </div>
     </section>
   );
@@ -76,7 +76,7 @@ export const LoadingFilters = ({
   return (
     <section className={cn('flex flex-wrap gap-4 pt-9 pb-8', className)}>
       {Array.from({ length: filters }).map((_, index) => (
-        <Skeleton key={`skeleton-filter-${index}`} className="w-24 h-12" />
+        <Skeleton key={`skeleton-filter-${index}`} className="h-12 w-24" />
       ))}
     </section>
   );

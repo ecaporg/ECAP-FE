@@ -26,11 +26,11 @@ export function DayPicker({
       <PopoverTrigger asChild>
         <Button
           variant={'outline'}
-          className="w-full justify-start text-left font-normal relative border border-input text-neutral-black"
+          className="relative w-full justify-start border border-input text-left font-normal text-neutral-black"
           size="lg"
         >
           {value ? format(value) : <span />}
-          <CalendarIcon className="size-6 absolute right-4 top-1/2 -translate-y-1/2" />
+          <CalendarIcon className="-translate-y-1/2 absolute top-1/2 right-4 size-6" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

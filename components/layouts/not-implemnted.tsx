@@ -10,7 +10,7 @@ export function NotImplemented({
     <Card className={cn('size-full content-center text-center', className)}>
       <CardHeader>
         <CardTitle>
-          This feature is not implemented yet <Frown className="size-6 inline-block" />
+          This feature is not implemented yet <Frown className="inline-block size-6" />
         </CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>

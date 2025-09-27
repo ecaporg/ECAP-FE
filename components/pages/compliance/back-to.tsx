@@ -12,15 +12,15 @@ export const BackToCompliance = ({ student }: { student?: IStudent }) => {
   }
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between w-full !basis-full py-5 font-semibold">
+    <div className="!basis-full flex w-full items-center justify-between py-5 font-semibold">
       <p
-        className="text-primary cursor-pointer flex items-center gap-2 text-lg"
+        className="flex cursor-pointer items-center gap-2 text-lg text-primary"
         onClick={() => router.back()}
       >
-        <ArrowLeftIcon className="w-4 h-4" />
+        <ArrowLeftIcon className="h-4 w-4" />
         <span className="hidden md:block">Back to Student Table</span>
       </p>
-      <span className="text-xl text-neutral-black truncate">
+      <span className="truncate text-neutral-black text-xl">
         Student: {getUserName(student.user)}
       </span>
     </div>
@@ -39,20 +39,20 @@ export const BackToTeacherTable = ({
   }
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between w-full py-4 font-semibold h-20">
+    <div className="flex h-20 w-full items-center justify-between py-4 font-semibold">
       <p
         onClick={() => router.back()}
-        className="text-primary cursor-pointer flex items-center gap-2 text-lg"
+        className="flex cursor-pointer items-center gap-2 text-lg text-primary"
       >
         <ArrowLeftIcon className="size-4" />
-        <span className="hidden md:block truncate">Back to Teacher Table</span>
+        <span className="hidden truncate md:block">Back to Teacher Table</span>
       </p>
-      <span className="text-xl text-neutral-black">
+      <span className="text-neutral-black text-xl">
         {getUserName(teacher.user)}
         {hasSignInButton && (
           <Button size="lg" className="ml-4 ">
             <UserIcon className="size-4" />
-            <span className="truncate max-w-32 lg:max-w-max">
+            <span className="max-w-32 truncate lg:max-w-max">
               Sign in as {getUserName(teacher.user)}
             </span>
           </Button>
