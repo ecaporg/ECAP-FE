@@ -30,6 +30,13 @@ export async function DoneByFilter({
     value: key.toString(),
   }));
   return (
-    <BaseFilter label="Done By" slug={slug} options={options} withBothOption disabled={disabled} />
+    <BaseFilter
+      className="min-w-40"
+      label="Done By"
+      slug={slug}
+      options={options}
+      withBothOption
+      disabled={disabled}
+    />
   );
 }

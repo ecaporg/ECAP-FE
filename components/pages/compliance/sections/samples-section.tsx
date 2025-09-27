@@ -71,33 +71,31 @@ const Samples = async ({ param, tenant }: SamplesSectionProps) => {
       .map((a) => [a.assignment.course_id, a.assignment.course])
   );
 
-  const rows = Object.entries(
-    (assignmentPeriods.data || [])
-      ?.flatMap(({ assignments }) => assignments)
-      .reduce(
-        (acc, assignment) => {
-          if (assignment.sample) {
-            if (acc[assignment.assignment.course_id]) {
-              acc[assignment.assignment.course_id].push(assignment);
-            } else {
-              acc[assignment.assignment.course_id] = [assignment];
-            }
-          }
-          return acc;
-        },
-        {} as Record<number, IStudentLPEnrollmentAssignment[]>
-      )
-  ).map(([courseId, enrollment = []]) => {
-    const mappedEnrollment = enrollment.map((e) => ({
-      ...e,
-      sample: { ...e.sample, student_lp_enrollment_assignment: e } as ISample,
-    }));
-    return {
-      sample_1: mappedEnrollment[0],
-      sample_2: mappedEnrollment[1],
-      subject: subjects.get(Number(courseId))!,
-    };
-  });
+  const rows = (assignmentPeriods.data || [])
+    ?.flatMap(({ assignments }) => assignments)
+    .reduce((acc, assignment) => {
+      if (assignment.sample) {
+        if (acc.has(assignment.assignment.course_id)) {
+          acc.get(assignment.assignment.course_id)?.push(assignment);
+        } else {
+          acc.set(assignment.assignment.course_id, [assignment]);
+        }
+      }
+      return acc;
+    }, new Map<number, IStudentLPEnrollmentAssignment[]>())
+    .entries()
+    .toArray()
+    .map(([courseId, enrollment = []]) => {
+      const mappedEnrollment = enrollment.map((e) => ({
+        ...e,
+        sample: { ...e.sample, student_lp_enrollment_assignment: e } as ISample,
+      }));
+      return {
+        sample_1: mappedEnrollment[0],
+        sample_2: mappedEnrollment[1],
+        subject: subjects.get(Number(courseId))!,
+      };
+    });
 
   const completeCount = rows.filter(
     (row) => row?.sample_2?.sample?.done_by && row?.sample_1?.sample?.done_by

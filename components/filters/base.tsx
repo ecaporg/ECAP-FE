@@ -25,6 +25,7 @@ export type FilterProps = {
   disabled?: boolean;
   defaultPlaceholder?: string;
   defaultValue?: string | null;
+  className?: string;
 } & (
   | {
       multiple?: true;
@@ -87,6 +88,7 @@ export const BaseFilter = ({
   defaultPlaceholder,
   defaultValue,
   disabled = false,
+  className,
 }: FilterProps) => {
   const [search, setSearch] = useState('');
   const { selectedValues, handleSelect, reset } = useFilterParam(slug, multiple, combined);
@@ -97,7 +99,17 @@ export const BaseFilter = ({
   }
 
   if (multiple) {
-    placeholder = defaultPlaceholder ?? label;
+    placeholder =
+      options
+        .filter(
+          (option) =>
+            selectedValues.find((value) => value === option.value) &&
+            typeof option.label === 'string'
+        )
+        .map((option) => option.label)
+        .join(', ') ||
+      defaultPlaceholder ||
+      label;
   } else if (selectedValues[0]) {
     placeholder =
       options.find((option) => option.value === selectedValues[0])?.label ||
@@ -112,14 +124,16 @@ export const BaseFilter = ({
   const showSearch = hasSearch || options.length > 15;
 
   return (
-    <div>
+    <div className={className}>
       <Label className="block">{label}</Label>
       <DropdownMenu>
         <DropdownMenuTrigger
           disabled={disabled}
           isPlaceholder={!(selectedValues[0] || (withBothOption && options.length > 1))}
         >
-          <span className="truncate">{placeholder}</span>
+          <span className="truncate" title={placeholder}>
+            {placeholder}
+          </span>
           {multiple && selectedValues.length > 0 ? (
             <button
               className="!w-fit ml-auto inline-flex items-center gap-1 rounded-lg bg-primary px-1.5 py-1 text-sm text-white [&+svg]:ml-0"

@@ -30,10 +30,10 @@ export const StatisticsList: React.FC<StatisticsListProps> = ({ items }) => {
           />
 
           <p className="col-start-3 row-start-1 truncate">
-            <b>{item.yearToDateCompliance?.toFixed(2)}%</b> (To Date)
+            <b>{item.yearToDateCompliance?.toFixed(0)}%</b> (To Date)
           </p>
           <p className="col-start-3 row-start-2 truncate">
-            <b>{item.compliance.toFixed(2)}%</b> (Current LP)
+            <b>{item.compliance.toFixed(0)}%</b> (Current LP)
           </p>
         </div>
       ))}

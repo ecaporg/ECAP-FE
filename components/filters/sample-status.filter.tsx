@@ -7,16 +7,20 @@ interface SampleStatusFilterProps {
   options?: FilterProps['options'];
 }
 
-const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS).map(([key, value]) => ({
-  label: value,
-  value: key as SampleStatus,
-}));
+const statuses: FilterProps['options'] = Object.entries(SAMPLE_STATUS)
+  .map(([key, value]) => ({
+    label: value,
+    value: key as SampleStatus,
+  }))
+  .filter((status) => status.value !== SampleStatus.CREATED);
 
 export function SampleStatusFilter({
   slug = DEFAULT_FILTERS_KEYS.STATUS,
   options = statuses,
 }: SampleStatusFilterProps) {
-  return <BaseFilter label="Sample Status" slug={slug} options={options} multiple />;
+  return (
+    <BaseFilter className="min-w-52" label="Sample Status" slug={slug} options={options} multiple />
+  );
 }
 
 interface FlagCategoryFilterProps {

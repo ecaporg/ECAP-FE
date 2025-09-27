@@ -45,7 +45,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
           </TableHead>
           <TableHead>
             Student ID
-            <SortableIcon<IStudentLPEnrollment> name="student_id" />
+            {/* <SortableIcon<IStudentLPEnrollment> name="student_id" /> */}
           </TableHead>
           <TableHead className="max-w-32 2xl:max-w-44">
             School
@@ -82,7 +82,7 @@ export const StudentsTable = ({ assignments = [], currentLearningPeriod }: Stude
               <TableCell className="max-w-32 2xl:max-w-44">
                 {getUserName(assignment.student.user)}
               </TableCell>
-              <TableCell>{assignment.student.id}</TableCell>
+              <TableCell>{assignment.student.user.canvas_additional_info?.canvas_id}</TableCell>
               <TableCell className="lg:max-w-24 2xl:max-w-44">
                 {assignment.student.school?.name}
               </TableCell>

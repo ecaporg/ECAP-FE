@@ -52,15 +52,15 @@ export const SamplesTable = ({ rows = [] }: SamplesTableProps) => {
           </TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
-            ISample Status
-            <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" />
+            Sample Status
+            {/* <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" /> */}
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
           <TableHead>Assignment Title</TableHead>
           <TableHead>
-            ISample Status
-            <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" />
+            Sample Status
+            {/* <SortableIcon<IStudentLPEnrollment> name="assignments.sample.status" /> */}
           </TableHead>
           <TableHead>Action</TableHead>
           <TableHead>Done By</TableHead>
