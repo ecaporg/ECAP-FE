@@ -21,12 +21,12 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
     <Table className="overflow-auto">
       <TableHeader>
         <TableRow>
-          <TableHead>
+          <TableHead className="max-w-[20vw]">
             Sample Name
             <SortableIcon<ISample> name="student_lp_enrollment_assignment.assignment.name" />
           </TableHead>
-          <TableHead>Subject</TableHead>
-          <TableHead>Student Name</TableHead>
+          <TableHead className="max-w-[20vw]">Subject</TableHead>
+          <TableHead className="max-w-[20vw]">Student Name</TableHead>
           <TableHead>
             Student ID
             <SortableIcon<ISample> name="student_lp_enrollment_assignment.student_lp_enrollment.student_id" />
@@ -46,15 +46,22 @@ export const DirectorSamplesTable = ({ samples = [] }: SamplesTableProps) => {
       <TableBody>
         {samples.map((sample) => (
           <TableRow key={`${sample.id}`}>
-            <TableCell>{sample.student_lp_enrollment_assignment.assignment.name}</TableCell>
-            <TableCell>{sample.student_lp_enrollment_assignment.assignment.course.name}</TableCell>
-            <TableCell>
+            <TableCell className="max-w-[20vw]">
+              {sample.student_lp_enrollment_assignment.assignment.name}
+            </TableCell>
+            <TableCell className="max-w-[20vw]">
+              {sample.student_lp_enrollment_assignment.assignment.course.name}
+            </TableCell>
+            <TableCell className="max-w-[20vw]">
               {getUserName(
                 sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
               )}
             </TableCell>
             <TableCell>
-              {sample.student_lp_enrollment_assignment.student_lp_enrollment.student_id}
+              {
+                sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+                  .canvas_additional_info?.canvas_id
+              }
             </TableCell>
             <TableCell>
               {sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade}
