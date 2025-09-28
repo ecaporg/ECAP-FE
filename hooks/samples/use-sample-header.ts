@@ -40,7 +40,7 @@ export function useSampleHeader({ sample }: { sample: ISample }) {
 
       if (isAnyAdmin(user)) {
         await flagCompletedSampleAction(sample, {
-          message: `changed ${label} from ${e.target.defaultValue || 'N/A'} to ${e.target.value}`,
+          message: `Changed ${label} from ${e.target.defaultValue || 'N/A'} to ${e.target.value}`,
         } as any);
       }
 

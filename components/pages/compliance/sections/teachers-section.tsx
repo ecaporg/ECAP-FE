@@ -1,15 +1,11 @@
-import { LoadingTableSection } from "@/components/table/loading";
-import { PaginationSection } from "@/components/table/pagination-section";
-import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
-import { getComplianceTeachers } from "@/lib/api/compliance";
-import type { IAcademicYear, ITenant, ITrackLearningPeriod } from "@/types";
-import {
-  assignDefaultLearningPeriod,
-  getDueDate,
-  getStatusForTable,
-} from "@/utils";
-import { Suspense } from "react";
-import { TeachersTable } from "../tables";
+import { LoadingTableSection } from '@/components/table/loading';
+import { PaginationSection } from '@/components/table/pagination-section';
+import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
+import { getComplianceTeachers } from '@/lib/api/compliance';
+import type { IAcademicYear, ITenant, ITrackLearningPeriod } from '@/types';
+import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
+import { Suspense } from 'react';
+import { TeachersTable } from '../tables';
 
 export interface SectionWithTableProps {
   param: {
@@ -36,15 +32,9 @@ export const TeacherSection = (props: TeachersSectionProps) => {
   );
 };
 
-const Teachers = async ({
-  param,
-  tenant,
-  academicYearIds,
-}: TeachersSectionProps) => {
+const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps) => {
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
-  const assignment = await getComplianceTeachers(
-    new URLSearchParams(param as any).toString()
-  );
+  const assignment = await getComplianceTeachers(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;
   const learningPeriod = mergedLP.find(
     //@ts-expect-error
@@ -69,9 +59,7 @@ const Teachers = async ({
       <TeachersTable
         assignments={assignment?.data ?? []}
         currentLearningPeriod={learningPeriod as ITrackLearningPeriod}
-        currentAcademicYear={
-          { id: academicYearIds[0] } as unknown as IAcademicYear
-        }
+        currentAcademicYear={{ id: academicYearIds[0] } as unknown as IAcademicYear}
       />
     </>
   );
