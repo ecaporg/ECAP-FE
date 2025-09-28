@@ -1,12 +1,12 @@
-import type { ISample } from '@/types';
-import { getFormattedLP, getUserName } from '@/utils';
+import type { ISample } from "@/types";
+import { getFormattedLP, getUserName } from "@/utils";
 
 type MetadataType =
-  | 'flag_missing'
-  | 'view_missing'
-  | 'flag_rejected'
-  | 'view_rejected'
-  | 'flag_errors';
+  | "flag_missing"
+  | "view_missing"
+  | "flag_rejected"
+  | "view_rejected"
+  | "flag_errors";
 type SampleInfoForModalProps = {
   sample: ISample;
   type: MetadataType;
@@ -14,61 +14,70 @@ type SampleInfoForModalProps = {
 
 const getMetadata = ({ sample, type }: SampleInfoForModalProps) => {
   const studentName = {
-    label: 'Student Name: ',
-    value: getUserName(sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user),
+    label: "Student Name: ",
+    value: getUserName(
+      sample.student_lp_enrollment_assignment.student_lp_enrollment.student.user
+    ),
   };
 
   const studentId = {
-    label: 'Student ID',
-    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student?.user
-      ?.canvas_additional_info?.canvas_id as string,
+    label: "Student ID",
+    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student
+      ?.user?.canvas_additional_info?.canvas_id as string,
   };
 
   const studentGrade = {
-    label: 'Grade',
-    value: sample.student_lp_enrollment_assignment.student_lp_enrollment.student_grade,
+    label: "Grade",
+    value:
+      sample.student_lp_enrollment_assignment.student_lp_enrollment
+        .student_grade,
   };
 
   const subject = {
-    label: 'Subject:',
+    label: "Subject:",
     value: sample.student_lp_enrollment_assignment.assignment.course.name,
   };
 
   const assignment = {
-    label: 'Assignment:',
+    label: "Assignment:",
     value: sample.student_lp_enrollment_assignment.assignment.name,
   };
 
   const lp = {
-    label: 'LP:',
+    label: "LP:",
     value: getFormattedLP(
-      sample.student_lp_enrollment_assignment.student_lp_enrollment.learning_period
+      sample.student_lp_enrollment_assignment.student_lp_enrollment
+        .learning_period
     ),
   };
 
   const teacher = {
-    label: 'Teacher:',
+    label: "Teacher:",
     value:
       sample.flag_missing_work?.user?.name ||
       sample.flag_rejected?.user?.name ||
       sample.flag_errors?.user?.name,
   };
 
-  if (type === 'flag_missing') {
+  if (type === "flag_missing") {
     return [
       [studentName, studentId, studentGrade],
       [subject, lp],
     ];
   }
 
-  if (type === 'view_missing' || type === 'flag_rejected' || type === 'view_rejected') {
+  if (
+    type === "view_missing" ||
+    type === "flag_rejected" ||
+    type === "view_rejected"
+  ) {
     return [
       [teacher, studentName, studentId],
       [studentGrade, subject, lp],
     ];
   }
 
-  if (type === 'flag_errors') {
+  if (type === "flag_errors") {
     return [
       [studentName, studentId, studentGrade],
       [subject, assignment, lp],
@@ -83,7 +92,10 @@ export function SampleInfoForModal(props: SampleInfoForModalProps) {
   return (
     <>
       {metadata.map((row, idx) => (
-        <div key={`metadata-row-${idx}`} className="flex-1 space-y-1 text-base text-neutral-black">
+        <div
+          key={`metadata-row-${idx}`}
+          className="flex-1 space-y-1 text-base text-neutral-black"
+        >
           {row.map((item) => (
             <div key={item.label} className="grid grid-cols-2 gap-4">
               <label className="text-start text-primary" htmlFor={item.label}>
@@ -95,7 +107,7 @@ export function SampleInfoForModal(props: SampleInfoForModalProps) {
                 id={item.label}
                 value={item.value}
                 readOnly
-                title={item.value.toString()}
+                title={item.value?.toString()}
               />
             </div>
           ))}
@@ -114,7 +126,8 @@ export const ReasonForMissingSample = ({
 }) => {
   return isDirector ? (
     <>
-      <b className="text-primary">Reason for Missing Sample:</b> {sample.flag_missing_work?.reason}
+      <b className="text-primary">Reason for Missing Sample:</b>{" "}
+      {sample.flag_missing_work?.reason}
     </>
   ) : (
     <>
