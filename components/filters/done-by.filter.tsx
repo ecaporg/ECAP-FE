@@ -1,18 +1,19 @@
+'use client';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { getUser } from '@/lib/get-user';
 import type { IUser } from '@/types';
 import { getUserName } from '@/utils';
 import { BaseFilter } from './base';
+import { useAuth } from '@/providers/auth';
 interface DoneByFilterProps {
   availableUsers: IUser[];
   slug?: string;
 }
 
-export async function DoneByFilter({
+export function DoneByFilter({
   availableUsers = [],
   slug = DEFAULT_FILTERS_KEYS.DONE_BY,
 }: DoneByFilterProps) {
-  const user = await getUser();
+  const { user } = useAuth();
   const map = new Map();
 
   availableUsers.forEach((user) => {

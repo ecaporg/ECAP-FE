@@ -103,13 +103,12 @@ export const LPCardsSection = ({
 
 export const PageWrapper = ({
   children,
-  user,
   stats,
-}: React.PropsWithChildren<{ user: IUser; stats: DashboardStats }>) => {
+}: React.PropsWithChildren<{ stats: DashboardStats }>) => {
   return (
     <div className="dashboard flex justify-center py-6">
       <div className="flex w-fit flex-col items-center gap-10">
-        <WelcomeBack user={user!} academicYear={stats.academicYear} />
+        <WelcomeBack academicYear={stats.academicYear} />
         {children}
       </div>
     </div>

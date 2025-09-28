@@ -1,4 +1,4 @@
-import { SortableIcon } from '@/components/table/sortable-header';
+import { AcademySortIcon, SortableIcon } from '@/components/table/sortable-header';
 import {
   Span,
   Table,
@@ -10,9 +10,8 @@ import {
 } from '@/components/ui/table';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { routes } from '@/constants/routes';
-import { hasPermission } from '@/lib/permissions';
 import type { IAcademicYear, ITeacherCompliance, ITrackLearningPeriod, IUser } from '@/types';
-import { getCompletionStatus, getUserName } from '@/utils';
+import { getCompletionStatus } from '@/utils';
 import Link from 'next/link';
 import { CompletionStatusForTable } from '../statuses';
 interface TeachersTableProps {
@@ -48,9 +47,7 @@ export const TeachersTable = ({
           </TableHead>
           <TableHead className="max-w-28 lg:max-w-44 " title="Academy">
             Academy
-            {hasPermission(user, 'sorting', 'sort:academy') && (
-              <SortableIcon<ITeacherCompliance> name="academy_name" />
-            )}
+            <AcademySortIcon<ITeacherCompliance> name="academy_name" />
           </TableHead>
           <TableHead className="max-w-28 lg:max-w-44 " title="Students">
             Students

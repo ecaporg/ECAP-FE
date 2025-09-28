@@ -7,7 +7,6 @@ import {
 } from '@/components/pages/dashboard/sections';
 import { StatisticsList } from '@/components/pages/dashboard/statistics-list';
 import { getDashboardStats } from '@/lib/api/statistic';
-import { getUser } from '@/lib/get-user';
 import { RolesEnum } from 'ecap-lib/dist/constants';
 import type { Metadata } from 'next';
 import type React from 'react';
@@ -17,11 +16,10 @@ export const metadata: Metadata = {
 };
 
 async function Dashboard() {
-  const user = await getUser();
   const stats = await getDashboardStats();
 
   return (
-    <PageWrapper user={user!} stats={stats}>
+    <PageWrapper stats={stats}>
       <CurrentLPSection stats={stats}>
         <ProgressCard title="Year to Date" percentage={stats.yearToDateCompliance ?? 0} />
       </CurrentLPSection>

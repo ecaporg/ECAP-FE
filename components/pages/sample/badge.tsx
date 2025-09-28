@@ -1,12 +1,13 @@
+'use client';
 import { CompletionStatus } from '@/components/table/completion-status';
 import { defaultUser } from '@/constants/user';
-import { getUser } from '@/lib/get-user';
+import { useAuth } from '@/providers/auth';
 import type { ISample } from '@/types';
 import { getUserName } from '@/utils';
 import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
 export async function SampleBagde({ sample }: { sample: ISample }) {
-  const user = await getUser();
+  const { user } = useAuth();
 
   if (sample.status === SampleStatus.COMPLETED) {
     const isMyMessage = sample.flag_completed?.user_id === user?.id;

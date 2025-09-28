@@ -32,7 +32,7 @@ const getText = (sample: ISample, user: IUser) => {
       return text(hasPermission(user, 'samples', 'flag'), 'Flag');
     case SampleStatus.FLAGGED_TO_ADMIN:
       if (isAnyAdmin(user)) {
-        return 'Approve';
+        return 'Review';
       }
     case SampleStatus.COMPLETED:
     case SampleStatus.REASON_REJECTED:

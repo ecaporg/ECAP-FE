@@ -2,7 +2,6 @@ import { LoadingTableSection } from '@/components/table/loading';
 import { PaginationSection } from '@/components/table/pagination-section';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
 import { getComplianceTeachers } from '@/lib/api/compliance';
-import { getUser } from '@/lib/get-user';
 import type { IAcademicYear, ITenant, ITrackLearningPeriod } from '@/types';
 import { assignDefaultLearningPeriod, getDueDate, getStatusForTable } from '@/utils';
 import { Suspense } from 'react';
@@ -34,7 +33,6 @@ export const TeacherSection = (props: TeachersSectionProps) => {
 };
 
 const Teachers = async ({ param, tenant, academicYearIds }: TeachersSectionProps) => {
-  const user = await getUser();
   const mergedLP = assignDefaultLearningPeriod(tenant, param, academicYearIds);
   const assignment = await getComplianceTeachers(new URLSearchParams(param as any).toString());
   const totalPages = assignment?.meta?.totalPages ?? 0;

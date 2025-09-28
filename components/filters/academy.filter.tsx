@@ -1,19 +1,20 @@
+'use client';
 import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { getUser } from '@/lib/get-user';
 import { hasPermission } from '@/lib/permissions';
 import type { IAcademy } from '@/types';
 import { BaseFilter } from './base';
+import { useAuth } from '@/providers/auth';
 
 interface AcademyFilterProps {
   availableAcademies: IAcademy[];
   slug?: string;
 }
 
-export async function AcademyFilter({
+export function AcademyFilter({
   availableAcademies = [],
   slug = DEFAULT_FILTERS_KEYS.ACADEMY_ID,
 }: AcademyFilterProps) {
-  const user = await getUser();
+  const { user } = useAuth();
   const isSortingAllowed = hasPermission(user!, 'sorting', 'sort:academy');
   if (!isSortingAllowed) {
     return null;
