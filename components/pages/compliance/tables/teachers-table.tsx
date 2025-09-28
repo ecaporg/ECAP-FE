@@ -1,4 +1,7 @@
-import { AcademySortIcon, SortableIcon } from '@/components/table/sortable-header';
+import {
+  AcademySortIcon,
+  SortableIcon,
+} from "@/components/table/sortable-header";
 import {
   Span,
   Table,
@@ -7,38 +10,45 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import { routes } from '@/constants/routes';
-import type { IAcademicYear, ITeacherCompliance, ITrackLearningPeriod, IUser } from '@/types';
-import { getCompletionStatus } from '@/utils';
-import Link from 'next/link';
-import { CompletionStatusForTable } from '../statuses';
+} from "@/components/ui/table";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import { routes } from "@/constants/routes";
+import type {
+  IAcademicYear,
+  ITeacherCompliance,
+  ITrackLearningPeriod,
+} from "@/types";
+import { getCompletionStatus } from "@/utils";
+import Link from "next/link";
+import { CompletionStatusForTable } from "../statuses";
 interface TeachersTableProps {
   assignments: ITeacherCompliance[];
   currentLearningPeriod?: ITrackLearningPeriod;
   currentAcademicYear?: IAcademicYear;
-  user: IUser;
 }
 
 export const TeachersTable = ({
   assignments = [],
   currentLearningPeriod,
   currentAcademicYear,
-  user,
 }: TeachersTableProps) => {
   const getPath = (assignment: ITeacherCompliance) =>
     `${routes.compliance.teacher.replace(
-      ':id',
+      ":id",
       assignment.teacher_id.toString()
     )}?${DEFAULT_FILTERS_KEYS.LEARNING_PERIOD_ID}=${
       currentLearningPeriod?.id
     }&${DEFAULT_FILTERS_KEYS.TEACHER_ID}=${assignment.teacher_id}&${
       DEFAULT_FILTERS_KEYS.ACADEMY_ID
-    }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${currentAcademicYear?.id}`;
+    }=${assignment.academy_id}&${DEFAULT_FILTERS_KEYS.ACADEMIC_YEAR}=${
+      currentAcademicYear?.id
+    }`;
 
   return (
-    <Table className="overflow-x-auto lg:max-h-max lg:overflow-x-clip" autoHeight>
+    <Table
+      className="overflow-x-auto lg:max-h-max lg:overflow-x-clip"
+      autoHeight
+    >
       <TableHeader>
         <TableRow>
           <TableHead className="max-w-28 lg:max-w-44 " title="Teacher Name">
@@ -53,15 +63,24 @@ export const TeachersTable = ({
             Students
             <SortableIcon<ITeacherCompliance> name="student_count" />
           </TableHead>
-          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Flagged Samples">
+          <TableHead
+            className="max-w-28 lg:max-w-28 2xl:max-w-28"
+            title="Flagged Samples"
+          >
             <Span>Flagged Samples</Span>
             <SortableIcon<ITeacherCompliance> name="flagged_count" />
           </TableHead>
-          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Completed Samples">
+          <TableHead
+            className="max-w-28 lg:max-w-28 2xl:max-w-28"
+            title="Completed Samples"
+          >
             <Span>Completed Samples</Span>
             <SortableIcon<ITeacherCompliance> name="completed_count" />
           </TableHead>
-          <TableHead className="max-w-28 lg:max-w-28 2xl:max-w-28" title="Incomplete Samples">
+          <TableHead
+            className="max-w-28 lg:max-w-28 2xl:max-w-28"
+            title="Incomplete Samples"
+          >
             <Span>Incomplete Samples</Span>
             <SortableIcon<ITeacherCompliance> name="incompleted_count" />
           </TableHead>
@@ -79,7 +98,9 @@ export const TeachersTable = ({
         {assignments.map((assignment) => (
           <TableRow key={`${assignment.teacher_id}-${assignment.academy_id}`}>
             <Link className="contents" href={getPath(assignment)}>
-              <TableCell className="max-w-28 lg:max-w-44 ">{assignment.teacher_name}</TableCell>
+              <TableCell className="max-w-28 lg:max-w-44 ">
+                {assignment.teacher_name}
+              </TableCell>
               <TableCell>{assignment.academy_name}</TableCell>
               <TableCell>{assignment.student_count}</TableCell>
               <TableCell>{assignment.flagged_count}</TableCell>
@@ -87,7 +108,10 @@ export const TeachersTable = ({
               <TableCell>{assignment.incompleted_count}</TableCell>
               <TableCell>
                 <CompletionStatusForTable
-                  variant={getCompletionStatus(assignment.is_complated, currentLearningPeriod)}
+                  variant={getCompletionStatus(
+                    assignment.is_complated,
+                    currentLearningPeriod
+                  )}
                 />
               </TableCell>
               <TableCell className="text-center">
