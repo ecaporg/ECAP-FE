@@ -6,7 +6,7 @@ import type { ISample } from '@/types';
 import { getUserName } from '@/utils';
 import { SampleFlagCategory, SampleStatus } from 'ecap-lib/dist/constants';
 
-export async function SampleBagde({ sample }: { sample: ISample }) {
+export function SampleBagde({ sample }: { sample: ISample }) {
   const { user } = useAuth();
 
   if (sample.status === SampleStatus.COMPLETED) {
