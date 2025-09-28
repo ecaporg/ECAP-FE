@@ -75,6 +75,15 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
       }
     }
 
+    if (content && content.querySelector('table.file-upload-submission-table')) {
+      setBlocked(false);
+      const allA = content.querySelectorAll('a');
+      allA.forEach((a) => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('href', url || '#');
+      });
+    }
+
     if (wrapperElement) {
       const contentContainer = document.createElement('div');
       contentContainer.innerHTML = wrapperElement.innerHTML;
