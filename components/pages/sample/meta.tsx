@@ -43,7 +43,7 @@ export function SampleActionButtons({ sample }: { sample: ISample }) {
               );
             }}
           >
-            <Upload className="mr-2 h-4 w-4" />
+            {/* <Upload className="mr-2 h-4 w-4" /> */}
             Approve
             {/* Upload to Student Pathways */}
           </Button>
