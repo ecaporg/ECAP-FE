@@ -11,6 +11,25 @@ import type { ISample } from '@/types';
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { SampleInfoForModal } from '../compliance/modals/shared';
+
+export function OnlyApproveModal({
+  children,
+  sample,
+}: React.PropsWithChildren<{ sample: ISample }>) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
+  return (
+    <ConfirmationModal
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      title="Successfully Approved Student Sample!"
+      action={async () => await approveSampleAction(sample, user)}
+    >
+      {children}
+    </ConfirmationModal>
+  );
+}
+
 export function UploadToStudentPathwaysModal({
   children,
   sample,

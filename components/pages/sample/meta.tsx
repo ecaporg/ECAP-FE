@@ -8,7 +8,7 @@ import { useAuth } from '@/providers/auth';
 import { SampleStatus } from 'ecap-lib/dist/constants';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { FlagErrorModal, UploadToStudentPathwaysModal } from './modals';
+import { FlagErrorModal, UploadToStudentPathwaysModal, OnlyApproveModal } from './modals';
 
 export function SampleActionButtons({ sample }: { sample: ISample }) {
   const { user } = useAuth();
@@ -31,21 +31,24 @@ export function SampleActionButtons({ sample }: { sample: ISample }) {
       )}
 
       {hasPermission(user, 'samples', 'upload', sample) && (
-        // <UploadToStudentPathwaysModal sample={sample}>
-        <Button
-          className="fixed right-12 bottom-12 z-[2]"
-          size="lg"
-          disabled={isDisabled}
-          onClick={() => {
-            toast.warning(
-              'This feature is currently disabled through a problem with SIS integration'
-            );
-          }}
-        >
-          <Upload className="mr-2 h-4 w-4" />
-          Upload to Student Pathways
-        </Button>
-        // </UploadToStudentPathwaysModal>
+        <OnlyApproveModal sample={sample}>
+          {/* <UploadToStudentPathwaysModal sample={sample}> */}
+          <Button
+            className="fixed right-12 bottom-12 z-[2]"
+            size="lg"
+            disabled={isDisabled}
+            onClick={() => {
+              toast.warning(
+                'This feature is currently disabled through a problem with SIS integration'
+              );
+            }}
+          >
+            <Upload className="mr-2 h-4 w-4" />
+            Approve
+            {/* Upload to Student Pathways */}
+          </Button>
+          {/* </UploadToStudentPathwaysModal> */}
+        </OnlyApproveModal>
       )}
 
       <Button className="fixed bottom-12 left-12 z-[2]" size="lg" onClick={() => router.back()}>
