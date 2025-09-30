@@ -88,7 +88,7 @@ export const SampleView = ({ html, url }: SampleViewProps) => {
     }
 
     if (content && content.querySelector("div.question_holder iframe")) {
-      const div = content.querySelector("div.question_holder iframe");
+      const div = content.querySelector("div.question_holder:has(iframe)");
       if (div) {
         div.remove();
       }
