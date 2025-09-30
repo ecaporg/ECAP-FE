@@ -1,9 +1,9 @@
-'use client';
-import { DEFAULT_FILTERS_KEYS } from '@/constants/filter';
-import type { IUser } from '@/types';
-import { getUserName } from '@/utils';
-import { BaseFilter } from './base';
-import { useAuth } from '@/providers/auth';
+"use client";
+import { DEFAULT_FILTERS_KEYS } from "@/constants/filter";
+import type { IUser } from "@/types";
+import { getUserName } from "@/utils";
+import { BaseFilter } from "./base";
+import { useAuth } from "@/providers/auth";
 interface DoneByFilterProps {
   availableUsers: IUser[];
   slug?: string;
@@ -22,8 +22,8 @@ export function DoneByFilter({
 
   const disabled = availableUsers.length === 0;
 
-  if (user) {
-    map.set(user.id, 'You');
+  if (user && map.has(user.id)) {
+    map.set(user.id, "You");
   }
 
   const options = Array.from(map.entries()).map(([key, value]) => ({
